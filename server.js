@@ -13,7 +13,6 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 app.set("views", "./views");
-app.engine("html", ejs.renderFile);
 app.set("view engine", "ejs");
 
 // Routers

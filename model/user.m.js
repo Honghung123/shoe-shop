@@ -9,7 +9,7 @@ module.exports = new EntitySchema({
             generated: true
         },
         
-        name: {
+        username: {
             type: 'varchar',
             nullable: false,
         },
@@ -22,11 +22,16 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false,
         },
+        role: {
+            type: 'varchar',
+            nullable: false,
+        }, 
         locked: {
             type: 'boolean',
             default: false,
             nullable: false
         }
+        
     }
 
 })

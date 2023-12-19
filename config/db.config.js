@@ -8,6 +8,7 @@ const dataSource = new typeorm.DataSource({
     database: process.env.DB_DB,
     synchronize: true,
     logging: true,
+    logger: true,
     entities: [require('../model/user.m'), require('../model/category.m'), require('../model/product.m'), require('../model/cart-line.m')],
 });
 

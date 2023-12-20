@@ -4,15 +4,17 @@ const bcrypt = require('bcryptjs');
 const hashPwd = require("../utils/hashPassword");
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
-passport.deserializeUser(async (email, done) => {
-    const user =  await userRepo.findOneBy({email: email})
+passport.deserializeUser(async (user,  done) => {
+    const retrievedUser =  await userRepo.findOneBy({email: user.email});
     if(!user){
-        return done('Invalid', null)
+        return done('Not a existed user', null)
     }
     done(null, user)
 })
 passport.serializeUser((user, done) => {
-    done(null, user.email)
+    console.log("User in serialize");
+    done(null, {email: user.email, role: user.role})
+    // done(null, user.email);
 })
 
 module.exports = (app) => {
@@ -48,13 +50,14 @@ module.exports = (app) => {
                 return done(null, newUser, {message: 'Registered'})
             }
             return done(null, null, {message: "Account already registered"})
-        } else{
-            if(user){
-                return done(null, user, {message: "Logged in"})
-            }
-            return done(null, null, {message: "Account didn't exist"})
         }
+        //login
+        if(user){
+            return done(null, user, {message: "Logged in"})
+        }
+        return done(null, null, {message: "Account didn't exist"})
     }) 
     )
+    
     
 }

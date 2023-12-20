@@ -1,8 +1,10 @@
-const {userRepo} = require('../config/db.config')
-const asyncHandler = require('express-async-handler');
+const {userRepo} = require('../config/db.config');
+const asyncWrapper = require('../middleware/async-wrapper');
 const hashPwd = require('../utils/hashPassword');
-
-const register = asyncHandler(async(req, res) => {
+const renderHomepage = (req, res) => {
+    res.render('client/home');
+}
+const register = asyncWrapper(async(req, res) => {
     const {email, password} = req.body;
     if(!email || !password){
         res.locals.message = 'You must fill in all information';
@@ -18,10 +20,10 @@ const register = asyncHandler(async(req, res) => {
     res.redirect('/login')
 })
 
-const renderRegister = (req, res) => {
+const renderRegister =  (req, res) => {
     res.render('register')
 }
 const renderLogin = (req, res) => {
     res.render('login')
 }
-module.exports = {renderLogin, renderRegister, register}
+module.exports = {renderLogin, renderRegister, register, renderHomepage}

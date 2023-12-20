@@ -7,7 +7,8 @@ const ejs = require("ejs");
 const fs = require("fs/promises");
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
-const logger = require('./middleware/logger')
+const logger = require('./middleware/logger');
+const cors = require('cors')
 
 
 const {connectDb, userRepo} = require('./config/db.config')
@@ -26,6 +27,13 @@ app.use(session({
     saveUninitialized: false,
     cookie: {secure: false}
 }))
+// const corsOptions = {
+//   origin: "http://localhost:3000", 
+//   credentials: true,
+//   "Access-Control-Allow-Credentials": true
+// };
+// app.use(cors(corsOptions))
+
 
 require('./config/passport.config')(app)
 

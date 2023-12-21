@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head') -%>
+<body>
+  <div class="container-fluid">
+    <%- include('./partials/nav') -%>
+    <div class="container-grid w-95 margin-auto d-grid gap-4">
+      <!-- Sidebar Section -->
+      <%- include('./partials/sidebar') -%>
+      <!-- End of Sidebar Section -->
+
+      <!-- Main Content -->
+      <main> 
+        <div class="flex-between-center mb-2">
+          <h2 class="">Category management</h2>
+          <div class="manipulation">
+            <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewCategory">Add new</button>
+            <%- include('./category/modal') %>
+          </div>
+        </div>
+        <div>
+          <%- include('./category/categoryList') -%>
+        </div>
+      </main>
+      <!-- End of Main Content -->
+
+    </div>
+  </div>
+  <%- include('./partials/script'); -%>
+  <script src="/public/admin/js/orders.js"></script>
+  <script src="/public/admin/js/index.js"></script>
+</body>
+
+</html>

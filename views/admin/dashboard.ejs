@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head'); -%>
+
+<body>
+  <div class="container-fluid">
+    <%- include('./partials/nav'); -%>
+    <div class="container-grid w-95 margin-auto d-grid gap-4">
+      <!-- Sidebar Section -->
+      <%- include('./partials/sidebar'); -%>
+      <!-- End of Sidebar Section -->
+
+      <!-- Main Content -->
+      <main>
+        <!-- Analyses -->
+        <div class="analyse">
+          <div class="sales">
+            <div class="status">
+              <div class="info">
+                <h3>Total Sales</h3>
+                <h1>$65,024</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>+81%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="visits">
+            <div class="status">
+              <div class="info">
+                <h3>Site Visit</h3>
+                <h1>24,981</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>-48%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="searches">
+            <div class="status">
+              <div class="info">
+                <h3>Searches</h3>
+                <h1>14,147</h1>
+              </div>
+              <div class="progresss">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="percentage">
+                  <p>+21%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Analyses -->
+
+        <%- include('./dashboard/chart'); -%>
+
+      </main>
+      <!-- End of Main Content -->
+
+
+    </div>
+  </div>
+  <%- include('./partials/script'); -%>
+  <script src="/public/admin/js/orders.js"></script>
+  <script src="/public/admin/js/index.js"></script>
+  <script src="/public/admin/js/chart.js"></script>
+</body>
+
+</html>

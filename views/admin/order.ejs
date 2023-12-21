@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head'); -%>
+
+<body>
+  <div class="container-fluid">
+    <%- include('./partials/nav'); -%>
+    <div class="container-grid w-95 margin-auto d-grid gap-4">
+      <!-- Sidebar Section -->
+      <%- include('./partials/sidebar'); -%>
+      <!-- End of Sidebar Section -->
+
+      <!-- Main Content -->
+      <main>
+
+
+        <!-- Recent Orders Table -->
+        <div class="recent-orders">
+          <h2>Recent Orders</h2>
+          <table class="my-table text-center">
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Course Number</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <a href="#">Show All</a>
+        </div>
+        <!-- End of Recent Orders -->
+
+      </main>
+      <!-- End of Main Content -->
+
+
+    </div>
+  </div>
+  <%- include('./partials/script'); -%>
+  <script src="/public/admin/js/orders.js"></script>
+  <script src="/public/admin/js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+.order-status{
+    padding: .2rem .5rem;
+    width: 80%; 
+    display: inline-block;
+    color: white;
+    border-radius: var(--btn-border-radius);
+    overflow: hidden;
+    &.delivering{
+        background-color: var(--color-warning);
+    }
+    &.processing{
+        background-color: var(--color-primary);
+    }
+    &.success{
+        background-color: var(--color-success);
+    }
+    &.canceled{
+        background-color: var(--color-danger);
+    }
+}
+
+.order-action{
+    font-size: 1.2rem;
+    color: var(--color-dark);
+}
+
+
+/* View product section */
+.order { 
+    background-color: var(--color-white);
+    border-radius: var(--medium-border-radius);
+}
+
+.order-info{
+    height: 37rem;
+    overflow: hidden scroll;
+    padding: 0 1rem;
+}
+ 
+.details { 
+    display: flex; 
+    flex-direction: column; 
+    row-gap: .5rem;
+    color: var(--color-dark);
+}  
+
+.order-title span,
+.order-detail span{
+    color: var(--color-dark-variant);
+    font-weight: 100;
+    padding-left: .5rem;
+}
+
+.price span {
+    color: #ff9f1a;
+}
+ 
+.order-title {
+    margin-top: 0;
+    font-size: 1.6rem;
+}    
+
+.order-accounting{
+    border-top: .01rem solid var(--color-dark); 
+}

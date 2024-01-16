@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+<%- include('./partials/head'); -%> 
+<link rel="stylesheet" href="/public/admin/css/features/product.css">
+<body>
+  <div class="container-fluid">
+    <%- include('./partials/nav'); -%>
+    <div class="container-grid w-95 margin-auto d-grid gap-4">
+      <!-- Sidebar Section -->
+      <%- include('./partials/sidebar'); -%>
+      <!-- End of Sidebar Section -->
+      <!-- Main Content -->
+      <main> 
+        <div class="flex-between-center mb-2">
+          <h2 class="">Product management</h2>
+          <div class="manipulation">
+            <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewProduct">Add new</button>
+            <%- include('./product/addProduct') %>
+          </div>
+        </div>
+        <div>
+          <%- include('./product/productList'); -%>
+          <%- include('./product/viewProduct'); -%>
+          <%- include('./product/editProduct'); -%>
+          <%- include('./product/deleteProduct'); -%>
+        </div>  
+      </main>
+      <!-- End of Main Content -->
+    </div>
+  </div>
+  <%- include('./partials/script'); -%> 
+  <script src="/public/admin/js/main.js"></script>
+  <script src="https://sachinchoolur.github.io/lightslider/dist/js/lightslider.js"></script>
+  <script src="/public/admin/js/product.js"></script> 
+</body>
+
+</html>

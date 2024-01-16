@@ -148,7 +148,7 @@ new Chart(ctx2, {
           padding: 10,
           color: "#000000",
           font: {
-            size: 11,
+            size: 13,
             family: "Poppins",
             weight: "bold", 
           },
@@ -164,10 +164,10 @@ new Chart(ctx2, {
         },
         ticks: {
           display: true,
-          color: "#8c3efa",
+          color: "aqua",
           padding: 20,
           font: {
-            size: 11,
+            size: 14,
             family: "Open Sans",
             weight: "bold",
           },

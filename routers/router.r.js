@@ -27,4 +27,5 @@ routers.route("/admin/product").get(productController.getProductPage);
 
 routers.route("/admin/order").get(orderController.getOrderPage);
 
+
 module.exports = routers;

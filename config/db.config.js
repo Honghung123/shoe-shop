@@ -34,6 +34,7 @@ const userRepo = dataSource.getRepository('User')
 const productRepo = dataSource.getRepository('Product') 
 const categoryRepo = dataSource.getRepository('Category') 
 const cartRepo = dataSource.getRepository('Cart') 
+const sizeRepository = dataSource.getRepository('Size')
 
 
 module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartRepo}

@@ -72,8 +72,6 @@ router.get('/google/callback', (req, res, next) => {
                 console.log(error)
             })
             req.session.save(() =>  res.redirect('/'));
-            
-            
         } else if (msg === 'Account already registered'){
             res.locals.message = msg
             res.render('register')

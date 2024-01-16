@@ -1,0 +1,43 @@
+  <!-- Modal -->
+  <div class="modal fade" id="addNewCategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> -->
+        <div class="modal-body">
+            <section class="my-modal-content">
+                <h1 class="title mb-3">add new item</h1>
+                <form class="my-form row flex-wrap-wrap" method="post" action="#">
+                   <div class="form-field col-lg-6">
+                      <input name="name" class="input-text" type="text" required>
+                      <label class="label">Name</label>
+                      <label class="error-msg">This is error message</label>
+                     </div>
+                     <div class="form-field col-lg-6 ">
+                        <input name="email" class="input-text" type="email" required>
+                        <label class="label">E-mail</label>
+                        <label class="error-msg">This is error message</label>
+                     </div>
+                     <div class="form-field col-lg-6 ">
+                        <input name="company" class="input-text" type="text" required>
+                        <label class="label">Company Name</label>
+                        <label class="error-msg">This is error message</label>
+                   </div>
+                    <div class="form-field col-lg-6 ">
+                      <input name="phone" class="input-text" type="text" required>
+                      <label class="label">Contact Number</label>
+                   </div>
+                   <div class="form-field col-lg-12">
+                      <input name="message" class="input-text" type="text" required>
+                      <label class="label">Message</label>
+                   </div> 
+                   <button type="submit" class="btn-custom btn-success fw-bold w-75 margin-auto d-block">Add</button>
+                </form>
+                <button class="btn-custom btn-danger fw-bold close" data-bs-dismiss="modal">X</button>
+             </section>
+        </div> 
+      </div>
+    </div>
+  </div>

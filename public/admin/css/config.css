@@ -1,0 +1,229 @@
+a {
+  text-decoration: none;
+}
+
+.avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  &.size-4 {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+.bg-gradient-success {
+  background-image: linear-gradient(310deg, #00ffa2 0%, #00ff62 100%);
+}
+.bg-gradient-pending {
+  background-image: linear-gradient(310deg, #c7cc35 0%, #b4bf23 100%);
+}
+.bg-gradient-declined {
+  background-image: linear-gradient(310deg, #ff8000 0%, #ff0f0f 100%);
+}
+
+.currency{
+  &::after{
+    content: " VND";
+  }
+}
+
+.cursor-pointer{
+  cursor: pointer ;
+}
+
+.flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-start-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.limit-line{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &.line-2{
+    -webkit-line-clamp: 2;
+  }
+  &.line-3{
+    -webkit-line-clamp: 3;
+  }
+}
+
+.my-table ul li {
+  font-size: 1rem;
+  & ~ & {
+    margin-left: 0.5rem;
+  }
+}
+.my-table tr td.padding-1 {
+  padding: 1rem;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+.mlr-1 {
+  margin: 0 1rem;
+}
+.mlr-2 {
+  margin: 0 2rem;
+}
+
+.o-hidden {
+  overflow: hidden;
+}
+.w-90 {
+  width: 90%;
+}
+.w-95 {
+  width: 95%;
+}
+
+/* Pagination */
+.pagination {
+  display: inline-block;
+  border-radius: var(--btn-border-radius);
+  background-color: var(--background-primary);
+  overflow: hidden;
+}
+.page-numbers {
+  padding: 0 1rem;
+  float: left;
+  transition: var(--transition-ease);
+  color: var(--text-dark);
+  line-height: 2.5rem;
+  font-weight: bold;
+  position: relative;
+  /* & ~ &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 3px;
+    border-left: 0.05rem solid var(--color-dark-variant);
+  } */
+  &:hover {
+    background-color: var(--color-success-subtle);
+    color: #fff;
+  }
+  &:not(.prev, .next, .active):hover {
+    border-radius: 50%;
+  }
+  &.active {
+    border-radius: 50%;
+    background-color: var(--color-success);
+    color: #fff;
+  }
+}
+
+/* Modal CSS */ 
+.modal {
+    background-image: radial-gradient(circle, rgba(41, 58, 76, .8) 0%, rgb(11, 19, 22, .8) 100%);
+    transition: var(--transition-ease);
+}
+
+button{
+    font-size: calc(12px +  ((100vw - 360px) / (1600 - 320))) !important;
+    background-color: transparent;
+}
+   
+.modal-content{
+    background: transparent !important;
+}
+ 
+.my-modal-content {
+  --max-width: 50rem;
+  --title-size: 2rem;
+  max-width: var(--max-width); 
+  position: relative;
+  background-color: var(--color-white);
+  color: var(--text-dark);
+  padding: 2rem;
+  border-radius: var(--card-border-radius); 
+  & .title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: var(--title-size);
+    line-height: 48px; 
+    color: #5543ca;
+    background: #5543ca; 
+    background: linear-gradient(to right,#f4524d  0%,#6955ea  100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+  & button.close{
+    --pos: .5rem;
+    position: absolute;
+    top: var(--pos);
+    right: var(--pos);
+  }
+}
+
+.my-form {
+  --input-margin: 2rem 0;
+  justify-content: space-between;
+  & .form-field{
+    position: relative;
+    margin: var(--input-margin);
+    padding: 0;
+    width: 45%;
+  }
+  & input {
+    --color-input: gray;
+    --border-width: .05rem;
+    --transition-linear: all .2s linear;
+    display: block;
+    width: 100%; 
+    height: var(--input-height);
+    border-bottom: var(--border-width) solid var(--color-input);
+    transition: var(--transition-linear);
+    background-color: transparent;
+    color: var(--color-dark);
+    &:focus + .label, &.not-empty + .label { 
+      left: 0;
+      bottom: 2rem;
+      font-weight: bold;
+    } 
+    &:focus{
+      --border-width: .1rem;
+      --color-input: var(--color-dark);
+    }
+  }
+
+  & .label{
+    position: absolute;
+    left: .5rem;
+    bottom: 1.5rem;   
+    transition: var(--transition-ease); 
+  }
+  & .error-msg{
+    position: absolute;
+    transform: translateY(-60%);
+    left: 0;
+    bottom: -100%;
+    font-size: .75rem;
+    color:var(--color-danger);
+    &::before{
+      content: "* ";
+    }
+  }
+}
+ 

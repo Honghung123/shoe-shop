@@ -1,7 +1,8 @@
 const EntitySchema = require('typeorm').EntitySchema;
+
 module.exports = new EntitySchema({
     name: 'CartLine',
-    tableName : 'cart_line', 
+    tableName: 'cart_line', 
     columns: {
         id: {
             type: 'int',
@@ -11,9 +12,17 @@ module.exports = new EntitySchema({
         quantity: {
             type: 'int',
             nullable: false
+        },
+        product_id: {
+            type: 'int',
+            nullable: false
+        },
+        user_id: {
+            type: 'int',
+            nullable: false
+
         }
     },
-
     relations: {
         product: {
             target: "Product",
@@ -25,7 +34,7 @@ module.exports = new EntitySchema({
             },
             nullable: false
         },
-        cart: {
+        user: {
             target: "User",
             type: "many-to-one",
             joinTable: false,
@@ -36,13 +45,12 @@ module.exports = new EntitySchema({
             nullable: false
         }
     },
-    // indices: [
-    //     {
-    //         name: "user_product_unique",
-    //         unique: true,
-    //         columns: ["user_id", "product_id"]
-    //     }
-    // ]
-    
-
-})
+    uniques: [
+        {
+            name: "user_product_unique",
+            unique: true,
+            columns: ["product_id", "user_id"]
+            
+        }
+    ]
+});

@@ -1,4 +1,11 @@
 const typeorm = require('typeorm');
+const userModel = require('../model/user.m')
+const categoryModel = require('../model/category.m')
+const productModel = require('../model/product.m')
+const cartLineModel = require('../model/cart-line.m')
+const orderModel = require('../model/order.m')
+const sizeModel = require('../model/size.m')
+
 const dataSource = new typeorm.DataSource({
     type: "postgres",
     host: process.env.DB_HOST,
@@ -9,7 +16,7 @@ const dataSource = new typeorm.DataSource({
     synchronize: true,
     logging: true,
     logger: true,
-    entities: [require('../model/user.m'), require('../model/category.m'), require('../model/product.m'), require('../model/cart-line.m')],
+    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel],
 });
 
 const connectDb = async () => {

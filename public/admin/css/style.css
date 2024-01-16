@@ -3,10 +3,10 @@
 :root {
   /* Colorize */
   --color-primary: #6c9bcf;
-  --color-danger: #ff0060;
+  --color-danger: #ff283d;
   --color-success: #00ff15;
   --color-success-subtle: #00ff158e;
-  --color-warning: #f7d060;
+  --color-warning: #eed61d;
   --color-white: #fff;
   --color-info-dark: #7d8da1;
   --color-dark: #363949;
@@ -15,15 +15,26 @@
   --color-dark-variant: #8a8383;
   --color-background: #f6f6f9;
   --background-primary: var(--color-light);
+  --background-white: white;
+  --background-dark: black;
+  --background-input: #fff;
   /* Decorating */
   --btn-border-radius: 1.5rem;
   --card-border-radius: 1.5rem;
   --sidebar-border-radius: 1rem;
+  --medium-border-radius: .85rem;
+  --small-border-radius: .3rem;
   /* Sizing */
-  --card-padding: 1.8rem; 
+  --card-padding: 1.8rem;
   --btn-padding: 0.5rem 1rem;
   --btn-border: .12rem;
   --input-height: 2rem;
+  --fs-primary: 1rem;
+  --fs-sm-primary: .675rem;
+  --fs-m-primary: .85rem;
+  --fs-l-primary: 1.5rem;
+  --fs-xl-primary: 2rem;
+  --fs-xxl-primary: 2.5rem;
   /* Effect */
   --box-shadow: 0 2rem 3rem var(--color-light);
   /* Animation */
@@ -31,7 +42,10 @@
 }
 
 .dark-mode-variables {
+  --background-dark: white;
+  --background-input: #b9b9b9a9;
   --background-primary: #415878a9;
+  --background-white: black;
   --color-background: #181a1e;
   --color-white: #415878a9;
   --color-dark: #ffffff;
@@ -51,12 +65,12 @@
   text-decoration: none;
   box-sizing: border-box;
 }
+
 body {
-  font-size: 1rem;
+  font-size: var(--fs-primary);
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   font-family: "Poppins", sans-serif;
-  font-size: 1rem;
   user-select: none;
   overflow-x: hidden;
   color: var(--color-dark);
@@ -79,9 +93,11 @@ h6 {
   margin: 0;
   padding: 0;
 }
+
 ul {
   list-style-type: none;
 }
+
 img {
   display: block;
   width: 100%;
@@ -116,6 +132,35 @@ b {
   color: var(--color-dark);
 }
 
+/* Scrollbar css */
+::-webkit-scrollbar {
+  width: .7rem; 
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--background-primary); /* Màu nền của track */
+}
+ 
+::-webkit-scrollbar-thumb {
+  /* background: linear-gradient(45deg, #e600e6, #00cccc);  */
+  background-image: linear-gradient(
+      to top, 
+      #aa8fd8,
+      #9a9ae1,  
+      #41dfff,
+      #46eefa
+  );
+  border-radius: .5rem; /* Bo tròn cạnh cho handle */
+  opacity: .5;
+  transition: var(--transition-ease);
+}
+ 
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  opacity: 1; 
+}
+/* End scrollbar css */
+
 .bg-dark-primary {
   background-color: var(--color-dark-switch);
 }
@@ -129,37 +174,107 @@ b {
   color: var(--color-dark);
   border-radius: var(--btn-border-radius);
   transition: var(--transition-ease);
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  font-size: var(--fs-m-primary);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 100%;
+    z-index: -1;
+    transition: var(--transition-ease);
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
   &.btn-success {
     border: var(--btn-border) solid var(--color-success);
+
     &:hover {
-      background-color: var(--color-success);
-      color: #ffffff;
+      color: white;
+
+      &::before {
+        background-color: var(--color-success);
+      }
     }
   }
+
   &.btn-warning {
     border: var(--btn-border) solid var(--color-warning);
+
     &:hover {
-      background-color: var(--color-warning);
       color: #ffffff;
+
+      &::before {
+        background-color: var(--color-warning);
+      }
     }
   }
+
   &.btn-danger {
     border: var(--btn-border) solid var(--color-danger);
+
     &:hover {
-      background-color: var(--color-danger);
       color: #ffffff;
+
+      &::before {
+        background-color: var(--color-danger);
+      }
+    }
+  }
+
+  & span{
+    font-size: var(--fs-l-primary);
+    transition: var(--transition-ease);
+    &.shipping:hover{
+      color: var(--color-warning);
+      font-size: var(--fs-xl-primary);
+    }
+    &.canceled:hover{
+      color: var(--color-danger);
+      font-size: var(--fs-xl-primary);
     }
   }
 }
 
 .image-custom {
-  --size-img: 4rem;
+  --size-img: 3.5rem;
   width: var(--size-img);
   height: var(--size-img);
   border-radius: 10%;
   overflow: hidden;
   &.size-s {
     --size-img: 3rem;
+  }
+}
+
+.text-typing-animation{
+  transition: var(--transition-ease);
+  position: relative;
+  &::after{
+    content: "";
+    padding-left: .2rem;
+    width: .2rem;
+    height: 65%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right: .3rem solid rgba(0, 208, 255, 0.701);
+    animation: blink_pointer .8s ease-in-out infinite;
+  }
+}
+@keyframes blink_pointer {
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
   }
 }
 
@@ -242,9 +357,11 @@ aside .sidebar a.active {
 
 aside .sidebar a:not(.active):hover {
   color: var(--color-primary);
+
   & span {
     margin-left: 0.6rem;
   }
+
   & h3 {
     font-weight: bold;
   }
@@ -256,7 +373,7 @@ main .analyse {
   gap: 1.6rem;
 }
 
-main .analyse > div {
+main .analyse>div {
   background-color: var(--color-white);
   padding: var(--card-padding);
   border-radius: var(--card-border-radius);
@@ -265,11 +382,11 @@ main .analyse > div {
   transition: all 0.3s ease;
 }
 
-main .analyse > div:hover {
+main .analyse>div:hover {
   box-shadow: none;
 }
 
-main .analyse > div .status {
+main .analyse>div .status {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -280,56 +397,63 @@ main .analyse h3 {
   font-size: 1rem;
 }
 
-main .analyse .progresss {
+.circle-progress-bar {
   position: relative;
-  width: 92px;
-  height: 92px;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
+
+  & svg {
+    width: 7rem;
+    height: 7rem;
+
+    & circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+      transform: translate(5px, 5px);
+    }
+
+  }
+
+  &.success circle {
+    stroke: var(--color-success);
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+  }
+
+  &.danger circle {
+    stroke: var(--color-danger);
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+  }
+
+  &.primary circle {
+    stroke: var(--color-primary);
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+  }
+
+  & .percentage {
+    position: absolute;
+    top: -3px;
+    left: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
 }
 
-main .analyse svg {
-  width: 7rem;
-  height: 7rem;
-}
 
-main .analyse svg circle {
-  fill: none;
-  stroke-width: 10;
-  stroke-linecap: round;
-  transform: translate(5px, 5px);
-}
-
-main .analyse .sales svg circle {
-  stroke: var(--color-success);
-  stroke-dashoffset: -30;
-  stroke-dasharray: 200;
-}
-
-main .analyse .visits svg circle {
-  stroke: var(--color-danger);
-  stroke-dashoffset: -30;
-  stroke-dasharray: 200;
-}
-
-main .analyse .searches svg circle {
-  stroke: var(--color-primary);
-  stroke-dashoffset: -30;
-  stroke-dasharray: 200;
-}
-
-main .analyse .progresss .percentage {
-  position: absolute;
-  top: -3px;
-  left: -1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-}
 
 main .recent-orders {
   margin-top: 1.3rem;
+}
+
+.box-shadow-primary {
+  box-shadow: var(--box-shadow);
 }
 
 /* Table CSS */
@@ -337,15 +461,17 @@ main .my-table {
   width: 100%;
   background-color: var(--color-white);
   border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
   transition: var(--transition-ease);
   overflow: hidden;
+
   &:hover {
     box-shadow: none;
   }
+
   & tr {
-    height: 2.5rem;
+    height: 3.1rem; 
   }
+
   & tbody tr {
     border-top: 1px solid var(--color-dark-variant);
     color: var(--color-dark-variant);
@@ -400,9 +526,16 @@ main .my-table {
 .w-60 {
   width: 60% !important;
 }
+.w-40 {
+  width: 40% !important;
+}
 
 .card-border-radius {
   border-radius: var(--card-border-radius);
+}
+
+.card-small-radius {
+  border-radius: var(--small-border-radius);
 }
 
 .card,
@@ -413,9 +546,111 @@ main .my-table {
   border: none;
 }
 
-.badge {
-  text-transform: uppercase;
+.form-radius {
+  border-radius: var(--medium-border-radius);
 }
+
+.medium-shadow {
+  box-shadow: var(--color-dark-variant) 0px 0.1rem 0.5rem;
+}
+
+.modal-content {
+  background-color: var(--color-white) !important;
+  color: var(--text-dark);
+}
+
+/* Preview image product slider */
+/* Position the image container (needed to position the left and right arrows) */
+.gallery-slider {
+  --nCol: 5;
+  --height: 4.5rem; 
+  --size: calc(100% /var(--nCol));
+  --gap: calc(var(--height)/10);
+  user-select: none;
+  display: grid;
+  grid-template-columns: repeat(var(--nCol), var(--size));
+  grid-template-rows: var(--height);
+  grid-auto-rows: var(--height);
+  & .thumbnail-item{
+    padding: var(--gap) calc(var(--gap)/2) 0;
+  } 
+}
+
+/* Hide the images by default */
+.gallery-preview {
+  position: relative;
+  grid-column: 1/span 5;
+  grid-row: 1/span 4;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--small-border-radius);
+  }
+}
+
+/* Next & previous buttons */
+.gallery-prev,
+.gallery-next {
+  --size: 2.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  transform: translateY(-50%);
+  width: auto;
+  width: var(--size);
+  line-height: var(--size);
+  text-align: center;
+  height: var(--size);
+  color: white;
+  font-weight: bold;
+  font-size: calc(var(--size)/2);
+  transition: var(--transition-ease);
+  border-radius: 50%;
+  border: 1px solid white;
+  opacity: .7;
+  z-index: 10;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+  }
+}
+
+.gallery-next {
+  right: 1%;
+  left: unset;
+}
+
+.thumbnail-item {
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border-radius: var(--small-border-radius); 
+  transition: var(--transition-ease);
+  &:not(.active):hover{
+    animation: opacity .5s;
+    opacity: 1;
+  }
+  &.active{
+    opacity: 1;
+  }
+} 
+@keyframes opacity {
+  0% {
+      opacity: 0;
+      transform: scale(2);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+} 
+
+
 
 @media screen and (max-width: 1200px) {
   .container {

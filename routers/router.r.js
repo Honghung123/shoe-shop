@@ -9,6 +9,10 @@ const orderController = require("./../controller/admin/order.c");
 routers.get("/home", (req, res) => {
   res.render("client/home");
 });
+routers.get("/error", (req, res) => {
+  console.log("Get error page");
+  res.render("error");
+});
 
 routers
   .route("/admin")

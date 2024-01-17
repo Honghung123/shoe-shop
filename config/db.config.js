@@ -5,6 +5,7 @@ const productModel = require('../model/product.m')
 const cartLineModel = require('../model/cart-line.m')
 const orderModel = require('../model/order.m')
 const sizeModel = require('../model/size.m')
+const orderLineModel = require('../model/order-line.m')
 
 const dataSource = new typeorm.DataSource({
     type: "postgres",
@@ -16,7 +17,7 @@ const dataSource = new typeorm.DataSource({
     synchronize: true,
     logging: true,
     logger: true,
-    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel],
+    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel],
 });
 
 const connectDb = async () => {
@@ -33,8 +34,10 @@ const connectDb = async () => {
 const userRepo = dataSource.getRepository('User') 
 const productRepo = dataSource.getRepository('Product') 
 const categoryRepo = dataSource.getRepository('Category') 
-const cartRepo = dataSource.getRepository('Cart') 
-const sizeRepository = dataSource.getRepository('Size')
+const cartLineRepo = dataSource.getRepository('CartLine')
+const sizeRepo = dataSource.getRepository('Size');
+const orderRepo = dataSource.getRepository('Order')
+const orderLineRepo = dataSource.getRepository('OrderLine')
 
 
-module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartRepo}
+module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo}

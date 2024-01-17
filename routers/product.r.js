@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const upload = require('../config/multer.config')
-const productController = require('../controller/admin/product.c')
-router.post('/', upload.single('product-img'), productController.addProduct);
-router.get('/', productController.getProductPage);
+const productController = require('../controller/product.c')
+router.post('/', upload.single('images'), productController.addProduct);
+router.get('/category', productController.getProductsOfCategory)
 
 
 // router.put('/:id', productController);

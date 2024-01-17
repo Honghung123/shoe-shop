@@ -21,7 +21,7 @@ module.exports = new EntitySchema({
             nullable: false
         },
         description: {
-            type: 'char'
+            type: 'varchar'
         },
         price: {
             type: 'decimal',

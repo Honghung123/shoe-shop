@@ -8,6 +8,12 @@ module.exports = new EntitySchema({
             generated: true,
             primary: true
         },
+        createdAt: {
+            type: 'timestamp',
+            default: () => 'CURRENT_TIMESTAMP',
+            nullable: false
+        }
+        ,
         total: {
             type: 'decimal',
             nullable: false,
@@ -16,6 +22,7 @@ module.exports = new EntitySchema({
             type: 'int',
             nullable: false
         }
+        
         
     },
     relations: {

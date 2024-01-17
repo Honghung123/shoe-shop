@@ -44,9 +44,11 @@ app.use(logger);
 const router = require("./routers/router.r");
 const authRouter = require("./routers/auth.r");
 const passport = require("passport");
+const cartLineRouter = require('./routers/cart-line.r')
 
 app.use("/", authRouter);
 app.use("/", router);
+app.use("/carts", cartLineRouter)
 // app.use("/", passport);
 
 // Handle exceptions

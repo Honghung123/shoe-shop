@@ -1,4 +1,5 @@
-const {cartLineRepo, productRepo, orderRepo, } = require('../config/db.config')
+const { In } = require('typeorm');
+const {cartLineRepo, productRepo, orderRepo, orderLineRepo, } = require('../config/db.config')
 module.exports = {
     addToCart: async (req, res, next) => {
         try {
@@ -50,6 +51,7 @@ module.exports = {
             const total = await cartLineRepo.count({where: {user_id: 4}});
             //fetch cart-line and its associative product
             const cartLines = await cartLineRepo.find({where: {user_id: userId}, relations: ['product']});
+            
             // res.json(cartLines);
             //TODO redener or direct
         } catch (error) {
@@ -59,8 +61,27 @@ module.exports = {
     checkout: async (req, res, next) => {
         const {cartLinesId} = req.body;
         //call checkout api
+        // const {total, checkout} = await res.json();
+        // get id, and total = from checkout api
+        // const userId = req.user.id;
+        
+        const cartLines = await cartLineRepo.find({
+            where: {id: In(cartLinesId)},
+            relations: ['product']
+        });
+        const total = 100;
+        const order = await orderRepo.save({total, user_id: 4});
+        let orderLines = cartLines.map((cartLine) => (
+            {
+                quantity: cartLine.quantity,
+                product_id: cartLine.product_id,
+                order_id: order.id
+            }
+        ))
+        console.log(orderLines);
+        orderLines = await orderLineRepo.save(orderLines);
         await cartLineRepo.delete(cartLinesId);
-        
-        
+        res.json(order);
     },
+    
 }

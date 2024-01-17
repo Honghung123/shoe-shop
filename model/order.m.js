@@ -8,7 +8,7 @@ module.exports = new EntitySchema({
             generated: true,
             primary: true
         },
-        createdAt: {
+        created_at: {
             type: 'timestamp',
             default: () => 'CURRENT_TIMESTAMP',
             nullable: false

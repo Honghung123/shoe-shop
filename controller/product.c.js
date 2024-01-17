@@ -5,12 +5,11 @@ module.exports = {
         const filters = req.query;
         let products;
         if(!filters){
+            //Find all products
             products = productRepo.find();
             //render or redirect
         }
         const {minPrice, maxPrice, sortOrder, branch, min} = filters
-        
-        
         
     },
     getProductsOfCategory: async (req, res, next) => {

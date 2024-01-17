@@ -1,60 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <title>Shoe shop</title>
-</head>
-<body>
-    
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                <form method="post" action="/login" class="card-body p-5 text-center">
-                  
-                  <h3 class="mb-5 fw-2">Sign in</h3>
-      
-                  <div class="form-outline mb-4">
-                    <label class="form-label float-start" for="username">Username</label>
-                    <input type="text" id="username" class="form-control form-control-lg" name="email" />
-                  </div>
-      
-                  <div class="form-outline mb-4">
-                    <label class="form-label float-start" for="typePasswordX-2">Password</label>
-                    <input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="password" />
-                  </div>
-      
-                  <div class="form-check d-flex justify-content-end mb-2">
-                    <p class="mx-3">Not have account yet?</p>
-                    <a href="/register">Sign up</a>
-                  </div>
-  
-                  <div class="mx-auto">
 
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                  </div>
-                  <hr class="my-4">
-                  <a class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #dd4b39;"
-                    href="/google/login"><i class="fab fa-google me-2"></i> Sign in with google</a>
-                  <!-- <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;"
-                    type="submit"><i class="fab fa-facebook-f me-2"></i>Sign in with facebook</button> -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoe shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/public/common/css/style.css" />
+</head>
+
+<body>
+  <div class="container-center">
+  <div class="row">
+    <div class="col p-0"> 
+        <div class="login-box">
+          <div class="login-space">  
+              <h2 class="login-banner mb-3">Login</h2>
+              <form action="login" method="post" class="login">
+                <div class="group">
+                  <label class="label">Username:</label>
+                  <input name="username" type="text" class="input" placeholder="Enter your username" required>
+                  <span class="error username">This is message error</span>
                 </div>
-              </div>
+                <div class="group">
+                  <label class="label">Password:</label>
+                  <input name="password" type="password" class="input" name="password" placeholder="Enter your password" required>
+                  <span class="error password">This is message error</span>
+                </div>
+                <div class="group">
+                  <input id="remember_me" type="checkbox" class="check" checked >
+                  <label for="check"><span class="icon"></span>Remember me</label>
+                </div>
+                <div class="group text-center">
+                  <button type="submit" class="btn btn-info rounded-pill text-white w-25 pt-2 pb-2">Login</button>
+                </div>
+                <p class="text-center">Dont have any account? <a class="text-info" href="register">Register here</a></p> 
+                <div class="divider-method mt-4 mb-4 text-muted">
+                  <span class="divider-message">or</span>
+                </div>
+                <div class="other-method">
+                  <a class="btn btn-lg btn-danger rounded-pill mb-2 text-white d-block"
+                          href="/google/login"><i class="fab fa-google me-2"></i> Sign in with google</a>
+                  <a class="btn btn-lg btn-primary rounded-pill text-white mb-2 d-block"
+                          href="/facebook/login"><i class="fab fa-google me-2"></i> Sign in with facebook</a>
+                </div>
+              </div> 
             </div>
           </div>
         </div>
+      </div> 
+  </div>
+</div> 
 </body>
+
 </html>

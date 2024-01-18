@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category</title>
 <%- include('./partials/head') -%>
+</head>
 <body>
   <div class="container-fluid">
     <%- include('./partials/nav') -%>
@@ -19,11 +20,13 @@
           <h2 class="">Category management</h2>
           <div class="manipulation">
             <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewCategory">Add new</button>
-            <%- include('./category/modal') %>
+            <%- include('./category/addCategory') %>
           </div>
         </div>
         <div>
-          <%- include('./category/categoryList') -%>
+          <%- include('./category/categoryList') -%> 
+            <%- include('./category/editCategory'); -%>
+              <%- include('./category/deleteCategory'); -%>
         </div>
       </main>
       <!-- End of Main Content -->
@@ -33,6 +36,7 @@
   <%- include('./partials/script'); -%>
   <!-- <script src="/public/admin/js/orders.js"></script> -->
   <script src="/public/admin/js/main.js"></script>
+  <script src="/public/admin/js/category.js"></script>
 </body>
 
 </html>

@@ -567,6 +567,8 @@ main .my-table {
 .modal-content {
   background-color: var(--color-white) !important;
   color: var(--text-dark);
+  border-radius: var(--card-border-radius); 
+  overflow: hidden;
 }
 
 /* Preview image product slider */

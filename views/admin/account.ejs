@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account</title>
 <%- include('./partials/head'); -%>
+    <link rel="stylesheet" href="/public/admin/css/features/account.css">
+</head>
 <body>
   <div class="container-fluid">
     <%- include('./partials/nav'); -%>
@@ -17,12 +19,13 @@
       <main> 
         <div class="flex-between-center mb-2">
           <h2 class="">Account management</h2>
-          <div class="manipulation">
-            <button class="btn-custom btn-success">Add new</button>
-          </div>
         </div>
         <div>
           <%- include('./account/accountList'); -%>
+          <%- include('./account/viewAccount'); -%> 
+          <%- include('./account/addAccount') %>
+          <%- include('./account/deleteAccount'); -%>
+          <%- include('./account/banAccount'); -%>
         </div>
       </main>
       <!-- End of Main Content -->
@@ -30,9 +33,9 @@
 
     </div>
   </div>
-  <%- include('./partials/script'); -%>
-  <script src="/public/admin/js/orders.js"></script>
-  <script src="/public/admin/js/index.js"></script>
+  <%- include('./partials/script'); -%> 
+  <script src="/public/admin/js/main.js"></script>
+  <script src="/public/admin/js/account.js"></script>
 </body>
 
 </html>

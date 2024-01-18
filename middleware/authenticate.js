@@ -4,3 +4,4 @@ const authenticate = (req, res, next) => {
     }
     res.redirect('/')
 }
+module.exports = authenticate

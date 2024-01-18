@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<%- include('./partials/head'); -%>
-
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+  <%- include('./partials/head'); -%>
+  <link rel="stylesheet" href="/public/admin/css/features/chart.css">
+</head>
 <body>
   <div class="container-fluid">
     <%- include('./partials/nav'); -%>
@@ -21,7 +25,7 @@
                 <h3>Total Sales</h3>
                 <h1>$65,024</h1>
               </div>
-              <div class="progresss">
+              <div class="circle-progress-bar success">
                 <svg>
                   <circle cx="38" cy="38" r="36"></circle>
                 </svg>
@@ -37,7 +41,7 @@
                 <h3>Site Visit</h3>
                 <h1>24,981</h1>
               </div>
-              <div class="progresss">
+              <div class="circle-progress-bar danger">
                 <svg>
                   <circle cx="38" cy="38" r="36"></circle>
                 </svg>
@@ -53,7 +57,7 @@
                 <h3>Searches</h3>
                 <h1>14,147</h1>
               </div>
-              <div class="progresss">
+              <div class="circle-progress-bar primary">
                 <svg>
                   <circle cx="38" cy="38" r="36"></circle>
                 </svg>
@@ -75,8 +79,8 @@
     </div>
   </div>
   <%- include('./partials/script'); -%>
-  <script src="/public/admin/js/orders.js"></script>
-  <script src="/public/admin/js/index.js"></script>
+  <script src="/public/admin/js/main.js"></script>
+  <script src="/public/admin/js/dashboard.js"></script>
   <script src="/public/admin/js/chart.js"></script>
 </body>
 

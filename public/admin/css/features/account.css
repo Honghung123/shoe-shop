@@ -1,0 +1,48 @@
+.user-info ul li{
+    & + &{
+        &::before{
+            content: "-";
+            margin-right: .5rem;
+            margin-left: .5rem;
+        }
+    }
+}
+
+/* View product section */
+.my-account { 
+    background-color: var(--color-white);
+    border-radius: var(--medium-border-radius);
+}
+
+.account-info{
+    padding: 1.2rem;
+    height: 32.5rem;
+    overflow-x: hidden;
+}
+ 
+.details { 
+    display: flex; 
+    flex-direction: column;
+    padding-left: 2rem;
+    row-gap: 1rem;
+    color: var(--color-dark);
+}  
+
+.account-title span,
+.account-detail span{
+    color: var(--color-dark-variant);
+    font-weight: 100;
+    padding-left: .5rem;
+} 
+ 
+.account-title {
+    margin-top: 0; 
+}    
+
+.divider-info{
+    border-bottom: 1px solid var(--color-dark-variant);
+}
+
+.color-dark-variant{
+    color: var(--color-dark-variant);
+}

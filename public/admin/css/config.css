@@ -11,6 +11,10 @@ a {
     width: 4rem;
     height: 4rem;
   }
+  &.size-35 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 }
 
 .bg-gradient-success {
@@ -64,12 +68,12 @@ a {
   }
 }
 
-.my-table ul li {
+/* .my-table ul li {
   font-size: 1rem;
   & ~ & {
     margin-left: 0.5rem;
   }
-}
+} */
 .my-table tr td.padding-1 {
   padding: 1rem;
 }
@@ -139,8 +143,7 @@ a {
     transition: var(--transition-ease);
 }
 
-button{
-    font-size: calc(12px +  ((100vw - 360px) / (1600 - 320))) !important;
+button{ 
     background-color: transparent;
 }
    
@@ -154,9 +157,7 @@ button{
   max-width: var(--max-width); 
   position: relative;
   background-color: var(--color-white);
-  color: var(--text-dark);
-  padding: 2rem;
-  border-radius: var(--card-border-radius); 
+  color: var(--text-dark); 
   & .title {
     text-align: center;
     text-transform: uppercase;
@@ -221,9 +222,97 @@ button{
     bottom: -100%;
     font-size: .75rem;
     color:var(--color-danger);
-    &::before{
+    /* &::before{
       content: "* ";
-    }
+    } */
   }
 }
- 
+
+
+.form-content {
+    box-shadow: var(--color-dark-variant) 0px 0.1rem 0.5rem;
+    border-radius: var(--medium-border-radius);
+    padding: 1rem;
+}
+
+.form-field {
+    --fs: 1rem;
+    position: relative;
+
+    & label:first-child {
+        font-weight: bold;
+        font-size: calc(var(--fs)*1.2);
+    }
+
+    & label:last-child {
+        position: absolute;
+        bottom: -.3rem;
+        display: block;
+        color: var(--color-danger);
+        font-size: calc(var(--fs)/1.3);
+
+        &::before {
+            content: "* ";
+        }
+    }
+
+    & .input-text {
+        width: 100%;
+        border: .1rem solid transparent;
+        outline: .01rem solid var(--color-dark-variant);
+        border-radius: var(--medium-border-radius);
+        padding: 0.3rem 1rem;
+        transition: var(--transition-ease);
+        color: var(--color-dark);
+        background-color: var(--backgound-input);
+
+        &:hover {
+            animation: borders 1s linear infinite;
+        }
+    }
+
+    & select {
+        border: .1rem solid transparent;
+        outline: .01rem solid var(--color-dark-variant);
+        border-radius: var(--medium-border-radius);
+        cursor: pointer;
+        color: var(--color-dark);
+        background-color: var(--backgound-input);
+
+        &:hover {
+            animation: borders 1s linear infinite;
+        }
+
+        &:focus {
+            box-shadow: none;
+            border-color: var(--color-dark-variant);
+        }
+
+        & option {
+            background-color: var(--background-input);
+            color: var(--color-dark);
+        }
+    }
+}
+
+@keyframes borders {
+    0% {
+        border-bottom: .1rem solid var(--color-dark);
+    }
+
+    25% {
+        border-right: .1rem solid var(--color-dark);
+    }
+
+    50% {
+        border-top: .1rem solid var(--color-dark);
+    }
+
+    75% {
+        border-left: .1rem solid var(--color-dark);
+    }
+
+    100% {
+        border: .1rem solid transparent;
+    }
+}

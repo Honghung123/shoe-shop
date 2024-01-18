@@ -1,0 +1,482 @@
+:root{
+    --login-background: pink;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+button,
+a,
+i,
+input,
+body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    font-size: 1rem;
+    color: dark;
+    box-sizing: border-box;
+}
+
+/* CSS Section: Login - Register Page */
+.container-center{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-banner{
+    font-size: 2.4rem;
+    text-align: center;
+}
+.login-box{
+	width:100%; 
+	width:30rem;
+	height:35rem; 
+	box-shadow:0 .2rem .3rem 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    border-radius: 1rem;
+    overflow: hidden auto;
+}
+
+.login-space{
+    width:100%; 
+    padding:2rem; 
+}   
+.login-space .group{
+	margin-bottom: .6rem;
+}
+.login-space .group .label,
+.login-space .group .input,
+.login-space .group .button{
+	width:100%; 
+	display:block;
+}
+.login-space .group .input,
+.login-space .group .button{
+	border: .01rem solid rgb(76, 76, 76);
+	padding: .7rem 1rem;
+	border-radius:1.5rem;
+	background:rgba(255,255,255,.1);
+}    
+::placeholder{
+color: #c9c9c9c0;
+} 
+.error{
+    color: red;
+    font-size: 0.8rem;
+    /* visibility: hidden; */
+}
+
+.divider-method{
+    position: relative;
+    border-bottom: 1px solid gray;
+    z-index: 0;
+}
+.divider-message{
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    text-transform: capitalize;
+    z-index: 3;
+    padding: 0 .3rem;
+}
+
+/* CSS Section: Error Page  */
+.wrapper-custom {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x: hidden;
+    background: #2f0f78;
+}
+
+.wrapper-custom .container {
+    margin: 0 auto;
+    transition: all 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.wrapper-custom .container .scene {
+    position: absolute;
+    width: 100vw;
+    vertical-align: middle;
+}
+
+.wrapper-custom .container .one,
+.wrapper-custom .container .two,
+.wrapper-custom .container .three,
+.wrapper-custom .container .circle,
+.wrapper-custom .container .p404 {
+    width: 60%;
+    height: 60%;
+    top: 20% !important;
+    left: 20% !important;
+    min-width: 400px;
+}
+
+.wrapper-custom .container .one .content,
+.wrapper-custom .container .two .content,
+.wrapper-custom .container .three .content,
+.wrapper-custom .container .circle .content,
+.wrapper-custom .container .p404 .content {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: content 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
+}
+
+@keyframes content {
+    0% {
+        width: 0;
+    }
+}
+
+.wrapper-custom .container .one .content .piece,
+.wrapper-custom .container .two .content .piece,
+.wrapper-custom .container .three .content .piece,
+.wrapper-custom .container .circle .content .piece,
+.wrapper-custom .container .p404 .content .piece {
+    width: 200px;
+    height: 80px;
+    display: flex;
+    position: absolute;
+    border-radius: 80px;
+    z-index: 1;
+    animation: pieceLeft 8s cubic-bezier(1, 0.06, 0.25, 1) infinite both;
+}
+
+@keyframes pieceLeft {
+    50% {
+        left: 80%;
+        width: 10%;
+    }
+}
+
+@keyframes pieceRight {
+    50% {
+        right: 80%;
+        width: 10%;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .wrapper-custom .container .one,
+    .wrapper-custom .container .two,
+    .wrapper-custom .container .three,
+    .wrapper-custom .container .circle,
+    .wrapper-custom .container .p404 {
+        width: 90%;
+        height: 90%;
+        top: 5% !important;
+        left: 5% !important;
+        min-width: 280px;
+        min-height: 280px;
+    }
+}
+
+@media screen and (max-height: 660px) {
+    .wrapper-custom .container .one,
+    .wrapper-custom .container .two,
+    .wrapper-custom .container .three,
+    .wrapper-custom .container .circle,
+    .wrapper-custom .container .p404 {
+        min-width: 280px;
+        min-height: 280px;
+        width: 60%;
+        height: 60%;
+        top: 20% !important;
+        left: 20% !important;
+    }
+}
+
+.wrapper-custom .container .text {
+    width: 100%;
+    min-height: 27rem;
+    position: absolute;
+    top: 0;
+    animation: text 0.6s 1.8s ease backwards;
+}
+
+@keyframes text {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .wrapper-custom .container .text {
+        min-height: 400px;
+        height: 80%;
+    }
+}
+
+.wrapper-custom .container .text article {
+    width: 100%;
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    left: 50%;
+    row-gap: 1.2rem;
+    transform: translateX(-50%);
+}
+
+@media screen and (max-width: 799px) {
+    .wrapper-custom .container .text article {
+        width: 100%;
+    }
+}
+
+.wrapper-custom .container .text article p {
+    color: white;
+    font-size: 18px;
+    letter-spacing: 0.6px;
+    margin-bottom: 1rem;
+    text-shadow: 6px 6px 10px #32243E;
+}
+
+.wrapper-custom .container .text article a {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    padding: 0 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0px 15px 20px rgba(54, 24, 79, 0.5);
+    z-index: 3;
+    color: #695681;
+    background-color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.wrapper-custom .container .text article a:hover {
+    box-shadow: 0px 10px 10px -10px rgba(54, 24, 79, 0.5);
+    transform: translateY(5px);
+    background: #FB8A8A;
+    color: white;
+}
+
+.wrapper-custom .container .p404 {
+    font-size: 17rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: white;
+    display: flex !important;
+    justify-content: center;
+    align-items: flex-end;
+    position: absolute;
+    z-index: 2;
+    animation: anime404 0.6s cubic-bezier(0.3, 0.8, 1, 1.05) both;
+    animation-delay: .7s;
+}
+
+.neonText {
+    color: #fff;
+    text-shadow:
+        0 0 .2rem #fff,
+        0 0 .3rem #fff,
+        0 0 .4rem #fff,
+        0 0 .5rem rgb(136, 0, 255),
+        0 0 .6rem rgb(136, 0, 255),
+        0 0 .7rem rgb(136, 0, 255),
+        0 0 1rem rgb(136, 0, 255),
+        0 0 1.3rem rgb(136, 0, 255);
+}
+
+@media screen and (max-width: 799px) {
+    .wrapper-custom .container .p404 {
+        font-size: 100px;
+    }
+}
+
+@keyframes anime404 {
+    0% {
+        opacity: 0;
+        transform: scale(10) skew(20deg, 20deg);
+    }
+}
+
+.wrapper-custom .container .p404:nth-of-type(2) {
+    color: #36184F;
+    z-index: 1;
+    animation-delay: 1s;
+    filter: blur(10px);
+    opacity: 0.8;
+}
+
+.wrapper-custom .container .circle {
+    position: absolute;
+}
+
+.wrapper-custom .container .circle:before {
+    content: "";
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background-color: rgba(54, 24, 79, 0.2);
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 5px 20px 40px rgba(54, 24, 79, 0.25), inset 5px 0px 5px rgba(50, 36, 62, 0.3), inset 5px 5px 20px rgba(50, 36, 62, 0.25), 2px 2px 5px rgba(255, 255, 255, 0.2);
+    animation: circle 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
+}
+
+@keyframes circle {
+    0% {
+        width: 0;
+        height: 0;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .wrapper-custom .container .circle:before {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+.wrapper-custom .container .one .content:before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background-color: rgba(54, 24, 79, 0.3);
+    border-radius: 100%;
+    box-shadow: inset 5px 20px 40px rgba(54, 24, 79, 0.25), inset 5px 0px 5px rgba(50, 36, 62, 0.3), inset 5px 5px 20px rgba(50, 36, 62, 0.25), 2px 2px 5px rgba(255, 255, 255, 0.2);
+    animation: circle 0.8s 0.4s cubic-bezier(1, 0.06, 0.25, 1) backwards;
+}
+
+@media screen and (max-width: 799px) {
+    .wrapper-custom .container .one .content:before {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+.wrapper-custom .container .one .content .piece {
+    background: linear-gradient(90deg, #8077EA 13.7%, #EB73FF 94.65%);
+}
+
+.wrapper-custom .container .one .content .piece:nth-child(1) {
+    right: 15%;
+    top: 18%;
+    height: 30px;
+    width: 120px;
+    animation-delay: 0.5s;
+    animation-name: pieceRight;
+}
+
+.wrapper-custom .container .one .content .piece:nth-child(2) {
+    left: 15%;
+    top: 45%;
+    width: 150px;
+    height: 50px;
+    animation-delay: 1s;
+    animation-name: pieceLeft;
+}
+
+.wrapper-custom .container .one .content .piece:nth-child(3) {
+    left: 10%;
+    top: 75%;
+    height: 20px;
+    width: 70px;
+    animation-delay: 1.5s;
+    animation-name: pieceLeft;
+}
+
+.wrapper-custom .container .two .content .piece {
+    background: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
+}
+
+.wrapper-custom .container .two .content .piece:nth-child(1) {
+    left: 0%;
+    top: 25%;
+    height: 40px;
+    width: 120px;
+    animation-delay: 2s;
+    animation-name: pieceLeft;
+}
+
+.wrapper-custom .container .two .content .piece:nth-child(2) {
+    right: 15%;
+    top: 35%;
+    width: 180px;
+    height: 50px;
+    animation-delay: 2.5s;
+    animation-name: pieceRight;
+}
+
+.wrapper-custom .container .two .content .piece:nth-child(3) {
+    right: 10%;
+    top: 80%;
+    height: 20px;
+    width: 160px;
+    animation-delay: 3s;
+    animation-name: pieceRight;
+}
+
+.wrapper-custom .container .three .content .piece {
+    background: #FB8A8A;
+}
+
+.wrapper-custom .container .three .content .piece:nth-child(1) {
+    left: 25%;
+    top: 35%;
+    height: 20px;
+    width: 80px;
+    animation-name: pieceLeft;
+    animation-delay: 3.5s;
+}
+
+.wrapper-custom .container .three .content .piece:nth-child(2) {
+    right: 10%;
+    top: 55%;
+    width: 140px;
+    height: 40px;
+    animation-name: pieceRight;
+    animation-delay: 4s;
+}
+
+.wrapper-custom .container .three .content .piece:nth-child(3) {
+    left: 40%;
+    top: 68%;
+    height: 20px;
+    width: 80px;
+    animation-name: pieceLeft;
+    animation-delay: 4.5s;
+}

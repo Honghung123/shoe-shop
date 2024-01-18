@@ -1,0 +1,95 @@
+  <!-- Modal -->
+  <div class="modal fade" id="addNewProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl ">
+      <div class="modal-content"> 
+        <div class="modal-body p-0">
+          <section class="my-modal-content p-4">
+            <h1 class="title mb-4 text-gradient">Add product</h1>
+            <form class="form-add" method="post" action="#">
+              <div class="form-add-grid gap-4">
+                <div class="upload">
+                  <div class="upload-wrapper wrapper-custom">
+                    <h2 class="upload-title">Upload image</h2>
+                    <div class="upload-img">
+                      <!-- image here -->
+                    </div>
+                    <div class="upload-info">
+                      <p>
+                        <span class="upload-info-value">0</span> file(s) uploaded.
+                      </p>
+                    </div>
+                    <div class="upload-area">
+                      <div class="upload-area-img">
+                        <span class="material-icons-sharp">
+                          cloud_upload
+                          </span>
+                      </div>
+                      <p class="upload-area-text">Select images or <span>browse</span>.</p>
+                    </div>
+                    <input type="file" class="visually-hidden" id="upload-input" multiple name="images" required>
+                  </div>
+                </div>
+                <div class="form-content form-custom">
+                  <div class="form-field">
+                    <label class="label">Product name: </label>
+                    <input name="name" class="input-text" type="text" required>
+                    <label class="error-msg"></label>
+                   </div>
+                   <div class="form-field ">
+                     <label class="label">Price:</label>
+                     <input name="price" class="input-text" type="number" min="10000" required>
+                    </div>
+                    <div class="form-field ">
+                      <label class="label">Quanity:</label>
+                      <input name="quanity" class="input-text" type="number" min="1" required>
+                    </div>
+                    <div class="form-field ">
+                      <label class="label">Category:</label>
+                      <select name="catId" class="form-select" required>
+                        <option selected>- Select category -</option>
+                        <option value="1">Sport</option>
+                        <option value="2">Baby</option>
+                        <option value="3">Woman</option>
+                      </select>
+                    </div>
+                    <div class="form-field ">
+                      <label class="label">Brand:</label>
+                      <select name="catId" class="form-select" required>
+                        <option selected>- Select brand -</option>
+                        <option value="1">Addias</option>
+                        <option value="2">Gucci</option>
+                        <option value="3">Levent</option>
+                      </select>
+                    </div>
+                    <div class="form-field ">
+                      <label class="label">Size:</label>
+                      <select name="sizeId" class="form-select" required>
+                        <option selected>- Select size -</option>
+                        <option value="1">S</option>
+                        <option value="2">M</option>
+                        <option value="3">L</option>
+                      </select>
+                    </div>
+
+                    <div class="form-field ">
+                      <label class="label">Short description</label>
+                       <input name="short_des" class="input-text" type="text" required>
+                       <label class="error-msg"></label>
+                    </div>
+                    <div class="form-field">
+                      <label class="label">Full description</label>
+                       <textarea name="full_des" class="input-text" type="text" required style="resize: none;"></textarea>
+                       <label class="error-msg"></label>
+                    </div>
+                </div>
+              </div> 
+              <button type="submit" class="btn-custom btn-success fw-bold w-10 mt-4 margin-auto d-block">Add</button>
+            </form>
+            <button class="fw-bold close" data-bs-dismiss="modal">
+              <span class="material-icons-sharp"> close </span>
+            </button>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>

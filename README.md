@@ -34,8 +34,14 @@ Hãng
         _ Prođuct 2
             ...
 
-        Top danh thu
-        Top bán chạy
+        Top hãng có doanh thu cao tháng
+        Top sản phẩm bán chạy theo ngày, tháng, năm
+Bảng Brand
+    -Id
+    -Name
+Bảng Brand_Product
+    -BranhId
+    -ProductId
 
 Bảng Category 
     - id 
@@ -47,25 +53,32 @@ Bảng Product
     - short_description 
     - full_description 
     - price 
-    - stock 
     - categoryID 
     - sizeID
 
 Bảng Size
     sizeID
+    
     pID
     size
+Bảng product_size
+    sizeId
+    productId
+    stock
     
 Bảng Color
     colorID
     pID
     color
     image
+Bảng product_color
+    productId
+    colorId
     
-Bảng Cart
+Bảng Cart_Line
     id
-    pId
-    uId
+    productId
+    userId
     quantity
 
 Bảng User
@@ -73,12 +86,21 @@ Bảng User
     name
     username
     password
-    email 
-    status
-
+    address
+    email
+    role
+    locked
+    
 Bảng Order
     - id 
-    - cid 
+    - userId
+    - total
+Bảng Order_Line
+    -id
+    -OrderId
+    -ProductId
+    -Quantity
+    -Price
 
 Bảng Account
     - id

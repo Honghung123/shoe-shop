@@ -36,16 +36,22 @@ Hãng
 
         Top hãng có doanh thu cao tháng
         Top sản phẩm bán chạy theo ngày, tháng, năm
+
 Bảng Brand
     -Id
     -Name
-Bảng Brand_Product
-    -BranhId
-    -ProductId
 
 Bảng Category 
     - id 
     - name
+
+Bảng Size
+    - id
+    - size
+
+Bảng Color
+    - id
+    - color
 
 Bảng Product 
     - id 
@@ -53,28 +59,16 @@ Bảng Product
     - short_description 
     - full_description 
     - price 
-    - categoryID 
-    - sizeID
+    - brandId
+    - categoryId
 
-Bảng Size
-    sizeID
-    
-    pID
-    size
-Bảng product_size
-    sizeId
-    productId
-    stock
-    
-Bảng Color
-    colorID
-    pID
-    color
-    image
-Bảng product_color
-    productId
-    colorId
-    
+Bảng Product_stock
+    - productId
+    - sizeId
+    - colorId
+    - stock
+    - image
+
 Bảng Cart_Line
     id
     productId
@@ -83,18 +77,23 @@ Bảng Cart_Line
 
 Bảng User
     id
-    name
     username
     password
-    address
     email
     role
     locked
     
+Bảng Address
+    - userId
+    - address
+    - phone
+
 Bảng Order
     - id 
     - userId
     - total
+    - createAt
+
 Bảng Order_Line
     -id
     -OrderId
@@ -112,6 +111,19 @@ Bảng Voucher
     - percent(giảm giá bao nhiêu %)
     - date_expire 
     - limit(số lượng có hạn) Giả sử có 5 nguuời được áp
+
+------------------------- Hệ thống phụ -------------------------
+Bảng Account
+    - userId
+    - balance
+
+Bảng Transaction
+    - id
+    - from
+    - to
+    - total
+    - createAt
+
 
 ------------------------- ADMIN --------------------------------
 

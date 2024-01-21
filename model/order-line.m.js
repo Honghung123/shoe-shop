@@ -20,10 +20,11 @@ module.exports = new EntitySchema({
             type: 'int',
             nullable: false
         },
-        price: {
+        total: {
             type: 'decimal',
             nullable: false
         }
+        
     },
     relations: {
         product: {
@@ -48,7 +49,7 @@ module.exports = new EntitySchema({
         }
     },
     checks:  [{
-        expression: 'price > 0'
+        expression: 'total > 0'
 
     }],
     uniques: [

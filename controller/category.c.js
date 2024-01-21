@@ -1,4 +1,4 @@
-const {categoryRepo} = require('../config/db.config');
+const {categoryRepo, productRepo} = require('../config/db.config');
 const paginate = require('../utils/paginate');
 module.exports = {
   addCategory: async (req, res, next) => {
@@ -9,7 +9,6 @@ module.exports = {
   },
   updateCategory: async (req, res, next) => {
     const {id, name} = req.body;
-    console.log(id, name);
     const categoryToUpdate = await categoryRepo.findOne({where: {id}})
     categoryToUpdate.name = name;
     const category = await categoryRepo.save(categoryToUpdate);
@@ -19,9 +18,12 @@ module.exports = {
   deleteCategory: async (req, res, nex) => {
     try {
         const {id} = req.params;
-        console.log("Params", id);
+        if(productRepo.find({where: {cat_id: id}})){
+          res.local.msg = 'Can not delete category has product'
+          res.redirect('/admin/category')
+        }
         await categoryRepo.delete(id);
-        res.redirect('/admin/categegory')
+        res.redirect('/admin/categgory')
     } catch (error) {
         console.log(error);
         res.redirect('/admin/category')

@@ -31,6 +31,7 @@ module.exports = {
             await cartLineRepo.delete(id);
             // res.json('delete successfully');
             //TODO: render or redirect
+            res.redirect('customer/cart')
             
         } catch (error) {
             console.log(error);

@@ -1,16 +1,17 @@
 const cloudinary = require('cloudinary').v2;
+const multer = require('multer')
+const streamifier = require('streamifier')
 const {CloudinaryStorage} = require('multer-storage-cloudinary');
-cloudinary.config({
-    cloud_name
-})
-import {v2 as cloudinary} from 'cloudinary';
-          
+
+ 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET 
+  api_secret: process.env.CLOUDINARY_SECRET,
+  
 });
-const storage = new CloudinaryStorage({
+
+const cloudStorage = new CloudinaryStorage({
     cloudinary,
     params: {
         folder: 'shoe-shop',
@@ -18,6 +19,6 @@ const storage = new CloudinaryStorage({
     }
 });
 
-module.exports = {
-    storage
-};
+ 
+
+module.exports = cloudStorage;

@@ -1,28 +1,29 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
 module.exports = new EntitySchema({
-    name: 'CartLine',
-    tableName: 'cart_line', 
+    name: 'Stock',
+    tableName : 'product_stock', 
     columns: {
         id: {
             type: 'int',
             primary: true,
             generated: 'rowid'
         },
-        quantity: {
-            type: 'int',
-            nullable: false
-        },
         product_id: {
-            type: 'int',
-            nullable: false
+            type: 'varchar',
+            nullable: false,
+            
         },
-        user_id: {
+        size_id: {
+            type: 'varchar',
+            nullable: true
+        },
+        stock: {
             type: 'int',
-            nullable: false
-
+            nullable: false,
         }
     },
+
     relations: {
         product: {
             target: "Product",
@@ -30,27 +31,31 @@ module.exports = new EntitySchema({
             joinTable: false,
             cascade: false,
             joinColumn: {
-                name: 'product_id'
+                name: "product_id"
             },
             nullable: false
         },
-        user: {
-            target: "User",
-            type: "many-to-one",
+        size: {
+            target: 'Size',
+            type: 'many-to-one',
             joinTable: false,
-            cascade: false,
             joinColumn: {
-                name: 'user_id'
+                name: 'size_id'
             },
             nullable: false
-        }
+        },
+        
     },
+    checks:  [{
+        expression: 'stock > 0'
+
+    }],
     uniques: [
         {
-            name: "user_product_unique",
-            unique: true,
-            columns: ["product_id", "user_id"]
-            
+            name: "stock_product_size",
+            columns: ["product_id", "size_id"],
         }
     ]
-});
+    
+
+})

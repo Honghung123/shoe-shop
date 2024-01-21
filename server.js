@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(
   session({
     secret: "Not so secret",
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: { secure: false },
   })
@@ -41,14 +41,20 @@ app.set("view engine", "ejs");
 
 // Routers
 app.use(logger);
-const router = require("./routers/router.r");
+const adminRouter = require("./routers/admin.r");
 const authRouter = require("./routers/auth.r");
+const categoryRouter = require('./routers/category.r')
 const passport = require("passport");
 const cartLineRouter = require('./routers/cart-line.r')
+const productRouter = require('./routers/product.r')
 
 app.use("/", authRouter);
-app.use("/", router);
+app.use("/admin", adminRouter);
 app.use("/carts", cartLineRouter)
+app.use("/categories", categoryRouter)
+app.use("/products", productRouter)
+
+// app.use("/orders", )
 // app.use("/", passport);
 
 // Handle exceptions
@@ -56,3 +62,5 @@ app.use("/carts", cartLineRouter)
 app.listen(port, hostname, () => {
   console.log(`Server running at ${port}`);
 });
+
+

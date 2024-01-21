@@ -1,56 +1,48 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
 module.exports = new EntitySchema({
-    name: 'CartLine',
-    tableName: 'cart_line', 
+    name: 'Address',
+    tableName : 'user_address', 
     columns: {
         id: {
             type: 'int',
             primary: true,
             generated: 'rowid'
         },
-        quantity: {
-            type: 'int',
-            nullable: false
-        },
-        product_id: {
-            type: 'int',
+        address: {
+            type: 'varchar',
             nullable: false
         },
         user_id: {
             type: 'int',
             nullable: false
-
+        },
+        is_default: {
+            type: 'boolean',
+            nullable: false
         }
     },
+
     relations: {
-        product: {
+        user: {
             target: "Product",
             type: "many-to-one",
             joinTable: false,
             cascade: false,
             joinColumn: {
-                name: 'product_id'
+                name: "user_id"
             },
             nullable: false
         },
-        user: {
-            target: "User",
-            type: "many-to-one",
-            joinTable: false,
-            cascade: false,
-            joinColumn: {
-                name: 'user_id'
-            },
-            nullable: false
-        }
+        
+        
     },
     uniques: [
         {
-            name: "user_product_unique",
-            unique: true,
-            columns: ["product_id", "user_id"]
-            
+            name: "user_id_address",
+            columns: ["user_id", "address"],
         }
     ]
-});
+    
+
+})

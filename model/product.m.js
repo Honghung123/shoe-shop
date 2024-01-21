@@ -1,4 +1,5 @@
 const EntitySchema = require('typeorm').EntitySchema;
+
 module.exports = new EntitySchema({
     name: 'Product',
     tableName : 'product', 
@@ -6,22 +7,19 @@ module.exports = new EntitySchema({
         id: {
             type: 'int',
             primary: true,
-            generated: true
+            generated: 'rowid'
         },
         name: {
             type: 'varchar',
             nullable: false,
         },
-        images: {
+        short_des: {
             type: 'varchar',
-            nullable: false
-        }, 
-        stock: {
-            type: 'int',
-            nullable: false
+            nullable: true
         },
-        description: {
-            type: 'varchar'
+        full_des: {
+            type: 'varchar',
+            nullable: true
         },
         price: {
             type: 'decimal',
@@ -39,6 +37,15 @@ module.exports = new EntitySchema({
                 name: "category_id"
             }
         },
+        brand: {
+            target: 'Brand',
+            type: 'many-to-one',
+            joinTable: false,
+            joinColumn: {
+                name: 'brand_id'
+            }
+        },
+        
     },
     
 

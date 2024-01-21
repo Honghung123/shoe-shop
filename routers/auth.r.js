@@ -17,7 +17,12 @@ router
   .post(
     passport.authenticate("local", { failureRedirect: "/register" }),
     (req, res) => {
-      res.redirect("/home");
+      if(req.user.role == 'admin'){
+        res.redirect("/admin");
+      } else{
+        res.redirect('/admin/order')
+      }
+      
     }
   );
 

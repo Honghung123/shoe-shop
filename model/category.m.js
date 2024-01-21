@@ -5,13 +5,14 @@ module.exports = new EntitySchema({
     columns: {
         id: {
             type: 'int',
-            primary: true,
-            generated: true
+            generated: 'rowid',
+            primary: true
         },
         name: {
             type: 'varchar',
             nullable: false,
         },
     }
+    
 
 })

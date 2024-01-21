@@ -14,7 +14,6 @@ passport.deserializeUser(async (user,  done) => {
 passport.serializeUser((user, done) => {
     console.log("User in serialize");
     done(null, {email: user.email, role: user.role})
-    // done(null, user.email);
 })
 
 module.exports = (app) => {

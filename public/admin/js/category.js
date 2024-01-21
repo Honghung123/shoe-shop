@@ -41,3 +41,4 @@ $(".error-msg").each((idx, error) => {
     $(error).hide();
   }
 });
+

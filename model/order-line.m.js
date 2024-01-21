@@ -5,11 +5,12 @@ module.exports = new EntitySchema({
     columns: {
         id: {
             type: 'int',
-            generated: true,
+            generated: 'rowid',
             primary: true
         },
         quantity: {
-            type: 'int'
+            type: 'int',
+            nullable: false
         },
         product_id: {
             type: 'int',
@@ -41,7 +42,8 @@ module.exports = new EntitySchema({
             },
             nullable: false
         }
-    }, uniques: [
+    }, 
+    uniques: [
         {
             name: "order_product_unique",
             unique: true,

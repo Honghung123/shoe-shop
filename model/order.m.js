@@ -5,7 +5,7 @@ module.exports = new EntitySchema({
     columns: {
         id: {
             type: 'int',
-            generated: true,
+            generated: 'rowid',
             primary: true
         },
         created_at: {
@@ -18,11 +18,10 @@ module.exports = new EntitySchema({
             type: 'decimal',
             nullable: false,
         },
-        user_id: {
-            type: 'int',
+        status: {
+            type: 'varchar',
             nullable: false
         }
-        
         
     },
     relations: {
@@ -36,5 +35,8 @@ module.exports = new EntitySchema({
             },
             nullable: false
         }
-    }
+    },
+    checks: [{
+        expression: "status IN ('completed', 'canceled', 'delivering')"
+    }]
 })

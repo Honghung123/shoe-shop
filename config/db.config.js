@@ -5,7 +5,12 @@ const productModel = require('../model/product.m')
 const cartLineModel = require('../model/cart-line.m')
 const orderModel = require('../model/order.m')
 const sizeModel = require('../model/size.m')
-const orderLineModel = require('../model/order-line.m')
+const orderLineModel = require('../model/order-line.m');
+const branhModel = require('../model/brand.m');
+const stockModel = require('../model/stock.m');
+const imageModel = require('../model/image.m');
+const addressModel = require('../model/address.m');
+
 
 
 const dataSource = new typeorm.DataSource({
@@ -18,7 +23,7 @@ const dataSource = new typeorm.DataSource({
     synchronize: true,
     logging: true,
     logger: true,
-    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel],
+    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, branhModel, stockModel, imageModel, addressModel],
 });
 
 const connectDb = async () => {
@@ -37,8 +42,13 @@ const productRepo = dataSource.getRepository('Product')
 const categoryRepo = dataSource.getRepository('Category') 
 const cartLineRepo = dataSource.getRepository('CartLine')
 const sizeRepo = dataSource.getRepository('Size');
+const brandRepo = dataSource.getRepository('Brand');
 const orderRepo = dataSource.getRepository('Order')
-const orderLineRepo = dataSource.getRepository('OrderLine')
+const orderLineRepo = dataSource.getRepository('OrderLine');
+const stockRepo = dataSource.getRepository('Stock');
+const addressRepo = dataSource.getRepository('Address')
+const imageRepo = dataSource.getRepository('ProductImage');
 
 
-module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo}
+
+module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo}

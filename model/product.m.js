@@ -13,20 +13,23 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false,
         },
-        short_des: {
+        description: {
             type: 'varchar',
-            nullable: true
-        },
-        full_des: {
-            type: 'varchar',
-            nullable: true
+            nullable: false
         },
         price: {
             type: 'decimal',
             nullable: false
-        }
+        },
+        brand_id: {
+            type: 'int',
+            nullable: false
+        },
+        cat_id: {
+            type: 'int',
+            nullable: false
+        },
     },
-
     relations: {
         category: {
             target: "Category",
@@ -34,7 +37,7 @@ module.exports = new EntitySchema({
             joinTable: false,
             cascade: false,
             joinColumn: {
-                name: "category_id"
+                name: "cat_id"
             }
         },
         brand: {

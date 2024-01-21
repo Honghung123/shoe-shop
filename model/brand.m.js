@@ -13,15 +13,4 @@ module.exports = new EntitySchema({
             nullable: false
         }
     },
-    relations: {
-        products: {
-            target: 'Product',
-            type: 'many-to-many',
-            joinTable: {
-                name: 'brand_product',
-                joinColumn: { name: 'brand_id', referencedColumnName: 'id' },
-                inverseJoinColumn: { name: 'product_id', referencedColumnName: 'id' },
-            },
-        },
-    }
 })

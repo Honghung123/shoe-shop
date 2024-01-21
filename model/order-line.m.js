@@ -20,6 +20,11 @@ module.exports = new EntitySchema({
             type: 'int',
             nullable: false
         },
+        total: {
+            type: 'decimal',
+            nullable: false
+        }
+        
     },
     relations: {
         product: {

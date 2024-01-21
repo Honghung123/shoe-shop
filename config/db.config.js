@@ -51,4 +51,4 @@ const imageRepo = dataSource.getRepository('ProductImage');
 
 
 
-module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo}
+module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo, imageRepo, addressRepo}

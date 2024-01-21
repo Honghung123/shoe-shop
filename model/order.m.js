@@ -37,6 +37,6 @@ module.exports = new EntitySchema({
         }
     },
     checks: [{
-        expression: "status IN ('completed', 'canceled', 'delivering')"
+        expression: "status IN ('completed', 'canceled', 'delivering', 'preparing')"
     }]
 })

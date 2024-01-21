@@ -6,10 +6,12 @@ const cartLineModel = require('../model/cart-line.m')
 const orderModel = require('../model/order.m')
 const sizeModel = require('../model/size.m')
 const orderLineModel = require('../model/order-line.m');
-const branhModel = require('../model/brand.m');
+const brandModel = require('../model/brand.m');
 const stockModel = require('../model/stock.m');
 const imageModel = require('../model/image.m');
 const addressModel = require('../model/address.m');
+const colorModel = require('../model/color.m');
+const voucherModel = require('../model/voucher.m');
 
 
 
@@ -23,18 +25,16 @@ const dataSource = new typeorm.DataSource({
     synchronize: true,
     logging: true,
     logger: true,
-    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, branhModel, stockModel, imageModel, addressModel],
+    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, brandModel, stockModel, imageModel, addressModel, colorModel, voucherModel],
 });
 
 const connectDb = async () => {
     try {
-        await dataSource.initialize();
-        
+        await dataSource.initialize();        
         console.log('Connected to database');
     } catch (error) {
         console.log(error);
-        console.log(`Something went wrong: Can't connect to database`);
-        
+        console.log(`Something went wrong: Can't connect to database`);        
     }
 }
 const userRepo = dataSource.getRepository('User') 
@@ -48,7 +48,9 @@ const orderLineRepo = dataSource.getRepository('OrderLine');
 const stockRepo = dataSource.getRepository('Stock');
 const addressRepo = dataSource.getRepository('Address')
 const imageRepo = dataSource.getRepository('ProductImage');
+const colorRepo = dataSource.getRepository('Color');
+const voucherRepo = dataSource.getRepository('Voucher');
 
 
 
-module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo}
+module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo, addressRepo, imageRepo, colorRepo, voucherRepo}

@@ -1,14 +1,14 @@
 const EntitySchema = require('typeorm').EntitySchema
 module.exports = new EntitySchema({
-    name: 'Size',
-    tableName: 'size',
+    name: 'Color',
+    tableName: 'color',
     columns: {
         id: {
             type: 'int',
             generated: 'rowid',
             primary: true
         },
-        description: {
+        color: {
             type: 'varchar',
             nullable: true,
         }

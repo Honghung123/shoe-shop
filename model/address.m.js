@@ -13,6 +13,10 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false
         },
+        phone: {
+            type: 'varchar',
+            nullable: false
+        },
         user_id: {
             type: 'int',
             nullable: false

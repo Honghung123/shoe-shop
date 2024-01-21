@@ -13,6 +13,10 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false
         },
+        minimum_price: {
+            type: 'decimal',
+            nullable: false
+        },
         percent: {
             type: 'int',
             nullable: false
@@ -27,7 +31,7 @@ module.exports = new EntitySchema({
         }
     },
     checks:  [{
-        expression: 'percent > 0 AND percent <= 100'
+        expression: 'percent > 0 AND percent <= 100 AND minimum_price >= 0'
     }],
     uniques: [
         {

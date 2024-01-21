@@ -18,10 +18,6 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: true
         },
-        color_id: {
-            type: 'varchar',
-            nullable: true
-        },
         stock: {
             type: 'int',
             nullable: false,
@@ -48,16 +44,6 @@ module.exports = new EntitySchema({
             },
             nullable: false
         },
-        color: {
-            target: 'Color',
-            type: 'many-to-one',
-            joinTable: false,
-            joinColumn: {
-                name: 'color_id'
-            },
-            nullable: false
-        },
-        
     },
     checks:  [{
         expression: 'stock > 0'
@@ -65,8 +51,8 @@ module.exports = new EntitySchema({
     }],
     uniques: [
         {
-            name: "stock_product_size_color",
-            columns: ["product_id", "size_id", "color_id"],
+            name: "stock_product_size",
+            columns: ["product_id", "size_id"],
         }
     ]
     

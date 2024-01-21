@@ -1,0 +1,1 @@
+insert into public.product_image(product_id, image, color_id) values()

@@ -8,6 +8,10 @@ module.exports = new EntitySchema({
             generated: 'rowid',
             primary: true
         },
+        size: {
+            type: 'int',
+            nullable: false
+        },
         description: {
             type: 'varchar',
             nullable: true,

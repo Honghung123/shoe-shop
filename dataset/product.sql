@@ -1,0 +1,1 @@
+insert into public.product(name, short_des, full_des, price, category_id, brand_id) values()

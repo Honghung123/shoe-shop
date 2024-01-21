@@ -13,11 +13,11 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false,
         },
-        short_des: {
+        color: {
             type: 'varchar',
-            nullable: true
+            nullable: false
         },
-        full_des: {
+        description: {
             type: 'varchar',
             nullable: true
         },

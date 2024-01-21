@@ -1,0 +1,1 @@
+insert into public.product_stock(product_id, size_is, color_id, stock) values()

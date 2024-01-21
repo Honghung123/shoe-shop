@@ -47,7 +47,11 @@ module.exports = new EntitySchema({
             },
             nullable: false
         }
-    }, 
+    },
+    checks:  [{
+        expression: 'total > 0'
+
+    }],
     uniques: [
         {
             name: "order_product_unique",

@@ -51,5 +51,8 @@ module.exports = new EntitySchema({
         
     },
     
+    checks:  [{
+        expression: 'price > 0'
 
+    }],
 })

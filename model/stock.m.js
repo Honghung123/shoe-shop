@@ -46,7 +46,7 @@ module.exports = new EntitySchema({
         },
     },
     checks:  [{
-        expression: 'stock > 0'
+        expression: 'stock >= 0'
 
     }],
     uniques: [

@@ -9,6 +9,7 @@
         </tr>
     </thead>
     <tbody class="account-list">
+        <% users.forEach((user, idx) => { %>
         <tr class="account-item" data-id="10">
             <td><span>10</span></td>
             <td class="flex-start-center column-gap-3 padding-1 mlr-1">
@@ -16,7 +17,7 @@
                     <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                 </div>
                 <div>
-                    <h5 class="text-start">Quach Duc Huy</h5> 
+                    <h5 class="text-start"><%= user.username %></h5> 
                     <div class="user-info">
                         <ul class="list-unstyled d-flex flex-wrap-wrap">
                             <li>Account id: 123</li>
@@ -26,7 +27,7 @@
                 </div>
             </td>
             <td class="position-relative">
-                <span class="position-center">Active</span>
+                <span class="position-center"><%= user.locked ? 'Banned' : 'Active' %></span>
             </td>
             <td>
                 <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
@@ -41,7 +42,9 @@
                 </div>
             </td>
         </tr>
-        <tr class="account-item" data-id="11">
+        <% }) %>
+
+        <!-- <tr class="account-item" data-id="11">
             <td><span>11</span></td>
             <td class="flex-start-center column-gap-3 padding-1 mlr-1">
                 <div class="thumb">
@@ -71,7 +74,7 @@
                     </button>
                 </div>
             </td>
-        </tr>
+        </tr> -->
     </tbody>
 </table>
 <div class="text-center mt-4">

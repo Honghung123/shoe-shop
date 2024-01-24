@@ -13,6 +13,10 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false,
         },
+        color: {
+            type: 'varchar',
+            nullable: false
+        },
         description: {
             type: 'varchar',
             nullable: false

@@ -20,9 +20,8 @@ router
       if(req.user.role == 'admin'){
         res.redirect("/admin");
       } else{
-        res.redirect('/admin/order')
-      }
-      
+        res.redirect('/')
+      }      
     }
   );
 
@@ -50,7 +49,7 @@ router.get("/google/callback", (req, res, next) => {
       req.logIn(user, (error) => {
         console.log(error);
       });
-      req.session.save(() => res.redirect("/home"));
+      req.session.save(() => res.redirect("/"));
     } else if (msg === "Account already registered") {
       res.locals.message = msg;
       res.render("register");

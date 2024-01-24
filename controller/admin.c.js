@@ -10,10 +10,10 @@ module.exports = {
             const categories = await categoryRepo.find();
             const sizes = await categoryRepo.find();
             const {result, total, currentPage, totalPages} = await paginate(productRepo, page, limit);
-            console.log(result, total, currentPage, totalPages);
+            
             res.render("admin/product", {products: result, total, currentPage, totalPages, brands, categories, sizes});
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }, 
     getOrderPage: async (req, res, next) => {
@@ -32,10 +32,10 @@ module.exports = {
         const selectedDate = req.query.selectedDate || now;
         const selectedMonth = req.query.selectedMonth || now.getMonth()+ 1;
         const selectedYear = req.query.selectedYear || now.getFullYear();
-        console.log(startDate, endDate);
+        
         let ordersInPeriod = null;
         if(bestSeller === 'daily'){
-            console.log(selectedDate);
+            
             ordersInPeriod = await orderRepo
                 .createQueryBuilder('order')
                 .where('CAST(order.created_at AS DATE) = :selectedDate', { selectedDate })
@@ -73,16 +73,16 @@ module.exports = {
         bestSellersArray.sort((a, b) => b[1] - a[1]);
         // Limit the result to the top 5 products
         const top5BestSellers = bestSellersArray.slice(0, 5);
-        console.log("Top5Product", top5BestSellers);
+        
         
         const orders = await orderRepo.find({where: {created_at: Between(startDate, endDate)}});
         const ordersId = orders.map(order => order.id);
-        console.log(ordersId);
+        
         const orderLines = await orderLineRepo.find({
             where: {order_id: In(ordersId)},
             relations: ['product', 'product.brand']
         })
-        console.log(orderLines);
+        
         const brandRevenueMap = new Map();
         
     
@@ -107,13 +107,13 @@ module.exports = {
         const page = req.query.page || 1;
         const limit = req.query.limit || 10;
         const {result, total, currentPage, totalPages} = await paginate(categoryRepo, page, limit);
-        console.log(result, total, currentPage, totalPages);
         res.render("admin/category", {categories: result, total, currentPage, totalPages});
     },
     getAccountPage: async (req, res, next) => {
         const page = req.query.page || 1;
         const limit = req.query.limit || 10;
         const {result, total, currentPage, totalPages} = await paginate(userRepo, page, limit);
+        console.log(result, total, currentPage, totalPages);
         res.render("admin/account", {users: result, total, currentPage, totalPages});
     },
     

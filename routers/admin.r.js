@@ -4,10 +4,11 @@ const adminController = require('../controller/admin.c');
 const upload = require("../config/multer.config");
 const authorize = require('../middleware/authorize')
 
-// router.use(authorize('admin'))
-router.get("/home", (req, res) => {
-  res.render("client/home");
-});
+router.use(authorize('admin'));
+
+// router.get("/home", (req, res) => {
+//   res.render("client/home");
+// });
 router.get("/error", (req, res) => {
   console.log("Get error page");
   res.render("error");

@@ -100,7 +100,7 @@ module.exports = {
         brandRevenueArray.sort((a, b) => b[1] - a[1]);
         const top5Brands = brandRevenueArray.slice(0, 5);
         
-        res.render("admin/dashboard", {top5Brands: Object.fromEntries(top5Brands), top5Products: Object.fromEntries(top5Products)});
+        res.render("admin/dashboard", {top5Brands: Object.fromEntries(top5Brands), top5Products: Object.fromEntries(top5BestSellers)});
     },
     getCategoryPage: async (req, res, next) => {
         
@@ -116,4 +116,5 @@ module.exports = {
         const {result, total, currentPage, totalPages} = await paginate(userRepo, page, limit);
         res.render("admin/account", {users: result, total, currentPage, totalPages});
     },
+    
 }

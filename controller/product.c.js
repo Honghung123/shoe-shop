@@ -1,4 +1,3 @@
-const { error } = require('console');
 const {productRepo, sizeRepo, categoryRepo, imageRepo, brandRepo, stockRepo} = require('../config/db.config');
 const paginate = require('../utils/paginate');
 const fs = require('fs');
@@ -8,6 +7,7 @@ module.exports = {
         const product = await productRepo.findOne({where: {id},
             relations: ['brand', 'category']
         })
+        
         const stocks = await stockRepo.findOne({where: {product_id: id}})
         res.json({product, stocks})
         //redirect by role
@@ -18,9 +18,12 @@ module.exports = {
     findProducts: async (req, res, next) => {
         //brands is array of brand id
         //categories is array of category id
-        let {brands, categories, minPrice, maxPrice} = req.query;
+        let {brands, categories, minPrice, maxPrice, productName} = req.query;
         const sort = req.query.sort || 0
         const query = productRepo.createQueryBuilder('product');
+        if(productName){
+            query.andWhere('product.name LIKE %:name%', {productName})
+        }
         if(minPrice){
             query.andWhere('product.price > :minPrice', {minPrice})
         }
@@ -39,22 +42,20 @@ module.exports = {
         } else{
             query.orderBy('product.price', 'DESC')
         }
+        query.andWhere('product.is_delete = 0')
+        if(req.user.role != 'admin'){
+            query.innerJoin('product.stock', 'stock')
+                .where('stock.quantity > 0')
+        }
         const filteredProducts = await query.getMany();
         res.json(filteredProducts)
     },
-    getProductsOfCategory: async (req, res, next) => {
-        const {catId, page, limit} = req.query;
-        const {result, total, currentPage, totalPages} = await paginate(productRepo, page, limit);
-        res.json({products: result, total, currentPage, totalPages})
-    },
+
     addProduct: async (req, res, next) => {
         try {
-            
             console.log(req.body, req.files);
-            const {name, short_des, description, brandId, catId} = req.body;
-            let product = {name, price, brand_id: brandId, cat_id: catId}
-            
-            product = await productRepo.save(product);
+            const {name, description, brandId, catId} = req.body;
+            const product = await productRepo.save({name, price, brand_id: brandId, cat_id: catId});
             const files = req.files;
             for(let i = 0; i < files.length; i++){
                 const productImage = {product_id: product.id, image: files[i].path};
@@ -67,12 +68,25 @@ module.exports = {
         }
     },
     updateProduct: async (req, res, next) => {
+        const id = req.params;
         const {name, description, brandId, catId} = req.body
-        let productToUpdate = await productRepo.findOne({where: {id: 2}});
+        let productToUpdate = await productRepo.findOne({where: {id}});
         productToUpdate = {...productToUpdate, name, description, brand_id: brandId, cat_id: catId}
         await productRepo.save(productToUpdate);
         res.redirect('admin/category')
     },
+    deleteProduct: async (req, res, next) => {
+        const id = req.params;
+        let productToDelete = await productRepo.findOne({where: {id}});
+        if(productToDelete){
+            productToDelete.is_deleted = true;
+            await productRepo.findOne('product')
+        } else{
+            req.session.msg = 'Product not found'
+        }
+        res.redirect('admin/product')
+    }
+
     
     
     

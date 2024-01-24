@@ -10,9 +10,8 @@ const brandModel = require('../model/brand.m');
 const stockModel = require('../model/stock.m');
 const imageModel = require('../model/image.m');
 const addressModel = require('../model/address.m');
-
 const voucherModel = require('../model/voucher.m');
-
+const wishListModel = require('../model/wish-list.m')
 
 
 const dataSource = new typeorm.DataSource({
@@ -25,7 +24,7 @@ const dataSource = new typeorm.DataSource({
     synchronize: true,
     logging: true,
     logger: true,
-    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, brandModel, stockModel, imageModel, addressModel,  voucherModel],
+    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, brandModel, stockModel, imageModel, addressModel,  voucherModel, wishListModel],
 });
 
 const connectDb = async () => {
@@ -49,7 +48,8 @@ const stockRepo = dataSource.getRepository('Stock');
 const addressRepo = dataSource.getRepository('Address')
 const imageRepo = dataSource.getRepository('ProductImage');
 const voucherRepo = dataSource.getRepository('Voucher');
+const wishListRepo = dataSource.getRepository('WishList')
 
 
 
-module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo, addressRepo, imageRepo,  voucherRepo}
+module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo, addressRepo, imageRepo,  voucherRepo, wishListRepo}

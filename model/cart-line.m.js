@@ -9,6 +9,10 @@ module.exports = new EntitySchema({
             primary: true,
             generated: 'rowid'
         },
+        size_id: {
+            type: 'int',
+            nullable: true
+        },
         quantity: {
             type: 'int',
             nullable: false
@@ -43,6 +47,16 @@ module.exports = new EntitySchema({
                 name: 'user_id'
             },
             nullable: false
+        },
+        size: {
+            target: 'Size',
+            type: 'many-to-one',
+            joinTable: false,
+            cascade: false,
+            joinColumn: {
+                name: 'size_id'
+            },
+            nullable: false,
         }
     },
     uniques: [

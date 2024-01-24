@@ -1,14 +1,18 @@
-const { In } = require('typeorm');
-const {cartLineRepo, productRepo, orderRepo, orderLineRepo, } = require('../config/db.config')
+const { In, MoreThan } = require('typeorm');
+const {cartLineRepo, productRepo, orderRepo, orderLineRepo, stockRepo} = require('../config/db.config')
 module.exports = {
     addToCart: async (req, res, next) => {
         try {
-            const user = req.user;
-            const userId = 4;
-            const {productId, quantity} = req.body;
+            const userId = req.user.id;
+            const {productId, quantity, sizeId} = req.body;
             const product = await productRepo.findOne({where: {id: productId}});
             if(!product){
                 //redirect or render error
+            }
+            const stock = await stockRepo.findOne({where: {product_id: productId, size_id: sizeId, quantity: MoreThan(0)}})
+            if(!stock){
+                // run out of stock
+                res.json('Run out of stock')
             }
             let cartLine = await cartLineRepo.findOne({where: {product_id: productId, user_id: userId}})
             if(cartLine){
@@ -17,6 +21,7 @@ module.exports = {
             } else{
                 cartLine = await cartLineRepo.save({user_id: userId, product_id: productId, quantity})
             }
+            
             //replace json with render or redirect
             // const cartLines = await cartLineRepo.find(); //find all cart line of user
             const [cartLines, total] = await cartLineRepo.findAndCount({user_id: userId}) 
@@ -29,27 +34,17 @@ module.exports = {
         try {
             const id = req.params;
             await cartLineRepo.delete(id);
-            // res.json('delete successfully');
-            //TODO: render or redirect
             res.redirect('customer/cart')
-            
         } catch (error) {
             console.log(error);
         }
     }, 
-    addOneToCart: async (req, res, next) => {
-        try {
-            
-        } catch (error) {
-            
-        }
-    },
+    
    
     viewCart: async (req, res, next) => {
         try {
-            // const userId = req.user.id
-            const userId = 4;
-            const total = await cartLineRepo.count({where: {user_id: 4}});
+            const userId = req.user.id
+            const total = await cartLineRepo.count({where: {user_id: userId}});
             //fetch cart-line and its associative product
             const cartLines = await cartLineRepo.find({where: {user_id: userId}, relations: ['product']});
             
@@ -84,5 +79,15 @@ module.exports = {
         await cartLineRepo.delete(cartLinesId);
         res.json(order);
     },
+    updateCartLine: async (req, res) => {
+        const id = req.params;
+        const {quantity} = req.body;
+        const cartLine = await cartLineRepo.findOne({where: {id}});
+        cartLine.quantity = quantity;
+        const temp = await cartLineRepo.save(cartLine);
+        res.json(temp);
+        res.redirect('/carts')
+    }
+
     
 }

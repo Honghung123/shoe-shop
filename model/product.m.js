@@ -29,6 +29,10 @@ module.exports = new EntitySchema({
             type: 'int',
             nullable: false
         },
+        is_deleted: {
+            type: 'boolean',
+            default: 0
+        }
     },
     relations: {
         category: {

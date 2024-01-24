@@ -45,7 +45,7 @@ const passport = require("passport");
 const cartLineRouter = require('./routers/cart-line.r')
 const productRouter = require('./routers/product.r')
 
-app.use("/", authRouter);
+// app.use("/", authRouter);
 app.use("/admin", adminRouter);
 app.use("/carts", cartLineRouter)
 app.use("/categories", categoryRouter)

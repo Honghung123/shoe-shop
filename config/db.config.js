@@ -10,6 +10,7 @@ const brandModel = require('../model/brand.m');
 const stockModel = require('../model/stock.m');
 const imageModel = require('../model/image.m');
 const addressModel = require('../model/address.m');
+
 const voucherModel = require('../model/voucher.m');
 
 
@@ -24,16 +25,18 @@ const dataSource = new typeorm.DataSource({
     synchronize: true,
     logging: true,
     logger: true,
-    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, brandModel, stockModel, imageModel, addressModel, voucherModel],
+    entities: [userModel, categoryModel, productModel, cartLineModel, orderModel, sizeModel, orderLineModel, brandModel, stockModel, imageModel, addressModel,  voucherModel],
 });
 
 const connectDb = async () => {
     try {
-        await dataSource.initialize();        
+        await dataSource.initialize();
+        
         console.log('Connected to database');
     } catch (error) {
         console.log(error);
-        console.log(`Something went wrong: Can't connect to database`);        
+        console.log(`Something went wrong: Can't connect to database`);
+        
     }
 }
 const userRepo = dataSource.getRepository('User') 
@@ -51,4 +54,4 @@ const voucherRepo = dataSource.getRepository('Voucher');
 
 
 
-module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo, addressRepo, imageRepo, voucherRepo}
+module.exports = {connectDb, userRepo, productRepo, categoryRepo, cartLineRepo, sizeRepo, orderRepo, orderLineRepo, brandRepo, stockRepo, addressRepo, imageRepo,  voucherRepo}

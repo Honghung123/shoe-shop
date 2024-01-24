@@ -18,7 +18,7 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: true
         },
-        stock: {
+        quantity: {
             type: 'int',
             nullable: false,
         }
@@ -44,6 +44,7 @@ module.exports = new EntitySchema({
             },
             nullable: false
         },
+        
     },
     checks:  [{
         expression: 'stock >= 0'

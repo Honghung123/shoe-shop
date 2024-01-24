@@ -103,9 +103,8 @@ module.exports = {
         const brandRevenueArray = Array.from(brandRevenueMap.entries());
         brandRevenueArray.sort((a, b) => b[1] - a[1]);
         const top5Brands = brandRevenueArray.slice(0, 5);
-
-        // res.render("admin/dashboard", {top5Brands: Object.fromEntries(top5Brands), top5Products: Object.fromEntries(top5Products)});
-        res.render("admin/dashboard", { namePage: 'dashboard' });
+        
+        res.render("admin/dashboard", {top5Brands: Object.fromEntries(top5Brands), top5Products: Object.fromEntries(top5BestSellers), namePage: 'dashboard'});
     },
     getCategoryPage: async (req, res, next) => {
         const page = req.query.page || 1;

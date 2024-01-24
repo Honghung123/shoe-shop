@@ -1,6 +1,8 @@
 const { In, Between } = require("typeorm");
 const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo } = require("../config/db.config");
 const paginate = require("../utils/paginate");
+const paginateAccount = require("../utils/paginateAccount");
+const hashPwd = require('../utils/hashPassword');
 require("dotenv").config();
 
 module.exports = {
@@ -115,7 +117,7 @@ module.exports = {
         console.log(req.query);
         const page = req.query.page || 1;
         const limit = req.query.limit || process.env.PER_PAGE;
-        const { result, total, currentPage, totalPages } = await paginate(userRepo, page, limit);
+        const { result, total, currentPage, totalPages } = await paginateAccount(userRepo, page, limit);
         if (Object.keys(req.query).length === 0) {
             res.render("admin/account", { users: result, total, currentPage, totalPages, namePage: 'account' });
         } else {
@@ -137,7 +139,7 @@ module.exports = {
         try {
             const userId = parseInt(req.body?.id);
             const existingUser = await userRepo.findOne({
-                where: {id: userId}
+                where: { id: userId }
             });
             if (!existingUser) {
                 console.log(`User with ID ${userId} not found`);
@@ -155,5 +157,49 @@ module.exports = {
             console.error('Error updating user:', error);
             res.status(500).json({ message: 'Internal server error' });
         }
+    },
+    postDeleteAccount: async (req, res, next) => {
+        try {
+            const userId = parseInt(req.body?.id);
+            const existingUser = await userRepo.findOne({
+                where: { id: userId }
+            });
+            if (!existingUser) {
+                console.log(`User with ID ${userId} not found`);
+                return res.status(404).json({ message: `User with ID ${userId} not found` });
+            }
+            if (existingUser.role === 'admin') {
+                console.log(`Cannot delete admin`);
+                return res.status(404).json({ message: `Cannot delete admin` });
+            }
+            await userRepo.update(userId, { deleted: !existingUser.deleted });
+
+            console.log(`User with ID ${userId} deleted successfully`);
+            res.status(200).json({ message: `User with ID ${userId} deleted successfully` });
+        } catch (error) {
+            console.error('Error updating user:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    },
+    postAddAccount: async (req, res, next) => {
+        console.log(req.body);
+        console.log(req.file);
+        if (req.body.password !== req.body.repeatPassword) {
+            return res.status(404).json({ message: `Password does not match, please enter password again`, status: 'fail' });
+        }
+        const user = await userRepo.findOneBy({ email: req.body.email });
+        if (user) {
+            return res.status(404).json({ message: `Email is already exist`, status: 'fail' });
+        }
+        const hashedPwd = await hashPwd(req.body.password);
+        const newUser = {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPwd,
+            role: req.body.role,
+            avatar: req.file.path
+        };
+        await userRepo.save(newUser);
+        res.status(200).json({ message: `Add user successfully`, status: 'success' })
     }
 }

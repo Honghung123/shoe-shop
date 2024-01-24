@@ -12,7 +12,7 @@ async function viewAccount(e) {
     }
   }
   const accId = currentElement.getAttribute("data-id");
-  const response = await fetch(`/admin/account/${accId}`);
+  const response = await fetch(`/admin/account-get/${accId}`);
   const data = await response.json();
   updateViewAccount(data);
   $("#viewAccount").modal("show");
@@ -27,6 +27,7 @@ function updateViewAccount(data) {
   $('#viewAccount-address').html(data.address || 'No information');
   $('#viewAccount-phone').html(data.phone || 'No information');
   $('#viewAccount-role').html(data.role);
+  $('#viewAccount-avatar').attr('src', data.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png');
 };
 
 $(".pagination-account").on('click', changePage);
@@ -85,6 +86,7 @@ function updateListAccount(data) {
   pagination.appendChild(nextButton);
 
   $(".ban-account").on("click", banAccount);
+  $(".delete-account").on("click", deleteAccount);
 }
 
 function itemAccount(user) {
@@ -99,7 +101,7 @@ function itemAccount(user) {
       <td><span>${user.id}</span></td>
         <td class="flex-start-center column-gap-3 padding-1 mlr-1">
             <div class="thumb">
-                <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                <img class="avatar size-35" src="${user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'}" alt="">
             </div>
             <div>
                 <h5 class="text-start">${user.username}</h5> 
@@ -141,21 +143,72 @@ $(".add-account").on("click", function (e) {
   $("#addNewAccount").modal("show");
 });
 
-$(".delete-account").on("click", function (e) {
-  const id = parseInt(e.target.getAttribute("data-id"));
-  const editModal = $("#deleteAccount")[0];
-  editModal.addEventListener("show.bs.modal", function (event) {
-    const modalTitle = editModal.querySelector(".modal-title");
-    const modalBodyInput = editModal.querySelector(".modal-body input");
+$('#form-add-account').on('submit', async function (event) {
+  event.preventDefault();
+  $('#messageAddAccount').removeClass('text-warning text-danger text-success');
+  $('#messageAddAccount').addClass('text-warning');
+  $('#messageAddAccount').html('Data is being processed, please wait');
+  const formData = new FormData(event.target);
+
+  const response = await fetch('/admin/account/add', {
+    method: 'POST',
+    body: formData
   });
+  const data = await response.json();
+  $('#messageAddAccount').removeClass('text-warning text-danger text-success');
+  if (data.status === 'fail') {
+    $('#messageAddAccount').addClass('text-danger');
+    $('#messageAddAccount').html(data.message);
+  } else {
+    $('#messageAddAccount').addClass('text-success');
+    $('#messageAddAccount').html(data.message);
+  }
 });
+
+$(".delete-account").on("click", deleteAccount);
+
+function deleteAccount(e) {
+  const id = parseInt(e.target.getAttribute("data-id"));
+  localStorage.setItem('deleteAccId', id);
+  // const editModal = $("#deleteAccount")[0];
+  // editModal.addEventListener("show.bs.modal", function (event) {
+  //   const modalTitle = editModal.querySelector(".modal-title");
+  //   const modalBodyInput = editModal.querySelector(".modal-body input");
+  // });
+}
+
+$("#btn-delete-account").on("click", async function () {
+  const id = localStorage.getItem('deleteAccId');
+  console.log(id);
+  const response = await fetch(`/admin/account-delete`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }),
+  });
+  if (!response.ok) {
+    const data = await response.json();
+    console.log(data);
+    if (data.message === 'Cannot delete admin') {
+      alert('Cannot delete admin');
+    }
+  }
+  else {
+    const curPage = $('span.page-numbers').text();
+    const refresh = await fetch(`/admin/account?page=${curPage}&limit=${PER_PAGE}`);
+    const data = await refresh.json();
+    updateListAccount(data);
+  }
+  localStorage.removeItem('deleteAccId');
+})
 
 $(".ban-account").on("click", banAccount);
 
 async function banAccount(e) {
   const id = parseInt(e.target.getAttribute("data-id"));
   localStorage.setItem('banAccId', id);
-  const response = await fetch(`/admin/account/${id}`, {
+  const response = await fetch(`/admin/account-get/${id}`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
@@ -192,7 +245,7 @@ $("#btn-ban-account").on("click", async function () {
     }
   }
   else {
-    const curPage = $('span.page-numbers').attr('data-id');
+    const curPage = $('span.page-numbers').text();
     const refresh = await fetch(`/admin/account?page=${curPage}&limit=${PER_PAGE}`);
     const data = await refresh.json();
     updateListAccount(data);

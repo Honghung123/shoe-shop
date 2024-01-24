@@ -15,7 +15,7 @@
                 <td><span><%= user.id %></span></td>
                 <td class="flex-start-center column-gap-3 padding-1 mlr-1">
                     <div class="thumb">
-                        <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                        <img class="avatar size-35" src="<%= user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'%>" alt="">
                     </div>
                     <div>
                         <h5 class="text-start"><%= user.username %></h5> 

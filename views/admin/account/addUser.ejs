@@ -1,0 +1,72 @@
+<!-- Modal -->
+<div class="modal fade" id="addNewUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl ">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <section class="my-modal-content p-4">
+          <h1 class="title mb-4 text-gradient">Add User</h1>
+          <form class="form-add" id="form-add-account">
+            <div class="form-add-grid gap-4">
+              <div class="upload">
+                <div class="upload-wrapper wrapper-custom">
+                  <h2 class="upload-title">Upload Avatar</h2>
+                  <div class="upload-img">
+                    <!-- image here -->
+                  </div>
+                  <div class="upload-info">
+                    <p>
+                      <span class="upload-info-value">0</span> file(s) uploaded.
+                    </p>
+                  </div>
+                  <div class="upload-area">
+                    <div class="upload-area-img">
+                      <span class="material-icons-sharp">
+                        cloud_upload
+                      </span>
+                    </div>
+                    <p class="upload-area-text">Select images or <span>browse</span>.</p>
+                  </div>
+                  <input type="file" class="visually-hidden" id="upload-input" name="avatar" required>
+                </div>
+              </div>
+              <div class="form-content form-custom">
+
+                <div class="form-field my-1">
+                  <label class="label">Username: </label>
+                  <input name="username" class="input-text" type="text" required>
+                  <label class="error-msg"></label>
+                </div>
+                <div class="form-field my-1 ">
+                  <label class="label">Email:</label>
+                  <input name="email" class="input-text" type="email" required>
+                </div>
+                <div class="form-field my-1 ">
+                  <label class="label">Password:</label>
+                  <input name="password" class="input-text" type="password" required>
+                </div>
+                <div class="form-field my-1 ">
+                  <label class="label">Repeat Password:</label>
+                  <input name="repeatPassword" class="input-text" type="password" required>
+                </div>
+                <div class="form-field my-1 ">
+                  <label class="label">Role:</label>
+                  <select name="role" class="form-select" required>
+                    <option selected value="customer">Customer</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+                <div id="messageAddAccount" class="my-5 text-center" >
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn-custom btn-success fw-bold w-10 mt-4 margin-auto d-block">Add</button>
+          </form>
+          <button class="fw-bold close" data-bs-dismiss="modal">
+            <span class="material-icons-sharp"> close </span>
+          </button>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,8 @@
 <html lang="en">
 <%- include('./partials/head'); -%>
     <link rel="stylesheet" href="/public/admin/css/features/account.css">
+    <!-- <link rel="stylesheet" href="/public/admin/css/features/product.css"> -->
+
 </head>
 <body>
   <div class="container-fluid">
@@ -16,13 +18,14 @@
         <div class="flex-between-center mb-2">
           <h2 class="">Account management</h2>
           <div class="manipulation">
-            <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewAccount">Add new</button>
+            <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewUser">Add new</button>
           </div>
         </div>
         <div>
           <%- include('./account/accountList'); -%>
           <%- include('./account/viewAccount'); -%> 
           <%- include('./account/addAccount') %>
+          <%- include('./account/addUser') %>
           <%- include('./account/deleteAccount'); -%>
           <%- include('./account/banAccount'); -%>
         </div>

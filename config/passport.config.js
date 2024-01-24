@@ -26,7 +26,12 @@ module.exports = (app) => {
         if(!user){
             return done(null, false);
         }
-        const isMatch = await bcrypt.compare(password, user.password);
+        let isMatch = false;
+        if (user.locked || user.deleted) {
+            isMatch = false;
+        } else {
+            isMatch = await bcrypt.compare(password, user.password);
+        }
         if(isMatch){
             return done(null, user);
         }
@@ -51,7 +56,7 @@ module.exports = (app) => {
             return done(null, null, {message: "Account already registered"})
         }
         //login
-        if(user){
+        if(user?.locked === false && user?.deleted === false){
             return done(null, user, {message: "Logged in"})
         }
         return done(null, null, {message: "Account didn't exist"})

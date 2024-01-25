@@ -16,7 +16,30 @@ router
   .route("/login")
   .get(authController.renderLogin)
   .post(
-    passport.authenticate("local", { failureRedirect: "/register" }),
+    // passport.authenticate("local", { failureRedirect: "/register" }),
+    (req, res, next) => {
+      passport.authenticate("local", (err, user, info) => {
+        if (err) {
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        console.log('ìno', err, user, info);
+        if (!user) {
+          return res.status(401).json({ error: info });
+        }
+        req.logIn(user, (err) => {
+          if (err) {
+            return res.status(500).json({ error: "Internal Server Error" });
+          }
+
+          if (user.role == "admin") {
+            return res.redirect("/admin");
+          } else {
+            return res.redirect("/");
+          }
+        });
+      })(req, res, next);
+    },
     (req, res) => {
       if (req.user.role == "admin") {
         res.redirect("/admin");

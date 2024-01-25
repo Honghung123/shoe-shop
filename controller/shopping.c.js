@@ -4,7 +4,6 @@ const {In, Between} = require('typeorm');
 
 module.exports = {
     postShoppingPage: async (req, res, next) => {
-        console.log(req.body);
         const page = req.query.page || 1;
         const limit = req.query.limit || process.env.PER_PAGE_PRODUCT;
 

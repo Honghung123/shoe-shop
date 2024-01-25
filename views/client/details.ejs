@@ -34,26 +34,18 @@
               <div class="product__pic">
                 <div class="product__pic__item">
                   <img class="product__pic__item--large image"
-                    src="https://dictionary.cambridge.org/images/thumb/shoe_noun_002_33438.jpg?version=5.0.376" alt="">
+                    src="<%= images[0].image %>" alt="">
                 </div>
                 <div class="product__pic__slider owl-carousel">
-                  <img src="https://dictionary.cambridge.org/images/thumb/shoe_noun_002_33438.jpg?version=5.0.376"
-                    alt="">
-                  <img
-                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/01ffec46-0c01-4981-8808-a4cd35a57e96/dunk-low-retro-shoes-69h36X.png"
-                    alt="">
-                  <img
-                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6f687ba8-9271-4de0-a65f-6d2632408b88/air-max-pulse-shoes-vntJKX.png"
-                    alt="">
-                  <img
-                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/01ffec46-0c01-4981-8808-a4cd35a57e96/dunk-low-retro-shoes-69h36X.png"
-                    alt="">
+                  <% images.forEach( e => { %>
+                    <img src="<%= e.image %>" alt="">
+                  <% }) %>
                 </div>
               </div>
             </div>
             <div class="col-lg-7 col-md-7">
               <div class="product__details__text">
-                <h3 class="limit-line line-2">A Shoe from adidas</h3>
+                <h3 class="limit-line line-2"><%= product.name %></h3>
                 <div class="product__details__rating">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -64,26 +56,17 @@
                 </div>
                 <ul class="">
                   <li class="product__details__item"><b>Price: </b><span
-                      class="product__details__price currency">750000</span></li>
-                  <li class="product__details__item"><b>Brand: </b><span>Adidas</span></li>
+                      class="product__details__price currency"><%= product.price %></span></li>
+                  <li class="product__details__item"><b>Brand: </b><span><%= product.brand %></span></li>
                   <li class="product__details__item"><b>Size: </b>
-                    <span class="sidebar__item__size">
-                      <label class="pt-2 pb-2">XL</label>
-                    </span>
-                    <span class="sidebar__item__size">
-                      <label class="pt-2 pb-2">L</label>
-                    </span>
-                    <span class="sidebar__item__size">
-                      <label class="pt-2 pb-2">M</label>
-                    </span>
-                    <span class="sidebar__item__size">
-                      <label class="pt-2 pb-2">S</label>
-                    </span>
+                    <% stock.forEach(e=> { %>
+                      <span class="sidebar__item__size">
+                        <label class="pt-2 pb-2"><%= e.size %></label>
+                      </span>
+                    <% }) %>
                   </li>
-                  <li class="product__details__item"><b>Short description: </b>
-                    <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                      vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                      quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                  <li class="product__details__item"><b>Description: </b>
+                    <p><%= product.description %></p>
                   </li>
                 </ul>
                 <div class="product__details__quantity">
@@ -150,36 +133,24 @@
             </div>
           </div>
           <div class="row featured__filter row-gap-4">
-            <div class="col col-lg-3 col-md-4 col-sm-6">
-              <div class="featured__item">
-                <div class="featured__item__pic">
-                  <img src="img/featured/feature-1.jpg" class="image" alt="">
-                  <ul class="featured__item__pic__hover">
-                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                    <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                  </ul>
+            <% suggests.forEach( e => { %>
+              <div class="col col-lg-3 col-md-4 col-sm-6">
+                <div class="featured__item">
+                  <div class="featured__item__pic">
+                    <img src="<%= e.image %>" style="<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                    <ul class="featured__item__pic__hover">
+                      <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                      <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                    </ul>
+                  </div>
+                  <a href="/detail?id=<%= e.id %>" class="featured__item__text p-3">
+                    <p class="limit-line line-2 mb-2"><%= e.name %></p>
+                    <h5 class="currency"><%= e.price %></h5>
+                  </a>
                 </div>
-                <a href="details.html" class="featured__item__text p-3">
-                  <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                  <h5 class="currency">870000</h5>
-                </a>
               </div>
-            </div>
-            <div class="col col-lg-3 col-md-4 col-sm-6">
-              <div class="featured__item">
-                <div class="featured__item__pic">
-                  <img src="img/featured/feature-1.jpg" class="image" alt="">
-                  <ul class="featured__item__pic__hover">
-                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                    <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                  </ul>
-                </div>
-                <a href="details.html" class="featured__item__text p-3">
-                  <p class="limit-line line-2 mb-2">Merino to ishite am sf sf sewr not fum with antohoder</p>
-                  <h5 class="currency">870000</h5>
-                </a>
-              </div>
-            </div>
+            <% }) %>
+            
           </div>
         </div>
       </section>

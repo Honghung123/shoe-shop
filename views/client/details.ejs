@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Shoe store - Details</title>
+  <%- include('./partials/head'); -%>
+</head>
+
+<body>
+  <%- include('./partials/nav'); -%>
+    <%- include('./partials/preloader'); -%>
+
+      <!-- Breadcrumb Section Begin -->
+      <section class="breadcrumb-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <div class="breadcrumb__text">
+                <h2>Product information</h2>
+                <div class="breadcrumb__option">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Breadcrumb Section End -->
+
+      <!-- Product Details Section Begin -->
+      <section class="product-details mt-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 col-md-5">
+              <div class="product__pic">
+                <div class="product__pic__item">
+                  <img class="product__pic__item--large image"
+                    src="https://dictionary.cambridge.org/images/thumb/shoe_noun_002_33438.jpg?version=5.0.376" alt="">
+                </div>
+                <div class="product__pic__slider owl-carousel">
+                  <img src="https://dictionary.cambridge.org/images/thumb/shoe_noun_002_33438.jpg?version=5.0.376"
+                    alt="">
+                  <img
+                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/01ffec46-0c01-4981-8808-a4cd35a57e96/dunk-low-retro-shoes-69h36X.png"
+                    alt="">
+                  <img
+                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6f687ba8-9271-4de0-a65f-6d2632408b88/air-max-pulse-shoes-vntJKX.png"
+                    alt="">
+                  <img
+                    src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/01ffec46-0c01-4981-8808-a4cd35a57e96/dunk-low-retro-shoes-69h36X.png"
+                    alt="">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7 col-md-7">
+              <div class="product__details__text">
+                <h3 class="limit-line line-2">A Shoe from adidas</h3>
+                <div class="product__details__rating">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+                  <span>(18 reviews)</span>
+                </div>
+                <ul class="">
+                  <li class="product__details__item"><b>Price: </b><span
+                      class="product__details__price currency">750000</span></li>
+                  <li class="product__details__item"><b>Brand: </b><span>Adidas</span></li>
+                  <li class="product__details__item"><b>Size: </b>
+                    <span class="sidebar__item__size">
+                      <label class="pt-2 pb-2">XL</label>
+                    </span>
+                    <span class="sidebar__item__size">
+                      <label class="pt-2 pb-2">L</label>
+                    </span>
+                    <span class="sidebar__item__size">
+                      <label class="pt-2 pb-2">M</label>
+                    </span>
+                    <span class="sidebar__item__size">
+                      <label class="pt-2 pb-2">S</label>
+                    </span>
+                  </li>
+                  <li class="product__details__item"><b>Short description: </b>
+                    <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
+                      vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
+                      quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                  </li>
+                </ul>
+                <div class="product__details__quantity">
+                  <!-- <div class="quantity">
+                <div class="pro-qty">
+                  <input type="text" value="1">
+                </div>
+              </div> -->
+                </div>
+                <div class="product__details__options mb-4">
+                  <button class="my-button button-hover-fadeIn rounded-3"><span class="text-white">Add to cart</span> <i
+                      class="fa-solid fa-cart-plus"></i></button>
+                  <button class="my-button button-hover-fadeIn rounded-3"><span class="text-white">Add to
+                      favourite</span> <i class="fa-solid fa-heart"></i></button>
+                </div>
+                <!-- <a href="checkout.html" class="my-button button-hover-shake hover-color-primary rounded-pill">Buy now</a> -->
+              </div>
+            </div>
+            <div class="col-lg-12" id="tabs-link">
+              <div class="product__details__tab pt-5">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link tab__switch active" href="#tabs-link" data-target="tab-content">Information</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link tab__switch" href="#tabs-link" data-target="tab-review">Reviews</a>
+                  </li>
+                </ul>
+                <div class="tab-content pt-3">
+                  <div class="tab-pane active" id="tab-content">
+                    <div class="product__details__tab__desc">
+                      <h6>Products Infomation: </h6>
+                      <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. </p>
+                      <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
+                        ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="tab-review">
+                    <div class="product__details__tab__desc">
+                      <h6>Reviews: </h6>
+                      <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
+                        Vivamus suscipit tortor eget felis porttitor volutpat. </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="divider-line mt-4 w-75 m-auto"></div>
+      </section>
+      <!-- Product Details Section End -->
+
+      <!-- Related Product Section Begin -->
+      <section class="related-product spad mb-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="section-title related__product__title">
+                <h2>Related Product</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row featured__filter row-gap-4">
+            <div class="col col-lg-3 col-md-4 col-sm-6">
+              <div class="featured__item">
+                <div class="featured__item__pic">
+                  <img src="img/featured/feature-1.jpg" class="image" alt="">
+                  <ul class="featured__item__pic__hover">
+                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                    <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                  </ul>
+                </div>
+                <a href="details.html" class="featured__item__text p-3">
+                  <p class="limit-line line-2 mb-2">Merino to ishite</p>
+                  <h5 class="currency">870000</h5>
+                </a>
+              </div>
+            </div>
+            <div class="col col-lg-3 col-md-4 col-sm-6">
+              <div class="featured__item">
+                <div class="featured__item__pic">
+                  <img src="img/featured/feature-1.jpg" class="image" alt="">
+                  <ul class="featured__item__pic__hover">
+                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                    <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                  </ul>
+                </div>
+                <a href="details.html" class="featured__item__text p-3">
+                  <p class="limit-line line-2 mb-2">Merino to ishite am sf sf sewr not fum with antohoder</p>
+                  <h5 class="currency">870000</h5>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Related Product Section End -->
+
+      <!-- Footer Section -->
+      <%- include('./partials/footer'); -%>
+        <!-- Footer Section End -->
+
+        <!-- Js Plugins -->
+        <%- include('./partials/scripts'); -%>
+          <script src="/public/client/js/detail.js"></script>
+          <!-- Js Plugins End -->
+
+</body>
+
+</html>

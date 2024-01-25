@@ -1,124 +1,132 @@
 <!-- <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"> -->
-    <table class="my-table box-shadow-primary text-center">
-        <thead>
-            <tr>
-                <th width="8%">ID</th>
-                <th>Customer</th>
-                <th width="15%">Ordered date</th>
-                <th width="15%">Status</th>
-                <th width="15%">Total</th>
-                <th width="15%">Update</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="order-item">
-                <td><span>13353</span></td>
-                <td class="">
-                    <span>Dam Hong Hung</span>
-                </td>
-                <td>
-                    <span>29-12-2023</span>
-                </td>
-                <td class="position-relative">
-                    <span class="order-status position-center delivering">Delivering</span> 
-                </td>
-                <td>
-                    <span class="currency">2500000</span>
-                </td>
-                <td>
-                    <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
-                        <button class="btn-custom order-action p-0 ship-order">
-                            <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder" data-id="1"> local_shipping </span>
-                        </button>
-                        <button class="btn-custom order-action p-0 delete-order">
-                            <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder" data-id="1"> block </span>
-                        </button>
-                    </div>
-                </td>
-            </tr> 
-            <tr class="order-item">
-                <td><span>13353</span></td>
-                <td class="">
-                    <span>Quach Duc Huy</span>
-                </td>
-                <td>
-                    <span>10-12-2023</span>
-                </td>
-                <td class="position-relative">
-                    <span class="order-status position-center success">Delivered</span> 
-                </td>
-                <td>
-                    <span class="currency">5200000</span>
-                </td>
-                <td>
-                    <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
-                        <button class="btn-custom p-0 ship-order">
-                            <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder" data-id="2"> local_shipping </span>
-                        </button>
-                        <button class="btn-custom p-0 delete-order">
-                            <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder" data-id="2"> block </span>
-                        </button>
-                    </div>
-                </td>
-            </tr> 
-            <tr class="order-item">
-                <td><span>13353</span></td>
-                <td class="">
-                    <span>Tran Nguyen Gia Huy</span>
-                </td>
-                <td>
-                    <span>20-12-2023</span>
-                </td>
-                <td class="position-relative"> 
-                    <span class="order-status position-center canceled">Canceled</span>
-                </td>
-                <td>
-                    <span class="currency">700000</span>
-                </td>
-                <td>
-                    <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
-                        <button class="btn-custom order-action p-0 ship-order">
-                            <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder" data-id="1"> local_shipping </span>
-                        </button>
-                        <button class="btn-custom order-action p-0 delete-order">
-                            <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder" data-id="1"> block </span>
-                        </button>
-                    </div>
-                </td>
-            </tr> 
-            <tr class="order-item">
-                <td><span>13353</span></td>
-                <td class="">
-                    <span>Ngo Quoc Huy</span>
-                </td>
-                <td>
-                    <span>31-12-2023</span>
-                </td>
-                <td class="position-relative"> 
-                    <span class="order-status position-center processing">Processing</span>
-                </td>
-                <td>
-                    <span class="currency">2500000</span>
-                </td>
-                <td>
-                    <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
-                        <button class="btn-custom p-0 ship-order">
-                            <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder" data-id="2"> local_shipping </span>
-                        </button>
-                        <button class="btn-custom p-0 delete-order">
-                            <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder" data-id="2"> block </span>
-                        </button>
-                    </div>
-                </td>
-            </tr> 
-        </tbody>
-    </table>
-    <div class="text-center mt-4">
-        <ul class="pagination">
-            <a class="prev page-numbers" href="#">Prev</a>
-            <span aria-current="page" class="page-numbers active">1</span>
-            <a class="page-numbers" href="#">2</a>
-            <a class="page-numbers" href="#">3</a>
-            <a class="next page-numbers" href="#">Next</a>
-        </ul>
-    </div>
+<table class="my-table box-shadow-primary text-center">
+    <thead>
+        <tr>
+            <th width="10%">ID</th>
+            <th>Customer</th>
+            <th width="15%">Ordered date</th>
+            <th width="15%">Status</th>
+            <th width="15%">Total</th>
+            <th width="10%">Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="order-item">
+            <td><span>13353</span></td>
+            <td class="">
+                <span>Dam Hong Hung</span>
+            </td>
+            <td>
+                <span>29-12-2023</span>
+            </td>
+            <td class="position-relative">
+                <span class="order-status position-center delivering">Delivering</span>
+            </td>
+            <td>
+                <span class="currency">2500000</span>
+            </td>
+            <td>
+                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
+                    <button class="btn-custom order-action p-0 ship-order">
+                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
+                            data-id="1"> local_shipping </span>
+                    </button>
+                    <button class="btn-custom order-action p-0 delete-order">
+                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
+                            data-id="1"> block </span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr class="order-item">
+            <td><span>13353</span></td>
+            <td class="">
+                <span>Quach Duc Huy</span>
+            </td>
+            <td>
+                <span>10-12-2023</span>
+            </td>
+            <td class="position-relative">
+                <span class="order-status position-center success">Delivered</span>
+            </td>
+            <td>
+                <span class="currency">5200000</span>
+            </td>
+            <td>
+                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
+                    <button class="btn-custom p-0 ship-order">
+                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
+                            data-id="2"> local_shipping </span>
+                    </button>
+                    <button class="btn-custom p-0 delete-order">
+                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
+                            data-id="2"> block </span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr class="order-item">
+            <td><span>13353</span></td>
+            <td class="">
+                <span>Tran Nguyen Gia Huy</span>
+            </td>
+            <td>
+                <span>20-12-2023</span>
+            </td>
+            <td class="position-relative">
+                <span class="order-status position-center canceled">Canceled</span>
+            </td>
+            <td>
+                <span class="currency">700000</span>
+            </td>
+            <td>
+                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
+                    <button class="btn-custom order-action p-0 ship-order">
+                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
+                            data-id="1"> local_shipping </span>
+                    </button>
+                    <button class="btn-custom order-action p-0 delete-order">
+                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
+                            data-id="1"> block </span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr class="order-item">
+            <td><span>13353</span></td>
+            <td class="">
+                <span>Ngo Quoc Huy</span>
+            </td>
+            <td>
+                <span>31-12-2023</span>
+            </td>
+            <td class="position-relative">
+                <span class="order-status position-center processing">Processing</span>
+            </td>
+            <td>
+                <span class="currency">2500000</span>
+            </td>
+            <td>
+                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
+                    <button class="btn-custom p-0 ship-order">
+                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
+                            data-id="2"> local_shipping </span>
+                    </button>
+                    <button class="btn-custom p-0 delete-order">
+                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
+                            data-id="2"> block </span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center mt-4">
+    <ul class="pagination">
+        <a class="prev page-numbers" href="#">Prev</a>
+        <span aria-current="page" class="page-numbers active">1</span>
+        <a class="page-numbers" href="#">2</a>
+        <a class="page-numbers" href="#">3</a>
+        <a class="next page-numbers" href="#">Next</a>
+    </ul>
+</div>

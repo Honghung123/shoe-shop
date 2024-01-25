@@ -1,48 +1,63 @@
-  <!-- Modal -->
-  <div class="modal fade" id="viewProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-xl ">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <section class="product my-modal-content p-4">
-            <h1 class="title mb-4 text-gradient">Product infomation</h1>
-            <div class="product-info row">
-              <div class="col-md-5 medium-shadow card-small-radius p-3">
-                <div class="gallery-slider">
-                  <div class="gallery-preview">
-                    <img src="http://placekitten.com/200/126">
-                    <span class="gallery-prev" onclick="plusSlides(-1)">&#10094;</span>
-                    <span class="gallery-next" onclick="plusSlides(1)">&#10095;</span>
-                  </div>
-                  <img class="thumbnail-item" src="http://placekitten.com/200/126" onclick="currentSlide(1)" alt="The Woods">
-                  <img class="thumbnail-item" src="http://placekitten.com/400/252" onclick="currentSlide(2)" alt="Cinque Terre">
-                  <img class="thumbnail-item" src="https://th.bing.com/th/id/OIG.gq_uOPPdJc81e_v0XAei" onclick="currentSlide(3)" alt="Mountains and fjords">
+<!-- Modal -->
+<div class="modal fade" id="viewProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl ">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <section class="product my-modal-content p-4">
+          <h1 class="title mb-4 text-gradient">Product infomation</h1>
+          <div class="product-info row row-gap-4">
+            <div class="col-lg-5 col-md-12 medium-shadow card-small-radius p-3">
+              <div class="gallery-slider">
+                <div class="gallery-preview">
+                  <img src="http://placekitten.com/200/126">
+                  <span class="gallery-prev" onclick="plusSlides(-1)">&#10094;</span>
+                  <span class="gallery-next" onclick="plusSlides(1)">&#10095;</span>
                 </div>
-              </div>
-
-              <div class="details col-md-7">
-                <h5 class="product-title">Product name: <span> A new product branch or special name of it</span></h5>
-                <h5 class="product-detail">Short description: <span>Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</span></h5>
-                <h5 class="product-detail">Price: <span class="currency">180000</span></h5>
-                <h5 class="product-detail">Size: <span>M</span></h5>
-                <h5 class="product-detail">Stock: <span>23</span></h5>
-                <h5 class="product-detail">Brand: <span>Levent</span></h5>
-                <h5 class="product-detail">Category: <span>Sport shoe</span></h5>
-              </div>
-              
-
-              <div class="col-md-12 mt-4">
-                <h5 class="product-detail">Full description:
-                  <span>Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, temporibus optio maxime voluptas enim consequuntur aliquid, quos libero quidem animi eos accusantium voluptates iure dolore aut ratione ad rerum commodi!</span>
-                  <br>
-                  <span>Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, temporibus optio maxime voluptas enim consequuntur aliquid, quos libero quidem animi eos accusantium voluptates iure dolore aut ratione ad rerum commodi!</span>
-                </h5>
+                <img class="thumbnail-item" src="http://placekitten.com/200/126" onclick="currentSlide(1)"
+                  alt="The Woods">
+                <img class="thumbnail-item" src="http://placekitten.com/400/252" onclick="currentSlide(2)"
+                  alt="Cinque Terre">
+                <img class="thumbnail-item" src="https://th.bing.com/th/id/OIG.gq_uOPPdJc81e_v0XAei"
+                  onclick="currentSlide(3)" alt="Mountains and fjords">
               </div>
             </div>
-            <button class="close" data-bs-dismiss="modal">
-              <span class="material-icons-sharp"> close </span>
-            </button>
-          </section>
-        </div>
+
+            <div class="details col-lg-7 col-md-12">
+              <h5 class="product-title">Product name: <span> A new product branch or special name of it</span></h5>
+              <h5 class="product-detail">Price: <span class="currency text-danger fw-500">180000</span></h5>
+              <h5 class="product-detail">Brand: <span>Levent</span></h5>
+              <h5 class="product-detail">Category: <span>Sport shoe</span></h5>
+              <h5 class="product-detail">Size and stock:
+                <div class="size-stock-view flex-start-center flex-wrap gap-3 pt-2 pb-2">
+                  <div class="product-size-stock-item">
+                    <input type="hidden" name="sizes" value="1-10" class="d-none">
+                    <p>Size: <b>L</b> - Qty: <b>11</b></p>
+                  </div>
+                  <div class="product-size-stock-item">
+                    <input type="hidden" name="sizes" value="1-10" class="d-none">
+                    <p>Size: <b>XL</b> - Qty: <b>12</b></p>
+                  </div>
+                  <div class="product-size-stock-item">
+                    <input type="hidden" name="sizes" value="1-10" class="d-none">
+                    <p>Size: <b>M</b> - Qty: <b>31</b></p>
+                  </div>
+                </div>
+              </h5>
+              <h5 class="product-detail">Description: <span>Suspendisse quos? Tempus cras iure temporibus? Eu laudantium
+                  cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</span></h5>
+            </div>
+
+            <div class="col-md-12 detail_sections">
+              <h5 class="product-detail">
+              </h5>
+            </div>
+          </div>
+          <button class="close" data-bs-dismiss="modal">
+            <span class="material-icons-sharp"> close </span>
+          </button>
+        </section>
       </div>
     </div>
   </div>
+</div>

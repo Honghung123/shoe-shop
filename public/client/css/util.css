@@ -1,0 +1,676 @@
+/* Global CSS Variable */
+:root {
+	--color-primary: rgb(32, 32, 32);
+	--color-second: rgb(35, 200, 237);
+	--color-placeholder: #777777;
+	--color-border-variant: #e0e0e0;
+	--background-primary: rgb(179, 57, 255);
+	--background-second: rgb(35, 200, 237);
+	--background-primary-variant: #f4f4f4;
+
+	--card-border-radius: .85rem;
+	--card-sm-border-radius: .5rem;
+	--card-md-border-radius: 1.5rem;
+	--card-lg-border-radius: 2rem;
+
+	--card-sm-shadow: .05rem .05rem .4rem #777777;
+	--card-sm-shadow-primary: .05rem .05rem .3rem var(--background-primary);
+
+	--transition-linear: all .25s linear;
+}
+
+/* Reset CSS */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	max-width: 100%;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+	outline: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+/* End Reset CSS */
+
+/* Common class */
+.currency::after {
+	content: " VND";
+}
+
+.divider-line {
+	border-bottom: .1rem solid var(--color-border-variant);
+}
+
+.flex-end-center {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.flex-start-center {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.fs-7 {
+	font-size: 0.85rem;
+}
+
+.fs-8 {
+	font-size: 0.625rem;
+}
+
+.image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.image-contains {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.link-hover-horizontal {
+	position: relative;
+
+	&::after {
+		content: "";
+		width: 0;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		border-bottom: .3rem solid var(--background-primary);
+		transition: var(--transition-linear);
+	}
+
+	&:focus,
+	&:hover {
+		color: var(--background-primary);
+
+		&:after {
+			width: 100%;
+		}
+	}
+}
+
+.link-hover-horizontal.active {
+	color: var(--background-primary);
+
+	&::after {
+		width: 100%;
+	}
+}
+
+.link-hover-horizontal:not(active) {
+	&::after {
+		width: 0;
+	}
+}
+
+.limit-line {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	&.line-1 {
+		-webkit-line-clamp: 1;
+	}
+
+	&.line-2 {
+		-webkit-line-clamp: 2;
+	}
+
+	&.line-3 {
+		-webkit-line-clamp: 3;
+	}
+}
+
+.ml05 {
+	margin-left: 0.5rem;
+}
+
+.mlr05 {
+	margin: 0 0.5rem;
+}
+
+.w-10 {
+	width: 10%;
+}
+
+.w-15 {
+	width: 15%;
+}
+
+.w-85 {
+	width: 85%;
+}
+
+.w-90 {
+	width: 90%;
+}
+
+
+.text-gradient {
+	background-image: linear-gradient(to right top,
+			#d16ba5,
+			#c777b9,
+			#ba83ca,
+			#aa8fd8,
+			#9a9ae1,
+			#8aa7ec,
+			#79b3f4,
+			#69bff8,
+			#52cffe,
+			#41dfff,
+			#46eefa,
+			#5ffbf1);
+	color: transparent;
+	-webkit-background-clip: text;
+}
+
+/* End common class */
+
+/* Scrollbar css */
+::-webkit-scrollbar {
+	width: .7rem;
+}
+
+/* Màu nền của track */
+/* ::-webkit-scrollbar-track {
+	background-color: var(--background-primary); 
+  } */
+
+::-webkit-scrollbar-thumb {
+	/* background: linear-gradient(45deg, #e600e6, #00cccc);  */
+	background-image: linear-gradient(to bottom,
+			var(--background-primary),
+			var(--background-second));
+	border-radius: .5rem;
+	/* Bo tròn cạnh cho handle */
+	opacity: .5;
+	transition: var(--transition-ease);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+/* End scrollbar css */
+
+/* Preloader while loading a page */
+#preloder {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 999999;
+	background: #000;
+}
+
+.loader {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -13px;
+	margin-left: -13px;
+	border-radius: 60px;
+	animation: loader 0.8s linear infinite;
+	-webkit-animation: loader 0.8s linear infinite;
+}
+
+@keyframes loader {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+		border: 4px solid #c259ff;
+		border-left-color: transparent;
+	}
+
+	50% {
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+		border: 4px solid aqua;
+		border-left-color: transparent;
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+		border: 4px solid #c259ff;
+		border-left-color: transparent;
+	}
+}
+
+/* End preloading */
+
+/* Text reveal on scroll */
+.scroll-reveal {
+	text-align: center;
+}
+
+.scroll-reveal h2 {
+	font-size: 3rem;
+	line-height: 1;
+}
+
+.scroll-reveal p {
+	font-size: 1.2rem;
+	line-height: 1.3;
+	margin-inline: auto;
+}
+
+.scroll-reveal>* {
+	margin: 0;
+}
+
+/* demo only */
+.scroll-reveal span {
+	color: hsl(0 0% 0% / 0.2);
+	background-clip: text;
+	background-repeat: no-repeat;
+	background-size: 0% 100%;
+	background-image: linear-gradient(90deg, black, black);
+	animation: scroll-reveal linear forwards;
+	animation-timeline: view(y);
+}
+
+.scroll-reveal h2 span {
+	animation-range-start: cover 20vh;
+	animation-range-end: cover 30vh;
+}
+
+.scroll-reveal p span {
+	animation-range-start: cover 22.5vh;
+	animation-range-end: cover 50vh;
+}
+
+@keyframes scroll-reveal {
+	to {
+		background-size: 100% 100%;
+	}
+}
+
+/* End text reveal on scroll */
+.dealing-background {
+	background-color: rgba(0, 0, 0, .9);
+	color: white;
+}
+
+.dealing .text-deal .dealing-title {
+	font-weight: 600;
+	font-size: 1.5rem;
+	height: 4.5rem;
+}
+
+.dealing .text-deal .dealing-price {
+	font-size: 1.3rem;
+}
+
+#timer .dealing-time {
+	width: 5rem;
+	height: 5rem;
+	font-size: 2rem;
+	font-weight: 700;
+	position: relative;
+	z-index: 1;
+
+	&::after {
+		content: "";
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		z-index: -1;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+	}
+
+	&:nth-child(1n)::after {
+		background: linear-gradient(0deg, var(--background-second), var(--background-primary));
+	}
+
+	&:nth-child(2n)::after {
+		background: linear-gradient(45deg, var(--background-second), var(--background-primary));
+	}
+
+	&:nth-child(3n)::after {
+		background: linear-gradient(90deg, var(--background-second), var(--background-primary));
+	}
+
+	&:nth-child(4n)::after {
+		background: linear-gradient(135deg, var(--background-second), var(--background-primary));
+	}
+
+}
+
+#timer .dealing-time span {
+	font-weight: 400;
+	display: block;
+	font-size: 0.625rem;
+	letter-spacing: .2rem;
+	text-transform: capitalize;
+}
+
+
+.coupon__item {
+	border-radius: var(--card-sm-border-radius);
+	box-shadow: var(--card-sm-shadow);
+}
+
+.coupon__code {
+	cursor: pointer;
+}
+
+.border-left {
+	border-left: .1rem solid var(--color-border-variant);
+}
+
+.background__primary {
+	background-color: var(--background-primary);
+}
+
+.color__primary {
+	color: var(--background-primary);
+}
+
+.hover__primary:hover {
+	color: var(--background-primary);
+}
+
+.background__second {
+	background-color: var(--background-second);
+}
+
+.box-shadow-primary {
+	box-shadow: var(--card-sm-shadow);
+}
+
+.grid-system {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-columns: auto;
+}
+
+.custom-zoom {
+	zoom: 0.9;
+	padding: .3rem .5rem !important;
+}
+
+/* Toast */
+#toast__container {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 100;
+}
+
+.toast-notification {
+	background: white;
+	width: 20rem;
+	border-radius: var(--card-sm-border-radius);
+	box-shadow: var(--card-sm-shadow);
+	overflow: hidden;
+
+	&+& {
+		margin-top: 1rem;
+	}
+}
+
+.toast-notification .toast-content {
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0 1rem;
+}
+
+.toast-notification .toast-icon {
+	color: #fff;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	& i {
+		font-size: 1.25rem;
+	}
+}
+
+.toast-notification .toast-progress {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+
+.toast-notification .toast-msg {
+	flex: 1;
+}
+
+.toast-notification .toast-progress-bar {
+	height: .25rem;
+	animation: toastProgress 2s ease-in-out forwards;
+}
+
+.slide-in-slide-out {
+	animation: slideInRight 0.3s ease-in-out forwards, slideOutRight 0.5s ease-in-out forwards 2s;
+	transform: translateX(110%);
+}
+
+.slide-in-fade-out {
+	animation: slideInRight 0.3s ease-in-out forwards, fadeOut 0.5s ease-in-out forwards 2s;
+	transform: translateX(110%);
+}
+
+.wiggle-me {
+	animation: wiggle 2.5s ease-in;
+}
+
+@keyframes slideInRight {
+	0% {
+		transform: translateX(110%);
+	}
+
+	75% {
+		transform: translateX(-10%);
+	}
+
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+@keyframes slideOutRight {
+	0% {
+		transform: translateX(0%);
+	}
+
+	25% {
+		transform: translateX(-10%);
+	}
+
+	100% {
+		transform: translateX(110%);
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes toastProgress {
+	0% {
+		width: 100%;
+	}
+
+	100% {
+		width: 0%;
+	}
+}
+
+@keyframes wiggle {
+
+	0%,
+	7% {
+		transform: rotateZ(0);
+	}
+
+	15% {
+		transform: rotateZ(-13deg);
+	}
+
+	20% {
+		transform: rotateZ(9deg);
+	}
+
+	25% {
+		transform: rotateZ(-10deg);
+	}
+
+	30% {
+		transform: rotateZ(7deg);
+	}
+
+	35% {
+		transform: rotateZ(-2deg);
+	}
+
+	40%,
+	100% {
+		transform: rotateZ(0);
+	}
+}
+
+/* End toast */
+
+/* Spinner Orbit loading */
+.spinner-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	height: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
+}
+
+.leo {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+}
+
+.blue-orbit {
+	width: 165px;
+	height: 165px;
+	border: .1rem solid #da91ffa5;
+	animation: spin3D 3s linear .2s infinite;
+}
+
+.green-orbit {
+	width: 120px;
+	height: 120px;
+	border: .1rem solid rgb(161, 110, 255);
+	animation: spin3D 2s linear 0s infinite;
+}
+
+.red-orbit {
+	width: 90px;
+	height: 90px;
+	border: .1rem solid aqua;
+	animation: spin3D 1s linear 0s infinite;
+}
+
+.white-orbit {
+	width: 60px;
+	height: 60px;
+	border: .15rem solid #ffffff;
+	animation: spin3D 10s linear 0s infinite;
+}
+
+.w1 {
+	transform: rotate3D(1, 1, 1, 90deg);
+}
+
+.w2 {
+	transform: rotate3D(1, 2, .5, 90deg);
+}
+
+.w3 {
+	transform: rotate3D(.5, 1, 2, 90deg);
+}
+
+.three-quarter-spinner {
+	width: 50px;
+	height: 50px;
+	border: 3px solid #fb5b53;
+	border-top: 3px solid transparent;
+	border-radius: 50%;
+	animation: spin .5s linear 0s infinite;
+}
+
+
+@keyframes spin {
+	from {
+	  transform: rotate(0);
+	}
+	to{
+	  transform: rotate(359deg);
+	}
+  }
+  
+  @keyframes spin3D {
+	from {
+	  transform: rotate3d(.5,.5,.5, 360deg);
+	}
+	to{
+	  transform: rotate3d(0deg);
+	}
+  }
+
+/* End Spinner Orbit loading */

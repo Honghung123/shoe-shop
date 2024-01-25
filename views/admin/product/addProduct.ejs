@@ -7,7 +7,7 @@
         <section class="my-modal-content p-4">
           <h1 class="title mb-4 text-gradient">Add product</h1>
           <form class="form-add" method="post" enctype="multipart/form-data" action="/products">
-            <div class="form-add-grid gap-4">
+            <div class="form-add-grid form-grid-responsive gap-4">
               <div class="upload">
                 <div class="upload-wrapper wrapper-custom">
                   <h2 class="upload-title">Upload image</h2>
@@ -19,7 +19,7 @@
                       <span class="upload-info-value">0</span> file(s) uploaded.
                     </p>
                   </div>
-                  <div class="upload-area">
+                  <div class="upload-area area-add">
                     <div class="upload-area-img">
                       <span class="material-icons-sharp">
                         cloud_upload
@@ -31,7 +31,6 @@
                 </div>
               </div>
               <div class="form-content form-custom">
-
                 <div class="form-field">
                   <label class="label">Product name: </label>
                   <input name="name" class="input-text" type="text" required>
@@ -39,11 +38,7 @@
                 </div>
                 <div class="form-field ">
                   <label class="label">Price:</label>
-                  <input name="price" class="input-text" type="number" min="10000" required>
-                </div>
-                <div class="form-field ">
-                  <label class="label">Quanity:</label>
-                  <input name="quanity" class="input-text" type="number" min="1" required>
+                  <input name="price" class="input-text" type="number" min="0" value="0" step="1000" required>
                 </div>
                 <div class="form-field ">
                   <label class="label">Category:</label>
@@ -54,43 +49,35 @@
                         <%= category.name %>
                       </option>
                       <% }) %>
-                        <!-- <option value="1">Sport</option>
-                        <option value="2">Baby</option>
-                        <option value="3">Woman</option> -->
                   </select>
                 </div>
                 <div class="form-field ">
                   <label class="label">Brand:</label>
                   <select name="brandId" class="form-select" required>
                     <option selected>- Select brand -</option>
-                    <option value="1">Addias</option>
+                    <option value="1">Adidas</option>
                     <option value="2">Gucci</option>
                     <option value="3">Levent</option>
                   </select>
                 </div>
                 <div class="form-field ">
-                  <label class="label">Size:</label>
-                  <select name="sizeId" class="form-select" required>
-                    <option selected>- Select size -</option>
-                    <option value="1">S</option>
-                    <option value="2">M</option>
-                    <option value="3">L</option>
-                  </select>
-                </div>
-
-                <div class="form-field ">
-                  <label class="label">Short description</label>
-                  <input name="short_des" class="input-text" type="text" required>
-                  <label class="error-msg"></label>
-                </div>
+                  <label class="label">Size and Stock:</label>
+                  <button type="button" class="btn-custom btn-warning fw-bold mx-3" style="zoom: .9;"
+                    id="addModal-stock-btn">
+                    <div class="d-flex align-items-center column-gap-1">
+                      <h5>Add</h5> <span class="material-icons-sharp"> add </span>
+                    </div>
+                  </button>
+                  <div id="add-size-stock-container" class="d-flex flex-wrap gap-3 pt-2 pb-2"></div>
+                </div> 
                 <div class="form-field">
-                  <label class="label">Full description</label>
-                  <textarea name="full_des" class="input-text" type="text" required style="resize: none;"></textarea>
+                  <label class="label">Description</label>
+                  <textarea name="description" class="input-text" type="text" required style="resize: none;"></textarea>
                   <label class="error-msg"></label>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn-custom btn-success fw-bold w-10 mt-4 margin-auto d-block">Add</button>
+            <button type="submit" class="btn-custom btn-success fw-bold px-4 mt-4 margin-auto d-block">Add</button>
           </form>
           <button class="fw-bold close" data-bs-dismiss="modal">
             <span class="material-icons-sharp"> close </span>

@@ -92,7 +92,9 @@ a {
 .ml-auto{
   margin-left: auto;
 }
-
+.mlr-05{
+  margin: 0 .5rem;
+}
 .mlr-1 {
   margin: 0 1rem;
 }
@@ -301,7 +303,7 @@ button{
         padding: 0.3rem 1rem;
         transition: var(--transition-ease);
         color: var(--color-dark);
-        background-color: var(--backgound-input);
+        background-color: var(--background-input);
 
         &:hover {
             animation: borders 1s linear infinite;
@@ -314,7 +316,7 @@ button{
         border-radius: var(--medium-border-radius);
         cursor: pointer;
         color: var(--color-dark);
-        background-color: var(--backgound-input);
+        background-color: var(--background-input);
 
         &:hover {
             animation: borders 1s linear infinite;

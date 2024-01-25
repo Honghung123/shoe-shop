@@ -1,25 +1,28 @@
 <nav class="flex-between-center right-section w-95 margin-auto mt-3 mb-3 o-hidden">
   <div class="toggle flex-center-center">
-    <div class="logo">
+    <!-- <div class="logo">
       <img class="avatar size-4"
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFGwi5Q-BYGGMhBiEGF70BGNBp1Ne1BP_fNRf8sJ1aHBHkLYqn38VsNhfuysQAxhvRFEM&usqp=CAU">
-    </div>
-    <p class="text-gradient fs-2 text-typing-animation">Admin dashboard</p>
+    </div> -->
+    <a href="/admin" class="text-gradient text-typing-animation dashboard-title">Admin dashboard</a>
   </div>
   <div class="nav">
     <button id="menu-btn">
       <span class="material-icons-sharp">menu</span>
     </button>
+    <div class="toggle flex-center-center nav-title">
+      <a href="/admin" class="text-gradient text-typing-animation">Admin dashboard</a>
+    </div>
     <div class="dark-mode">
       <span class="material-icons-sharp flex-center-center">dark_mode</span>
     </div>
 
     <div class="profile">
-      <div class="info">
+      <div class="info d-flex flex-column align-items-center row-gap-1">
         <p>
           Hi, <b>Honghung123</b>
         </p>
-        <small>Admin</small>
+        <small class="w-100 text-end">Admin</small>
       </div>
       <div class="profile-photo">
         <img

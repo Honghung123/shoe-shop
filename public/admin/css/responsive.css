@@ -1,12 +1,5 @@
 /* Pagination Responsive */
 
-@media only screen and (max-width: 1199px) {
-  .page-numbers {
-    padding: 0 15px;
-    font-size: 16px;
-    line-height: 50px;
-  }
-}
 @media only screen and (min-width: 120px) and (max-width: 1024px) {
   .page-numbers {
     padding: 0 14px;
@@ -32,5 +25,218 @@
   }
   .page-numbers:nth-last-child(-n + 4)::after {
     content: none;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 95%;
+    grid-template-columns: 7rem auto 23rem;
+  }
+
+  aside .logo h2 {
+    display: none;
+  }
+
+  aside .sidebar a:last-child {
+    position: relative;
+    margin-top: 1.8rem;
+  }
+
+  main .analyse {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  main .new-users .user-list .user {
+    flex-basis: 40%;
+  }
+
+  main .recent-orders {
+    width: 94%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 2rem 0 0 0.8rem;
+  }
+
+  main .recent-orders table {
+    width: 83vw;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .btn-custom {
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container-grid {
+    grid-template-columns: 1fr;
+  }
+  main .analyse__item {
+    padding: 0;
+  }
+
+  aside {
+    position: fixed;
+    background-color: var(--color-white);
+    width: 15rem;
+    z-index: 3;
+    border-radius: var(--card-border-radius);
+    top: 4.5rem;
+    box-shadow: 1rem 3rem 4rem var(--color-light);
+    left: -100%;
+    display: none;
+    animation: showMenu 0.4s ease forwards;
+  }
+
+  @keyframes showMenu {
+    to {
+      left: 0;
+    }
+  }
+
+  aside .logo {
+    margin-left: 1rem;
+  }
+
+  aside .logo h2 {
+    display: inline;
+  }
+
+  aside .sidebar h3 {
+    display: inline;
+  }
+
+  aside .sidebar a {
+    width: 100%;
+    height: 3.4rem;
+  }
+
+  aside .sidebar a:last-child {
+    position: absolute;
+    bottom: 5rem;
+  }
+
+  aside .toggle .close {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  main {
+    margin-top: 5rem;
+  }
+
+  main .my-table {
+    font-size: 85% !important;
+  }
+
+  .avatar.size-35 {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  main .new-users .user-list .user {
+    flex-basis: 35%;
+  }
+
+  main .recent-orders {
+    position: relative;
+    margin: 3rem 0 0 0;
+    width: 100%;
+  }
+
+  main .recent-orders table {
+    width: 100%;
+    margin: 0;
+  }
+
+  .right-section {
+    width: 94%;
+    margin: 0 auto 4rem;
+  }
+
+  .right-section .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    background-color: var(--color-white);
+    padding-right: 0.5rem;
+    height: 4.6rem;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 1rem 1rem var(--color-light);
+    margin: 0;
+  }
+
+  .right-section .nav .dark-mode {
+    position: absolute;
+    left: 62.5%;
+  }
+
+  .right-section .nav button {
+    display: inline-block; 
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--color-dark);
+    position: absolute;
+    left: 1rem;
+    top: 33%;
+    transition: var(--transition-ease);
+    & span{
+      transition: var(--transition-ease);
+      outline: 0.01rem solid transparent;
+      border-radius: 50%;
+    }
+    &:hover {
+      & span{ 
+        outline-color: var(--color-dark-variant);
+        color: var(--color-dark-variant);
+      }
+    }
+  }
+
+  .right-section .nav button span {
+    font-size: 1.5rem;
+  }
+  .nav .nav-title {
+    display: block;
+    left: 3rem;
+    position: absolute;
+    & .text-gradient {
+      font-size: 1.7rem;
+    }
+  }
+  .dashboard-title {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .nav {
+    font-size: 85%;
+  }
+  .nav .nav-title .text-gradient {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .right-section .nav .dark-mode {
+    position: absolute;
+    left: 56%;
+  }
+
+  .nav .nav-title {
+    font-size: 80%;
+  }
+  .nav .nav-title .text-gradient {
+    font-size: 1.25rem;
+  }
+  .column-gap-custom {
+    column-gap: 0.4rem !important;
   }
 }

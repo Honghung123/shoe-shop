@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./partials/head'); -%>
+
+<head>
+  <%- include('./partials/head'); -%>
     <link rel="stylesheet" href="/public/admin/css/features/account.css">
     <!-- <link rel="stylesheet" href="/public/admin/css/features/product.css"> -->
 
 </head>
+
 <body>
+  <!-- Page Preloader -->
+  <div id="preloader">
+    <div class="spinner-box">
+      <div class="blue-orbit leo">
+      </div>
+
+      <div class="green-orbit leo">
+      </div>
+
+      <div class="red-orbit leo">
+      </div>
+
+      <div class="white-orbit w1 leo">
+      </div>
+      <div class="white-orbit w2 leo">
+      </div>
+      <div class="white-orbit w3 leo">
+      </div>
+    </div>
+  </div>
   <div class="container-fluid">
     <%- include('./partials/nav'); -%>
-    <div class="container-grid w-95 margin-auto d-grid gap-4">
-      <!-- Sidebar Section -->
-      <%- include('./partials/sidebar'); -%>
-      <!-- End of Sidebar Section -->
+      <div class="container-grid w-95 margin-auto d-grid gap-4">
+        <!-- Sidebar Section -->
+        <%- include('./partials/sidebar'); -%>
+          <!-- End of Sidebar Section -->
 
-      <!-- Main Content -->
+          <!-- Main Content -->
       <main> 
         <div class="flex-between-center mb-2">
           <h2 class="">Account management</h2>
@@ -33,11 +56,12 @@
       <!-- End of Main Content -->
 
 
-    </div>
+      </div>
   </div>
-  <%- include('./partials/script'); -%> 
-  <script src="/public/admin/js/main.js"></script>
-  <script src="/public/admin/js/account.js"></script>
+  <%- include('./partials/footer'); -%>
+  <%- include('./partials/script'); -%>
+    <script src="/public/admin/js/main.js"></script>
+    <script src="/public/admin/js/account.js"></script>
 </body>
 
 </html>

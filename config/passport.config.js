@@ -13,7 +13,7 @@ passport.deserializeUser(async (user,  done) => {
 })
 passport.serializeUser((user, done) => {
     console.log("User in serialize");
-    done(null, {email: user.email, role: user.role})
+    done(null, {username: user.username, email: user.email, role: user.role, avatar: user.avatar})
 })
 
 module.exports = (app) => {

@@ -21,11 +21,9 @@
                                     <span>Categories</span>
                                 </div>
                                 <ul>
-                                    <li><a href="#">Giày thể thao</a></li>
-                                    <li><a href="#">Giày trẻ em</a></li>
-                                    <li><a href="#">Giày scandal</a></li>
-                                    <li><a href="#">Giày bata</a></li>
-                                    <li><a href="#">Giày cao gót</a></li>
+                                    <% categories.forEach(category=> { %>
+                                        <li><a href="#"><%= category.name %></a></li>
+                                    <% }) %>
                                 </ul>
                             </div>
                         </div>

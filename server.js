@@ -9,6 +9,37 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const multipart = require('connect-multiparty')
 const logger = require("./middleware/logger");
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require("swagger-jsdoc");
+
+const apiDocOptions = {
+  definition: {
+    openapi: "3.1.0",
+    info: {
+      title: "Shoe shop Express API with Swagger",
+      version: "0.1.0",
+      description:
+        "This is api for shoe shop developer",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+      // contact: {
+      //   name: "Shoe",
+      //   url: "https://logrocket.com",
+      //   email: "info@email.com",
+      // },
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./routers/*.js"],
+
+}
+const swaggerSpec = swaggerJSDoc(apiDocOptions)
 
 
 const { connectDb, userRepo } = require("./config/db.config");
@@ -28,7 +59,7 @@ app.use(
     cookie: { secure: false },
   })
 );
-// app.use(multipart());
+
 
 
 require("./config/passport.config")(app);
@@ -46,13 +77,19 @@ const cartLineRouter = require('./routers/cart-line.r')
 const productRouter = require('./routers/product.r')
 const orderRouter = require('./routers/order.r')
 const wishListRouter = require('./routers/wish-list.r')
+const clientRouter = require('./routers/client.r');
+const voucherRouter = require('./routers/voucher.r')
+
 app.use("/", authRouter);
 app.use("/admin", adminRouter);
 app.use("/carts", cartLineRouter)
 app.use("/categories", categoryRouter)
 app.use("/products", productRouter)
 app.use("/orders", orderRouter)
-app.use('/wish-list', wishListRouter)
+app.use('/wish-list', wishListRouter);
+app.use("/", clientRouter);
+app.use("/vouchers", voucherRouter);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.use("/orders", )
 // app.use("/", passport);

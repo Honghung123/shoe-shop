@@ -10,7 +10,6 @@ module.exports = {
             const categories = await categoryRepo.find();
             const sizes = await categoryRepo.find();
             const {result, total, currentPage, totalPages} = await paginate(productRepo, page, limit);
-            
             res.render("admin/product", {products: result, total, currentPage, totalPages, brands, categories, sizes});
         } catch (error) {
             console.log(error);
@@ -35,7 +34,6 @@ module.exports = {
         
         let ordersInPeriod = null;
         if(bestSeller === 'daily'){
-            
             ordersInPeriod = await orderRepo
                 .createQueryBuilder('order')
                 .where('CAST(order.created_at AS DATE) = :selectedDate', { selectedDate })
@@ -114,7 +112,8 @@ module.exports = {
         const limit = req.query.limit || 10;
         const {result, total, currentPage, totalPages} = await paginate(userRepo, page, limit);
         console.log(result, total, currentPage, totalPages);
-        res.render("admin/account", {users: result, total, currentPage, totalPages});
+        res.render("admin/account", {users: result, total, currentPage, totalPages,});
     },
+    
     
 }

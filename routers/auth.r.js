@@ -4,23 +4,22 @@ const authController = require("../controller/auth.c");
 const passport = require("passport");
 const authorize = require("../middleware/authorize");
 
-router.get("/", authorize("customer"), authController.renderHomepage);
-
 router
   .route("/register")
   .get(authController.renderRegister)
   .post(authController.register);
-
+router.route('/register/validate-field')
+  .post(authController.validateRegisterField)
 router
   .route("/login")
   .get(authController.renderLogin)
   .post(
-    passport.authenticate("local", { failureRedirect: "/register" }),
+    passport.authenticate("local", { failWithError: true }),
     (req, res) => {
       if(req.user.role == 'admin'){
         res.redirect("/admin");
       } else{
-        res.redirect('/')
+        res.redirect('/home');
       }      
     }
   );

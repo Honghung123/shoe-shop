@@ -7,6 +7,26 @@
 <%- include('./partials/head'); -%> 
 <link rel="stylesheet" href="/public/admin/css/features/product.css">
 <body>
+  <!-- Page Preloader -->
+  <!-- <div id="preloader">
+    <div class="spinner-box">
+      <div class="blue-orbit leo">
+      </div>
+    
+      <div class="green-orbit leo">
+      </div>
+    
+      <div class="red-orbit leo">
+      </div>
+    
+      <div class="white-orbit w1 leo">
+      </div>
+      <div class="white-orbit w2 leo">
+      </div>
+      <div class="white-orbit w3 leo">
+      </div>
+    </div>
+  </div> -->
   <div class="container-fluid">
     <%- include('./partials/nav'); -%>
     <div class="container-grid w-95 margin-auto d-grid gap-4">
@@ -17,6 +37,7 @@
         <div class="flex-between-center mb-2">
           <h2 class="">Product management</h2>
           <div class="manipulation">
+            <%- include('./product/addStock') %>
             <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewProduct">Add new</button>
             <%- include('./product/addProduct') %>
           </div>
@@ -32,8 +53,7 @@
     </div>
   </div>
   <%- include('./partials/script'); -%> 
-  <script src="/public/admin/js/main.js"></script>
-  <!-- <script src="https://sachinchoolur.github.io/lightslider/dist/js/lightslider.js"></script> -->
+  <script src="/public/admin/js/main.js"></script> 
   <script src="/public/admin/js/product.js"></script> 
 </body>
 </html>

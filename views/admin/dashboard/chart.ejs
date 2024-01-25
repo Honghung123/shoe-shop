@@ -1,10 +1,13 @@
-<div class="row mt-4">
-    <div class="col-lg-5 mb-lg-0 mb-4">
+<div class="row row-gap-3 mt-4">
+    <div class="col-xl-6 col-lg-12 mb-lg-0 mb-4">
         <div class="card z-index-2 card-border-radius">
             <div class="card-body p-3">
+                <div class="chart__filter mb-2">
+                    <p>Filter by: <input type="month" name="month_year" value="2024-01" id="chart__filter1" class="border border-2 rounded-2"></p>
+                </div>
                 <div class="bg-gradient-colorful border-radius-lg py-3 pe-1 mb-3">
                     <div class="chart">
-                        <canvas id="chart-bars" class="chart-canvas"></canvas>
+                        <canvas id="chart-bars-horizontal" class="chart-canvas"></canvas>
                     </div>
                 </div> 
                 <div class="container border-radius-lg">
@@ -69,13 +72,31 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-7">
+    <div class="col-xl-6 col-lg-12 mb-lg-0 mb-4">
+        <div class="card z-index-2 h-100 card-border-radius">
+            <div class="card-body p-3">
+                <div class="chart__filter mb-2">
+                    <p>Filter by: <select name="type" id="chart__filter2" class="border border-2 rounded-2">
+                        <option value="day">Day</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select></p>
+                </div>
+                <div class="bg-gradient-colorful border-radius-lg py-3 pe-1 mb-3">
+                    <div class="chart-vertical">
+                        <canvas id="chart-bars-vertical" class="chart-canvas"></canvas>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12">
         <div class="card z-index-2 h-100 card-border-radius">
             <div class="card-header pb-0">
                 <h6>Sales overview</h6>
                 <p class="text-sm">
                     <i class="fa fa-arrow-up text-success"></i>
-                    <span class="font-weight-bold">4% more</span> in 2021
+                    <span class="font-weight-bold">4% more</span> in 2024
                 </p>
             </div>
             <div class="card-body p-3">

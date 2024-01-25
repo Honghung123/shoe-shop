@@ -8,6 +8,26 @@
   <link rel="stylesheet" href="/public/admin/css/features/chart.css">
 </head>
 <body>
+  <!-- Page Preloader -->
+  <!-- <div id="preloader">
+    <div class="spinner-box">
+      <div class="blue-orbit leo">
+      </div>
+    
+      <div class="green-orbit leo">
+      </div>
+    
+      <div class="red-orbit leo">
+      </div>
+    
+      <div class="white-orbit w1 leo">
+      </div>
+      <div class="white-orbit w2 leo">
+      </div>
+      <div class="white-orbit w3 leo">
+      </div>
+    </div>
+  </div> -->
   <div class="container-fluid">
     <%- include('./partials/nav'); -%>
     <div class="container-grid w-95 margin-auto d-grid gap-4">
@@ -18,9 +38,9 @@
       <!-- Main Content -->
       <main>
         <!-- Analyses -->
-        <div class="analyse">
-          <div class="sales">
-            <div class="status">
+        <div class="analyse row mx-0 row-gap-3">
+          <div class="analyse__item col-lg-4 col-md-6">
+            <div class="analyse__content">
               <div class="info">
                 <h3>Total Sales</h3>
                 <h1>$65,024</h1>
@@ -35,8 +55,8 @@
               </div>
             </div>
           </div>
-          <div class="visits">
-            <div class="status">
+          <div class="analyse__item col-lg-4 col-md-6">
+            <div class="analyse__content">
               <div class="info">
                 <h3>Site Visit</h3>
                 <h1>24,981</h1>
@@ -51,8 +71,8 @@
               </div>
             </div>
           </div>
-          <div class="searches">
-            <div class="status">
+          <div class="analyse__item col-lg-4 col-md-6">
+            <div class="analyse__content">
               <div class="info">
                 <h3>Searches</h3>
                 <h1>14,147</h1>
@@ -78,6 +98,7 @@
 
     </div>
   </div>
+  <%- include('./partials/end'); -%>
   <%- include('./partials/script'); -%>
   <script src="/public/admin/js/main.js"></script>
   <script src="/public/admin/js/dashboard.js"></script>

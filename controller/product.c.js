@@ -7,17 +7,10 @@ module.exports = {
         const product = await productRepo.findOne({where: {id},
             relations: ['brand', 'category']
         })
-        
         const stocks = await stockRepo.findOne({where: {product_id: id}})
         res.json({product, stocks})
-        //redirect by role
-        // if(req.user.role === 'admin'){
-            
-        // }
     },
     findProducts: async (req, res, next) => {
-        //brands is array of brand id
-        //categories is array of category id
         let {brands, categories, minPrice, maxPrice, productName} = req.query;
         const sort = req.query.sort || 0
         const query = productRepo.createQueryBuilder('product');
@@ -53,18 +46,18 @@ module.exports = {
 
     addProduct: async (req, res, next) => {
         try {
-            console.log(req.body, req.files);
             const {name, description, brandId, catId} = req.body;
             const product = await productRepo.save({name, price, brand_id: brandId, cat_id: catId});
             const files = req.files;
+            const images = []
             for(let i = 0; i < files.length; i++){
-                const productImage = {product_id: product.id, image: files[i].path};
-                await imageRepo.save(productImage)
+                const productImage =  await imageRepo.save({product_id: product.id, image: files[i].path})
+                images.push(productImage)
             }
-            res.redirect('/admin/product')
+            res.status(201).json({product, images})
         } catch (error) {
             console.log(error);
-            res.send('error')
+            res.status(500).json(error)
         }
     },
     updateProduct: async (req, res, next) => {
@@ -72,26 +65,24 @@ module.exports = {
         const {name, description, brandId, catId} = req.body
         let productToUpdate = await productRepo.findOne({where: {id}});
         productToUpdate = {...productToUpdate, name, description, brand_id: brandId, cat_id: catId}
-        await productRepo.save(productToUpdate);
-        res.redirect('admin/category')
+        const updatedProduct = await productRepo.save(productToUpdate);
+        res.json(updatedProduct)
+        
     },
     deleteProduct: async (req, res, next) => {
-        const id = req.params;
-        let productToDelete = await productRepo.findOne({where: {id}});
-        if(productToDelete){
-            productToDelete.is_deleted = true;
-            await productRepo.findOne('product')
-        } else{
-            req.session.msg = 'Product not found'
+        try {
+            const id = req.params;
+            let productToDelete = await productRepo.findOne({where: {id}});
+            if(productToDelete){
+                productToDelete.is_deleted = true;
+                await productRepo.save(productToDelete)
+            } else{
+                res.status(400).json('Not found product')
+            }
+            res.json('Product is deleted')
+        } catch (error) {
+            console.log(error);
+            res.status(500).json('Internal server error')
         }
-        res.redirect('admin/product')
     }
-
-    
-    
-    
-
-    
-    
-
 }

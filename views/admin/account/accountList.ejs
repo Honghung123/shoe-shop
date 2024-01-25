@@ -2,35 +2,34 @@
 <table class="my-table box-shadow-primary text-center  ">
     <thead>
         <tr>
-            <th width="10%">ID</th>
-            <th width="45%">Info</th>
-            <th>Status</th>
-            <th width="25%">Action</th>
+            <th width="7%">ID</th>
+            <th>Info</th>
+            <th width="10%">Status</th>
+            <th width="15%">Action</th>
         </tr>
     </thead>
     <tbody class="account-list">
-        <% users.forEach((user, idx) => { %>
         <tr class="account-item" data-id="10">
             <td><span>10</span></td>
-            <td class="flex-start-center column-gap-3 padding-1 mlr-1">
+            <td class="flex-start-center column-gap-custom padding-1 mlr-1">
                 <div class="thumb">
                     <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                 </div>
                 <div>
-                    <h5 class="text-start"><%= user.username %></h5> 
+                    <h5 class="text-start">Quach Duc Huy</h5> 
                     <div class="user-info">
-                        <ul class="list-unstyled d-flex flex-wrap-wrap">
-                            <li>Account id: 123</li>
-                            <li>Balance: <span class="currency">100000</span></li>
+                        <ul class="list-unstyled text-start">
+                            <li class="w-100">Account id: 123</li>
+                            <li class="w-100">Balance: <span class="currency">100000</span></li>
                         </ul>
                     </div>
                 </div>
             </td>
             <td class="position-relative">
-                <span class="position-center"><%= user.locked ? 'Banned' : 'Active' %></span>
+                <span class="position-center">Active</span>
             </td>
             <td>
-                <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
+                <div class="flex-center-center column-gap-custom flex-wrap mt-2">
                     <button class="btn-custom p-0 delete-account">
                         <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="2">
                             delete </span>
@@ -42,18 +41,16 @@
                 </div>
             </td>
         </tr>
-        <% }) %>
-
-        <!-- <tr class="account-item" data-id="11">
+        <tr class="account-item" data-id="11">
             <td><span>11</span></td>
-            <td class="flex-start-center column-gap-3 padding-1 mlr-1">
+            <td class="flex-start-center column-gap-custom padding-1 mlr-1">
                 <div class="thumb">
                     <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                 </div>
                 <div>
                     <h5 class="text-start">Ngo Quoc Huy</h5>
                     <div class="user-info">
-                        <ul class="d-flex flex-wrap-wrap">
+                        <ul class="d-flex flex-wrap text-start">
                             <li>Not register account yet</li> 
                         </ul>
                     </div>
@@ -63,7 +60,7 @@
                 <span class="">Banned</span>
             </td>
             <td>
-                <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
+                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2">
                     <button class="btn-custom p-0 delete-account">
                         <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="2">
                             delete </span>
@@ -74,7 +71,7 @@
                     </button>
                 </div>
             </td>
-        </tr> -->
+        </tr>
     </tbody>
 </table>
 <div class="text-center mt-4">

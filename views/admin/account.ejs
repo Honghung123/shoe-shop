@@ -1,40 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./partials/head'); -%>
+
+<head>
+  <%- include('./partials/head'); -%>
     <link rel="stylesheet" href="/public/admin/css/features/account.css">
 </head>
+
 <body>
-  <div class="container-fluid">
-    <%- include('./partials/nav'); -%>
-    <div class="container-grid w-95 margin-auto d-grid gap-4">
-      <!-- Sidebar Section -->
-      <%- include('./partials/sidebar'); -%>
-      <!-- End of Sidebar Section -->
-
-      <!-- Main Content -->
-      <main> 
-        <div class="flex-between-center mb-2">
-          <h2 class="">Account management</h2>
-          <div class="manipulation">
-            <button class="btn-custom btn-success" data-bs-toggle="modal" data-bs-target="#addNewAccount">Add new</button>
-          </div>
-        </div>
-        <div>
-          <%- include('./account/accountList'); -%>
-          <%- include('./account/viewAccount'); -%> 
-          <%- include('./account/addAccount') %>
-          <%- include('./account/deleteAccount'); -%>
-          <%- include('./account/banAccount'); -%>
-        </div>
-      </main>
-      <!-- End of Main Content -->
-
-
+  <!-- Page Preloader -->
+  <div id="preloader">
+    <div class="spinner-box">
+      <div class="blue-orbit leo">
+      </div>
+    
+      <div class="green-orbit leo">
+      </div>
+    
+      <div class="red-orbit leo">
+      </div>
+    
+      <div class="white-orbit w1 leo">
+      </div>
+      <div class="white-orbit w2 leo">
+      </div>
+      <div class="white-orbit w3 leo">
+      </div>
     </div>
   </div>
-  <%- include('./partials/script'); -%> 
-  <script src="/public/admin/js/main.js"></script>
-  <script src="/public/admin/js/account.js"></script>
+  <div class="container-fluid">
+    <%- include('./partials/nav'); -%>
+      <div class="container-grid w-95 margin-auto d-grid gap-4">
+        <!-- Sidebar Section -->
+        <%- include('./partials/sidebar'); -%>
+          <!-- End of Sidebar Section -->
+
+          <!-- Main Content -->
+          <main>
+            <div class="flex-between-center mb-2">
+              <h2 class="">Account management</h2>
+            </div>
+            <div>
+              <%- include('./account/accountList'); -%>
+                <%- include('./account/viewAccount'); -%>
+                  <%- include('./account/addAccount') %>
+                    <%- include('./account/deleteAccount'); -%>
+                      <%- include('./account/banAccount'); -%>
+            </div>
+          </main>
+          <!-- End of Main Content -->
+
+
+      </div>
+  </div>
+  <%- include('./partials/script'); -%>
+    <script src="/public/admin/js/main.js"></script>
+    <script src="/public/admin/js/account.js"></script>
 </body>
 
 </html>

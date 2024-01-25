@@ -5,8 +5,8 @@
         <div class="modal-body p-0">
           <section class="my-modal-content p-4">
             <h1 class="title mb-4 text-gradient">Edit product</h1>
-            <form class="form-add" method="post" action="#">
-              <div class="form-add-grid gap-4">
+            <form class="form-add" method="post" action="#" id="form-edit-product">
+              <div class="form-add-grid form-grid-responsive gap-4">
                 <div class="upload">
                   <div class="upload-wrapper wrapper-custom">
                     <h2 class="upload-title">Upload image</h2>
@@ -18,7 +18,7 @@
                         <span class="upload-info-value">0</span> file(s) uploaded.
                       </p>
                     </div>
-                    <div class="upload-area">
+                    <div class="upload-area area-edit">
                       <div class="upload-area-img">
                         <span class="material-icons-sharp">
                           cloud_upload
@@ -26,7 +26,7 @@
                       </div>
                       <p class="upload-area-text">Select images or <span>browse</span>.</p>
                     </div>
-                    <input type="file" class="visually-hidden" id="upload-input" multiple name="images" required>
+                    <input type="file" class="visually-hidden" id="upload-input-edit" multiple name="images" required>
                   </div>
                 </div>
                 <div class="form-content form-custom">
@@ -38,11 +38,7 @@
                    <div class="form-field ">
                      <label class="label">Price:</label>
                      <input name="price" class="input-text" type="number" min="10000" value="12230000" required>
-                    </div>
-                    <div class="form-field ">
-                      <label class="label">Quanity:</label>
-                      <input name="quanity" class="input-text" type="number" min="1" value="89" required>
-                    </div>
+                    </div> 
                     <div class="form-field ">
                       <label class="label">Category:</label>
                       <select name="catId" class="form-select" required> 
@@ -53,19 +49,21 @@
                     </div>
                     <div class="form-field ">
                       <label class="label">Brand:</label>
-                      <select name="catId" class="form-select" required> 
+                      <select name="brandId" class="form-select" required> 
                         <option value="1" selected>Addias</option>
                         <option value="2">Gucci</option>
                         <option value="3">Levent</option>
                       </select>
                     </div>
-                    <div class="form-field ">
-                      <label class="label">Size:</label>
-                      <select name="sizeId" class="form-select" required> 
-                        <option value="1" selected>S</option>
-                        <option value="2">M</option>
-                        <option value="3">L</option>
-                      </select>
+                    <div class="form-field product-size-stock">
+                      <label class="label">Size and Stock:</label>
+                      <button type="button" class="btn-custom btn-warning fw-bold mx-3" style="zoom: .9;" id="editModal-stock-btn">
+                        <div class="d-flex align-items-center column-gap-1"><h5>Add</h5> <span class="material-icons-sharp"> add </span></div>
+                      </button>
+                      <div id="edit-size-stock-container" class="d-flex flex-wrap gap-3 pt-2 pb-2"> 
+                          
+                      </div>
+                      <label class="error-msg size"></label>
                     </div>
 
                     <div class="form-field ">
@@ -80,7 +78,7 @@
                     </div>
                 </div>
               </div> 
-              <button type="submit" class="btn-custom btn-success fw-bold w-10 mt-4 margin-auto d-block">Change</button>
+              <button type="submit" class="btn-custom btn-success fw-bold mt-4 margin-auto d-block px-4">Change</button>
             </form>
             <button class="fw-bold close" data-bs-dismiss="modal">
               <span class="material-icons-sharp"> close </span>

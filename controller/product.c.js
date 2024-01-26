@@ -48,12 +48,14 @@ module.exports = {
       query.innerJoin("product.stock", "stock").where("stock.quantity > 0");
     }
     const filteredProducts = await query.getMany();
+    
     res.json(filteredProducts);
   },
 
   addProduct: async (req, res, next) => {
     try {
-      const { name, description, brandId, catId } = req.body;
+      const { name, description, brandId, catId, price, sizes } = req.body;
+      console.log(req.body);
       const product = await productRepo.save({
         name,
         price,

@@ -21,6 +21,7 @@ router
       if (req.user.role == "admin") {
         res.redirect("/admin");
       } else {
+        console.log("Redirect to home");
         res.redirect("/home");
       }
     }

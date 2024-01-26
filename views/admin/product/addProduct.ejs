@@ -55,9 +55,10 @@
                   <label class="label">Brand:</label>
                   <select name="brandId" class="form-select" required>
                     <option selected>- Select brand -</option>
-                    <option value="1">Adidas</option>
-                    <option value="2">Gucci</option>
-                    <option value="3">Levent</option>
+                    <% brands.forEach(brand => { %>
+                      <option value=<%= brand.id %>><%= brand.brand_name %></option>
+                    <% }) %>
+                    
                   </select>
                 </div>
                 <div class="form-field ">

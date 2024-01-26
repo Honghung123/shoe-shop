@@ -39,7 +39,7 @@
                     <ul>
                       <% categories.forEach(category=> { %>
                         <li class="d-flex">
-                          <input class="mx-2 filer-product" type="checkbox" id="<%= category.name %>" value="<%= category.id %>" name="category"/>
+                          <input class="mx-2 filter-product-category filer-product" type="checkbox" id="<%= category.name %>" value="<%= category.id %>" name="category" <%= category.isSelected ? 'checked' : '' %>/>
                           <label class="mx-2" for="<%= category.name %>"><%= category.name %></label>
                         </li>
                       <% }) %>
@@ -137,6 +137,29 @@
 
               <div class="row row-gap-4 list-product-shopping-page">
                 <% products.forEach(product => { %>
+                  <% if (product.isSale) { %>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                      <div data-id="<%= product.id %>" class="featured__item specific__product ">
+                        <div class="featured__item__pic">
+                          <img src="<%= product.image %>" style="<%= product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                          <ul class="featured__item__pic__hover">
+                            <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                            <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                          </ul>
+                          <div class="product__discount__label">
+                            <div class="product__discount__background">
+                              <span class="product__discount__percent"><%= product.percent %></span>
+                            </div>
+                          </div>
+                        </div>
+                        <a href="/detail?id=<%= product.id %>" class="featured__item__text p-3">
+                          <p class="limit-line line-2 mb-2"><%= product.name %></p>
+                          <span class="currency color__primary"><%= product.price * (100 - product.percent) / 100 %></span>
+                          <span class="currency product__discount__oldprice mlr05"><%= product.price %></span>
+                        </a>
+                      </div>
+                    </div>
+                  <% } else { %>
                   <div class="col-lg-4 col-md-6 col-sm-6">
                     <div data-id="<%= product.id %>" class="featured__item specific__product">
                       <div class="featured__item__pic">
@@ -152,11 +175,14 @@
                       </a>
                     </div>
                   </div>
+                  <% } %>
                 <% }) %>
               </div>
 
+              <% if (totalPages === 0) { %>
+                <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">There is no product that match.</div>
+              <% } else { %>
               <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">
-
                 <a data-id="<%= parseInt(currentPage) - 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === 1 ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-left"></i></a>                
                 <% for(let i = 1; i <= totalPages; i++) { %>
                   <% if (i === parseInt(currentPage)) { %>
@@ -167,6 +193,8 @@
                 <% } %>
                 <a data-id="<%= parseInt(currentPage) + 1 > totalPages ? 0 : parseInt(currentPage) + 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === parseInt(totalPages) ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-right"></i></a>
               </div>
+              <% }%>
+
             </div>
           </div>
         </div>

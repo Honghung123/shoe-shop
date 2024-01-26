@@ -1,6 +1,7 @@
-const { categoryRepo, brandRepo, productRepo, imageRepo } = require('../config/db.config');
+const { categoryRepo, brandRepo, productRepo, imageRepo, saleRepo } = require('../config/db.config');
 const paginate = require('../utils/paginate');
-const {In, Between} = require('typeorm');
+const { In, Between } = require('typeorm');
+require('dotenv').config();
 
 module.exports = {
     postShoppingPage: async (req, res, next) => {
@@ -8,7 +9,7 @@ module.exports = {
         const limit = req.query.limit || process.env.PER_PAGE_PRODUCT;
 
         let orderCondition = {};
-        let whereCondition ={};
+        let whereCondition = {};
 
         if (req.body.sortby && req.body.sortby !== 'default') {
             orderCondition = { price: req.body.sortby };
@@ -24,8 +25,8 @@ module.exports = {
         }
 
         const skip = (page - 1) * limit;
-        const [result, total] = await productRepo.findAndCount({ 
-            take: limit, 
+        const [result, total] = await productRepo.findAndCount({
+            take: limit,
             skip,
             order: orderCondition,
             where: whereCondition
@@ -41,6 +42,15 @@ module.exports = {
                 where: { id: result[i].cat_id }
             });
             result[i].cat_name = cat.name;
+            const sale = await saleRepo.findOne({
+                where: { product_id: result[i].id }
+            })
+            if (sale !== null) {
+                result[i].isSale = true;
+                result[i].percent = sale.percent;
+            } else {
+                result[i].isSale = false;
+            }
         }
 
         res.json({

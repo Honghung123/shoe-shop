@@ -22,7 +22,7 @@ module.exports = new EntitySchema({
             nullable: false
         },
         date_expire: {
-            type: 'timestamp',
+            type: 'timestamptz',
             nullable: false
         },
         limit: {

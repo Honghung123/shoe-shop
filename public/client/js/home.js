@@ -117,11 +117,21 @@
             idx = 0;
         }
         const src = $dealImages[idx].getAttribute("src");
+        const id = $dealImages[idx].getAttribute("data-id");
+        const category = $dealImages[idx].getAttribute("data-category");
         const title = $dealImages[idx].getAttribute("data-title");
         const price = $dealImages[idx].getAttribute("data-price");
+        const priceOld = $dealImages[idx].getAttribute("data-price-old");
         $(".dealing-title").text(title);
         $(".dealing-price .currency").text(price);
+        $(".dealing-price-old .currency").text(priceOld);
         $(".dealing-image").attr("src", src);
+        $(".btn-href-sale-week").attr("href", `/detail?id=${id}`);
+        if (category === 'Giày cao gót') {
+            $(".dealing-image").css("object-position", "center bottom");;
+        } else {
+            $(".dealing-image").css("object-position", "");;
+        }
         idx++;
     }
     setInterval(function () { changeDeal(numDeal); }, 3000);

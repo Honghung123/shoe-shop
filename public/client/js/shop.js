@@ -1,9 +1,16 @@
 (function ($) {
-  PER_PAGE_PRODUCT = 3;
+  PER_PAGE_PRODUCT = 6;
   localStorage.removeItem('price');
   localStorage.removeItem('category');
   localStorage.removeItem('brand');
   localStorage.removeItem('sortby');
+
+  const categories = document.querySelectorAll('.filter-product-category');
+  for (let i of categories) {
+    if (i.checked) {
+      localStorage.setItem('category', i.value);
+    }
+  }
 
   $(".hero__categories__all").on("click", function () {
     const a = this.parentNode.querySelector('ul');
@@ -101,22 +108,47 @@
     productElement.classList.add('col-md-6');
     productElement.classList.add('col-sm-6');
     productElement.style.userSelect = 'none';
-    productElement.innerHTML = `
-        <div class="featured__item specific__product">
-          <div class="featured__item__pic">
-            <img src="${product.image}" class="image" style="${product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : ''}" alt="">
-            <ul class="featured__item__pic__hover">
-              <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-              <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-            </ul>
+    if (product.isSale) {
+      productElement.innerHTML = `
+            <div data-id="${product.id}" class="featured__item specific__product ">
+              <div class="featured__item__pic">
+                <img src="${product.image}" style="${product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : ''}" class="image" alt="">
+                <ul class="featured__item__pic__hover">
+                  <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                  <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                </ul>
+                <div class="product__discount__label">
+                  <div class="product__discount__background">
+                    <span class="product__discount__percent">${product.percent}</span>
+                  </div>
+                </div>
+              </div>
+              <a href="/detail?id=${product.id}" class="featured__item__text p-3">
+                <p class="limit-line line-2 mb-2">${product.name}</p>
+                <span class="currency color__primary">${product.price * (100 - product.percent) / 100}</span>
+                <span class="currency product__discount__oldprice mlr05">${product.price}</span>
+              </a>
+            </div>
+      
+      `
+    } else {
+      productElement.innerHTML = `
+          <div data-id="${product.id}" class="featured__item specific__product">
+            <div class="featured__item__pic">
+              <img src="${product.image}" class="image" style="${product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : ''}" alt="">
+              <ul class="featured__item__pic__hover">
+                <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+              </ul>
+            </div>
+            <a href="/detail?id=${product.id}" class="featured__item__text p-3">
+              <p class="limit-line line-2 mb-2">${product.name}</p>
+              <h5 class="currency">${product.price}</h5>
+            </a>
           </div>
-          <a href="/detail?id=${product.id}" class="featured__item__text p-3">
-            <p class="limit-line line-2 mb-2">${product.name}</p>
-            <h5 class="currency">${product.price}</h5>
-          </a>
-        </div>
-
-    `
+  
+      `
+    }
     return productElement;
   };
 

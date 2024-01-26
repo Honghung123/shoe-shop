@@ -55,8 +55,17 @@
                   <span>(18 reviews)</span>
                 </div>
                 <ul class="">
-                  <li class="product__details__item"><b>Price: </b><span
-                      class="product__details__price currency"><%= product.price %></span></li>
+                  <!-- <li class="product__details__item"><b>Price: </b><span
+                      class="product__details__price currency"><%= product.price %></span></li> -->
+                  <li class="product__details__item">
+                    <b>Price: </b>
+                    <% if (product.isSale) { %>
+                      <span class="currency product__details__price"><%= product.price * (100 - product.percent) / 100 %></span>
+                      <span class="currency product__discount__oldprice mlr05"><%= product.price %></span>
+                    <% } else { %>
+                      <span class="product__details__price currency"><%= product.price %></span>
+                    <% } %>
+                  </li>
                   <li class="product__details__item"><b>Brand: </b><span><%= product.brand %></span></li>
                   <li class="product__details__item"><b>Size: </b>
                     <% stock.forEach(e=> { %>
@@ -134,21 +143,45 @@
           </div>
           <div class="row featured__filter row-gap-4">
             <% suggests.forEach( e => { %>
-              <div class="col col-lg-3 col-md-4 col-sm-6">
-                <div class="featured__item">
-                  <div class="featured__item__pic">
-                    <img src="<%= e.image %>" style="<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
-                    <ul class="featured__item__pic__hover">
-                      <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                      <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                    </ul>
+              <% if (e.isSale) { %>
+                <div class="col col-lg-3 col-md-4 col-sm-6">
+                  <div data-id="<%= e.id %>" class="featured__item specific__product ">
+                    <div class="featured__item__pic">
+                      <img src="<%= e.image %>" style="<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                      <ul class="featured__item__pic__hover">
+                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                      </ul>
+                      <div class="product__discount__label">
+                        <div class="product__discount__background">
+                          <span class="product__discount__percent"><%= e.percent %></span>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="/detail?id=<%= e.id %>" class="featured__item__text p-3">
+                      <p class="limit-line line-2 mb-2"><%= e.name %></p>
+                      <span class="currency color__primary"><%= e.price * (100 - e.percent) / 100 %></span>
+                      <span class="currency product__discount__oldprice mlr05"><%= e.price %></span>
+                    </a>
                   </div>
-                  <a href="/detail?id=<%= e.id %>" class="featured__item__text p-3">
-                    <p class="limit-line line-2 mb-2"><%= e.name %></p>
-                    <h5 class="currency"><%= e.price %></h5>
-                  </a>
                 </div>
-              </div>
+              <% } else { %>              
+                <div class="col col-lg-3 col-md-4 col-sm-6">
+                  <div data-id="<%= e.id %>" class="featured__item specific__product ">
+                    <div class="featured__item__pic">
+                      <img src="<%= e.image %>" style="<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                      <ul class="featured__item__pic__hover">
+                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                      </ul>
+                    </div>
+                    <a href="/detail?id=<%= e.id %>" class="featured__item__text p-3">
+                      <p class="limit-line line-2 mb-2"><%= e.name %></p>
+                      <h5 class="currency"><%= e.price %></h5>
+                    </a>
+                  </div>
+                </div>
+              <% } %>
             <% }) %>
             
           </div>

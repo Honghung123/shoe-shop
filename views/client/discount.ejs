@@ -32,49 +32,36 @@
               <h3>Sale off today</h3>
             </div>
             <div class="row mt-2">
+              <div id="timer" class="d-flex flex-wrap justify-content-center gap-3 mb-4 w-100" style="user-select: none;">
+                <div class="dealing-time text-center" id="days"></div>
+                <div class="dealing-time text-center" id="hours"></div>
+                <div class="dealing-time text-center" id="minutes"></div>
+                <div class="dealing-time text-center" id="seconds"></div>
+            </div>
               <div class="product__discount__slider owl-carousel">
-                <div class="mlr05 pt-2 pb-2">
-                  <div class="featured__item">
-                    <div class="featured__item__pic">
-                      <img src="img/featured/feature-1.jpg" class="image" alt="">
-                      <ul class="featured__item__pic__hover">
-                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                      </ul>
-                      <div class="product__discount__label">
-                        <div class="product__discount__background">
-                          <span class="product__discount__percent">20</span>
+                <% saleToday.forEach( e => { %>
+                  <div class="mlr05 pt-2 pb-2">
+                    <div data-id="<%= e.product.id %>" class="featured__item specific__product ">
+                      <div class="featured__item__pic">
+                        <img src="<%= e.product.image %>" style="<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                        <ul class="featured__item__pic__hover">
+                          <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                          <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                        </ul>
+                        <div class="product__discount__label">
+                          <div class="product__discount__background">
+                            <span class="product__discount__percent"><%= e.percent %></span>
+                          </div>
                         </div>
                       </div>
+                      <a href="/detail?id=<%= e.product.id %>" class="featured__item__text p-3">
+                        <p class="limit-line line-2 mb-2"><%= e.product.name %></p>
+                        <span class="currency color__primary"><%= e.product.price_discount %></span>
+                        <span class="currency product__discount__oldprice mlr05"><%= e.product.price %></span>
+                      </a>
                     </div>
-                    <a href="details.html" class="featured__item__text p-3">
-                      <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                      <span class="currency color__primary">650000</span>
-                      <span class="currency product__discount__oldprice mlr05">700000</span>
-                    </a>
                   </div>
-                </div>
-                <div class="mlr05 pt-2 pb-2">
-                  <div class="featured__item">
-                    <div class="featured__item__pic">
-                      <img src="img/featured/feature-1.jpg" class="image" alt="">
-                      <ul class="featured__item__pic__hover">
-                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                      </ul>
-                      <div class="product__discount__label">
-                        <div class="product__discount__background">
-                          <span class="product__discount__percent">35</span>
-                        </div>
-                      </div>
-                    </div>
-                    <a href="details.html" class="featured__item__text p-3">
-                      <p class="limit-line line-2 mb-2">A new shoe made in Japan from Adidas</p>
-                      <span class="currency color__primary">300000</span>
-                      <span class="currency product__discount__oldprice mlr05">350000</span>
-                    </a>
-                  </div>
-                </div>
+                <% }) %>
               </div>
             </div>
           </div>
@@ -92,56 +79,41 @@
               </div>
             </div>
           </div>
-          <div class="row row-gap-4 mt-3">
-            <div class="col col-lg-3 col-md-4 col-sm-6">
-              <div class="featured__item">
-                <div class="featured__item__pic">
-                  <img src="img/featured/feature-1.jpg" class="image" alt="">
-                  <ul class="featured__item__pic__hover">
-                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                    <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                  </ul>
-                  <div class="product__discount__label">
-                    <div class="product__discount__background">
-                      <span class="product__discount__percent">35</span>
+          <div class="row row-gap-4 mt-3 list-product-sale-page">
+            <% sales.forEach( e => { %>
+              <div class="col col-lg-3 col-md-4 col-sm-6">
+                <div data-id="<%= e.product.id %>" class="featured__item specific__product ">
+                  <div class="featured__item__pic">
+                    <img src="<%= e.product.image %>" style="<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                    <ul class="featured__item__pic__hover">
+                      <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                      <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                    </ul>
+                    <div class="product__discount__label">
+                      <div class="product__discount__background">
+                        <span class="product__discount__percent"><%= e.percent %></span>
+                      </div>
                     </div>
                   </div>
+                  <a href="/detail?id=<%= e.product.id %>" class="featured__item__text p-3">
+                    <p class="limit-line line-2 mb-2"><%= e.product.name %></p>
+                    <span class="currency color__primary"><%= e.product.price_discount %></span>
+                    <span class="currency product__discount__oldprice mlr05"><%= e.product.price %></span>
+                  </a>
                 </div>
-                <a href="details.html" class="featured__item__text p-3">
-                  <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                  <span class="currency color__primary">300000</span>
-                  <span class="currency product__discount__oldprice mlr05">350000</span>
-                </a>
               </div>
-            </div>
-            <div class="col col-lg-3 col-md-4 col-sm-6">
-              <div class="featured__item">
-                <div class="featured__item__pic">
-                  <img src="img/featured/feature-1.jpg" class="image" alt="">
-                  <ul class="featured__item__pic__hover">
-                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                    <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                  </ul>
-                  <div class="product__discount__label">
-                    <div class="product__discount__background">
-                      <span class="product__discount__percent">35</span>
-                    </div>
-                  </div>
-                </div>
-                <a href="details.html" class="featured__item__text p-3">
-                  <p class="limit-line line-2 mb-2">Merino to ishite am sf sf sewr not fum with antohoder</p>
-                  <span class="currency color__primary">300000</span>
-                  <span class="currency product__discount__oldprice mlr05">350000</span>
-                </a>
-              </div>
-            </div>
+            <% }) %>
           </div>
-          <div class="product__pagination pt-4 pb-4 text-center">
-            <a href="#" class="product__pagination__link disabled"><i class="fa-solid fa-long-arrow-left"></i></a>
-            <a href="#" class="product__pagination__link active">1</a>
-            <a href="#" class="product__pagination__link">2</a>
-            <a href="#" class="product__pagination__link">3</a>
-            <a href="#" class="product__pagination__link"><i class="fa-solid fa-long-arrow-right"></i></a>
+          <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">
+            <a data-id="<%= parseInt(currentPage) - 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === 1 ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-left"></i></a>                
+              <% for(let i = 1; i <= totalPages; i++) { %>
+                <% if (i === parseInt(currentPage)) { %>
+                  <a data-id="<%= i %>" style="cursor: context-menu;" class="product__pagination__link active"><%= i %></a>
+                <% } else { %>
+                  <a data-id="<%= i %>" style="cursor: context-menu;" class="product__pagination__link"><%= i %></a>
+                <% } %>
+              <% } %>
+              <a data-id="<%= parseInt(currentPage) + 1 > totalPages ? 0 : parseInt(currentPage) + 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === parseInt(totalPages) ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-right"></i></a>
           </div>
         </div>
       </section>
@@ -154,7 +126,7 @@
         <!-- Js Plugins -->
         <%- include('./partials/scripts'); -%>
           <!-- Js Plugins End -->
-
+          <script src="/public/client/js/discount.js"></script>
 </body>
 
 </html>

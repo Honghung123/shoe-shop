@@ -9,9 +9,11 @@ router
   .route("/register")
   .get(authController.renderRegister)
   .post(authController.register);
+
 router
   .route("/register/validate-field")
   .post(authController.validateRegisterField);
+
 router
   .route("/login")
   .get(authController.renderLogin)
@@ -25,7 +27,6 @@ router
       }
     }
   );
-
 router.get(
   "/google/login",
   passport.authenticate("google", {

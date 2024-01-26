@@ -17,34 +17,37 @@ const register = asyncWrapper(async (req, res) => {
   await userRepo.save({ ...req.body, password: hashedPwd, role: "customer" });
   res.status(201).json({ message: "Register successfully" });
 });
+
 const validateRegisterField = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email } = req.body;
+  console.log(req.body);
   if (username) {
     const user = await userRepo.findOne({ where: { username } });
     if (user) {
-      res.status(400).json("Username already exists");
+      res.status(400).json({messageUsername: "Username already exists"});
     }
   }
   if (email) {
     const user = await userRepo.findOne({ where: { email } });
     if (user) {
-      res.status(400).json({ message: "Email already in use" });
-    }
-  }
-  if (password) {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (password.length < 8) {
-      res.status(400).json("Password length must be at least 8 character");
-    }
-    if (!passwordRegex.test(password)) {
-      res
-        .status(400)
-        .json(
-          "Password must contain at least 1 lowercase, 1 uppercase, 1 number"
-        );
+      res.status(400).json({ messageEmail: "Email already in use" });
     }
   }
   res.json("");
+  // if (password) {
+  //   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+  //   if (password.length < 8) {
+  //     res.status(400).json("Password length must be at least 8 character");
+  //   }
+  //   if (!passwordRegex.test(password)) {
+  //     res
+  //       .status(400)
+  //       .json(
+  //         "Password must contain at least 1 lowercase, 1 uppercase, 1 number"
+  //       );
+  //   }
+  // }
+  // res.json("");
 };
 
 const renderRegister = (req, res) => {

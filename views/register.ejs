@@ -20,23 +20,30 @@
             <form class="sign-up-form" action="register" method="post">
               <div class="group">
                 <label class="label">Username</label>
-                <input name="username" type="text" class="input" placeholder="Create your Username" required>
-                <span class="error username">This is message error</span>
+                <input name="username" type="text" class="input username-register" placeholder="Create your Username">
+                <span class="error username-register-error"></span>
+                <% if (locals.messageUsernameUse) { %>
+                  <span class="error email-register-error"><%= locals.messageUsernameUse %></span>
+                <% } %>
+              </div>
+              <div class="group">
+                <label class="label">Fullname</label>
+                <input name="fullname" type="text" class="input fullname-register" data-type="text" placeholder="Type your fullname">
+                <span class="error fullname-register-error"></span>
               </div>
               <div class="group">
                 <label class="label">Password</label>
-                <input name="password" type="password" class="input" data-type="password" placeholder="Create your password" required>
-                <span class="error password">This is message error</span>
-              </div>
-              <div class="group">
-                <label class="label">Repeat Password</label>
-                <input name="repassword" type="password" class="input" data-type="password" placeholder="Repeat your password" required>
-                <span class="error repassword">This is message error</span>
+                <input name="password" type="password" class="input password-register" data-type="password" placeholder="Create your password">
+                <span class="error password-register-error"></span>
+                
               </div>
               <div class="group">
                 <label class="label">Email Address</label>
-                <input name="email" type="text" class="input" placeholder="Enter your email address" required>
-                <span class="error email">This is message error</span>
+                <input name="email" type="text" class="input email-register" placeholder="Enter your email address">
+                <span class="error email-register-error"></span>
+                <% if (locals.messageEmailUse) { %>
+                  <span class="error email-register-error"><%= locals.messageEmailUse %></span>
+                <% } %>
               </div>
               <div class="group text-center">
                 <button type="submit" class="btn btn-info rounded-pill text-white w-25 pt-2 pb-2">Register</button>
@@ -48,14 +55,17 @@
               <div class="other-method">
                 <a class="btn btn-lg btn-danger rounded-pill mb-2 text-white d-block"
                         href="/google/register"><i class="fab fa-google me-2"></i> Sign in with google</a>
- 
               </div>
             </div> 
           </div>
         </div>
       </div>
     </div>
-  </div> 
+  </div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/public/common/js/main.js"></script>
 </body>
 
 </html>

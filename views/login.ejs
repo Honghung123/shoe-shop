@@ -20,13 +20,17 @@
               <form action="login" method="post" class="login">
                 <div class="group">
                   <label class="label">Email:</label>
-                  <input name="email" type="text" class="input" placeholder="Enter your username" required>
-                  <span class="error username">This is message error</span>
+                  <input name="email" type="text" class="input email-input" placeholder="Enter your email" required>
+                  <span class="error email-error"></span>
                 </div>
                 <div class="group">
                   <label class="label">Password:</label>
-                  <input name="password" type="password" class="input" name="password" placeholder="Enter your password" required>
-                  <span class="error password">This is message error</span>
+                  <input name="password" type="password" class="input password" name="password" placeholder="Enter your password" required>
+                  <span class="error password-error"></span>
+                  <% if (locals.message) { %>
+                  <span class="error password-error"><%= locals.message %></span>
+                   
+                  <% } %>
                 </div>
                 <div class="group">
                   <input id="remember_me" type="checkbox" class="check" checked >
@@ -42,7 +46,6 @@
                 <div class="other-method">
                   <a class="btn btn-lg btn-danger rounded-pill mb-2 text-white d-block"
                           href="/google/login"><i class="fab fa-google me-2"></i> Sign in with google</a>
-                   
                 </div>
               </div> 
             </div>
@@ -51,6 +54,9 @@
       </div> 
   </div>
 </div> 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/public/common/js/main.js"></script>
 </body>
 
 </html>

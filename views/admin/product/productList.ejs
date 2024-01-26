@@ -11,65 +11,46 @@
         </tr>
     </thead>
     <tbody class="product-list">
-        <tr class="product-item" data-id="1">
-            <td><span>13353</span></td>
-            <td class="flex-center-center column-gap-3 padding-1">
-                <div class="thumb">
-                    <img class="image-custom size-m" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                </div>
-            </td>
-            <td>
-                <span class="limit-line line-2 mlr-05">Fan</span>
-            </td>
-            <td>
-                <span>Furniture</span>
-            </td>
-            <td>
-                <span class="currency">2000003</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-2 flex-wrap-wrap product-action-responsive">
-                    <button class="btn-custom btn-warning edit-product" data-bs-toggle="modal"
-                        data-bs-target="#editProduct" data-id="1">Edit</button>
-                    <button class="btn-custom btn-danger delete-product" data-bs-toggle="modal"
-                        data-bs-target="#deleteProduct" data-id="1">Delete</button>
-                </div>
-            </td>
-        </tr>
-        <tr class="product-item" data-id="2">
-            <td><span>13353</span></td>
-            <td class="flex-center-center column-gap-3 padding-1">
-                <div class="thumb">
-                    <img class="image-custom size-m" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                </div>
-            </td>
-            <td>
-                <span class="limit-line line-2 mlr-05">Samsung TV Super Amoled 42 Inch Full HD 4096MP Made in ShangHai,
-                    China of Alibaba Limited Co.</span>
-            </td>
-            <td>
-                <span>Electronic</span>
-            </td>
-            <td>
-                <span class="currency">3000000</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-2 flex-wrap-wrap">
-                    <button class="btn-custom btn-warning edit-product" data-bs-toggle="modal"
-                        data-bs-target="#editProduct" data-id="2">Edit</button>
-                    <button class="btn-custom btn-danger delete-product" data-bs-toggle="modal"
-                        data-bs-target="#deleteProduct" data-id="2">Delete</button>
-                </div>
-            </td>
-        </tr>
+        <% products.forEach(product => { %>
+            <tr class="product-item" data-id=<%= product.id %>>
+                <td><span><%= product.id %></span></td>
+                <td class="flex-center-center column-gap-3 padding-1">
+                    <div class="thumb">
+                        <img class="image-custom size-m" src=<%= product.image %> alt="">
+                    </div>
+                </td>
+                <td>
+                    <span class="limit-line line-2 mlr-05"><%= product.name %></span>
+                </td>
+                <td>
+                    <span><%= product.category.name %></span>
+                </td>
+                <td>
+                    <span class="currency"><%= product.price%></span>
+                </td>
+                <td>
+                    <div class="flex-center-center column-gap-2 flex-wrap-wrap product-action-responsive">
+                        <button class="btn-custom btn-warning edit-product" data-bs-toggle="modal"
+                            data-bs-target="#editProduct" data-id=<%= product.id %>>Edit</button>
+                        <button class="btn-custom btn-danger delete-product" data-bs-toggle="modal"
+                            data-bs-target="#deleteProduct" data-id=<%= product.id %>>Delete</button>
+                    </div>
+                </td>
+            </tr>
+        <% }) %>
+        
     </tbody>
 </table>
 <div class="text-center mt-4">
     <ul class="pagination">
-        <a class="prev page-numbers" href="#">Prev</a>
-        <span aria-current="page" class="page-numbers active">1</span>
-        <a class="page-numbers" href="#">2</a>
-        <a class="page-numbers" href="#">3</a>
-        <a class="next page-numbers" href="#">Next</a>
+        <button data-id="<%= currentPage - 1 %>" class="prev pagination-account page-numbers">Prev</button>
+        <% for(let i = 1; i <= totalPages; i++) { %>
+            <% if (i === parseInt(currentPage)) { %>
+                <span aria-current="page" class="page-numbers active"><%= i %></span>
+            <% } else { %>
+                <button data-id="<%= i %>" class="product-pagination page-numbers"><%= i %></button>
+            <% } %>
+        <% } %>
+        <button data-id="<%= parseInt(currentPage) === totalPages ? 0 : parseInt(currentPage) + 1 %>" class="next pagination-account page-numbers">Next</button>
     </ul>
 </div>

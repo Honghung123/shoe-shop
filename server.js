@@ -39,7 +39,7 @@ const apiDocOptions = {
 };
 const swaggerSpec = swaggerJSDoc(apiDocOptions);
 
-const { connectDb, userRepo } = require("./config/db.config");
+const { connectDb, userRepo, brandRepo } = require("./config/db.config");
 const port = process.env.PORT;
 const hostname = process.env.HOST;
 connectDb();
@@ -73,7 +73,8 @@ const productRouter = require('./routers/product.r')
 const orderRouter = require('./routers/order.r')
 const wishListRouter = require('./routers/wish-list.r')
 const clientRouter = require('./routers/client.r');
-const voucherRouter = require('./routers/voucher.r')
+const voucherRouter = require('./routers/voucher.r');
+const brandRouter = require('./routers/brand.r')
 
 app.use("/", authRouter);
 app.use("/admin", adminRouter);
@@ -84,6 +85,7 @@ app.use("/orders", orderRouter)
 app.use('/wish-list', wishListRouter);
 app.use("/", clientRouter);
 app.use("/vouchers", voucherRouter);
+app.use("/brands", brandRouter);
 // app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.use("/orders", )

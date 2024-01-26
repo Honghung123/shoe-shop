@@ -1,5 +1,5 @@
 (function ($) {
-  PER_PAGE_PRODUCT = 3;
+  PER_PAGE_PRODUCT = 6;
   localStorage.removeItem('price');
   localStorage.removeItem('category');
   localStorage.removeItem('brand');

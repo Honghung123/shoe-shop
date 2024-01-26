@@ -1,6 +1,7 @@
 const { categoryRepo, brandRepo, productRepo, imageRepo, saleRepo } = require('../config/db.config');
 const paginate = require('../utils/paginate');
 const { In, Between } = require('typeorm');
+require('dotenv').config();
 
 module.exports = {
     postShoppingPage: async (req, res, next) => {

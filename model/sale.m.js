@@ -18,7 +18,7 @@ module.exports = new EntitySchema({
             nullable: false,
         },
         expire: {
-            type: 'timestamp',
+            type: 'timestamptz',
             nullable: false
         }
     },

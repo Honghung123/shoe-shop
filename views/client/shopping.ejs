@@ -179,8 +179,10 @@
                 <% }) %>
               </div>
 
+              <% if (totalPages === 0) { %>
+                <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">There is no product that match.</div>
+              <% } else { %>
               <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">
-
                 <a data-id="<%= parseInt(currentPage) - 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === 1 ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-left"></i></a>                
                 <% for(let i = 1; i <= totalPages; i++) { %>
                   <% if (i === parseInt(currentPage)) { %>
@@ -191,6 +193,8 @@
                 <% } %>
                 <a data-id="<%= parseInt(currentPage) + 1 > totalPages ? 0 : parseInt(currentPage) + 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === parseInt(totalPages) ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-right"></i></a>
               </div>
+              <% }%>
+
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-const PER_PAGE = 2;
+const PER_PAGE = 5;
 
 $(".account-item").on("click", viewAccount);
 

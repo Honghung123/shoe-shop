@@ -35,7 +35,7 @@
                                     <span>Special Offer</span>
                                     <h2 class="text-white">Shoe <br />100% genuine</h2>
                                     <p>Buy anything you like</p>
-                                    <a href="shopping.html"
+                                    <a href="shop"
                                         class="my-button button-hover-shake hover-color-primary rounded-pill">SHOP
                                         NOW</a>
                                 </div>
@@ -128,10 +128,11 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
+                                <% sales.forEach( e => { %>
                                 <div class="mlr05 pt-2 pb-2">
-                                    <div class="featured__item specific__product" data-id="1">
+                                    <div class="featured__item specific__product" data-id="<%= e.product.id %>">
                                         <div class="featured__item__pic">
-                                            <img src="img/featured/feature-1.jpg" class="image" alt="">
+                                            <img src="<%= e.product.image %>" style="<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
                                             <ul class="featured__item__pic__hover">
                                                 <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
                                                 </li>
@@ -140,109 +141,18 @@
                                             </ul>
                                             <div class="product__discount__label">
                                                 <div class="product__discount__background">
-                                                    <span class="product__discount__percent">20</span>
+                                                    <span class="product__discount__percent"><%= e.percent %></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="/detail" class="featured__item__text p-3">
-                                            <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                                            <span class="currency color__primary">650000</span>
-                                            <span class="currency product__discount__oldprice mlr05">700000</span>
+                                        <a href="/detail?id=<%= e.product.id %>" class="featured__item__text p-3">
+                                            <p class="limit-line line-2 mb-2"><%= e.product.name %></p>
+                                            <span class="currency color__primary"><%= e.product.price_discount %></span>
+                                            <span class="currency product__discount__oldprice mlr05"><%= e.product.price %></span>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="mlr05 pt-2 pb-2">
-                                    <div class="featured__item specific__product" data-id="1">
-                                        <div class="featured__item__pic">
-                                            <img src="img/featured/feature-2.jpg" class="image" alt="">
-                                            <ul class="featured__item__pic__hover">
-                                                <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
-                                                </li>
-                                                <li><span class="add__to__cart"><i
-                                                            class="fa fa-shopping-cart"></i></span></li>
-                                            </ul>
-                                            <div class="product__discount__label">
-                                                <div class="product__discount__background">
-                                                    <span class="product__discount__percent">35</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="/detail" class="featured__item__text p-3">
-                                            <p class="limit-line line-2 mb-2">A new shoe made in Japan from Adidas</p>
-                                            <span class="currency color__primary">300000</span>
-                                            <span class="currency product__discount__oldprice mlr05">350000</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="mlr05 pt-2 pb-2">
-                                    <div class="featured__item specific__product" data-id="1">
-                                        <div class="featured__item__pic">
-                                            <img src="img/featured/feature-4.jpg" class="image" alt="">
-                                            <ul class="featured__item__pic__hover">
-                                                <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
-                                                </li>
-                                                <li><span class="add__to__cart"><i
-                                                            class="fa fa-shopping-cart"></i></span></li>
-                                            </ul>
-                                            <div class="product__discount__label">
-                                                <div class="product__discount__background">
-                                                    <span class="product__discount__percent">35</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="/detail" class="featured__item__text p-3">
-                                            <p class="limit-line line-2 mb-2">A new shoe made in Japan from Adidas</p>
-                                            <span class="currency color__primary">300000</span>
-                                            <span class="currency product__discount__oldprice mlr05">350000</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="mlr05 pt-2 pb-2">
-                                    <div class="featured__item specific__product" data-id="1">
-                                        <div class="featured__item__pic">
-                                            <img src="img/featured/feature-6.jpg" class="image" alt="">
-                                            <ul class="featured__item__pic__hover">
-                                                <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
-                                                </li>
-                                                <li><span class="add__to__cart"><i
-                                                            class="fa fa-shopping-cart"></i></span></li>
-                                            </ul>
-                                            <div class="product__discount__label">
-                                                <div class="product__discount__background">
-                                                    <span class="product__discount__percent">35</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="/detail" class="featured__item__text p-3">
-                                            <p class="limit-line line-2 mb-2">A new shoe made in Japan from Adidas</p>
-                                            <span class="currency color__primary">300000</span>
-                                            <span class="currency product__discount__oldprice mlr05">350000</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="mlr05 pt-2 pb-2">
-                                    <div class="featured__item specific__product" data-id="1">
-                                        <div class="featured__item__pic">
-                                            <img src="img/featured/feature-3.jpg" class="image" alt="">
-                                            <ul class="featured__item__pic__hover">
-                                                <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
-                                                </li>
-                                                <li><span class="add__to__cart"><i
-                                                            class="fa fa-shopping-cart"></i></span></li>
-                                            </ul>
-                                            <div class="product__discount__label">
-                                                <div class="product__discount__background">
-                                                    <span class="product__discount__percent">35</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="/detail" class="featured__item__text p-3">
-                                            <p class="limit-line line-2 mb-2">A new shoe made in Japan from Adidas</p>
-                                            <span class="currency color__primary">300000</span>
-                                            <span class="currency product__discount__oldprice mlr05">350000</span>
-                                        </a>
-                                    </div>
-                                </div>
+                                <% }) %>
                             </div>
                         </div>
                     </div>
@@ -260,7 +170,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row row-gap-4">
+                    <div class="row row-gap-4">                        
                         <div class="col col-lg-3 col-md-4 col-sm-6">
                             <div class="featured__item specific__product" data-id="1">
                                 <div class="featured__item__pic">
@@ -302,12 +212,14 @@
                 <div class="container">
                     <div class="row dealing-background rounded-3 overflow-hidden">
                         <div class="col-md-7 p-0">
-                            <img src="https://i.pinimg.com/originals/fa/45/96/fa4596ad9a9d39901eeb455ed4f74e44.jpg"
-                                class="img-fluid image dealing-image" alt="">
+                            <!-- <img src="https://i.pinimg.com/originals/fa/45/96/fa4596ad9a9d39901eeb455ed4f74e44.jpg"
+                                class="img-fluid image dealing-image" alt=""> -->
+                            <img style="height: 25rem;" src="<%= saleWeek[0].product.image %>"
+                            class="img-fluid image dealing-image" alt="">
                         </div>
                         <div class="col-md-5 p-4">
                             <div class="text-center">
-                                <h3 class="mb-3">Deal of the Week</h3>
+                                <h3 class="mb-3">Sale of the Week</h3>
                             </div>
                             <div id="timer" class="d-flex flex-wrap justify-content-center gap-3 mb-4 w-100">
                                 <div class="dealing-time text-center" id="days"></div>
@@ -316,18 +228,25 @@
                                 <div class="dealing-time text-center" id="seconds"></div>
                             </div>
                             <div class="text-deal">
-                                <p class="dealing-title limit-line line-2">Nike Free RN 2019 Brandnew</h2>
-                                <p class="dealing-price">Price: <span class="dealing-price currency">800000</span></p>
-                                <a href="/detail"
-                                    class="my-button button-hover-shake hover-color-primary rounded-pill mt-2">View
+                                <p class="dealing-title limit-line line-2"><%= saleWeek[0].product.name %></h2>
+                                <p class="dealing-price">Price: 
+                                    <span class="dealing-price currency"><%= saleWeek[0].product.price_discount %></span>
+                                    <span class="dealing-price-old product__discount__oldprice currency"><%= saleWeek[0].product.price %></span></p>
+                                <a href="/detail?id=<%= saleWeek[0].product.id %>"
+                                    class="my-button button-hover-shake hover-color-primary rounded-pill mt-2 btn-href-sale-week">View
                                     now</a>
                                 <div class="d-none dealing-list">
-                                    <img src="https://i.pinimg.com/originals/fa/45/96/fa4596ad9a9d39901eeb455ed4f74e44.jpg"
+                                    <% saleWeek.forEach(e => { %>
+                                        <img src="<%= e.product.image %>"
+                                        alt="" data-category="<%= e.product.cat_name %>" data-id="<%= e.product.id %>" data-price="<%= e.product.price_discount %>" data-price-old="<%= e.product.price %>" data-title="<%= e.product.name %>">
+                                    <% }) %>
+                                    
+                                    <!-- <img src="https://i.pinimg.com/originals/fa/45/96/fa4596ad9a9d39901eeb455ed4f74e44.jpg"
                                         alt="" data-price="800000" data-title="Nike Free RN 2019 Brandnew">
                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8yk_i-pW7aYYyN8KB3iTpvLvFkwJEsmF2g&usqp=CAU"
                                         alt="" data-price="700000" data-title="Lorem is sperent los ti ageles in chida">
                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVLb9BosDLOBHj5KUy_1ooQ5ZPmNPoGpXyvA&usqp=CAU"
-                                        alt="" data-price="600000" data-title="Nike shoe in 2021 feature">
+                                        alt="" data-price="600000" data-title="Nike shoe in 2021 feature"> -->
                                 </div>
                             </div>
                         </div>
@@ -345,24 +264,53 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                <div class="cols mlr05 pt-2 pb-2">
-                                    <div class="featured__item specific__product" data-id="1">
-                                        <div class="featured__item__pic">
-                                            <img src="img/featured/feature-1.jpg" class="image" alt="">
-                                            <ul class="featured__item__pic__hover">
-                                                <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
-                                                </li>
-                                                <li><span class="add__to__cart"><i
-                                                            class="fa fa-shopping-cart"></i></span></li>
-                                            </ul>
+                                <% latest.forEach( e => { %>
+                                    <% if (e.isSale) { %>
+                                    <div class="mlr05 pt-2 pb-2">
+                                        <div class="featured__item specific__product" data-id="<%= e.id %>">
+                                            <div class="featured__item__pic">
+                                                <img src="<%= e.image %>" style="<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                                                <ul class="featured__item__pic__hover">
+                                                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
+                                                    </li>
+                                                    <li><span class="add__to__cart"><i
+                                                                class="fa fa-shopping-cart"></i></span></li>
+                                                </ul>
+                                                <div class="product__discount__label">
+                                                    <div class="product__discount__background">
+                                                        <span class="product__discount__percent"><%= e.percent %></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="/detail?id=<%= e.id %>" class="featured__item__text p-3">
+                                                <p class="limit-line line-2 mb-2"><%= e.name %></p>
+                                                <span class="currency color__primary"><%= e.price_discount %></span>
+                                                <span class="currency product__discount__oldprice mlr05"><%= e.price %></span>
+                                            </a>
                                         </div>
-                                        <a href="/detail" class="featured__item__text p-3">
-                                            <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                                            <h5 class="currency">300000</h5>
-                                        </a>
                                     </div>
-                                </div>
-                                <div class="mlr05 pt-2 pb-2">
+                                    <% } else { %>
+                                    <div class="cols mlr05 pt-2 pb-2">
+                                        <div class="featured__item specific__product" data-id="<%= e.id %>">
+                                            <div class="featured__item__pic">
+                                                <img src="<%= e.image %>" style="<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" class="image" alt="">
+                                                <ul class="featured__item__pic__hover">
+                                                    <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
+                                                    </li>
+                                                    <li><span class="add__to__cart"><i
+                                                                class="fa fa-shopping-cart"></i></span></li>
+                                                </ul>
+                                            </div>
+                                            <a href="/detail?id=<%= e.id %>" class="featured__item__text p-3">
+                                                <p class="limit-line line-2 mb-2"><%= e.name %></p>
+                                                <h5 class="currency"><%= e.price %></h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                <% }) %>
+
+                                <!-- <div class="mlr05 pt-2 pb-2">
                                     <div class="featured__item specific__product" data-id="1">
                                         <div class="featured__item__pic">
                                             <img src="img/featured/feature-4.jpg" class="image" alt="">
@@ -433,7 +381,7 @@
                                             <h5 class="currency">330000</h5>
                                         </a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

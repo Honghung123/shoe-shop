@@ -10,7 +10,7 @@
             <th width="10%">Update</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="order-list">
         <% orders.forEach(order => { %>
             <tr class="order-item" data-id=<%=order.id%>>
                 <td><span><%= order.id %></span></td>
@@ -32,7 +32,7 @@
                             <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
                                 data-id=<%= order.id  %>> local_shipping </span>
                         </button>
-                        <button class="btn-custom order-action p-0 delete-order">
+                        <button class="btn-custom order-action p-0 cancel-order">
                             <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
                                 data-id=<%= order.id %>> block </span>
                         </button>
@@ -44,10 +44,14 @@
 </table>
 <div class="text-center mt-4">
     <ul class="pagination">
-        <a class="prev page-numbers" href="#">Prev</a>
-        <span aria-current="page" class="page-numbers active">1</span>
-        <a class="page-numbers" href="#">2</a>
-        <a class="page-numbers" href="#">3</a>
-        <a class="next page-numbers" href="#">Next</a>
+        <button data-id="<%= currentPage - 1 %>" class="prev pagination-account page-numbers">Prev</button>
+        <% for(let i = 1; i <= totalPages; i++) { %>
+            <% if (i === parseInt(currentPage)) { %>
+                <span aria-current="page" class="page-numbers active"><%= i %></span>
+            <% } else { %>
+                <button data-id="<%= i %>" class="order-pagination page-numbers"><%= i %></button>
+            <% } %>
+        <% } %>
+        <button data-id="<%= parseInt(currentPage) === totalPages ? 0 : parseInt(currentPage) + 1 %>" class="next pagination-account page-numbers">Next</button>
     </ul>
 </div>

@@ -25,12 +25,23 @@ module.exports = {
     },
     getOrderPage: async (req, res, next) => {
         const page = req.query.page || 1;
-        const limit = req.query.limit || 10;
+        const limit = req.query.limit || 3;
         const relations = ['user'];
-        const order = null;
+        const order = {id: 'ASC'}
         const { result, total, currentPage, totalPages } = await paginate(orderRepo, page, limit, relations, order);
         console.log(result);
-        res.render("admin/order", { namePage: 'order', orders: result, total, currentPage, totalPages});
+        for(let i = 0; i < result.length; i++){
+            const createdAt = new Date(result[i].created_at)
+            const created_at = `${createdAt.getDate()} -${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`
+            console.log(createdAt);
+            result[i].created_at = created_at
+        }
+        if(Object.keys(req.query).length === 0){
+            res.render("admin/order", { namePage: 'order', orders: result, total, currentPage, totalPages});
+        } else{
+            res.json({ namePage: 'order', orders: result, total, currentPage, totalPages});
+        }
+        
     },
     getDashboardPage: async (req, res) => {
         console.log("Getting dash board");

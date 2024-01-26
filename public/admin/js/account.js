@@ -136,6 +136,7 @@ function itemAccount(user) {
 };
 
 
+
 $(".add-account").on("click", function (e) {
   const id = parseInt(e.target.getAttribute("data-id"));
   console.log("Add account payment for id " + id);

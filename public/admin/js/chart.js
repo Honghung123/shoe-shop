@@ -1,9 +1,19 @@
 // BAR chart horizontal - "The top 5 brands with the highest revenue."
+let chartType = "bar";
+let brandList = ["Nike", "Adidas", "Levent", "Gucci", "Prada"];
+let revenueOfEachBrand = [41500000, 17500000, 64000000, 55000000, 33000000]; 
+let chartLabel = "The top 5 brands with the highest revenue in 2024-01";
+let chartLabelColor = "white";
+let yAxisLabel = "Brand";
+let xAxisLabel = "Total revenue (VND)";
+let yAxisLabelColor = "lime";
+let xAxisLabelColor = "aqua";
+
 const ctx = document.getElementById("chart-bars-horizontal").getContext("2d");
-new Chart(ctx, {
-  type: "bar",
+const chart = {
+  type: chartType,
   data: {
-    labels: ["Nike", "Adidas", "Levent", "Gucci", "Prada"],
+    labels: brandList,
     datasets: [
       {
         tension: 0.4,
@@ -12,12 +22,12 @@ new Chart(ctx, {
         borderSkipped: false,
         backgroundColor: [
           "rgba(255, 99, 132)",
-          "rgba(255, 159, 64)",
-          "rgba(255, 205, 86)",
-          "rgba(75, 192, 192)",
           "rgba(54, 162, 235)",
+          "rgba(75, 192, 192)",
+          "rgba(255, 205, 86)",
+          "rgba(255, 159, 64)",
         ],
-        data: [41500000, 17500000, 64000000, 55000000, 33000000],
+        data: revenueOfEachBrand,
         maxBarThickness: 20,
       },
     ],
@@ -32,8 +42,8 @@ new Chart(ctx, {
       },
       subtitle: {
         display: true,
-        text: "The top 5 brands with the highest revenue.",
-        color: "#ffffff",
+        text: chartLabel,
+        color: chartLabelColor,
         font: {
           size: 16,
           weight: "bold",
@@ -51,8 +61,8 @@ new Chart(ctx, {
         },
         title: {
           display: true,
-          text: "Brand",
-          color: "lime",
+          text: yAxisLabel,
+          color: yAxisLabelColor,
           font: {
             size: 16,
             weight: "bold",
@@ -77,8 +87,8 @@ new Chart(ctx, {
         },
         title: {
           display: true,
-          text: "Total revenue (VND)",
-          color: "aqua",
+          text: xAxisLabel,
+          color: xAxisLabelColor,
           font: {
             size: 16,
             weight: "bold",
@@ -96,20 +106,43 @@ new Chart(ctx, {
       },
     },
   },
+};
+const mychart = new Chart(ctx, chart); 
+// Create envent for Bar chart
+$("#chart__filter1").on("change", function () {
+  const yearMonth = $(this).val(); 
+  brandList = ["Test", "Nike", "Nikasa", "Pama", "Rocket"];
+  revenueOfEachBrand = [31500000, 47500000, 24000000, 25000000, 63000000];
+  chartLabel = `The top 5 brands with the highest revenue in ${yearMonth}`;
+  mychart.data.labels = brandList;
+  mychart.data.datasets[0].data = revenueOfEachBrand; // Access the datasets array
+  mychart.options.plugins.subtitle.text = chartLabel;
+  mychart.update(); 
 });
 
+
+
 // BAR chart horizontal - "The top 5 best-selling products."
+chartType = "bar";
+productList = [
+  "Levent shoe made in Japan form New York brandnew genuine",
+  "Nike isdf s sdf sdf sfsdf ssd",
+  "Adidas max 20 23 2r 2s sdf sd",
+  "Levent shoe made in Japan form New York brandnew genuine",
+  "Levent shoe made in Japan form New York brandnew genuine",
+];
+totalSoldForEachOnes = [45, 20, 30, 55, 37];
+chartLabel = "The top 5 best-selling products in 2024";
+chartLabelColor = "white";
+yAxisLabel = "Number of sold products";
+xAxisLabel = "Product name";
+yAxisLabelColor = "lime";
+xAxisLabelColor = "aqua";
 const ctxs = document.getElementById("chart-bars-vertical").getContext("2d");
-new Chart(ctxs, {
-  type: "bar",
+const charts = {
+  type: chartType,
   data: {
-    labels: [
-      "Levent shoe made in Japan form New York brandnew genuine",
-      "Nike isdf s sdf sdf sfsdf ssd",
-      "Adidas max 20 23 2r 2s sdf sd",
-      "Levent shoe made in Japan form New York brandnew genuine",
-      "Levent shoe made in Japan form New York brandnew genuine",
-    ],
+    labels: productList,
     datasets: [
       {
         tension: 0.4,
@@ -120,10 +153,10 @@ new Chart(ctxs, {
           "rgba(255, 99, 132)",
           "rgba(255, 159, 64)",
           "rgba(255, 205, 86)",
-          "rgba(75, 192, 192)",
           "rgba(54, 162, 235)",
+          "rgba(75, 192, 192)",
         ],
-        data: [45, 20, 30, 55, 37],
+        data: totalSoldForEachOnes,
         maxBarThickness: 20,
       },
     ],
@@ -138,8 +171,8 @@ new Chart(ctxs, {
       },
       subtitle: {
         display: true,
-        text: "The top 5 best-selling products in 2024",
-        color: "#ffffff",
+        text: chartLabel,
+        color: chartLabelColor,
         font: {
           size: 16,
           weight: "bold",
@@ -151,8 +184,8 @@ new Chart(ctxs, {
       y: {
         title: {
           display: true,
-          text: "Number of sold products",
-          color: "lime",
+          text: yAxisLabel,
+          color: yAxisLabelColor,
           font: {
             size: 16,
             weight: "bold",
@@ -180,8 +213,8 @@ new Chart(ctxs, {
         },
         title: {
           display: true,
-          text: "Product name",
-          color: "aqua",
+          text: xAxisLabel,
+          color: xAxisLabelColor,
           font: {
             weight: "bold",
             size: 16,
@@ -207,58 +240,138 @@ new Chart(ctxs, {
       },
     },
   },
+};
+const mysecondchart = new Chart(ctxs, charts);
+// Create envent for Bar chart
+$("#chart__filter2").on("change", function () {
+  const year = $(this).val(); 
+  // Truy van database 
+  productList = [
+    "Arigatou gozaimasu",
+    "Nike isdf s sdf sdf sfsdf ssd",
+    "Prama indonssf sd sdf mas sdfsdf",
+    "Levent shoe made in Japan form New York brandnew genuine",
+    "Adidas max 20 23 2r 2s sdf sd",
+  ];
+  totalSoldForEachOnes = [10, 20, 30, 35, 25];
+  // end
+  chartLabel = `The top 5 best-selling products in ${year}`;
+  mysecondchart.data.labels = productList;
+  mysecondchart.data.datasets[0].data = totalSoldForEachOnes; // Access the datasets array
+  mysecondchart.options.plugins.subtitle.text = chartLabel;
+  mysecondchart.update(); 
 });
 
+
 // LINE chart
-var ctx2 = document.getElementById("chart-line").getContext("2d");
 
-var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-gradientStroke1.addColorStop(1, "rgba(191, 97, 250,0.2)");
-gradientStroke1.addColorStop(0.4, "rgba(72,72,176,0.0)");
-gradientStroke1.addColorStop(0, "rgba(97, 143, 250,0)"); //purple colors
+function getMonthList() {
+  return ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  // return Utils.months({ count: 7 });
+}
 
-var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-gradientStroke2.addColorStop(1, "rgba(228, 255, 56,0.2)");
-gradientStroke2.addColorStop(0.1, "rgba(72,72,176,0.0)");
-gradientStroke2.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
+function getBackgroundList(num, chart) {
+  let bgList = [];
+  for (let i = 0; i < num; i++) {
+    let gradientStroke = chart.createLinearGradient(0, 230, 0, 50);
+    gradientStroke.addColorStop(1, "rgba(191, 97, 250,0.2)");
+    gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
+    gradientStroke.addColorStop(0, "rgba(97, 143, 250,0)"); //purple colors
+    bgList.push(gradientStroke);
+  }
+  return bgList;
+}
 
-new Chart(ctx2, {
-  type: "line",
+function getLineList(month, chart) {
+  // Can truy van database
+  const labelList = ["Mobile apps", "Web apps"];
+  const dataList = [
+    [50, 40, 300, 220, 500, 250, 400, 230, 500],
+    [150, 10, 500, 120, 150, 50, 100, 330, 400],
+  ];
+  // End
+  const lineColorList = [
+    "#e13efa",
+    "#97d5ff",
+    "#9ac1e0",
+    "#d4a5a5",
+    "#b0d8c1",
+    "#f5c482",
+    "#9eb3c8",
+    "#c1a1d4",
+    "#b0d8c1",
+    "#e0c29a",
+  ];
+
+  const num = labelList.length;
+  const bgColorList = getBackgroundList(num, chart);
+  let lineList = [];
+  for (let i = 0; i < num; i++) {
+    let line = {
+      label: labelList[i],
+      tension: 0.4,
+      borderWidth: 0,
+      pointRadius: 0,
+      borderColor: lineColorList[i],
+      borderWidth: 3,
+      backgroundColor: bgColorList[i],
+      fill: true,
+      data: dataList[i],
+      maxBarThickness: 6,
+    };
+    lineList.push(line);
+  } 
+  return lineList;
+}
+
+const ctx2 = document.getElementById("chart-line").getContext("2d");
+
+chartType = "line";  
+chartLabel = "Top 5 brand has the highest number of sold product";
+chartLabelColor = "#6900ff"; 
+yAxisLabelColor = "lime";
+xAxisLabelColor = "aqua";
+let listOfMonths = getMonthList();
+let lineList = getLineList(7, ctx2);
+
+const chart2 = {
+  type: chartType,
   data: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "Mobile apps",
-        tension: 0.4,
-        borderWidth: 0,
-        pointRadius: 0,
-        borderColor: "#e13efa",
-        borderWidth: 3,
-        backgroundColor: gradientStroke1,
-        fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-        maxBarThickness: 6,
+    labels: listOfMonths,
+    datasets: lineList,
+  },
+  plugins: {
+    legend: {
+      display: true,
+    },
+    subtitle: {
+      display: true,
+      text: chartLabel,
+      color: chartLabelColor,
+      font: {
+        size: 16,
+        weight: "bold",
       },
-      {
-        label: "Websites",
-        tension: 0.4,
-        borderWidth: 0,
-        pointRadius: 0,
-        borderColor: "#60ff38",
-        borderWidth: 3,
-        backgroundColor: gradientStroke2,
-        fill: true,
-        data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-        maxBarThickness: 6,
-      },
-    ],
+      padding: { top: 0, left: 0, right: 0, bottom: 0 },
+    },
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false,
+        display: true,
+        color: chartLabelColor,
+      },
+      title: {
+        display: true,
+        text: chartLabel,
+        color: chartLabelColor,
+        font: {
+          size: 16,
+          weight: "bold",
+        },
+        padding: { top: 0, left: 0, right: 0, bottom: 10 },
       },
     },
     interaction: {
@@ -277,7 +390,7 @@ new Chart(ctx2, {
         ticks: {
           display: true,
           padding: 10,
-          color: "#06e6ff",
+          color: yAxisLabelColor,
           font: {
             size: 11,
             family: "Poppins",
@@ -295,15 +408,16 @@ new Chart(ctx2, {
         },
         ticks: {
           display: true,
-          color: "#8d25ffc4",
+          color: xAxisLabelColor,
           padding: 20,
           font: {
             size: 11,
-            family: "Open Sans",
+            family: "san-serif",
             weight: "bold",
           },
         },
       },
     },
   },
-});
+};
+const mylinechart = new Chart(ctx2, chart2);

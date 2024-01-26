@@ -29,9 +29,7 @@ $(function () {
 
   // Text typing animation
   $(".text-typing-animation").each(function (e, e) {
-    console.log(e);
-    const text = $(e).html();
-    console.log(text);
+    const text = $(e).html(); 
     let startIdx = 0;
     let reverseTyping = false;
 
@@ -51,4 +49,5 @@ $(function () {
     }
     typingText();
   });
+
 });

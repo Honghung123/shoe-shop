@@ -11,114 +11,35 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="order-item">
-            <td><span>13353</span></td>
-            <td class="">
-                <span>Dam Hong Hung</span>
-            </td>
-            <td>
-                <span>29-12-2023</span>
-            </td>
-            <td class="position-relative">
-                <span class="order-status position-center delivering">Delivering</span>
-            </td>
-            <td>
-                <span class="currency">2500000</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
-                    <button class="btn-custom order-action p-0 ship-order">
-                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
-                            data-id="1"> local_shipping </span>
-                    </button>
-                    <button class="btn-custom order-action p-0 delete-order">
-                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
-                            data-id="1"> block </span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr class="order-item">
-            <td><span>13353</span></td>
-            <td class="">
-                <span>Quach Duc Huy</span>
-            </td>
-            <td>
-                <span>10-12-2023</span>
-            </td>
-            <td class="position-relative">
-                <span class="order-status position-center success">Delivered</span>
-            </td>
-            <td>
-                <span class="currency">5200000</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
-                    <button class="btn-custom p-0 ship-order">
-                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
-                            data-id="2"> local_shipping </span>
-                    </button>
-                    <button class="btn-custom p-0 delete-order">
-                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
-                            data-id="2"> block </span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr class="order-item">
-            <td><span>13353</span></td>
-            <td class="">
-                <span>Tran Nguyen Gia Huy</span>
-            </td>
-            <td>
-                <span>20-12-2023</span>
-            </td>
-            <td class="position-relative">
-                <span class="order-status position-center canceled">Canceled</span>
-            </td>
-            <td>
-                <span class="currency">700000</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
-                    <button class="btn-custom order-action p-0 ship-order">
-                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
-                            data-id="1"> local_shipping </span>
-                    </button>
-                    <button class="btn-custom order-action p-0 delete-order">
-                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
-                            data-id="1"> block </span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr class="order-item">
-            <td><span>13353</span></td>
-            <td class="">
-                <span>Ngo Quoc Huy</span>
-            </td>
-            <td>
-                <span>31-12-2023</span>
-            </td>
-            <td class="position-relative">
-                <span class="order-status position-center processing">Processing</span>
-            </td>
-            <td>
-                <span class="currency">2500000</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
-                    <button class="btn-custom p-0 ship-order">
-                        <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
-                            data-id="2"> local_shipping </span>
-                    </button>
-                    <button class="btn-custom p-0 delete-order">
-                        <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
-                            data-id="2"> block </span>
-                    </button>
-                </div>
-            </td>
-        </tr>
+        <% orders.forEach(order => { %>
+            <tr class="order-item" data-id=<%=order.id%>>
+                <td><span><%= order.id %></span></td>
+                <td class="">
+                    <span><%= order.user.username %></span>
+                </td>
+                <td>
+                    <span><%= order.created_at %></span>
+                </td>
+                <td class="position-relative">
+                    <span class="order-status position-center delivering"><%= order.status %></span>
+                </td>
+                <td>
+                    <span class="currency"><%= order.total  %></span>
+                </td>
+                <td>
+                    <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2 update-action-responsive ">
+                        <button class="btn-custom order-action p-0 ship-order">
+                            <span class="material-icons-sharp shipping" data-bs-toggle="modal" data-bs-target="#shipOrder"
+                                data-id=<%= order.id  %>> local_shipping </span>
+                        </button>
+                        <button class="btn-custom order-action p-0 delete-order">
+                            <span class="material-icons-sharp canceled" data-bs-toggle="modal" data-bs-target="#cancelOrder"
+                                data-id=<%= order.id %>> block </span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        <% }) %>
     </tbody>
 </table>
 <div class="text-center mt-4">

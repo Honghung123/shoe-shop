@@ -46,25 +46,20 @@ const dataSource = new typeorm.DataSource({
 const connectDb = async () => {
   try {
     await dataSource.initialize();
-    const user = await userRepo.findOne({
-      where: { email: "admin@gmail.com" },
-    });
+    const user = await userRepo.findOne({ where: { email: 'admin@gmail.com' } })
     if (!user) {
-      const password = await hashPwd("admin");
+      const password = await hashPwd('admin')
       console.log("creating admin account");
-      await userRepo.save({
-        email: "admin@gmail.com",
-        password,
-        username: "Admin",
-        role: "admin",
-      });
+      await userRepo.save({ email: 'admin@gmail.com', password, username: 'Admin', role: 'admin' })
     }
-    console.log("Connected to database");
+    console.log('Connected to database');
   } catch (error) {
     console.log(error);
     console.log(`Something went wrong: Can't connect to database`);
+
   }
 };
+
 const userRepo = dataSource.getRepository("User");
 const productRepo = dataSource.getRepository("Product");
 const categoryRepo = dataSource.getRepository("Category");

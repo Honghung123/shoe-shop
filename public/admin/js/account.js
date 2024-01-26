@@ -49,6 +49,7 @@ function updateListAccount(data) {
     listAccount.appendChild(itemAccount(i));
   }
 
+
   const pagination = document.getElementsByClassName('pagination')[0];
   pagination.innerHTML = '';
 
@@ -128,13 +129,12 @@ function itemAccount(user) {
                 </button>
             </div>
       </td>
-
   `
-
   // Gắn sự kiện click cho dòng
   userRow.addEventListener("click", viewAccount);
   return userRow;
 };
+
 
 $(".add-account").on("click", function (e) {
   const id = parseInt(e.target.getAttribute("data-id"));
@@ -203,6 +203,7 @@ $("#btn-delete-account").on("click", async function () {
   localStorage.removeItem('deleteAccId');
 })
 
+
 $(".ban-account").on("click", banAccount);
 
 async function banAccount(e) {
@@ -226,6 +227,7 @@ async function banAccount(e) {
   //   const modalTitle = editModal.querySelector(".modal-title");
   //   const modalBodyInput = editModal.querySelector(".modal-body input");
   // });
+  
 }
 
 $("#btn-ban-account").on("click", async function () {

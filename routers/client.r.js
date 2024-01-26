@@ -13,6 +13,8 @@ router.get("/discount", clientController.renderDiscountPage);
 router.get("/account", clientController.renderAccountPage);
 router.get("/cart", clientController.renderCartPage);
 router.get("/favorite", clientController.renderFavorPage);
-router.get("/detail", clientController.renderDetailsPage);
+router.get("/details", clientController.renderDetailsPage);
 router.get("/contact", clientController.renderContactPage); 
+router.get("/home", clientController.renderHomePage)
+
 module.exports = router;

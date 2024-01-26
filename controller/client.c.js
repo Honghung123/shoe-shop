@@ -44,6 +44,7 @@ module.exports = {
       const image = await imageRepo.findOne({
         where: { product_id: result[i].id }
       });
+    console.log(result);
       result[i].image = image.image;
       const cat = await categoryRepo.findOne({
         where: { id: result[i].cat_id }

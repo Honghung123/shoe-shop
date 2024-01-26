@@ -801,3 +801,7 @@ main .my-table {
   }
 }
 
+.footer{
+  background-color: var(--color-white);
+  box-shadow: var(--box-shadow);
+}

@@ -7,9 +7,9 @@ const ejs = require("ejs");
 const fs = require("fs/promises");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const multipart = require('connect-multiparty')
+const multipart = require("connect-multiparty");
 const logger = require("./middleware/logger");
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 
 const apiDocOptions = {
@@ -18,8 +18,7 @@ const apiDocOptions = {
     info: {
       title: "Shoe shop Express API with Swagger",
       version: "0.1.0",
-      description:
-        "This is api for shoe shop developer",
+      description: "This is api for shoe shop developer",
       license: {
         name: "MIT",
         url: "https://spdx.org/licenses/MIT.html",
@@ -37,10 +36,8 @@ const apiDocOptions = {
     ],
   },
   apis: ["./routers/*.js"],
-
-}
-const swaggerSpec = swaggerJSDoc(apiDocOptions)
-
+};
+const swaggerSpec = swaggerJSDoc(apiDocOptions);
 
 const { connectDb, userRepo } = require("./config/db.config");
 const port = process.env.PORT;
@@ -60,8 +57,6 @@ app.use(
   })
 );
 
-
-
 require("./config/passport.config")(app);
 
 app.set("views", "./views");
@@ -71,7 +66,7 @@ app.set("view engine", "ejs");
 app.use(logger);
 const adminRouter = require("./routers/admin.r");
 const authRouter = require("./routers/auth.r");
-const categoryRouter = require('./routers/category.r')
+const categoryRouter = require("./routers/category.r");
 const passport = require("passport");
 const cartLineRouter = require('./routers/cart-line.r')
 const productRouter = require('./routers/product.r')
@@ -89,7 +84,7 @@ app.use("/orders", orderRouter)
 app.use('/wish-list', wishListRouter);
 app.use("/", clientRouter);
 app.use("/vouchers", voucherRouter);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.use("/orders", )
 // app.use("/", passport);
@@ -99,5 +94,3 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.listen(port, hostname, () => {
   console.log(`Server running at ${port}`);
 });
-
-

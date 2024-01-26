@@ -1,90 +1,90 @@
-  <!-- Modal -->
-  <div class="modal fade" id="editProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-xl ">
-      <div class="modal-content"> 
-        <div class="modal-body p-0">
-          <section class="my-modal-content p-4">
-            <h1 class="title mb-4 text-gradient">Edit product</h1>
-            <form class="form-add" method="post" action="#" id="form-edit-product">
-              <div class="form-add-grid form-grid-responsive gap-4">
-                <div class="upload">
-                  <div class="upload-wrapper wrapper-custom">
-                    <h2 class="upload-title">Upload image</h2>
-                    <div class="upload-img">
-                      <!-- image here -->
-                    </div>
-                    <div class="upload-info">
-                      <p>
-                        <span class="upload-info-value">0</span> file(s) uploaded.
-                      </p>
-                    </div>
-                    <div class="upload-area area-edit">
-                      <div class="upload-area-img">
-                        <span class="material-icons-sharp">
-                          cloud_upload
-                          </span>
-                      </div>
-                      <p class="upload-area-text">Select images or <span>browse</span>.</p>
-                    </div>
-                    <input type="file" class="visually-hidden" id="upload-input-edit" multiple name="images" required>
+<!-- Modal -->
+<div class="modal fade" id="editProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl ">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <section class="my-modal-content p-4">
+          <h1 class="title mb-4 text-gradient">Edit product</h1>
+          <form class="form-add" method="post" action="#" id="form-edit-product">
+            <div class="form-add-grid form-grid-responsive gap-4">
+              <div class="upload">
+                <div class="upload-wrapper wrapper-custom">
+                  <h2 class="upload-title">Upload image</h2>
+                  <div class="upload-img">
+                    <!-- image here -->
                   </div>
+                  <div class="upload-info">
+                    <p>
+                      <span class="upload-info-value">0</span> file(s) uploaded.
+                    </p>
+                  </div>
+                  <div class="upload-area area-edit">
+                    <div class="upload-area-img">
+                      <span class="material-icons-sharp">
+                        cloud_upload
+                      </span>
+                    </div>
+                    <p class="upload-area-text">Select images or <span>browse</span>.</p>
+                  </div>
+                  <input type="file" class="visually-hidden" id="upload-input-edit" multiple name="images" required>
                 </div>
-                <div class="form-content form-custom">
-                  <div class="form-field">
-                    <label class="label">Product name: </label>
-                    <input name="name" class="input-text" type="text" value="Addias shoe super exclusive" required>
-                    <label class="error-msg"></label>
-                   </div>
-                   <div class="form-field ">
-                     <label class="label">Price:</label>
-                     <input name="price" class="input-text" type="number" min="10000" value="12230000" required>
-                    </div> 
-                    <div class="form-field ">
-                      <label class="label">Category:</label>
-                      <select name="catId" class="form-select" required> 
-                        <option value="1" selected>Sport</option>
-                        <option value="2">Baby</option>
-                        <option value="3">Woman</option>
-                      </select>
+              </div>
+              <div class="form-content form-custom">
+                <div class="form-field">
+                  <label class="label">Product name: </label>
+                  <input name="name" class="input-text" type="text" value="Addias shoe super exclusive" required>
+                  <label class="error-msg"></label>
+                </div>
+                <div class="form-field ">
+                  <label class="label">Price:</label>
+                  <input name="price" class="input-text" type="number" min="10000" value="12230000" required>
+                </div>
+                <div class="form-field ">
+                  <label class="label">Category:</label>
+                  <select name="catId" class="form-select" required>
+                    <option value="1" selected>Sport</option>
+                    <option value="2">Baby</option>
+                    <option value="3">Woman</option>
+                  </select>
+                </div>
+                <div class="form-field ">
+                  <label class="label">Brand:</label>
+                  <select name="brandId" class="form-select" required>
+                    <option value="1" selected>Addias</option>
+                    <option value="2">Gucci</option>
+                    <option value="3">Levent</option>
+                  </select>
+                </div>
+                <div class="form-field product-size-stock">
+                  <label class="label">Size and Stock:</label>
+                  <button type="button" class="btn-custom btn-warning fw-bold mx-3" style="zoom: .9;"
+                    id="editModal-stock-btn">
+                    <div class="d-flex align-items-center column-gap-1">
+                      <h5>Add</h5> <span class="material-icons-sharp"> add </span>
                     </div>
-                    <div class="form-field ">
-                      <label class="label">Brand:</label>
-                      <select name="brandId" class="form-select" required> 
-                        <option value="1" selected>Addias</option>
-                        <option value="2">Gucci</option>
-                        <option value="3">Levent</option>
-                      </select>
-                    </div>
-                    <div class="form-field product-size-stock">
-                      <label class="label">Size and Stock:</label>
-                      <button type="button" class="btn-custom btn-warning fw-bold mx-3" style="zoom: .9;" id="editModal-stock-btn">
-                        <div class="d-flex align-items-center column-gap-1"><h5>Add</h5> <span class="material-icons-sharp"> add </span></div>
-                      </button>
-                      <div id="edit-size-stock-container" class="d-flex flex-wrap gap-3 pt-2 pb-2"> 
-                          
-                      </div>
-                      <label class="error-msg size"></label>
-                    </div>
+                  </button>
+                  <div id="edit-size-stock-container" class="d-flex flex-wrap gap-3 pt-2 pb-2">
 
-                    <div class="form-field ">
-                      <label class="label">Short description</label>
-                       <input name="short_des" class="input-text" type="text" value="lorem is sdf sf sdf sdsf" required>
-                       <label class="error-msg"></label>
-                    </div>
-                    <div class="form-field">
-                      <label class="label">Full description</label>
-                       <textarea name="full_des" class="input-text" type="text" required style="resize: none;">This is test message</textarea>
-                       <label class="error-msg"></label>
-                    </div>
+                  </div>
+                  <label class="error-msg size"></label>
                 </div>
-              </div> 
-              <button type="submit" class="btn-custom btn-success fw-bold mt-4 margin-auto d-block px-4">Change</button>
-            </form>
-            <button class="fw-bold close" data-bs-dismiss="modal">
-              <span class="material-icons-sharp"> close </span>
-            </button>
-          </section>
-        </div>
+ 
+                <div class="form-field">
+                  <label class="label">Description</label>
+                  <textarea name="description" class="input-text" type="text" required
+                    style="resize: none;">This is test message</textarea>
+                  <label class="error-msg"></label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn-custom btn-success fw-bold mt-4 margin-auto d-block px-4">Change</button>
+          </form>
+          <button class="fw-bold close" data-bs-dismiss="modal">
+            <span class="material-icons-sharp"> close </span>
+          </button>
+        </section>
       </div>
     </div>
   </div>
+</div>

@@ -1,85 +1,63 @@
 <!-- <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"> -->
-<table class="my-table box-shadow-primary text-center  ">
-    <thead>
-        <tr>
-            <th width="7%">ID</th>
-            <th>Info</th>
-            <th width="10%">Status</th>
-            <th width="15%">Action</th>
-        </tr>
-    </thead>
-    <tbody class="account-list">
-        <tr class="account-item" data-id="10">
-            <td><span>10</span></td>
-            <td class="flex-start-center column-gap-custom padding-1 mlr-1">
-                <div class="thumb">
-                    <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                </div>
-                <div>
-                    <h5 class="text-start">Quach Duc Huy</h5> 
-                    <div class="user-info">
-                        <ul class="list-unstyled text-start">
-                            <li class="w-100">Account id: 123</li>
-                            <li class="w-100">Balance: <span class="currency">100000</span></li>
-                        </ul>
+<div style="height: 25rem;">
+    <table class="my-table box-shadow-primary text-center  ">
+        <thead>
+            <tr>
+                <th width="10%">ID</th>
+                <th width="45%">Info</th>
+                <th>Status</th>
+                <th width="25%">Action</th>
+            </tr>
+        </thead>
+        <tbody class="account-list">
+            <% users.forEach((user, idx) => { %>
+            <tr class="account-item" data-id="<%= user.id %>">
+                <td><span><%= user.id %></span></td>
+                <td class="flex-start-center column-gap-3 padding-1 mlr-1">
+                    <div class="thumb">
+                        <img class="avatar size-35" src="<%= user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'%>" alt="">
                     </div>
-                </div>
-            </td>
-            <td class="position-relative">
-                <span class="position-center">Active</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-custom flex-wrap mt-2">
-                    <button class="btn-custom p-0 delete-account">
-                        <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="2">
-                            delete </span>
-                    </button>
-                    <button class="btn-custom p-0 ban-account">
-                        <span class="material-icons-sharp banned" data-bs-toggle="modal" data-bs-target="#banAccount" data-id="2">
-                            block </span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        <tr class="account-item" data-id="11">
-            <td><span>11</span></td>
-            <td class="flex-start-center column-gap-custom padding-1 mlr-1">
-                <div class="thumb">
-                    <img class="avatar size-35" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                </div>
-                <div>
-                    <h5 class="text-start">Ngo Quoc Huy</h5>
-                    <div class="user-info">
-                        <ul class="d-flex flex-wrap text-start">
-                            <li>Not register account yet</li> 
-                        </ul>
+                    <div>
+                        <h5 class="text-start"><%= user.username %></h5> 
+                        <div class="user-info">
+                            <ul class="list-unstyled d-flex flex-wrap-wrap">
+                                <li>Account id: 123</li>
+                                <li>Balance: <span class="currency">100000</span></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td>
-                <span class="">Banned</span>
-            </td>
-            <td>
-                <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2">
-                    <button class="btn-custom p-0 delete-account">
-                        <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="2">
-                            delete </span>
-                    </button>
-                    <button class="btn-custom p-0 ban-account">
-                        <span class="material-icons-sharp banned" data-bs-toggle="modal" data-bs-target="#banAccount" data-id="2">
-                            block </span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+                <td class="position-relative">
+                    <span class="position-center"><%= user.locked ? 'Banned' : 'Active' %></span>
+                </td>
+                <td>
+                    <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
+                        <button class="btn-custom p-0 delete-account text-danger">
+                            <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="<%= user.id %>">
+                                delete </span>
+                        </button>
+                        <button class="btn-custom p-0 ban-account <%= user.locked ? 'text-success' : 'text-danger' %>">
+                            <span class="material-icons-sharp banned" data-bs-toggle="modal" data-bs-target="#banAccount" data-id="<%= user.id %>">
+                                block </span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <% }) %>
+    
+        </tbody>
+    </table>
+</div>
 <div class="text-center mt-4">
     <ul class="pagination">
-        <a class="prev page-numbers" href="#">Prev</a>
-        <span aria-current="page" class="page-numbers active">1</span>
-        <a class="page-numbers" href="#">2</a>
-        <a class="page-numbers" href="#">3</a>
-        <a class="next page-numbers" href="#">Next</a>
+        <button data-id="<%= currentPage - 1 %>" class="prev pagination-account page-numbers">Prev</button>
+        <% for(let i = 1; i <= totalPages; i++) { %>
+            <% if (i === parseInt(currentPage)) { %>
+                <span aria-current="page" class="page-numbers active"><%= i %></span>
+            <% } else { %>
+                <button data-id="<%= i %>" class="pagination-account page-numbers"><%= i %></button>
+            <% } %>
+        <% } %>
+        <button data-id="<%= parseInt(currentPage) === totalPages ? 0 : parseInt(currentPage) + 1 %>" class="next pagination-account page-numbers">Next</button>
     </ul>
 </div>

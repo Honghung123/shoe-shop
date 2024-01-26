@@ -159,8 +159,7 @@
     "category category category category other brand brand brand"
     "size_stock size_stock size_stock size_stock size_stock size_stock size_stock size_stock"
     "size_stock size_stock size_stock size_stock size_stock size_stock size_stock size_stock"
-    "shortDes shortDes shortDes shortDes shortDes shortDes shortDes shortDes"
-    "fullDes fullDes fullDes fullDes fullDes fullDes fullDes fullDes";
+    "description description description description description description description description";
 
   & .form-field:nth-child(1) {
     grid-area: name;
@@ -168,11 +167,7 @@
 
   & .form-field:nth-child(2) {
     grid-area: price;
-  }
-
-  /* & .form-field:nth-child(3) {
-        grid-area: quantity;
-    } */
+  } 
 
   & .form-field:nth-child(3) {
     grid-area: category;
@@ -184,15 +179,11 @@
 
   & .form-field:nth-child(5) {
     grid-area: size_stock;
-  }
+  } 
 
   & .form-field:nth-child(6) {
-    grid-area: shortDes;
-  }
-
-  & .form-field:nth-child(7) {
-    grid-area: fullDes;
-    grid-row: 6 / span 2;
+    grid-area: description;
+    grid-row: 5 / span 2;
 
     & textarea {
       transition: none;

@@ -1,42 +1,41 @@
-  <!-- Modal -->
-  <div class="modal fade" id="viewAccount" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <section class="my-account my-modal-content p-4">
-            <h1 class="title mb-4 text-gradient">Profile</h1>
-            <div class="overflow">
-              <div class="account-info row col-gap-1 medium-shadow card-border-radius">
-                <div class="col-lg-4 col-md-12">
-                  <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Cinque Terre">
-                  <h5 class="account-detail text-center mt-3">Honghung123</h5>
-                  <h5 class="account-detail text-center mt-3">ID: <span>10</span></h5>
-              
-                </div>
-              
-                <div class="details col-lg-8 col-md-12">
-                  <h5 class="account-title">Account name: <span>Dam Hong Hung</span></h5>
-                  <h5 class="account-detail">Email: <span>damhunghung123@gmail.com</span></h5>
-                  <h5 class="account-detail">Address: <span>Khu pho 6, phuong Dong Hoa, thanh pho Di An, Binh Duong, Viet Nam</span>
-                  </h5>
-                  <h5 class="account-detail">Phone: <span>0123123123</span></h5>
-                  <h5 class="account-detail">Status: <span class="status active">Active</span></h5>
-                  <h5 class="account-detail">Created at: <span>2023-01-15</span></h5>
-                  <div class="divider-info pt-4"></div>
-                  <div class="payment-account">
-                    <h5 class="account-detail mt-3">Account id: <span>123</span></h5>
-                    <h5 class="account-detail mt-3">Balance: <span class="currency">300000</span></h5>
-                    <h5 class="color-dark-variant">Not register any account yet</h5>
-                    <button class="btn-custom btn-success add-account" data-id="10">Add new</button>
-                  </div>
-                </div>
-              </div>
+<!-- Modal -->
+<div class="modal fade" id="viewAccount" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <section class="my-account my-modal-content p-4">
+          <h1 class="title mb-4 text-gradient">Profile</h1>
+          <div class="account-info row col-gap-1 medium-shadow card-border-radius">
+            <div class="col-md-4">
+              <img class="rounded-circle" id="viewAccount-avatar" src="" alt="Cinque Terre">
+              <!-- <h5 id="viewAccount-id" class="account-detail text-center mt-3">ID: <span>10</span></h5>
+              <h5 id="viewAccount-username" class="account-detail text-center mt-3">Honghung123</h5> -->
             </div>
-            <button class="close" data-bs-dismiss="modal">
-              <span class="material-icons-sharp"> close </span>
-            </button>
-          </section>
-        </div>
+
+            <div class="details col-md-8">
+              <!-- <h5 class="account-title">Account name: <span>Dam Hong Hung</span></h5> -->
+              <h5 class="account-detail">ID: <span id="viewAccount-id"></span></h5>
+              <h5 class="account-detail">Username: <span id="viewAccount-username"></span></h5>
+              <h5 class="account-detail">Email: <span id="viewAccount-email"></span></h5>
+              <h5 class="account-detail">Address: <span id="viewAccount-address"></span></h5>
+              <h5 class="account-detail">Phone: <span id="viewAccount-phone"></span></h5>
+              <h5 class="account-detail">Status: <span id="viewAccount-status" class="status active"></span></h5>
+              <h5 class="account-detail">Role: <span id="viewAccount-role"></span></h5>
+              <div class="divider-info pt-4"></div>
+              <!-- <div class="payment-account">
+                <h5 class="account-detail mt-3">Account id: <span>123</span></h5>
+                <h5 class="account-detail mt-3">Balance: <span class="currency">300000</span></h5>
+                <h5 class="color-dark-variant">Not register any account yet</h5>
+                <button class="btn-custom btn-success add-account" data-id="10">Add new</button>
+              </div> -->
+            </div>
+          </div>
+          <button class="close" data-bs-dismiss="modal">
+            <span class="material-icons-sharp"> close </span>
+          </button>
+        </section>
       </div>
     </div>
   </div>
+</div>

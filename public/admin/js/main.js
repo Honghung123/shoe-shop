@@ -5,7 +5,7 @@ $(function () {
   });
 
   $("#menu-btn").on("click", function () {
-    const sideMenu = $("aside.my-aside")[0]; 
+    const sideMenu = $("aside.my-aside")[0];
     const status = sideMenu.style.display;
     if (status == "block") {
       sideMenu.style.display = "none";
@@ -28,7 +28,7 @@ $(function () {
   });
 
   // Text typing animation
-  $(".text-typing-animation").each(function (e, e) { 
+  $(".text-typing-animation").each(function (e, e) {
     console.log(e);
     const text = $(e).html();
     console.log(text);
@@ -52,4 +52,3 @@ $(function () {
     typingText();
   });
 });
-      

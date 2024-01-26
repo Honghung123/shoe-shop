@@ -1,5 +1,5 @@
-const router = require('express').Router();
-const categoryController = require('../controller/category.c')
+const router = require("express").Router();
+const categoryController = require("../controller/category.c");
 /**
  * @swagger
  * /categories:
@@ -85,11 +85,10 @@ const categoryController = require('../controller/category.c')
  *       '500':
  *         description: Internal server error.
  */
-router.route('/')
-    .post(categoryController.addCategory);
-router.route('/:id')
-    .delete(categoryController.deleteCategory)
-    .put(categoryController.updateCategory)
+router.route("/").post(categoryController.addCategory);
+router
+  .route("/:id")
+  .delete(categoryController.deleteCategory)
+  .put(categoryController.updateCategory);
 
-module.exports = router
-
+module.exports = router;

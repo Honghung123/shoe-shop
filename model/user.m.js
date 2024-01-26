@@ -8,7 +8,6 @@ module.exports = new EntitySchema({
             primary: true,
             generated: 'rowid'
         },
-        
         username: {
             type: 'varchar',
             nullable: false,
@@ -30,6 +29,15 @@ module.exports = new EntitySchema({
             type: 'boolean',
             default: false,
             nullable: false
+        },
+        deleted: {
+            type: 'boolean',
+            default: false,
+            nullable: false
+        },
+        avatar: {
+            type: 'varchar',
+            nullable: true,
         }
         
     }

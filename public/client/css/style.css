@@ -394,7 +394,11 @@ body {
 	}
 }
 
+<<<<<<< HEAD
 .header__cart__favourite {
+=======
+.header__cart__favorite {
+>>>>>>> 0ed8af0f60a5c07062c3d45416b9c38cd2074fc3
 	position: relative;
 	z-index: 10;
 
@@ -1060,20 +1064,31 @@ body {
 	overflow: hidden;
 }
 
+<<<<<<< HEAD
 .sidebar__item h4 {
 	color: #1c1c1c;
 	font-weight: 700;
 	margin-bottom: 25px;
+=======
+.sidebar__item h4 { 
+	font-weight: 700;
+	margin-bottom: 1rem;
+>>>>>>> 0ed8af0f60a5c07062c3d45416b9c38cd2074fc3
 }
 
 .sidebar__item ul li {
 	list-style: none;
 }
 
+<<<<<<< HEAD
 .sidebar__item ul li a {
 	font-size: 16px;
 	color: #1c1c1c;
 	line-height: 39px;
+=======
+.sidebar__item ul li a {  
+	line-height: 2.7rem;
+>>>>>>> 0ed8af0f60a5c07062c3d45416b9c38cd2074fc3
 	display: block;
 }
 
@@ -1109,6 +1124,7 @@ body {
 #price-from, #price-to{
 	border-radius: var(--card-sm-border-radius);
 	width: 100%;
+<<<<<<< HEAD
 }
 
 .sidebar__item__color.sidebar__item__color--white label:after {
@@ -1156,6 +1172,16 @@ body {
 	background: #222;
 	content: "";
 	border-radius: 50%;
+=======
+} 
+
+.sidebar-brand-list{
+
+}
+
+.sidebar-brand-list li{
+	margin: .1rem .5rem;
+>>>>>>> 0ed8af0f60a5c07062c3d45416b9c38cd2074fc3
 }
 
 .sidebar__item__size {

@@ -8,10 +8,6 @@ menuBtn.addEventListener("click", () => {
   sideMenu.style.display = "block";
 });
 
-// closeBtn.addEventListener('click', () => {
-//     sideMenu.style.display = 'none';
-// });
-
 darkMode.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode-variables");
   const darkModeIcon = darkMode.querySelector("span:nth-child(1)");
@@ -21,4 +17,3 @@ darkMode.addEventListener("click", () => {
     darkModeIcon.innerHTML = "light_mode";
   }
 });
-

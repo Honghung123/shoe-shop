@@ -146,9 +146,9 @@ $("#addModal-stock-btn").on("click", function (e) {
 
 $("#addModal-stock-btn").on("click", function (e) {
   const id = parseInt(e.target.getAttribute("data-id"));
-    console.log("Add account payment for id " + id);
-    $(".error-msg.size").html("");
-    $(".error-msg.size").hide();
+  console.log("Add account payment for id " + id);
+  $(".error-msg.size").html("");
+  $(".error-msg.size").hide();
   $("#addNewProduct").modal("hide");
   $("#addNewStock").data("id", "#addNewProduct");
   $("#addNewStock").modal("show");
@@ -156,9 +156,9 @@ $("#addModal-stock-btn").on("click", function (e) {
 
 $("#editModal-stock-btn").on("click", function (e) {
   const id = parseInt(e.target.getAttribute("data-id"));
-    console.log("Add account payment for id " + id);
-    $(".error-msg.size").html("");
-    $(".error-msg.size").hide();
+  console.log("Add account payment for id " + id);
+  $(".error-msg.size").html("");
+  $(".error-msg.size").hide();
   $("#editProduct").modal("hide");
   $("#addNewStock").data("id", "#editProduct");
   $("#addNewStock").modal("show");
@@ -175,7 +175,7 @@ $("#form-add-stock").on("submit", function (e) {
   const container = isAddCalled
     ? $("#add-size-stock-container")
     : $("#edit-size-stock-container");
-    const html = `<div class="product-size-stock-item">
+  const html = `<div class="product-size-stock-item">
                           <input type="hidden" name="sizes" value="${sizeId}-${qty}" class="d-none">
                           <p>Size: <b>${name}</b> - Qty: <b>${qty}</b></p>
                           <span class="material-icons-sharp" onclick="deleteStock(this)"  title="Delete"> close </span>
@@ -186,17 +186,20 @@ $("#form-add-stock").on("submit", function (e) {
   return false;
 });
 
-function deleteStock(obj){
+function deleteStock(obj) {
   $(obj).parent().remove();
 }
 
-$("#form-edit-product").on("submit", function (e) { 
-    e.preventDefault();
-    if ($("#edit-size-stock-container").children(".product-size-stock-item").length == 0) {
-        $(".error-msg.size").html("Please add at least one size for this product");
-        $(".error-msg.size").show();
-    } else {
-        this.submit();   
-    }
+$("#form-edit-product").on("submit", function (e) {
+  e.preventDefault();
+  if (
+    $("#edit-size-stock-container").children(".product-size-stock-item")
+      .length == 0
+  ) {
+    $(".error-msg.size").html("Please add at least one size for this product");
+    $(".error-msg.size").show();
+  } else {
+    this.submit();
+  }
 });
 // End add stock with quantity

@@ -15,15 +15,17 @@ module.exports = {
         res.json({order, orderLines})
     },
     updateOrderStatus: async (req, res) => {
-        try {
-            const {orderId, status} = req.body;
-            let order = await orderRepo.findOne({where: {id: orderId}});
-            order.status = status;
-            await orderRepo.save(order);
-            res.json(order)
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({message: 'Internal server error'})
+        const {orderId, status} = req.body;
+        const order = await orderRepo.findOne({where: {id: orderId}});
+        order.status = status;
+        await orderRepo.save(order);
+        if(req.user.role == 'admin'){
+            res.redirect('admin/order')
+        } else{
+            //redirect to order page customer of customer
         }
+        
     }
+
+    
 }

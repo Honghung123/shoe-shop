@@ -37,40 +37,52 @@
                       <span>Categories</span>
                     </div>
                     <ul>
-                      <li><a href="#">Giày thể thao</a></li>
-                      <li><a href="#">Giày trẻ em</a></li>
-                      <li><a href="#">Giày scandal</a></li>
-                      <li><a href="#">Giày bata</a></li>
-                      <li><a href="#">Giày cao gót</a></li>
+                      <% categories.forEach(category=> { %>
+                        <li class="d-flex">
+                          <input class="mx-2 filer-product" type="checkbox" id="<%= category.name %>" value="<%= category.id %>" name="category"/>
+                          <label class="mx-2" for="<%= category.name %>"><%= category.name %></label>
+                        </li>
+                      <% }) %>
                     </ul>
                   </div>
                 </div>
                 <div class="sidebar__item">
-                  <h4>Price:</h4>
-                  <div class="sidebar__item__price-wrapper flex-between-center">
-                    <div class="sidebar__item__price-from">
-                      <p>From: </p>
-                      <input type="number" name="price-from" id="price-from" min="0" value="0" step="1000">
+                  <div class="hero__categories brand">
+                    <div class="hero__categories__all brand">
+                      <i class="fa fa-bars"></i>
+                      <span>Price </span>
                     </div>
-                    <div class="sidebar__item__price-to">
-                      <p>To: </p>
-                      <input type="number" name="price-to" id="price-to" step="1000" min="0">
-                    </div>
+                    <ul>
+                      <div class="sidebar__item__price-wrapper ">
+                        <div class="sidebar__item__price-from">
+                          <label for="price-from">From: </label>
+                          <input class="filer-product-price" type="number" name="price-from" id="price-from" min="0" value="0" step="1000">
+                        </div>
+                        <div class="sidebar__item__price-to">
+                          <label for="price-to">To: </label>
+                          <input class="filer-product-price" type="number" name="price-to" id="price-to" step="1000" value="10000000" min="0">
+                        </div>
+                      </div>
+                    </ul>
                   </div>
-                </div>
-                <div class="sidebar__item sidebar__item__brand">
-                  <div class="brand-filter">
-                    <h4 class="brand-dropdown flex-start-center">Brand <i class="fa-solid fa-sort-down"></i></h4>
-                  </div>
-                  <ul class="sidebar-brand-list">
-                    <li><a href="#">Giày thể thao</a></li>
-                    <li><a href="#">Giày trẻ em</a></li>
-                    <li><a href="#">Giày scandal</a></li>
-                    <li><a href="#">Giày bata</a></li>
-                    <li><a href="#">Giày cao gót</a></li>
-                  </ul>
                 </div>
                 <div class="sidebar__item">
+                  <div class="hero__categories brand">
+                    <div class="hero__categories__all brand">
+                      <i class="fa fa-bars"></i>
+                      <span>Brand </span>
+                    </div>
+                    <ul>
+                      <% brands.forEach(brand=> { %>
+                        <li class="d-flex">
+                          <input class="mx-2 filer-product" type="checkbox" id="<%= brand.brand_name %>" value="<%= brand.id %>" name="brand"/>
+                          <label class="mx-2" for="<%= brand.brand_name %>"><%= brand.brand_name %></label>
+                        </li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                </div>
+                <!-- <div class="sidebar__item">
                   <h4>Popular Size</h4>
                   <div class="sidebar__item__size">
                     <label class="pt-2 pb-2">XL</label>
@@ -84,11 +96,11 @@
                   <div class="sidebar__item__size">
                     <label class="pt-2 pb-2">S</label>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-lg-9 col-md-7">
-              <div class="filter__item pt-2 pb-2">
+              <!-- <div class="filter__item pt-2 pb-2">
                 <div class="row">
                   <div class="col-lg-4 col-md-5">
                     <div class="filter__sort">
@@ -109,45 +121,51 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row row-gap-4">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                  <div class="featured__item">
-                    <div class="featured__item__pic">
-                      <img src="img/featured/feature-1.jpg" class="image" alt="">
-                      <ul class="featured__item__pic__hover">
-                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                      </ul>
-                    </div>
-                    <a href="details.html" class="featured__item__text p-3">
-                      <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                      <h5 class="currency">300000</h5>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                  <div class="featured__item">
-                    <div class="featured__item__pic">
-                      <img src="img/featured/feature-1.jpg" class="image" alt="">
-                      <ul class="featured__item__pic__hover">
-                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                      </ul>
-                    </div>
-                    <a href="details.html" class="featured__item__text p-3">
-                      <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                      <h5 class="currency">300000</h5>
-                    </a>
-                  </div>
+              </div> -->
+              <hr/>
+              <div class="d-flex justify-content-end">
+                <div class="filter_sort">
+                  <span>Sort By</span>
+                  <select class="custom-select sort-product">
+                    <option value="default">Default</option>
+                    <option value="asc">Price increment</option>
+                    <option value="desc">Price descrement</option>
+                  </select>
                 </div>
               </div>
-              <div class="product__pagination pt-4 pb-4 text-center">
-                <a href="#" class="product__pagination__link disabled"><i class="fa-solid fa-long-arrow-left"></i></a>
-                <a href="#" class="product__pagination__link active">1</a>
-                <a href="#" class="product__pagination__link">2</a>
-                <a href="#" class="product__pagination__link">3</a>
-                <a href="#" class="product__pagination__link"><i class="fa-solid fa-long-arrow-right"></i></a>
+              <hr/>
+
+              <div class="row row-gap-4 list-product-shopping-page">
+                <% products.forEach(product => { %>
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div data-id="<%= product.id %>" class="featured__item specific__product">
+                      <div class="featured__item__pic">
+                        <img src="<%= product.image %>" class="image" style="<%= product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>" alt="">
+                        <ul class="featured__item__pic__hover">
+                          <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                          <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                        </ul>
+                      </div>
+                      <a href="/detail?id=<%= product.id %>" class="featured__item__text p-3">
+                        <p class="limit-line line-2 mb-2"><%= product.name %></p>
+                        <h5 class="currency"><%= product.price %></h5>
+                      </a>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+
+              <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">
+
+                <a data-id="<%= parseInt(currentPage) - 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === 1 ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-left"></i></a>                
+                <% for(let i = 1; i <= totalPages; i++) { %>
+                  <% if (i === parseInt(currentPage)) { %>
+                    <a data-id="<%= i %>" style="cursor: context-menu;" class="product__pagination__link active"><%= i %></a>
+                  <% } else { %>
+                    <a data-id="<%= i %>" style="cursor: context-menu;" class="product__pagination__link"><%= i %></a>
+                  <% } %>
+                <% } %>
+                <a data-id="<%= parseInt(currentPage) + 1 > totalPages ? 0 : parseInt(currentPage) + 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === parseInt(totalPages) ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-right"></i></a>
               </div>
             </div>
           </div>

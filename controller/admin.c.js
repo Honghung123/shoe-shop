@@ -129,9 +129,8 @@ module.exports = {
         }
     },
     getAccountPage: async (req, res, next) => {
-        console.log(req.query);
         const page = req.query.page || 1;
-        const limit = req.query.limit || process.env.PER_PAGE;
+        const limit = req.query.limit || process.env.PER_PAGE_ACCOUNT;
         const { result, total, currentPage, totalPages } = await paginateAccount(userRepo, page, limit);
         if (Object.keys(req.query).length === 0) {
             res.render("admin/account", { users: result, total, currentPage, totalPages, namePage: 'account' });

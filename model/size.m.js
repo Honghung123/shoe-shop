@@ -9,7 +9,7 @@ module.exports = new EntitySchema({
             primary: true
         },
         size: {
-            type: 'varchar',
+            type: 'float',
             nullable: true
         },
         description: {

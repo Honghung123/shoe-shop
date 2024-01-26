@@ -2314,3 +2314,7 @@ body {
 	border-color: #555;
 	box-shadow: 0 0 8px rgba(85, 85, 85, 0.3);
 }
+
+.category-name:hover {
+	color: #B339FF;
+}

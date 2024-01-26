@@ -1,5 +1,5 @@
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo } = require('../config/db.config');
-const paginate = require('../utils/paginate');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo } = require('../config/db.config');
+const { MoreThan, Equal, Between } = require('typeorm');
 const { Not } = require('typeorm');
 
 module.exports = {
@@ -14,11 +14,32 @@ module.exports = {
   },
   renderShoppingPage: async (req, res) => {
     const categories = await categoryRepo.find();
+    for (let i of categories) {
+      if (i.id === parseInt(req.query?.category)) {
+        i.isSelected = true;
+      } else {
+        i.isSelected = false;
+      }
+    }
+
+    let whereCondition = {};
+    if (parseInt(req.query?.category)) {
+      whereCondition = { cat_id: parseInt(req.query?.category) };
+    }
+
     const brands = await brandRepo.find();
 
     const page = req.query.page || 1;
     const limit = req.query.limit || process.env.PER_PAGE_PRODUCT;
-    const { result, total, currentPage, totalPages } = await paginate(productRepo, page, limit);
+
+    const skip = (page - 1) * limit;
+    const [result, total] = await productRepo.findAndCount({
+      take: limit,
+      skip,
+      where: whereCondition
+    });
+    const totalPages = Math.ceil(total / limit);
+
     for (let i = 0; i < result.length; i++) {
       const image = await imageRepo.findOne({
         where: { product_id: result[i].id }
@@ -28,6 +49,15 @@ module.exports = {
         where: { id: result[i].cat_id }
       });
       result[i].cat_name = cat.name;
+      const sale = await saleRepo.findOne({
+        where: {product_id: result[i].id}
+      })
+      if (sale !== null) {
+        result[i].isSale = true;
+        result[i].percent = sale.percent;
+      } else {
+        result[i].isSale = false;
+      }
     }
 
     res.render("client/shopping", {
@@ -39,7 +69,7 @@ module.exports = {
       products: result,
       total,
       totalPages,
-      currentPage
+      currentPage: page
     });
   },
   renderCheckoutPage: async (req, res) => {
@@ -64,10 +94,60 @@ module.exports = {
     });
   },
   renderDiscountPage: async (req, res) => {
+    const currentDateOrigin = new Date();
+    const currentDateOnly = new Date(currentDateOrigin.toISOString().split('T')[0]);
+    let sales = await saleRepo.find({
+      where: { expire: MoreThan(currentDateOrigin) }
+    });
+    const saleToday = await saleRepo.find({
+      where: {
+        expire: Between(
+          currentDateOnly,
+          new Date(currentDateOnly.getTime() + (24 * 60 * 60 * 1000 - 1))
+        )
+      }
+    });
+    sales = sales.concat(saleToday);
+    
+    for (let i of sales) {
+      const product = await productRepo.findOne({
+        where: { id: i.product_id}
+      })
+      const image = await imageRepo.findOne({
+        where: { product_id: product.id }
+      });
+      product.image = image.image;
+      const cat = await categoryRepo.findOne({
+        where: { id: product.cat_id }
+      });
+      product.cat_name = cat.name;
+      i.product = product;
+    }
+    for (let i of saleToday) {
+      const product = await productRepo.findOne({
+        where: { id: i.product_id}
+      })
+      const image = await imageRepo.findOne({
+        where: { product_id: product.id }
+      });
+      product.image = image.image;
+      const cat = await categoryRepo.findOne({
+        where: { id: product.cat_id }
+      });
+      product.cat_name = cat.name;
+      product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
+      i.product = product;
+    }
+
+    console.log(sales);
+    console.log(saleToday);
+
     res.render("client/discount", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'discount'
+      curPage: 'discount',
+      sales,
+      saleToday
     });
   },
   renderContactPage: async (req, res) => {
@@ -88,6 +168,15 @@ module.exports = {
     const product = await productRepo.findOne({
       where: { id: parseInt(req.query.id) }
     })
+    const sale = await saleRepo.findOne({
+      where: {product_id: product.id}
+    })
+    if (sale !== null) {
+      product.isSale = true;
+      product.percent = sale.percent;
+    } else {
+      product.isSale = false;
+    }
     const brand = await brandRepo.findOne({
       where: { id: product.brand_id }
     })
@@ -105,7 +194,7 @@ module.exports = {
       i.size = size.size
     }
     const suggests = await productRepo.find({
-      where: { 
+      where: {
         cat_id: product.cat_id,
         brand_id: product.brand_id,
         id: Not(product.id)
@@ -120,11 +209,16 @@ module.exports = {
         where: { id: i.cat_id }
       });
       i.cat_name = cat.name;
+      const sale = await saleRepo.findOne({
+        where: {product_id: i.id}
+      })
+      if (sale !== null) {
+        i.isSale = true;
+        i.percent = sale.percent;
+      } else {
+        i.isSale = false;
+      }
     }
-    console.log(product);
-    console.log(images);
-    console.log(stock);
-    console.log(suggests);
     res.render("client/details", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,

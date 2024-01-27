@@ -1,5 +1,5 @@
 const { In, Between } = require("typeorm");
-const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo } = require("../config/db.config");
+const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo, sizeRepo } = require("../config/db.config");
 const paginate = require("../utils/paginate");
 const paginateAccount = require("../utils/paginateAccount");
 const hashPwd = require('../utils/hashPassword');
@@ -12,21 +12,39 @@ module.exports = {
             const limit = req.query.limit || 10;
             const brands = await brandRepo.find();
             const categories = await categoryRepo.find();
-            const sizes = await categoryRepo.find();
+            const sizes = await sizeRepo.find();
             const { result, total, currentPage, totalPages } = await paginate(productRepo, page, limit);
-
-            res.render("admin/product", { products: result, total, currentPage, totalPages, brands, categories, sizes, namePage: 'product' });
+            if(Object.keys(req.query).length === 0){
+                return res.render("admin/product", { products: result, total, currentPage, totalPages, brands, categories, sizes, namePage: 'product' });
+            } else{
+                res.json({ products: result, total, currentPage, totalPages, brands, categories, sizes, namePage: 'product' })
+            }
         } catch (error) {
             console.log(error);
         }
     },
     getOrderPage: async (req, res, next) => {
         const page = req.query.page || 1;
-        const limit = req.query.limit || 10;
-        const { result, total, currentPage, totalPages } = await paginate(orderRepo, page, limit);
-        res.render("admin/order", { namePage: 'order' });
+        const limit = req.query.limit || 3;
+        const relations = ['user'];
+        const order = {id: 'ASC'}
+        const { result, total, currentPage, totalPages } = await paginate(orderRepo, page, limit, relations, order);
+        console.log(result);
+        for(let i = 0; i < result.length; i++){
+            const createdAt = new Date(result[i].created_at)
+            const created_at = `${createdAt.getDate()} -${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`
+            console.log(createdAt);
+            result[i].created_at = created_at
+        }
+        if(Object.keys(req.query).length === 0){
+            res.render("admin/order", { namePage: 'order', orders: result, total, currentPage, totalPages});
+        } else{
+            res.json({ namePage: 'order', orders: result, total, currentPage, totalPages});
+        }
+        
     },
     getDashboardPage: async (req, res) => {
+        console.log("Getting dash board");
         const now = new Date();
         const month = req.query.month || now.getMonth() + 1;
         const year = req.query.year || now.getFullYear();
@@ -109,13 +127,21 @@ module.exports = {
     getCategoryPage: async (req, res, next) => {
         const page = req.query.page || 1;
         const limit = req.query.limit || 10;
-        const { result, total, currentPage, totalPages } = await paginate(categoryRepo, page, limit);
-        res.render("admin/category", { categories: result, total, currentPage, totalPages, namePage: 'category' });
+        console.log(page, limit);
+        const relations = null;
+        
+        const order = {id: 'ASC'}
+        // const order = null;
+        const { result, total, currentPage, totalPages } = await paginate(categoryRepo, page, limit, relations, order);
+        if(Object.keys(req.query).length === 0){
+            res.render("admin/category", { categories: result, total, currentPage, totalPages, namePage: 'category' });
+        } else{
+            res.json({ categories: result, total, currentPage, totalPages, namePage: 'category' })
+        }
     },
     getAccountPage: async (req, res, next) => {
-        console.log(req.query);
         const page = req.query.page || 1;
-        const limit = req.query.limit || process.env.PER_PAGE;
+        const limit = req.query.limit || process.env.PER_PAGE_ACCOUNT;
         const { result, total, currentPage, totalPages } = await paginateAccount(userRepo, page, limit);
         if (Object.keys(req.query).length === 0) {
             res.render("admin/account", { users: result, total, currentPage, totalPages, namePage: 'account' });

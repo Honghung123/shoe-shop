@@ -1,9 +1,7 @@
 const { userRepo } = require("../config/db.config");
 const asyncWrapper = require("../middleware/async-wrapper");
 const hashPwd = require("../utils/hashPassword");
-const renderHomepage = (req, res) => {
-  res.render("client/home");
-};
+
 const register = asyncWrapper(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -60,6 +58,5 @@ module.exports = {
   renderLogin,
   renderRegister,
   register,
-  renderHomepage,
   validateRegisterField,
 };

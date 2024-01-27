@@ -12,6 +12,7 @@ const imageModel = require("../model/image.m");
 const addressModel = require("../model/address.m");
 const wishListModel = require("../model/wish-list.m");
 const voucherModel = require("../model/voucher.m");
+const saleModel = require("../model/sale.m");
 const hashPwd = require("../utils/hashPassword");
 
 const dataSource = new typeorm.DataSource({
@@ -38,31 +39,27 @@ const dataSource = new typeorm.DataSource({
     addressModel,
     voucherModel,
     wishListModel,
+    saleModel,
   ],
 });
 
 const connectDb = async () => {
   try {
     await dataSource.initialize();
-    const user = await userRepo.findOne({
-      where: { email: "admin@gmail.com" },
-    });
+    const user = await userRepo.findOne({ where: { email: 'admin@gmail.com' } })
     if (!user) {
-      const password = await hashPwd("admin");
+      const password = await hashPwd('admin')
       console.log("creating admin account");
-      await userRepo.save({
-        email: "admin@gmail.com",
-        password,
-        username: "Admin",
-        role: "admin",
-      });
+      await userRepo.save({ email: 'admin@gmail.com', password, username: 'Admin', role: 'admin' })
     }
-    console.log("Connected to database");
+    console.log('Connected to database');
   } catch (error) {
     console.log(error);
     console.log(`Something went wrong: Can't connect to database`);
+
   }
 };
+
 const userRepo = dataSource.getRepository("User");
 const productRepo = dataSource.getRepository("Product");
 const categoryRepo = dataSource.getRepository("Category");
@@ -76,6 +73,7 @@ const addressRepo = dataSource.getRepository("Address");
 const imageRepo = dataSource.getRepository("ProductImage");
 const voucherRepo = dataSource.getRepository("Voucher");
 const wishListRepo = dataSource.getRepository("WishList");
+const saleRepo = dataSource.getRepository("Sale");
 
 module.exports = {
   connectDb,
@@ -92,4 +90,5 @@ module.exports = {
   imageRepo,
   voucherRepo,
   wishListRepo,
+  saleRepo,
 };

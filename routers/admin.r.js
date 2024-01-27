@@ -14,13 +14,6 @@ router.get("/error", (req, res) => {
 router.route("/").get(adminController.getDashboardPage);
 // .post(dashboardController.getDashboardPage);
 
-router.route("/logout").get((req, res) => {
-  req.logout(err => {
-    console.log(err);
-  });
-  res.redirect('/');
-});
-
 router.route("/account").get(adminController.getAccountPage);
 router.route("/account-get/:id").get(adminController.getAccountById).post(adminController.getAccountById);
 router.route("/account-ban").post(adminController.postBanAccount);

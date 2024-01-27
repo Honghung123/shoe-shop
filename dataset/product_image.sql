@@ -224,6 +224,251 @@ values(18, '//product.hstatic.net/1000003969/product/kem_cg11009_5_2023112110254
 insert into public.product_image(product_id, image) 
 values(18, '//product.hstatic.net/1000003969/product/kem_cg11009_6_20231121102546_4992ad2828a546b7a372b4c39df24c43_master.jpeg');
 
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600097442_cf2e43739d46fe0ec60268c5c03baf6f-570x570.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600286094_5e9ec55619aa36188010b6d208438d69.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600332941_d37c0e089b00ddd76efa90b4828a5544.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600413325_31087f54d26a8e68a6174b84a1deab76.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600707395_fb18d5125fffc53cc093f72dc5c102c2.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600196237_5c50e6c5206b15ae742321b3d2d98532.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600258377_3425e141874e292c27266102028f6415.jpg');
+insert into public.product_image(product_id, image) 
+values(19, '//lucasshoesmaker.com/wp-content/uploads/2023/09/z4704600635342_006c84e9e3c25b40c419f47ad10bebbc.jpg');
+
+insert into public.product_image(product_id, image) 
+values(20, '//lucasshoesmaker.com/wp-content/uploads/2023/07/IMG_0407-scaled.jpg');
+insert into public.product_image(product_id, image) 
+values(20, '//lucasshoesmaker.com/wp-content/uploads/2023/07/IMG_0373-scaled.jpg');
+insert into public.product_image(product_id, image) 
+values(20, '//lucasshoesmaker.com/wp-content/uploads/2023/07/z3296625091757_ca148976d9b6fd09719762a8d19d2277.jpg');
+insert into public.product_image(product_id, image) 
+values(20, '//lucasshoesmaker.com/wp-content/uploads/2023/07/IMG_0378-scaled.jpg');
+insert into public.product_image(product_id, image) 
+values(20, '//lucasshoesmaker.com/wp-content/uploads/2023/07/IMG_0338-scaled.jpg');
+
+
+insert into public.product_image(product_id, image) 
+values(21, '//supersports.com.vn/cdn/shop/files/39311401-1_900x@2x.jpg?v=1702289741');
+insert into public.product_image(product_id, image) 
+values(21, '//supersports.com.vn/cdn/shop/files/39311401-2_900x@2x.jpg?v=1702289741');
+insert into public.product_image(product_id, image) 
+values(21, '//supersports.com.vn/cdn/shop/files/39311401-3_900x@2x.jpg?v=1702289741');
+insert into public.product_image(product_id, image) 
+values(21, '//supersports.com.vn/cdn/shop/files/39311401-4_900x@2x.jpg?v=1702289741');
+insert into public.product_image(product_id, image) 
+values(21, '//supersports.com.vn/cdn/shop/files/39311401-5_900x@2x.jpg?v=1702289741');
+insert into public.product_image(product_id, image) 
+values(21, '//supersports.com.vn/cdn/shop/files/39311401-6_900x@2x.jpg?v=1702289741');
+
+insert into public.product_image(product_id, image) 
+values(22, '//supersports.com.vn/cdn/shop/files/39469601-1_900x@2x.jpg?v=1698047669');
+insert into public.product_image(product_id, image) 
+values(22, '//supersports.com.vn/cdn/shop/files/39469601-2_900x@2x.jpg?v=1698047669');
+insert into public.product_image(product_id, image) 
+values(22, '//supersports.com.vn/cdn/shop/files/39469601-3_900x@2x.jpg?v=1698047668');
+insert into public.product_image(product_id, image) 
+values(22, '//supersports.com.vn/cdn/shop/files/39469601-4_900x@2x.jpg?v=1698047669');
+insert into public.product_image(product_id, image) 
+values(22, '//supersports.com.vn/cdn/shop/files/39469601-5_900x@2x.jpg?v=1698047669');
+insert into public.product_image(product_id, image) 
+values(22, '//supersports.com.vn/cdn/shop/files/39469601-6_900x@2x.jpg?v=1698047669');
+
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad4_72c9bd75670c44bb984b45ce76aa0062_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad5_0b080650cc2746eeb72545d2602e73a4_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad10_7b66194e5b1843598398f1b70679fa4a_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad6_81e540d139d040d3bbc0ab55aead97de_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad3_c4dd66c54acb46d8bf16782aefac2279_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad7_f8489604d15c4260b974206055a73e00_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad8_7435fa11a2c442098c6d5e9e0cd39c7f_large.jpg');
+insert into public.product_image(product_id, image) 
+values(23, '//product.hstatic.net/1000230642/product/bmm000477nad9_98f482e17f7b485fabd3b15a7b12daf3_large.jpg');
+
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den2_d7198af22e2e4b669396419ec72f59f4_1024x1024.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den10_46a5991314ac486b9420f0677815d5ec_large.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den5_b31e46100c274b89a475e231e99ce7b7_large.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den4_1ba422468ce6440cac0e9a768a53d6db_large.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den3_b21fde894bfa4f4d8ae8dd3256c02960_large.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den6_2d0ad1c8766f42059811f9f35fe1cfe0_large.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den7_ccca935d4fca4e44ba736975e106f3ef_large.jpg');
+insert into public.product_image(product_id, image) 
+values(24, '//product.hstatic.net/1000230642/product/bmm000777den8_eb4c388ac835438497517de2cc56ca86_large.jpg');
+
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den2_e62ac33739bb4f4c9581ee9c2a55faa0_1024x1024.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den10_64fc426fa15c4619abfc13bad12a404c_large.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den5_ab5620f59025405aad2135fb618eaab9_large.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den4_210d8953438f406fa2c998281dd9f023_large.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den7_303bf5277a8b4b99aa66be001bcb0cf6_large.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den8_5ec8b362ee5146ac97cbbfb04669ba7a_large.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den3_f662aeed05b64b9a986a1417d75ecee5_large.jpg');
+insert into public.product_image(product_id, image) 
+values(25, '//product.hstatic.net/1000230642/product/bvm001377den9_cbadfe6c3af84baea14c9b3fc97c602e_large.jpg');
+
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den2_5f78f97df58b4921910b55241a2fa3ed_1024x1024.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den10_0ca02458ec2446d8924c871d1476dcdc_large.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den5_0f5cd16a01c7494ca47bab0e9eb59719_large.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den4_0786a2d5a0584f11808b0b98a5d5ce97_large.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den7_6bcd03d727714c8383b1298a590a3923_large.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den8_ac679b7b69d048fe8515d713544904bb_large.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den3_f26738334bad4b3598275f49b74b2a16_large.jpg');
+insert into public.product_image(product_id, image) 
+values(26, '//product.hstatic.net/1000230642/product/bvm001788den9_60be194e4a174ca782b90b8168ae305e_large.jpg');
+
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad2_65596f1624244252ac9681c57511135e_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad10_70509611c31c48ac8e21bb288d4e93f4_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad4_03dae1e845204e7ea4c8bf68336e997e_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad5_324245e15b2b4c1e90a8cb97be41756f_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad6_44d8b30c5b80456d9434d896d6bc6217_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad3_4c92685cdc044b99b88b80a734fb3704_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad7_2876a60f6ff64f40b2beb2b64873860b_medium.jpg');
+insert into public.product_image(product_id, image) 
+values(27, '//product.hstatic.net/1000230642/product/bmm000677nad9_1469bc2a02554d4cb77e1280fa6fc76a_medium.jpg');
+
+insert into public.product_image(product_id, image) 
+values(28, '//laforce.vn/wp-content/uploads/2018/12/giay-luoi-nam-da-that-GNLAMJ238-F1-D.jpg');
+insert into public.product_image(product_id, image) 
+values(28, '//laforce.vn/wp-content/uploads/2018/12/giay-luoi-nam-cao-cap-GNLAMJ238-F1-D.jpg');
+insert into public.product_image(product_id, image) 
+values(28, '//laforce.vn/wp-content/uploads/2018/12/giay-luoi-nam-da-bo-GNLAMJ238-F1-D.jpg');
+insert into public.product_image(product_id, image) 
+values(28, '//laforce.vn/wp-content/uploads/2018/12/giay-da-luoi-nam-GNLAMJ238-F1-D.jpg');
+insert into public.product_image(product_id, image) 
+values(28, '//laforce.vn/wp-content/uploads/2018/12/giay-luoi-nam-cao-cap-gnlamj238-f1-d-1-1.jpg');
+insert into public.product_image(product_id, image) 
+values(28, '//laforce.vn/wp-content/uploads/2018/12/giay-luoi-nam-da-xin-GNLAMJ238-F1-D.jpg');
+
+insert into public.product_image(product_id, image) 
+values(29, '//laforce.vn/wp-content/uploads/2022/12/giay-luoi-tang-chieu-cao-nam-GCLA798-R1-D.jpg');
+insert into public.product_image(product_id, image) 
+values(29, '//laforce.vn/wp-content/uploads/2022/12/giay-luoi-tang-chieu-cao-nam-gcla798-r1-d-5.jpg');
+insert into public.product_image(product_id, image) 
+values(29, '//laforce.vn/wp-content/uploads/2022/12/giay-luoi-tang-chieu-cao-nam-gcla798-r1-d-1.jpg');
+insert into public.product_image(product_id, image) 
+values(29, '//laforce.vn/wp-content/uploads/2022/12/giay-luoi-tang-chieu-cao-nam-gcla798-r1-d-4.jpg');
+insert into public.product_image(product_id, image) 
+values(29, '//laforce.vn/wp-content/uploads/2022/12/giay-luoi-tang-chieu-cao-nam-gcla798-r1-d-3.jpg');
+insert into public.product_image(product_id, image) 
+values(29, '//laforce.vn/wp-content/uploads/2022/12/giay-tang-chieu-cao-nam-GCLA798-R1-D.jpg');
+
+insert into public.product_image(product_id, image) 
+values(30, '//laforce.vn/wp-content/uploads/2016/01/giay-luoi-da-nam-GNLAJD6611-1028-D.jpg');
+insert into public.product_image(product_id, image) 
+values(30, '//laforce.vn/wp-content/uploads/2022/10/giay-luoi-da-nam-gnlajd6611-1028-d-1.jpg');
+insert into public.product_image(product_id, image) 
+values(30, '//laforce.vn/wp-content/uploads/2022/10/giay-luoi-da-nam-gnlajd6611-1028-d-2.jpg');
+insert into public.product_image(product_id, image) 
+values(30, '//laforce.vn/wp-content/uploads/2022/10/giay-luoi-da-nam-gnlajd6611-1028-d-3.jpg');
+insert into public.product_image(product_id, image) 
+values(30, '//laforce.vn/wp-content/uploads/2022/10/giay-luoi-da-nam-gnlajd6611-1028-d-4.jpg');
+insert into public.product_image(product_id, image) 
+values(30, '//laforce.vn/wp-content/uploads/2022/10/giay-luoi-da-nam-gnlajd6611-1028-d-6.jpg');
+
+insert into public.product_image(product_id, image) 
+values(31, '//laforce.vn/wp-content/uploads/2022/12/giay-luoi-tang-chieu-cao-nam-GCLA926-6-N.jpg');
+insert into public.product_image(product_id, image) 
+values(31, '//laforce.vn/wp-content/uploads/2022/04/giay-luoi-nam-tang-chieu-cao-gcla926-6-n-1.jpg');
+insert into public.product_image(product_id, image) 
+values(31, '//laforce.vn/wp-content/uploads/2022/04/giay-luoi-nam-tang-chieu-cao-gcla926-6-n-3.jpg');
+insert into public.product_image(product_id, image) 
+values(31, '//laforce.vn/wp-content/uploads/2022/04/giay-luoi-nam-tang-chieu-cao-gcla926-6-n-7.jpg');
+insert into public.product_image(product_id, image) 
+values(31, '//laforce.vn/wp-content/uploads/2022/04/giay-luoi-nam-tang-chieu-cao-gcla926-6-n-6.jpg');
+insert into public.product_image(product_id, image) 
+values(31, '//laforce.vn/wp-content/uploads/2022/04/giay-nam-tang-chieu-cao-GCLA926-6-N.jpg');
+
+insert into public.product_image(product_id, image) 
+values(32, '//laforce.vn/wp-content/uploads/2021/06/giay-luoi-nam-cao-cap-GNLA2122-N.jpg');
+insert into public.product_image(product_id, image) 
+values(32, '//laforce.vn/wp-content/uploads/2021/06/giay-luoi-da-nam-gnla2122-n-4.jpg');
+insert into public.product_image(product_id, image) 
+values(32, '//laforce.vn/wp-content/uploads/2021/06/giay-luoi-da-nam-gnla2122-n-6.jpg');
+insert into public.product_image(product_id, image) 
+values(32, '//laforce.vn/wp-content/uploads/2021/06/giay-luoi-da-nam-gnla2122-n-1.jpg');
+insert into public.product_image(product_id, image) 
+values(32, '//laforce.vn/wp-content/uploads/2021/06/giay-luoi-da-nam-gnla2122-n-2.jpg');
+insert into public.product_image(product_id, image) 
+values(32, '//laforce.vn/wp-content/uploads/2021/06/giay-luoi-da-nam-gnla2122-n-2.jpg');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

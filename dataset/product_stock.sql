@@ -305,6 +305,364 @@ insert into public.product_stock(product_id, size_id, stock)
 values(18,
 	   (select s.id from public.size as s where s.size = 39),
 	   (SELECT FLOOR(random() * 11) AS random_number));
+	
+insert into public.product_stock(product_id, size_id, stock) 
+values(19,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(19,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(19,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(19,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(19,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(20,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(20,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(20,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(20,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(20,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(21,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(21,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(21,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(21,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(21,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(22,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(22,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(22,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(22,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(22,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+	 
+insert into public.product_stock(product_id, size_id, stock) 
+values(23,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(23,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(23,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(23,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(23,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(25,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(25,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(25,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(25,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(25,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(26,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(26,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(26,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(26,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(26,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(27,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(27,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(27,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(27,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(27,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(28,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(28,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(28,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(28,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(28,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(29,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(29,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(29,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(29,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(29,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(30,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(30,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(30,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(30,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(30,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(31,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(31,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(31,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(31,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(31,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(32,
+	   (select s.id from public.size as s where s.size = 35),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(32,
+	   (select s.id from public.size as s where s.size = 36),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(32,
+	   (select s.id from public.size as s where s.size = 37),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(32,
+	   (select s.id from public.size as s where s.size = 38),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+insert into public.product_stock(product_id, size_id, stock) 
+values(32,
+	   (select s.id from public.size as s where s.size = 39),
+	   (SELECT FLOOR(random() * 11) AS random_number));
+
+
+	 
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+
+	 
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+
+
+	 
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+
 	 
 	   
 	   

@@ -7,7 +7,7 @@ module.exports = {
             const {productId, quantity, sizeId} = req.body;
             const product = await productRepo.findOne({where: {id: productId}});
             if(!product){
-                //redirect or render error
+                
             }
             const stock = await stockRepo.findOne({where: {product_id: productId, size_id: sizeId, quantity: MoreThan(0)}})
             if(!stock){
@@ -34,9 +34,10 @@ module.exports = {
         try {
             const id = req.params;
             await cartLineRepo.delete(id);
-            res.redirect('customer/cart')
+            res.json({message: 'Cart line removed'})
         } catch (error) {
             console.log(error);
+            
         }
     }, 
     

@@ -90,5 +90,6 @@ router
   .route("/:id")
   .delete(categoryController.deleteCategory)
   .put(categoryController.updateCategory);
+router.post("/validate-name", categoryController.validateCategoryName)
 
 module.exports = router;

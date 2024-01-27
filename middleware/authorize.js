@@ -4,7 +4,7 @@ const authorize = (role) => {
         if(req.isAuthenticated() && req.user.role === role){
             return next();
         }
-        res.redirect('/login')
+        res.redirect('/')
     }
 }
 module.exports = authorize

@@ -161,7 +161,151 @@ values(18,
 	   (select b.id from public.brand as b where b.brand_name = 'JUNO'),
 	   'Kem'
 	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(19,
+	   'Giày Thể Thao GAT Shoes Black Lucas Shoes', 
+	   'Giày Thể Thao GAT Shoes Black Lucas Shoes, da bò thật, đế khâu cao 3cm, dễ phối đồ – BH 1 năm',
+	   560000,
+	   (select c.id from public.category as c where c.name = 'Giày thể thao'),
+	   (select b.id from public.brand as b where b.brand_name = 'NIKE'),
+	   'Trắng'
+	  );
 	  
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(20,
+	   'Giày Thể Thao LC2101 Đen Lucas Shoes', 
+	   'Giày Thể Thao LC2101 Đen Lucas Shoes, da bò thật, đế khâu cao 3cm – BH 1 năm',
+	   540000,
+	   (select c.id from public.category as c where c.name = 'Giày thể thao'),
+	   (select b.id from public.brand as b where b.brand_name = 'NIKE'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(21,
+	   'Giày Sneaker Unisex Puma Clyde Huskie - Trắng', 
+	   'Chìm đắm trong huyền thoại thời gian với Giày Sneaker Unisex Puma Clyde Huskie. Đôi giày này là một tác phẩm nghệ thuật thể hiện sự kết hợp hoàn hảo giữa lịch sử và phong cách đương đại, mang đến sự tự tin và làm nổi bật cá tính của bạn.',
+	   3499000,
+	   (select c.id from public.category as c where c.name = 'Giày thể thao'),
+	   (select b.id from public.brand as b where b.brand_name = 'PUMA'),
+	   'Trắng'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(22,
+	   'Giày Thời Trang Unisex Puma Slipstream Xtreme Earth - Nâu', 
+	   'Cảm nhận niềm vui của mỗi bước đi khi giày thể thao Slipstream Xtreme đưa phong cách và sự thoải mái của bạn lên một tầm cao mới. Thiết kế độc đáo, ấn tượng của đôi giày chắc chắn sẽ khiến bạn trở nên nổi bật dù ở bất kỳ đâu.',
+	   4099000,
+	   (select c.id from public.category as c where c.name = 'Giày thể thao'),
+	   (select b.id from public.brand as b where b.brand_name = 'PUMA'),
+	   'Nâu'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(23,
+	   'Giày Mocasin Nam BITI''S BMM000477', 
+	   'Giày Mocasin Nam BITI''S BMM000477 là một “người bạn đồng hành” không thể thiếu của phái mạnh trong những bữa tiệc tùng hay sự kiện quan trọng. Nếu bạn đang tìm kiếm một sản phẩm nam tính, chất lượng và có chính sách bảo hành tuyệt vời thì có thể tham khảo ngay mẫu này.',
+	   785000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'BITI''S'),
+	   'Nâu'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(24,
+	   'Giày Tây Nam BITI''S BMM000777', 
+	   'Giày Tây Nam BITI''S BMM000777 là một vật phẩm không thể thiếu trong bộ sưu tầm giày của các phái mạnh. Nếu bạn đang tìm kiếm một sản phẩm nam tính, chất lượng và có chính sách bảo hành tuyệt vời thì có thể tham khảo ngay mẫu này.',
+	   776000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'BITI''S'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(25,
+	   'Giày Tây Nam BITI''S BVM001377
+785,000 ₫', 
+	   'Giày Tây Nam BITI''S BVM001377 là một vật phẩm không thể thiếu trong bộ sưu tầm giày của các phái mạnh. Nếu bạn đang tìm kiếm một sản phẩm nam tính, chất lượng và có chính sách bảo hành tuyệt vời thì có thể tham khảo ngay mẫu này.',
+	   785000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'BITI''S'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(26,
+	   'Giày Tây Boot Nam BITI''S BVM001788', 
+	   'Giày Tây Boot Nam BITI''S BVM001788 là một vật phẩm không thể thiếu trong bộ sưu tầm giày của các phái mạnh. Nếu bạn đang tìm kiếm một sản phẩm nam tính, chất lượng và có chính sách bảo hành tuyệt vời thì có thể tham khảo ngay mẫu này.',
+	   1668000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'BITI''S'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(27,
+	   'Giày Mocasin Nam BITI''S BMM000677', 
+	   'Giày Mocasin Nam BITI''s BMM000677 “chiều lòng” mọi phái mạnh. Bởi, sản phẩm có thiết kế sang trọng mà hiếm có đôi giày nào có được, chất liệu làm đế/quai chỉn chu và kèm nhiều điều nổi bật không thể phủ nhận khác.',
+	   1668000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'BITI''S'),
+	   'Nâu'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(28,
+	   'Giày da nam Penny Loafer trẻ trung cao cấp GNLAMJ238-F1-D', 
+	   'Đường may chi tiết, tỉ mỉ theo tiêu chuẩn. Đế giày chắc chắn, chống trơn trượt. Màu sắc trang nhã, hài hòa. Giày lười nam thiết kế hiện đại, sang trọng phù hợp với các quý ông lịch lãm. Kết hợp cùng quần âu, kaki, trang phục lịch sự.',
+	   1750000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'LAFORCE'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(29,
+	   'Giày lười nam tăng chiều cao da trơn bóng GCLA798-R1-D', 
+	   'Thiết kế kiểu dáng Loafer hiện đại, thời thượng. Đế độn gót 6cm không lộ, dễ di chuyển. Màu sắc trang nhã, hài hòa. Thiết kế giày cao nam công sở, trẻ trung. Kết hợp cùng quần âu, kaki, trang phục lịch sự.',
+	   2190000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'LAFORCE'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(30,
+	   'Giày lười nam da bò mặt da cá đuối đẹp GNLAJD6611-1028-D', 
+	   'Thiết kế giày lười phối da hiện đại: Mặt trên làm từ da cá đuối, má giày làm bằng da bò. Thiết kế mũi nhọn hiện đại, thời thượng. Họa tiết in hình quả trám sang trọng.',
+	   2100000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'LAFORCE'),
+	   'Đen'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(31,
+	   'Giày lười nam tăng chiều cao Penny Loafer GCLA926-6-N', 
+	   'Da bò thật 100%, Tăng chiều cao 5-7cm. Thiết kế tăng chiều cao với lớp đệm cao su đàn hồi, dễ sử dụng. Kiểu dáng Penny hiện đại, trẻ trung. Dòng giày đế cao nam lót cao su chống trơn trượt. Dễ dàng phối cùng nhiều loại trang phục nơi công sở.',
+	   2150000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'LAFORCE'),
+	   'Nâu'
+	  );
+
+insert into public.product(id, name, description, price, cat_id, brand_id, color) 
+values(32,
+	   'Giày lười da nam họa tiết caro lịch lãm GNLA2122-N', 
+	   'Từng đường may kép tỉ mỉ, chắc chắn chạy quanh giày. Thiết kế giày lười nam họa tiết đan caro độc đáo tạo sự trẻ trung. Mũi giày tròn. Đế giày thiết kế chống trơn, trượt.',
+	   1750000,
+	   (select c.id from public.category as c where c.name = 'Giày tây'),
+	   (select b.id from public.brand as b where b.brand_name = 'LAFORCE'),
+	   'Nâu'
+	  );
+
+
+
+
 	  
 	  
 	  

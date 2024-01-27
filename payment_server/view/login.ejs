@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment login</title>
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <div class="container-center">
+        <form class="login" method="post" action="/payment/login?callbackUrl=<%= callbackUrl %>&transactionId=<%=transactionId%>">
+            <h2>Account Login</h2>
+            <p>Please enter a 6-digit PIN code</p>
+            <fieldset>
+                <ul class="pin-ui">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <div class="mask"></div>
+                <input type="password" inputmode="numeric" class="input-pin">
+                <!-- Add your field you want to post here -->
+                <input type="hidden" name="code" id="input-pincode">
+
+                <!-- End add your field you want to post here -->
+                <input type="submit" class="submit">
+            </fieldset>
+        </form>
+    </div>
+    <script>
+        // Login with pin code
+        const loginForm = document.querySelector("form.login");
+        const pinInput = document.querySelector(".input-pin");
+        const pinUI = document.querySelectorAll(".pin-ui li");
+        let numChars = 0;
+        let pincode = "";
+        let acceptInput = true;
+        pinInput.addEventListener("keydown", function (e) {
+            if (!acceptInput) {
+                e.preventDefault();
+            } else {
+                if (e.keyCode >= 48 && e.keyCode <= 57) {
+                    if (!pinUI[numChars].classList.contains("on")) {
+                        pinUI[numChars].classList.add("on");
+                    }
+                    numChars++;
+                    pincode += String.fromCharCode(e.keyCode);
+                    if (numChars == 6) {
+                        loginForm.querySelector("input.submit").click();
+                    }
+                } else if (e.keyCode == 8 && numChars >= 1) {
+                    if (pinUI[numChars - 1].classList.contains("on")) {
+                        pinUI[numChars - 1].classList.remove("on");
+                    }
+                    numChars--;
+                    pincode = pincode.substring(0, pincode.length - 1);
+                } else {
+                    e.preventDefault();
+                }
+            }
+        });
+        pinInput.focus();
+        document.addEventListener("click", function () {
+            pinInput.focus();
+        });
+
+        // Form submit event
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            // Animation
+            acceptInput = false;
+            pinInput.blur();
+            document.querySelector(".mask").classList.add("visible");
+            pinUI.forEach(function (el, i) {
+                setTimeout(function () {
+                    el.classList.add("animate");
+                }, 200 * i);
+            });
+            const form = this;
+            setTimeout(function () {
+                document.querySelector(".login").classList.add("hide");
+                // Send form data here
+                const value = pincode;
+                document.getElementById("input-pincode").value = value;
+                form.submit();
+                // Done
+            }, 1800);
+            // Stop animation
+        });
+
+    </script>
+</body>
+
+</html>

@@ -3,9 +3,10 @@
     <table class="my-table box-shadow-primary text-center  ">
         <thead>
             <tr>
-                <th width="10%">ID</th>
+                <th width="10%">User ID</th>
                 <th width="45%">Info</th>
-                <th>Status</th>
+                <th width="15%">Role</th>
+                <th width="15%">Status</th>
                 <th width="25%">Action</th>
             </tr>
         </thead>
@@ -13,14 +14,14 @@
             <% users.forEach((user, idx) => { %>
             <tr class="account-item" data-id="<%= user.id %>">
                 <td><span><%= user.id %></span></td>
-                <td class="flex-start-center column-gap-3 padding-1 mlr-1">
+                <td class="flex-start-center column-gap-custom padding-1 mlr-1">
                     <div class="thumb">
                         <img class="avatar size-35" src="<%= user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'%>" alt="">
                     </div>
                     <div>
                         <h5 class="text-start"><%= user.username %></h5> 
                         <div class="user-info">
-                            <ul class="list-unstyled d-flex flex-wrap-wrap">
+                            <ul class="list-unstyled text-start">
                                 <li>Account id: 123</li>
                                 <li>Balance: <span class="currency">100000</span></li>
                             </ul>
@@ -28,10 +29,13 @@
                     </div>
                 </td>
                 <td class="position-relative">
-                    <span class="position-center"><%= user.locked ? 'Banned' : 'Active' %></span>
+                    <span class="position-center" data-id="<%= user.id %>"><%= user.role == 'admin' ? 'Admin' : 'Customer' %></span>
+                </td>
+                <td class="position-relative">
+                    <span class="position-center" data-id="<%= user.id %>"><%= user.locked ? 'Banned' : 'Active' %></span>
                 </td>
                 <td>
-                    <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
+                    <div class="flex-center-center column-gap-custom flex-wrap-wrap mt-2">
                         <button class="btn-custom p-0 delete-account text-danger">
                             <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="<%= user.id %>">
                                 delete </span>

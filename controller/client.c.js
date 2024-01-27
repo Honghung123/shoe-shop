@@ -1,4 +1,4 @@
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo } = require('../config/db.config');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo } = require('../config/db.config');
 const { MoreThan, Equal } = require('typeorm');
 const { Not } = require('typeorm');
 require('dotenv').config();
@@ -248,9 +248,11 @@ module.exports = {
     });
   },
   renderAccountPage: async (req, res) => {
+    console.log(req.user);
+    const user = await userRepo.findOne({where: {email: req.user.email}})
     res.render("client/account", {
       isAuthenticated: req.isAuthenticated(),
-      user: req.user,
+      user: user,
       curPage: 'account'
     });
   },
@@ -325,5 +327,8 @@ module.exports = {
       user: req.user,
       curPage: 'cart'
     });
+  },
+  renderUpdateProfilePage: async (req, res) => {
+    res.render("client/update-profile");
   },
 };

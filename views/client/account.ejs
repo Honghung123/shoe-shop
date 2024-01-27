@@ -28,14 +28,14 @@
         <div class="container">
           <div class="row row-gap-3">
             <div class="col-lg-4">
-              <div class="card">
+              <div class="card h-100">
                 <div class="card-body text-center">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                     class="rounded-circle img-fluid box-shadow-primary" style="width: 10rem;height: 10rem;">
                   <h5 class="my-3">Honghung123</h5>
                   <p class="text-muted mb-3">This is short introduction</p>
                   <div class="d-flex justify-content-center mb-2">
-                    <button type="button" class="my-button button-hover-fadeIn rounded-3">Update profile</button>
+                    <a href="/update-profile" class="my-button button-hover-fadeIn rounded-3">Update profile</a>
                   </div>
                 </div>
               </div>
@@ -71,14 +71,27 @@
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-sm-2">
-                      <h6 class="mb-0">Address:</h6>
-                    </div>
-                    <div class="col-sm-10">
-                      <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                    <h6>Phone and Address:</h6>
+                    <div class="flex-start-center flex-column px-4 pt-2 pb-2">
+                      <div class="phone-address w-100 mb-3">
+                        <div class="phone-address-addr">
+                          <p class="">Address: <span class="text-muted">Bay Area, San Francisco, CA</span></p> 
+                        </div>
+                        <div class="phone-address-phone">
+                          <p class="">Phone: <span class="text-muted">0123123123</span></p> 
+                        </div>
+                      </div> 
+                      <div class="phone-address w-100 mb-3">
+                        <div class="phone-address-addr">
+                          <p class="">Address: <span class="text-muted">Bay Area, San Francisco, CA</span></p>
+                        </div>
+                        <div class="phone-address-phone">
+                          <p class="">Phone: <span class="text-muted">0123123123</span></p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  <hr>
               </div>
             </div>
           </div>
@@ -90,7 +103,7 @@
           <div class="row flex-wrap-reverse row-gap-3">
             <div class="col-lg-4">
               <h5 class="pb-2">Social account: </h5>
-              <div class="card mb-lg-0">
+              <div class="card mb-lg-0 h-100">
                 <div class="card-body p-0">
                   <ul class="list-group list-group-flush rounded-3">
                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
@@ -119,8 +132,32 @@
             </div>
             <div class="col-lg-8">
               <h5 class="pb-2">Payment account</h5>
-              <div class="card mb-lg-0">
-                <div class="card-body p-0">
+              <div class="card mb-lg-0 h-100">
+                <div class="card-body p-3">
+                  <div class="account-detail user-has-account">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <h6 class="mb-0">Account id:</h6>
+                      </div>
+                      <div class="col-sm-10">
+                        <p class="text-muted mb-0">12</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <h6 class="mb-0">Balance:</h6>
+                      </div>
+                      <div class="col-sm-10">
+                        <p class="text-muted mb-0 currency">8000000</p>
+                      </div>
+                    </div>
+                  </div>
+                  <%= user.name %>
+
+                  <div class="user-dont-have-account">
+                    <p class="pb-1">You don't have any payment account!</p>
+                    <span>Register here: </span><a href="https://localhost:8000/payment/register?userId=<%=user.id%>" class="d-inline-block my-button button-hover-shake hover-color-primary rounded-pill mx-2">Register</a>
+                  </div>
                 </div>
               </div>
             </div>

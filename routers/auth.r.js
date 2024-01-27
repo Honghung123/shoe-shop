@@ -8,10 +8,19 @@ const authorize = require("../middleware/authorize");
 router
   .route("/register")
   .get(authController.renderRegister)
-  .post(authController.register);
+  .post(authController.register); 
 router
-  .route("/register/validate-field")
-  .post(authController.validateRegisterField);
+  .route("/login/validate-email")
+  .post(authController.checkEmailIsExist);
+  router
+  .route("/login/validate-username")
+  .post(authController.checkUsernameIsExist);
+router
+  .route("/login/validate-account")
+  .post(authController.checkAccountStatus);
+router
+  .route("/login/has-login")
+  .post(authController.checkWhetherUserLogin);
 router
   .route("/login")
   .get(authController.renderLogin)

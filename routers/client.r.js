@@ -17,6 +17,7 @@ router.get("/cart", clientController.renderCartPage);
 router.get("/favorite", clientController.renderFavorPage);
 router.get("/detail", clientController.renderDetailsPage);
 router.get("/contact", clientController.renderContactPage); 
+router.get("/update-profile", clientController.renderUpdateProfilePage); 
 router.get("/home", clientController.renderHomePage)
 
 module.exports = router;

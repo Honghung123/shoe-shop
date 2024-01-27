@@ -13,7 +13,7 @@ const addressModel = require("../model/address.m");
 const wishListModel = require("../model/wish-list.m");
 const voucherModel = require("../model/voucher.m");
 const saleModel = require("../model/sale.m");
-const hashPwd = require("../utils/hashPassword");
+const {hashPwd} = require("../utils/hashPassword");
 
 const dataSource = new typeorm.DataSource({
   type: "postgres",
@@ -46,12 +46,20 @@ const dataSource = new typeorm.DataSource({
 const connectDb = async () => {
   try {
     await dataSource.initialize();
-    const user = await userRepo.findOne({ where: { email: 'admin@gmail.com' } })
+    let user = await userRepo.findOne({ where: { email: 'admin@gmail.com' } })
     if (!user) {
       const password = await hashPwd('admin')
       console.log("creating admin account");
-      await userRepo.save({ email: 'admin@gmail.com', password, username: 'Admin', role: 'admin' })
+      user = await userRepo.save({ email: 'admin@gmail.com', password, username: 'Admin', role: 'admin' })
     }
+    const res = await fetch('https://localhost:8000/payment-register', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({id: user.id, code: '123456'})
+    })
+    
     console.log('Connected to database');
   } catch (error) {
     console.log(error);

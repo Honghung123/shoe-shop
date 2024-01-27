@@ -2,7 +2,7 @@ const { In, Between } = require("typeorm");
 const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo, sizeRepo, imageRepo } = require("../config/db.config");
 const paginate = require("../utils/paginate");
 const paginateAccount = require("../utils/paginateAccount");
-const hashPwd = require('../utils/hashPassword');
+const {hashPwd} = require('../utils/hashPassword');
 require("dotenv").config();
 
 module.exports = {

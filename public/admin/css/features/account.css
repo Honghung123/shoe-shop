@@ -8,6 +8,12 @@
     padding: 1.2rem;
     height: 32.5rem;
     overflow-x: hidden;
+
+    & img{
+        width: 11rem;
+        height: 11rem;
+        margin: 0 auto;
+    }
 }
 
 .details {

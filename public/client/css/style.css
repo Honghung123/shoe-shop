@@ -2291,6 +2291,22 @@ body {
 	}
 }
 
+.user__update__img{
+	width: 11rem;
+	height: 11rem;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
+	box-shadow: var(--card-sm-shadow);
+}
+
+.update__image__input{
+	border: .11rem solid var(--background-primary-variant);
+	width: 100%;
+	border-top-right-radius: var(--card-sm-border-radius);
+	border-bottom-right-radius: var(--card-sm-border-radius);
+}
+
 
 .custom-select {
 	padding: 8px;

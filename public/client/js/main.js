@@ -165,10 +165,7 @@
     $(this).on("click", function () {
       if ($(this).hasClass("active")) {
         $(this).removeClass("active");
-        showToastMessage(
-          "Removed from favorite products! ",
-          toastData["info"]
-        );
+        showToastMessage("Removed from favorite products! ", toastData["info"]);
       } else {
         let $product = $(this).parent();
         while (!$product.hasClass("specific__product")) {
@@ -264,6 +261,23 @@
       $("#shopping__cart__list").append(
         `<tr><td colspan="5" class="text-center"><span>There is no product here</span></td></tr>`
       );
+    }
+  });
+
+  /*---------------------
+      Preview image upload for update account
+    --------------------- */
+  $("#image__upload").change((event) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#user-avatar img").attr("src", e.target.result);
+      };
+
+      reader.readAsDataURL(file);
     }
   });
 })(jQuery);

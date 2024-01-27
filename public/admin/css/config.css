@@ -355,3 +355,169 @@ button{
         border: .1rem solid transparent;
     }
 }
+
+
+/* Toast */
+.background-green{
+  background-color: green;
+}
+.background-yellow{
+  background-color: yellow;
+}
+.background-blue{
+  background-color: blue;
+}
+.background-red{
+  background-color: red;
+}
+#toast__container {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 100;
+}
+
+.toast-notification {
+	background: white;
+	width: 20rem;
+	border-radius: var(--medium-border-radius);
+	box-shadow: var(--card-sm-shadow);
+	overflow: hidden;
+
+	&+& {
+		margin-top: 1rem;
+	}
+}
+
+.toast-notification .toast-content {
+	padding: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0 1rem;
+}
+
+.toast-notification .toast-icon {
+	color: #fff;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	& span{
+		font-size: 1.25rem;
+	}
+}
+
+.toast-notification .toast-progress {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+
+.toast-notification .toast-msg {
+	flex: 1;
+}
+
+.toast-notification .toast-progress-bar {
+	height: .25rem;
+	animation: toastProgress 2s ease-in-out forwards;
+}
+
+.slide-in-slide-out {
+	animation: slideInRight 0.3s ease-in-out forwards, slideOutRight 0.5s ease-in-out forwards 2s;
+	transform: translateX(110%);
+}
+
+.slide-in-fade-out {
+	animation: slideInRight 0.3s ease-in-out forwards, fadeOut 0.5s ease-in-out forwards 2s;
+	transform: translateX(110%);
+}
+
+.wiggle-me {
+	animation: wiggle 2.5s ease-in;
+}
+
+@keyframes slideInRight {
+	0% {
+		transform: translateX(110%);
+	}
+
+	75% {
+		transform: translateX(-10%);
+	}
+
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+@keyframes slideOutRight {
+	0% {
+		transform: translateX(0%);
+	}
+
+	25% {
+		transform: translateX(-10%);
+	}
+
+	100% {
+		transform: translateX(110%);
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes toastProgress {
+	0% {
+		width: 100%;
+	}
+
+	100% {
+		width: 0%;
+	}
+}
+
+@keyframes wiggle {
+
+	0%,
+	7% {
+		transform: rotateZ(0);
+	}
+
+	15% {
+		transform: rotateZ(-13deg);
+	}
+
+	20% {
+		transform: rotateZ(9deg);
+	}
+
+	25% {
+		transform: rotateZ(-10deg);
+	}
+
+	30% {
+		transform: rotateZ(7deg);
+	}
+
+	35% {
+		transform: rotateZ(-2deg);
+	}
+
+	40%,
+	100% {
+		transform: rotateZ(0);
+	}
+}
+
+/* End toast */

@@ -1,59 +1,92 @@
 const { userRepo } = require("../config/db.config");
 const asyncWrapper = require("../middleware/async-wrapper");
-const hashPwd = require("../utils/hashPassword");
+const {hashPwd, comparePwd} = require("../utils/hashPassword");
 
+const renderHomepage = (req, res) => {
+  res.render("client/home");
+};
 const register = asyncWrapper(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400).json("Email and password must not be empty");
+    res.json("Email and password must not be empty");
   }
   const user = await userRepo.findOneBy({ email: email });
   if (user) {
-    res.json(400).json({ message: "Email already in use" });
+    res.json({ message: "Email already in use" });
   }
   const hashedPwd = await hashPwd(password);
   await userRepo.save({ ...req.body, password: hashedPwd, role: "customer" });
-  res.status(201).json({ message: "Register successfully" });
+  res.redirect("/");
 });
-const validateRegisterField = async (req, res) => {
-  const { username, email, password } = req.body;
-  if (username) {
-    const user = await userRepo.findOne({ where: { username } });
+
+const checkUsernameIsExist = async (req, res) => {  
+  if (req.body.username) {
+    const user = await userRepo.findOne({ where: { username: req.body.username } });
     if (user) {
-      res.status(400).json("Username already exists");
+      res.json({user: user});
     }
+    else {
+      res.json({ user: null });
+    }
+  } else {
+    res.json({ user: null });
   }
-  if (email) {
-    const user = await userRepo.findOne({ where: { email } });
+};
+const checkEmailIsExist = async (req, res) => {  
+  if (req.body.email) {
+    const user = await userRepo.findOne({ where: { email: req.body.email } });
     if (user) {
-      res.status(400).json({ message: "Email already in use" });
+      res.json({user: user});
     }
+    else {
+      res.json({ user: null });
+    }
+  } else {
+    res.json({ user: null });
   }
-  if (password) {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (password.length < 8) {
-      res.status(400).json("Password length must be at least 8 character");
+};
+
+const checkAccountStatus = async (req, res) => { 
+  if (req.body.email && req.body.password) {
+    const user = await userRepo.findOneBy({email: req.body.email});
+    if (user) {
+      const hashedPwd = user.password;
+      if (await comparePwd(req.body.password, hashedPwd)) {
+        if (!user.locked && !user.deleted) {
+          res.json({ status: true, message: "Account status is normal"});
+        } else {
+          res.json({ status: false, message: "This account has been banned or deleted"});
+        }
+      }
+      else {
+        res.json({ status: null, message: "Password is not matched" });
+      }
+    } else {
+      res.json({ status: null, message: "Account does not exist" });
     }
-    if (!passwordRegex.test(password)) {
-      res
-        .status(400)
-        .json(
-          "Password must contain at least 1 lowercase, 1 uppercase, 1 number"
-        );
-    }
+  } else {
+    res.json({ status: null, message: "Data is invalid" });
   }
-  res.json("");
 };
 
 const renderRegister = (req, res) => {
   res.render("register");
 };
+
 const renderLogin = (req, res) => {
   res.render("login");
+};
+
+const checkWhetherUserLogin = (req, res) => {
+  res.json({hasLogin: false});
 };
 module.exports = {
   renderLogin,
   renderRegister,
   register,
-  validateRegisterField,
+  renderHomepage,
+  checkEmailIsExist,
+  checkUsernameIsExist,
+  checkAccountStatus,
+  checkWhetherUserLogin,
 };

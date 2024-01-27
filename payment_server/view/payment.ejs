@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment confirm</title>
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <div class="container mt-5 pb-5 mb-5">
+        <h1 class="mb-5 text-white text-center">Payment confirm</h1>
+        <div class="row">
+            <!-- Left -->
+            <div class="col-lg-9">
+                <div class="accordion rounded-4" id="accordionPayment">
+                    <!-- Credit card -->
+                    <div class="accordion-item mb-3 rounded-4">
+                        <h2 class="h5 px-4 py-3 accordion-header d-flex justify-content-between align-items-center">
+                            <div class="form-check w-100 collapsed ps-0" data-bs-toggle="collapse"
+                                data-bs-target="#collapseCC" aria-expanded="false">
+                                <span class="form-check-label pt-1 currency">
+                                    Balance: 1000000
+                                </span>
+                            </div>
+                            <span>
+                                <svg width="34" height="25" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill-rule="nonzero" fill="#333840">
+                                        <path
+                                            d="M29.418 2.083c1.16 0 2.101.933 2.101 2.084v16.666c0 1.15-.94 2.084-2.1 2.084H4.202A2.092 2.092 0 0 1 2.1 20.833V4.167c0-1.15.941-2.084 2.102-2.084h25.215ZM4.203 0C1.882 0 0 1.865 0 4.167v16.666C0 23.135 1.882 25 4.203 25h25.215c2.321 0 4.203-1.865 4.203-4.167V4.167C33.62 1.865 31.739 0 29.418 0H4.203Z">
+                                        </path>
+                                        <path
+                                            d="M4.203 7.292c0-.576.47-1.042 1.05-1.042h4.203c.58 0 1.05.466 1.05 1.042v2.083c0 .575-.47 1.042-1.05 1.042H5.253c-.58 0-1.05-.467-1.05-1.042V7.292Zm0 6.25c0-.576.47-1.042 1.05-1.042H15.76c.58 0 1.05.466 1.05 1.042 0 .575-.47 1.041-1.05 1.041H5.253c-.58 0-1.05-.466-1.05-1.041Zm0 4.166c0-.575.47-1.041 1.05-1.041h2.102c.58 0 1.05.466 1.05 1.041 0 .576-.47 1.042-1.05 1.042H5.253c-.58 0-1.05-.466-1.05-1.042Zm6.303 0c0-.575.47-1.041 1.051-1.041h2.101c.58 0 1.051.466 1.051 1.041 0 .576-.47 1.042-1.05 1.042h-2.102c-.58 0-1.05-.466-1.05-1.042Zm6.304 0c0-.575.47-1.041 1.051-1.041h2.101c.58 0 1.05.466 1.05 1.041 0 .576-.47 1.042-1.05 1.042h-2.101c-.58 0-1.05-.466-1.05-1.042Zm6.304 0c0-.575.47-1.041 1.05-1.041h2.102c.58 0 1.05.466 1.05 1.041 0 .576-.47 1.042-1.05 1.042h-2.101c-.58 0-1.05-.466-1.05-1.042Z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </span>
+                        </h2>
+                        <div id="collapseCC" class="accordion-collapse collapse show"
+                            data-bs-parent="#accordionPayment">
+                            <div class="accordion-body">
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="10%">No.</th>
+                                            <th scope="col">Product name</th>
+                                            <th scope="col" width="20%">Price</th>
+                                            <th scope="col" width="5%">Quantity</th>
+                                            <th scope="col" width="20%">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider table-divider-color">
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td><span class="text-start d-block">Sneaker</span></td>
+                                            <td><span class="currency">150000</span></td>
+                                            <td>3</td>
+                                            <td><span class="currency">450000</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td><span class="text-start d-block">A shoe made in Japan</span></td>
+                                            <td><span class="currency">300000</span></td>
+                                            <td>1</td>
+                                            <td><span class="currency">300000</span></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PayPal -->
+
+                    <div id="collapsePP" class="accordion-collapse collapse" data-bs-parent="#accordionPayment">
+                        <div class="accordion-body">
+                            <div class="px-2 col-lg-6 mb-3">
+                                <label class="form-label">Email address</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right -->
+            <div class="col-lg-3">
+                <div class="card position-sticky top-0">
+                    <div class="p-3 bg-light bg-opacity-10">
+                        <h6 class="card-title mb-3">Order Summary</h6>
+                        <div class="d-flex justify-content-between mb-1 small">
+                            <span>Subtotal</span> <span class="currency fw-bold text-secondary">750000</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 small">
+                            <span>Shipping</span> <span class="currency fw-bold text-danger">20000</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 small">
+                            <span>Voucher discount</span> <span
+                                class="text-success currency reduce fw-bold">50000</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4 small">
+                            <span>TOTAL</span> <strong class="text-dark currency">720000</strong>
+                        </div>
+                        <div class="form-check mb-2 small">
+                            <input class="form-check-input" type="checkbox" value="" id="term_of_service">
+                            <label class="form-check-label" for="tnc">
+                                I agree to the <a href="#">terms and conditions</a>
+                            </label>
+                            <span class="text-danger fs-6 error-msg-term" style="zoom: .8;"></span>
+                        </div>
+                        <div class="form-check mb-3 small">
+                            <input class="form-check-input" type="checkbox" value="" id="subscribe">
+                            <label class="form-check-label" for="subscribe">
+                                Get emails about product updates and events. If you change your mind, you can
+                                unsubscribe at any time. <a href="#">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <a href="/payment/invoice" id="purchase_invoice" class="btn btn-primary w-100 mt-2">Purchase</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#term_of_service").on("change", function(){
+            $(".error-msg-term").text("");
+        })
+        $("#purchase_invoice").on('click', function (e) {
+            e.preventDefault();
+            if ($("#term_of_service").is(":checked")) {
+                window.location.href = $(this).attr("href");
+                $(".error-msg-term").text("");
+            } else {
+                $(".error-msg-term").text("Please accept our term of service");
+                return false;
+            }
+        })
+    </script>
+</body>
+
+</html>

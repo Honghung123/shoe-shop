@@ -144,9 +144,3 @@ values(18,
 	   (select b.id from public.brand as b where b.brand_name = 'JUNO')
 	  );
 	  
-	  
-	  
-	  
-	  
-	  
-	  

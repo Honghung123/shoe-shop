@@ -99,8 +99,22 @@
             pagination.appendChild(nextButton);
         }
 
-        // $(".add__to__favourite").on("click", banAccount);
-        // $(".add__to__cart").on("click", deleteAccount);
+        $(".add__to__favourite").on("click", function () {
+            const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+            if (cartIcon === 'false') {
+                $('#requireLoginModal').modal('show');
+            } else {
+                $('#addToCartModal').modal('show');
+            }
+        });
+        $(".add__to__cart").on("click", function () {
+            const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+            if (cartIcon === 'false') {
+                $('#requireLoginModal').modal('show');
+            } else {
+                $('#addToCartModal').modal('show');
+            }
+        });
     }
 
     function itemProduct(e) {

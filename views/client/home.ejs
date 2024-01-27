@@ -9,7 +9,6 @@
 <body>
     <%- include('./partials/nav'); -%>
         <%- include('./partials/preloader'); -%>
-        <%- include('./addToCart'); -%>
 
             <!-- Hero Section Begin -->
             <section class="hero pt-4 pb-4">
@@ -445,7 +444,8 @@
             </section>
             <!-- Contact Section End -->
 
-
+            <%- include('./addToCart'); -%>
+            <%- include('./requireLoginModal'); -%>
             <!-- Footer Section -->
             <%- include('./partials/footer'); -%>
                 <!-- Footer Section End -->

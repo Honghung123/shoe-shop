@@ -6,6 +6,7 @@ const authorize = require("../middleware/authorize");
 
 // router.use(authorize("customer"));
 router.get("/", clientController.renderHomePage);
+router.post("/search", clientController.postQuerySearch);
 router.get("/shop", clientController.renderShoppingPage);
 router.post("/get-product", shoppingController.postShoppingPage);
 router.get("/checkout", clientController.renderCheckoutPage);

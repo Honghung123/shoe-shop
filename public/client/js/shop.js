@@ -4,12 +4,18 @@
   localStorage.removeItem('category');
   localStorage.removeItem('brand');
   localStorage.removeItem('sortby');
+  localStorage.removeItem('search');
 
   const categories = document.querySelectorAll('.filter-product-category');
   for (let i of categories) {
     if (i.checked) {
       localStorage.setItem('category', i.value);
     }
+  }
+  const search = document.getElementById('input-search');
+  console.log(search.value);
+  if (search.value && search.value !== '') {
+    localStorage.setItem('search', search.value);
   }
 
   $(".hero__categories__all").on("click", function () {
@@ -21,9 +27,6 @@
     $(".sidebar__item__brand ul").slideToggle(400);
   });
 
-  $(".add__to__cart").on('click', function () {
-    $('#addToCartModal').modal('show');
-  })
   /*--------------------------
         Select - shopping
     ----------------------------*/
@@ -102,8 +105,22 @@
       pagination.appendChild(nextButton);
     }
 
-    // $(".add__to__favourite").on("click", addToCart);
-    // $(".add__to__cart").on("click", addToCart);
+    $(".add__to__favourite").on("click", function () {
+      const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+      if (cartIcon === 'false') {
+        $('#requireLoginModal').modal('show');
+      } else {
+        $('#addToCartModal').modal('show');
+      }
+    });
+    $(".add__to__cart").on("click", function () {
+      const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+      if (cartIcon === 'false') {
+        $('#requireLoginModal').modal('show');
+      } else {
+        $('#addToCartModal').modal('show');
+      }
+    });
   }
 
   function itemProduct(product) {
@@ -220,6 +237,7 @@
     const brand = localStorage.getItem('brand');
     const category = localStorage.getItem('category');
     const sortby = localStorage.getItem('sortby');
+    const search = localStorage.getItem('search');
     const data = {};
     if (price !== null) {
       data.price = price.split(",").map(Number);
@@ -232,6 +250,9 @@
     }
     if (sortby !== null) {
       data.sortby = sortby;
+    }
+    if (search !== null && search !== '') {
+      data.search = search;
     }
     return data;
   }

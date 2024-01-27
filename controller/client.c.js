@@ -4,6 +4,54 @@ const { Not } = require('typeorm');
 require('dotenv').config();
 
 module.exports = {
+  postQuerySearch: async (req, res, next) => {
+    const query = [];
+    for (let i of req.body.query.split(' ')) {
+      i = i.toLowerCase();
+      query.push(i);
+    }
+    console.log(query);
+    const dataSale = await saleRepo.find();
+    const dataProduct = await productRepo.find();
+    const curDate = new Date();
+    curDate.setHours(curDate.getHours() + 7);
+    for (let product of dataProduct) {
+      for (let sale of dataSale) {
+        if (sale.product_id === product.id && (new Date(sale.expire) > curDate)) {
+          product.percent = sale.percent;
+          product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+          break;
+        }
+      }
+      if (product?.percent) {
+        product.isSale = true;
+      } else {
+        product.isSale = false;
+        product.price_discount = product.price;
+      }
+    }
+    const data = dataProduct.filter(e => {
+      for (let i of query) {
+        if (!e.name.toLowerCase().includes(i)) {
+          return false;
+        }
+      }
+      return true;
+    })
+
+    for (let i = 0; i < data.length; i++) {
+      const image = await imageRepo.findOne({
+        where: { product_id: data[i].id }
+      });
+      data[i].image = image.image;
+      const cat = await categoryRepo.findOne({
+        where: { id: data[i].cat_id }
+      });
+      data[i].cat_name = cat.name;
+    }
+
+    res.json(data);
+  },
   renderHomePage: async (req, res) => {
     const currentDateOrigin = new Date();
     // Đặt giờ theo giờ địa phương
@@ -62,7 +110,7 @@ module.exports = {
     const monday = new Date("1 January 2024 00:00:00 GMT+07:00");
     monday.setHours(monday.getHours() + 7);
     const mondayLatest = new Date(currentDateOrigin.setUTCHours(0, 0, 0, 0));
-    while((Math.abs(mondayLatest - monday) / (1000 * 60 * 60 * 24)) % 7 !== 0) {
+    while ((Math.abs(mondayLatest - monday) / (1000 * 60 * 60 * 24)) % 7 !== 0) {
       mondayLatest.setDate(mondayLatest.getDate() + 1);
     }
 
@@ -95,7 +143,8 @@ module.exports = {
       categories: categories,
       sales,
       latest,
-      saleWeek
+      saleWeek,
+      query: ''
     });
   },
   renderShoppingPage: async (req, res) => {
@@ -108,7 +157,6 @@ module.exports = {
       }
     }
 
-    let whereCondition = {};
     if (parseInt(req.query?.category)) {
       whereCondition = { cat_id: parseInt(req.query?.category) };
     }
@@ -117,14 +165,51 @@ module.exports = {
 
     const page = req.query.page || 1;
     const limit = req.query.limit || process.env.PER_PAGE_PRODUCT;
+    const dataSale = await saleRepo.find();
+    let dataProduct = await productRepo.find();
+    const curDate = new Date();
+    curDate.setHours(curDate.getHours() + 7);
+    for (let product of dataProduct) {
+      for (let sale of dataSale) {
+        if (sale.product_id === product.id && (new Date(sale.expire) > curDate)) {
+          product.percent = sale.percent;
+          product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+          break;
+        }
+      }
+      if (product?.percent) {
+        product.isSale = true;
+      } else {
+        product.isSale = false;
+        product.price_discount = product.price;
+      }
+    }
+    const query = [];
+    if (req.query.search) {
+      for (let i of req.query.search.split(' ')) {
+        i = i.toLowerCase();
+        query.push(i);
+      }
+  
+      dataProduct = dataProduct.filter(e => {
+        for (let i of query) {
+          if (!e.name.toLowerCase().includes(i)) {
+            return false;
+          }
+        }
+        return true;
+      })
+    }
 
-    const skip = (page - 1) * limit;
-    const [result, total] = await productRepo.findAndCount({
-      take: limit,
-      skip,
-      where: whereCondition
-    });
+    if (req.query.category) {
+        dataProduct = dataProduct.filter(e => e.cat_id === parseInt(req.query.category));
+    }
+
+    console.log(dataProduct);
+    const total = dataProduct.length;
     const totalPages = Math.ceil(total / limit);
+
+    const result = dataProduct.slice((page - 1) * limit, page * limit)
 
     for (let i = 0; i < result.length; i++) {
       const image = await imageRepo.findOne({
@@ -135,15 +220,6 @@ module.exports = {
         where: { id: result[i].cat_id }
       });
       result[i].cat_name = cat.name;
-      const sale = await saleRepo.findOne({
-        where: { product_id: result[i].id }
-      })
-      if (sale !== null) {
-        result[i].isSale = true;
-        result[i].percent = sale.percent;
-      } else {
-        result[i].isSale = false;
-      }
     }
 
     res.render("client/shopping", {
@@ -155,28 +231,32 @@ module.exports = {
       products: result,
       total,
       totalPages,
-      currentPage: page
+      currentPage: page,
+      query: req.query.search || ''
     });
   },
   renderCheckoutPage: async (req, res) => {
     res.render("client/checkout", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'more'
+      curPage: 'more',
+      query: ''
     });
   },
   renderVoucherPage: async (req, res) => {
     res.render("client/voucher", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'voucher'
+      curPage: 'voucher',
+      query: ''
     });
   },
   renderFavorPage: async (req, res) => {
     res.render("client/favorite", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'favorite'
+      curPage: 'favorite',
+      query: ''
     });
   },
   renderDiscountPage: async (req, res) => {
@@ -238,20 +318,23 @@ module.exports = {
       saleToday,
       currentPage: page,
       totalPages,
+      query: ''
     });
   },
   renderContactPage: async (req, res) => {
     res.render("client/contact", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'more'
+      curPage: 'more',
+      query: ''
     });
   },
   renderAccountPage: async (req, res) => {
     res.render("client/account", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'account'
+      curPage: 'account',
+      query: ''
     });
   },
   renderDetailsPage: async (req, res) => {
@@ -316,17 +399,24 @@ module.exports = {
       product,
       images,
       stock,
-      suggests
+      suggests,
+      query: ''
     });
   },
   renderCartPage: async (req, res) => {
     res.render("client/cart", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
-      curPage: 'cart'
+      curPage: 'cart',
+      query: ''
     });
   },
   renderUpdateProfilePage: async (req, res) => {
-    res.render("client/update-profile");
+    res.render("client/update-profile", {
+      isAuthenticated: req.isAuthenticated(),
+      user: req.user,
+      curPage: 'profile',
+      query: ''
+    });
   },
 };

@@ -20,6 +20,10 @@
   $(".brand-dropdown").on("click", function () {
     $(".sidebar__item__brand ul").slideToggle(400);
   });
+
+  $(".add__to__cart").on('click', function () {
+    $('#addToCartModal').modal('show');
+  })
   /*--------------------------
         Select - shopping
     ----------------------------*/
@@ -98,8 +102,8 @@
       pagination.appendChild(nextButton);
     }
 
-    // $(".add__to__favourite").on("click", banAccount);
-    // $(".add__to__cart").on("click", deleteAccount);
+    // $(".add__to__favourite").on("click", addToCart);
+    // $(".add__to__cart").on("click", addToCart);
   }
 
   function itemProduct(product) {

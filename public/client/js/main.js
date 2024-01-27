@@ -108,7 +108,14 @@
   /*-----------------------------
        Add product to cart and database
    -------------------------------*/
-  $(".add__to__cart").each(function (e) {
+  $(".add__to__cart").each(addToCart);
+
+  // function showModal() {
+  //   $('#addToCartModal').modal('show');
+  // }
+
+
+  function addToCart(e) {
     $(this).on("click", function () {
       let $product = $(this).parent();
       while (!$product.hasClass("specific__product")) {
@@ -119,7 +126,7 @@
         addToCartPreview($product[0], id);
       }
     });
-  });
+  }
 
   function addToCartPreview(product, id) {
     const maxSize = 4;

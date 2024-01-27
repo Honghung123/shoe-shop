@@ -14,6 +14,7 @@
                     <div class="login-space">
                         <h2 class="login-banner mb-4">Payment Register</h2>
                         <form class="sign-up-form" action="/payment-register" method="post" id="form-register">
+                            <input type="number" name="id" hidden value=<%=userId%>>
                             <div class="group mb-3">
                                 <label class="label">Enter pin code: </label>
                                 <input name="code" type="text" class="input pincode-register"

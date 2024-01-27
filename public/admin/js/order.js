@@ -1,5 +1,5 @@
 const PER_PAGE = 3;
-$(".order-item").on("click", async function (e) {
+async function viewOrderDetails(e){
   let currentElement = e.target;
   while (!currentElement.classList.contains("order-item")) {
     if (currentElement.classList.contains("btn-custom")) {
@@ -20,8 +20,9 @@ $(".order-item").on("click", async function (e) {
   const data = await res.json();
   updateOrderDetailsModal(data)
   $("#viewOrder").modal("show");
-  // Modify content in modal here
-});
+}
+$(".order-item").on("click", viewOrderDetails);
+
 const updateOrderDetailsModal = (data) => {
   const {order, orderLines} = data
   $('#viewOrder .order-title span').text(order.user.username);
@@ -205,6 +206,7 @@ function updateOrderList(data) {
   
     $(".ship-order").on("click", shipOrder);
     $(".cancel-order").on("click", cancelOrder);
+    $(".order-item").on("click", viewOrderDetails);
 }
 $(".cancel-order").on("click", cancelOrder);
 $(".ship-order").on("click", shipOrder);

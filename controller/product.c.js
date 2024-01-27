@@ -1,3 +1,4 @@
+const { In } = require("typeorm");
 const {
   productRepo,
   sizeRepo,
@@ -5,6 +6,9 @@ const {
   imageRepo,
   brandRepo,
   stockRepo,
+  orderRepo,
+  orderLineRepo,
+  
 } = require("../config/db.config");
 const paginate = require("../utils/paginate");
 const fs = require("fs");
@@ -15,8 +19,14 @@ module.exports = {
       where: { id },
       relations: ["brand", "category"],
     });
-    const stocks = await stockRepo.findOne({ where: { product_id: id } });
-    res.json({ product, stocks });
+    const stocks = await stockRepo.find({
+      where: { product_id: id },
+      relations: ["size"],
+    });
+    const images = await imageRepo.find({
+      where: { product_id: id },
+    });
+    res.json({ product, stocks, images });
   },
   findProducts: async (req, res, next) => {
     let { brands, categories, minPrice, maxPrice, productName } = req.query;
@@ -47,8 +57,9 @@ module.exports = {
     if (req.user.role != "admin") {
       query.innerJoin("product.stock", "stock").where("stock.quantity > 0");
     }
-    const filteredProducts = await query.getMany();
     
+    const filteredProducts = await query.getMany();
+
     res.json(filteredProducts);
   },
 
@@ -59,9 +70,34 @@ module.exports = {
       const product = await productRepo.save({
         name,
         price,
+        description,
         brand_id: brandId,
         cat_id: catId,
       });
+
+      if (sizes) {
+        if (Array.isArray(sizes)) {
+          for (let i = 0; i < sizes.length; i++) {
+            console.log(sizes[i]);
+            const sizeInfo = sizes[i].split("-");
+            console.log(sizeInfo);
+            let stock = await stockRepo.save({
+              size_id: sizeInfo[0],
+              quantity: sizeInfo[1],
+              product_id: product.id,
+            });
+            console.log(stock);
+          }
+        } else {
+          const sizeInfo = sizes.split("-");
+          let stock = await stockRepo.save({
+            size_id: sizeInfo[0],
+            quantity: sizeInfo[1],
+            product_id: product.id,
+          });
+          console.log(stock);
+        }
+      }
       const files = req.files;
       const images = [];
       for (let i = 0; i < files.length; i++) {
@@ -93,18 +129,71 @@ module.exports = {
   },
   deleteProduct: async (req, res, next) => {
     try {
-      const id = req.params;
+      const { id } = req.params;
       let productToDelete = await productRepo.findOne({ where: { id } });
       if (productToDelete) {
         productToDelete.is_deleted = true;
         await productRepo.save(productToDelete);
       } else {
-        res.status(400).json("Not found product");
+        res.status(400).json({ message: "Not found product" });
       }
-      res.json("Product is deleted");
+      res.json({ message: "Product is deleted" });
     } catch (error) {
       console.log(error);
-      res.status(500).json("Internal server error");
+      res.status(500).json({ message: "Internal server error" });
     }
   },
+  topFiveProduct: async (req, res) => {
+    const { type } = req.query;
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
+    console.log(currentMonth, currentYear);
+    let ordersInPeriod = null;
+    if (type == 'month') {
+      ordersInPeriod = await orderRepo
+        .createQueryBuilder("order")
+        .where(`EXTRACT(YEAR FROM order.created_at) = :currentYear`, {
+          currentYear
+        })
+        .getMany();
+    } else if(type === 'year'){
+      ordersInPeriod = await orderRepo
+        .createQueryBuilder("order")
+        .where(`EXTRACT(YEAR FROM order.created_at) = :currentYear`, {
+          currentYear,
+        })
+        .getMany();
+    }
+    if(!ordersInPeriod){
+      return res.status(400).json({message: 'Invalid request'})
+    }
+    const ordersInPeriodId = ordersInPeriod.map((order) => order.id);
+    const orderLinesInPeriod = await orderLineRepo.find({
+      where: { order_id: In(ordersInPeriodId) },
+      relations: ["product"],
+    });
+    
+
+    let bestSellerProductMap = new Map();
+    for (const orderLine of orderLinesInPeriod) {
+      const productName = orderLine.product.name;
+      const quantity = orderLine.quantity;
+      if (bestSellerProductMap.has(productName)) {
+        bestSellerProductMap.set(
+          productName,
+          bestSellerProductMap.get(productName) + quantity
+        );
+      } else {
+        bestSellerProductMap.set(productName, quantity);
+      }
+    }
+    const bestSellersArray = Array.from(bestSellerProductMap.entries());
+    // Sort the array in descending order based on total quantity sold
+    bestSellersArray.sort((a, b) => b[1] - a[1]);
+    // Limit the result to the top 5 products
+    const top5BestSellers = bestSellersArray.slice(0, 5);
+    res.json({products: top5BestSellers})
+  },
+  
 };

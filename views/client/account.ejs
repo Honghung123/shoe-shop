@@ -152,9 +152,11 @@
                       </div>
                     </div>
                   </div>
+                  <%= user.name %>
+
                   <div class="user-dont-have-account">
                     <p class="pb-1">You don't have any payment account!</p>
-                    <span>Register here: </span><a href="http://localhost:8000/payment/register" class="d-inline-block my-button button-hover-shake hover-color-primary rounded-pill mx-2">Register</a>
+                    <span>Register here: </span><a href="https://localhost:8000/payment/register?userId=<%=user.id%>" class="d-inline-block my-button button-hover-shake hover-color-primary rounded-pill mx-2">Register</a>
                   </div>
                 </div>
               </div>

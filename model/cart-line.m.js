@@ -11,7 +11,7 @@ module.exports = new EntitySchema({
     },
     size_id: {
       type: "int",
-      nullable: true,
+      nullable: false
     },
     quantity: {
       type: "int",

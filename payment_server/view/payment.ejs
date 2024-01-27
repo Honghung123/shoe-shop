@@ -114,7 +114,10 @@
                                 unsubscribe at any time. <a href="#">Privacy Policy</a>
                             </label>
                         </div>
-                        <a href="/payment/invoice" id="purchase_invoice" class="btn btn-primary w-100 mt-2">Purchase</a>
+                        <%= transaction.id %>
+                        <a href="/payment/login?callbackUrl=<%=callbackUrl%>&transactionId=<%=transaction.id%>" id="purchase_invoice" class="btn btn-primary w-100 mt-2">Purchase</a>
+                       
+
                     </div>
                 </div>
             </div>

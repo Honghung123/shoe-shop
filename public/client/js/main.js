@@ -317,8 +317,8 @@
   inputElement.addEventListener('input', handleInputChange);
 
   inputElement.addEventListener("keydown", function (event) {
-    event.preventDefault();
     if (event.key === "Enter") {
+      event.preventDefault();
       window.location.href = `/shop?search=${inputElement.value}`;
     }
   });

@@ -411,13 +411,13 @@ b {
 
 .nav .nav-title {
   display: none;
-  &::first-letter{
+  &::first-letter {
     font-size: 120%;
   }
 }
-.dashboard-title{
-  font-size: 2.2rem; 
-  &::first-letter{
+.dashboard-title {
+  font-size: 2.2rem;
+  &::first-letter {
     font-size: 120%;
   }
 }
@@ -517,17 +517,17 @@ aside .sidebar a:not(.active):hover {
   }
 }
 
-.analyse{
+.analyse {
   /* margin: 0 auto; */
 }
 
 main .analyse__item {
   cursor: pointer;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   transition: all 0.3s ease;
-  &:hover{
+  &:hover {
     box-shadow: none;
-  } 
+  }
 }
 
 main .analyse .analyse__content {
@@ -536,7 +536,7 @@ main .analyse .analyse__content {
   justify-content: space-between;
   box-shadow: var(--box-shadow);
   border-radius: var(--card-border-radius);
-  background-color: var(--color-white); 
+  background-color: var(--color-white);
   padding: 1rem;
 }
 
@@ -658,9 +658,9 @@ main .my-table {
 
 .right-section .nav .profile {
   display: flex;
-  gap: .4rem;
+  gap: 0.4rem;
   text-align: right;
-  & .info{
+  & .info {
     justify-content: flex-end;
   }
 }
@@ -801,7 +801,15 @@ main .my-table {
   }
 }
 
-.footer{
+.footer {
   background-color: var(--color-white);
   box-shadow: var(--box-shadow);
+}
+
+.analyse__item__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
 }

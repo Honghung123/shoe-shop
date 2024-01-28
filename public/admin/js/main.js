@@ -16,16 +16,16 @@ $(function () {
     }
   });
 
-  const darkMode = document.querySelector(".dark-mode");
-  darkMode.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode-variables");
-    const darkModeIcon = darkMode.querySelector("span:nth-child(1)");
-    if (darkModeIcon.innerHTML == "light_mode") {
-      darkModeIcon.innerHTML = "dark_mode";
-    } else {
-      darkModeIcon.innerHTML = "light_mode";
-    }
-  });
+  // const darkMode = document.querySelector(".dark-mode");
+  // darkMode.addEventListener("click", () => {
+  //   document.body.classList.toggle("dark-mode-variables");
+  //   const darkModeIcon = darkMode.querySelector("span:nth-child(1)");
+  //   if (darkModeIcon.innerHTML == "light_mode") {
+  //     darkModeIcon.innerHTML = "dark_mode";
+  //   } else {
+  //     darkModeIcon.innerHTML = "light_mode";
+  //   }
+  // });
 
   // Text typing animation
   $(".text-typing-animation").each(function (e, e) {

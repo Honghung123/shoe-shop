@@ -4,6 +4,14 @@
 <head>
   <title>Shoe store - Shopping</title>
   <%- include('./partials/head'); -%>
+  <!-- <link rel="stylesheet" href="/public/admin/css/style.css">
+  <link rel="stylesheet" href="/public/admin/css/chart.css">
+
+  <link rel="stylesheet" href="/public/admin/css/config.css">
+  <link rel="stylesheet" href="/public/admin/css/responsive.css"> -->
+
+  <link rel="stylesheet" href="/public/admin/css/features/product.css">
+
 </head>
 
 <body>
@@ -128,8 +136,10 @@
                   <span>Sort By</span>
                   <select class="custom-select sort-product">
                     <option value="default">Default</option>
-                    <option value="asc">Price increment</option>
-                    <option value="desc">Price descrement</option>
+                    <option value="latest-product">Latest product</option>
+                    <option value="oldest-product">Oldest product</option>
+                    <option value="price-increment">Price increment</option>
+                    <option value="price-descrement">Price descrement</option>
                   </select>
                 </div>
               </div>
@@ -200,6 +210,8 @@
         </div>
       </section>
       <!-- Product Section End -->
+      <%- include('./addToCart'); -%>
+      <%- include('./requireLoginModal'); -%>
 
       <!-- Footer Section -->
       <%- include('./partials/footer'); -%>

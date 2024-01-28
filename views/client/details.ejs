@@ -46,14 +46,14 @@
             <div class="col-lg-7 col-md-7">
               <div class="product__details__text">
                 <h3 class="limit-line line-2"><%= product.name %></h3>
-                <div class="product__details__rating">
+                <!-- <div class="product__details__rating">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star-half-o"></i>
                   <span>(18 reviews)</span>
-                </div>
+                </div> -->
                 <ul class="">
                   <!-- <li class="product__details__item"><b>Price: </b><span
                       class="product__details__price currency"><%= product.price %></span></li> -->
@@ -85,16 +85,16 @@
                 </div>
               </div> -->
                 </div>
-                <div class="product__details__options mb-4">
-                  <button class="my-button button-hover-fadeIn rounded-3"><span class="text-white">Add to cart</span> <i
+                <div data-id="<%= product.id %>" class="product__details__options specific__product mb-4">
+                  <button class="my-button button-hover-fadeIn rounded-3 add__to__cart" ><span class="text-white">Add to cart</span> <i
                       class="fa-solid fa-cart-plus"></i></button>
-                  <button class="my-button button-hover-fadeIn rounded-3"><span class="text-white">Add to
+                  <button class="my-button button-hover-fadeIn rounded-3 add__to__favourite"><span class="text-white">Add to
                       favourite</span> <i class="fa-solid fa-heart"></i></button>
                 </div>
                 <!-- <a href="checkout.html" class="my-button button-hover-shake hover-color-primary rounded-pill">Buy now</a> -->
               </div>
             </div>
-            <div class="col-lg-12" id="tabs-link">
+            <!-- <div class="col-lg-12" id="tabs-link">
               <div class="product__details__tab pt-5">
                 <ul class="nav nav-tabs">
                   <li class="nav-item">
@@ -124,7 +124,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="divider-line mt-4 w-75 m-auto"></div>
@@ -188,7 +188,8 @@
         </div>
       </section>
       <!-- Related Product Section End -->
-
+      <%- include('./addToCart'); -%>
+      <%- include('./requireLoginModal'); -%>
       <!-- Footer Section -->
       <%- include('./partials/footer'); -%>
         <!-- Footer Section End -->

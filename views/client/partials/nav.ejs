@@ -134,10 +134,11 @@
             <div class="col-lg-6 col-sm-7">
                 <div class="hero__search flex-center-center h-100">
                     <div class="hero__search__form">
-                        <form action="#">
-                            <input type="text" placeholder="What do you need?" class="w-85">
-                            <button type="submit" class="site-btn w-15 h-100"><i class="fa fa-search"></i></button>
+                        <form>
+                            <input id="input-search" name="query" type="text" placeholder="What do you need?" class="w-85" value="<%= query %>"/>
+                            <button id="btn-search" type="button" class="site-btn w-15 h-100"><i class="fa fa-search"></i></button>
                         </form>
+                        
                     </div>
                 </div>
             </div>
@@ -145,84 +146,89 @@
                 <div class="header__cart flex-end-center h-100">
                     <ul>
                         <li class="header__cart__favorite">
-                            <a href="/favorite" class="cart__favorite"><i class="fa-solid fa-heart"></i></a>
+                            <a data-isAuthenticated="<%=isAuthenticated%>" id="favorite-icon" href="<%= isAuthenticated ? '/favorite' : '#' %>" class="cart__favorite"><i class="fa-solid fa-heart"></i></a>
+                            <% if (isAuthenticated) { %>
                             <ul class="header__cart__dropdown">
                                 <div class="padding__box"></div>
                                 <div class="text-mute p-2">Favorite products</div>
-                                <li class="header__cart__link">
-                                    <div class="header__cart_product d-flex">
-                                        <div class="w-25 header__cart_product-image"><img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xkHciuvOBxSg5mQ31LsJiZekGiApBgUFVA&usqp=CAU"
-                                                alt="" class="image"></div>
-                                        <div class="w-75 header__cart_product-info">
-                                            <a href="/detail" class="limit-line line-1">Shoe nike 2023 brand new
-                                                made in Japan</a>
-                                            <div class="flex-between-center header__cart_product-detail">
-                                                <span class="currency">700000</span>
-                                                <!-- <span class="fw-bold multiple_qty">1</span> -->
+                                <li class="header__cart__link"></li>
+                                
+                                <% favouriteReviews.forEach(e => { %>
+                                <% if (e.product.isSale) { %>
+                                    <li class="header__cart__link">
+                                        <div class="header__cart_product d-flex">
+                                            <div class="w-25 header__cart_product-image"><img src="<%=e.product.image%>" alt="" class="image"></div>
+                                            <div class="w-75 header__cart_product-info">
+                                                <a href="/detail?id=<%=e.product.id%>" class="limit-line line-1"><%=e.product.name%></a>
+                                                <div class="flex-between-center header__cart_product-detail">
+                                                    <span class="currency color__primary"><%=e.product.price_discount%></span>
+                                                    <span class="currency product__discount__oldprice mlr05"><%=e.product.price%></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="header__cart__link">
-                                    <div class="header__cart_product d-flex">
-                                        <div class="w-25 header__cart_product-image"><img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xkHciuvOBxSg5mQ31LsJiZekGiApBgUFVA&usqp=CAU"
-                                                alt="" class="image"></div>
-                                        <div class="w-75 header__cart_product-info">
-                                            <a href="/detail" class="d-block limit-line line-1">Shoe nike 2023
-                                                brand new</a>
-                                            <div class="flex-between-center header__cart_product-detail">
-                                                <span class="currency">700000</span>
-                                                <!-- <span class="fw-bold multiple_qty">3</span> -->
+                                    </li>
+                                <% } else { %>
+                                    <li class="header__cart__link">
+                                        <div class="header__cart_product d-flex">
+                                            <div class="w-25 header__cart_product-image"><img src="<%=e.product.image%>" alt="" class="image"></div>
+                                            <div class="w-75 header__cart_product-info">
+                                                <a href="/detail?id=<%=e.product.id%>" class="limit-line line-1"><%=e.product.name%></a>
+                                                <div class="flex-between-center header__cart_product-detail">
+                                                    <span class="currency"><%=e.product.price%></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                <% } %>
+                                <% }) %>
                                 <div class="divider-line pt-1"></div>
                                 <a class="text-center d-inline-block w-100 pt-1 pb-1 view-all" href="/cart">View
                                     all</a>
                             </ul>
+                            <% }%>
                         </li>
                         <li style="transform: translateY(0.1rem);" class="header__cart__cart">
-                            <a href="/cart"><i class="fa-solid fa-cart-plus"></i></a>
+                            <a data-isAuthenticated="<%=isAuthenticated%>" id="cart-icon" href="<%= isAuthenticated ? '/cart' : '#' %>"><i class="fa-solid fa-cart-plus"></i></a>
+                            <% if (isAuthenticated) { %>
                             <ul class="header__cart__dropdown">
                                 <div class="padding__box"></div>
                                 <div class="text-mute p-2 header__cart__title">Your cart</div>
-                                <li class="header__cart__link">
-                                    <div class="header__cart_product d-flex">
-                                        <div class="w-25 header__cart_product-image"><img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xkHciuvOBxSg5mQ31LsJiZekGiApBgUFVA&usqp=CAU"
-                                                alt="" class="image"></div>
-                                        <div class="w-75 header__cart_product-info">
-                                            <a href="/detail" class="limit-line line-1">Shoe nike 2023 brand new
-                                                made in Japan</a>
-                                            <div class="flex-between-center header__cart_product-detail">
-                                                <span class="currency">700000</span>
-                                                <!-- <span class="fw-bold multiple_qty">1</span> -->
+                                <li class="header__cart__link"></li>
+
+                                <% cartReviews.forEach(e => { %>
+                                <% if (e.product.isSale) { %>
+                                    <li class="header__cart__link">
+                                        <div class="header__cart_product d-flex">
+                                            <div class="w-25 header__cart_product-image"><img src="<%=e.product.image%>" alt="" class="image"></div>
+                                            <div class="w-75 header__cart_product-info">
+                                                <a href="/detail?id=<%=e.product.id%>" class="limit-line line-1"><%=e.product.name%></a>
+                                                <div class="flex-between-center header__cart_product-detail">
+                                                    <span class="currency color__primary"><%=e.product.price_discount%></span>
+                                                    <span class="currency product__discount__oldprice mlr05"><%=e.product.price%></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="header__cart__link">
-                                    <div class="header__cart_product d-flex">
-                                        <div class="w-25 header__cart_product-image"><img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xkHciuvOBxSg5mQ31LsJiZekGiApBgUFVA&usqp=CAU"
-                                                alt="" class="image"></div>
-                                        <div class="w-75 header__cart_product-info">
-                                            <a href="/detail" class="d-block limit-line line-1">Shoe nike 2023
-                                                brand new</a>
-                                            <div class="flex-between-center header__cart_product-detail">
-                                                <span class="currency">700000</span>
-                                                <!-- <span class="fw-bold multiple_qty">3</span> -->
+                                    </li>
+                                <% } else { %>
+                                    <li class="header__cart__link">
+                                        <div class="header__cart_product d-flex">
+                                            <div class="w-25 header__cart_product-image"><img src="<%=e.product.image%>" alt="" class="image"></div>
+                                            <div class="w-75 header__cart_product-info">
+                                                <a href="/detail?id=<%=e.product.id%>" class="limit-line line-1"><%=e.product.name%></a>
+                                                <div class="flex-between-center header__cart_product-detail">
+                                                    <span class="currency"><%=e.product.price%></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                <% } %>
+                                <% }) %>
                                 <div class="divider-line pt-1"></div>
                                 <a class="text-center d-inline-block w-100 pt-1 pb-1 view-all" href="/cart">View
                                     all</a>
                             </ul>
+                            <% }%>
+
                         </li>
                         <li class="header__cart__account">
                             <% if (isAuthenticated) { %>
@@ -274,3 +280,5 @@
     </div>
 </header>
 <!-- Header Section End -->
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>

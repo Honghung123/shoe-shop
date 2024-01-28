@@ -39,57 +39,37 @@
                   </tr>
                 </thead>
                 <tbody id="shopping__cart__list">
-                  <tr class="shopping__cart__item">
+                  <% if (favourites.length == 0) { %>
+                    <tr><td colspan="3" class="text-center"><span>There is no product here</span></td></tr>
+                  <% } %>
+                  <% favourites.forEach(e => { %>
+                  <tr data-id="<%= e.id %>" data-product="<%= e.product_id %>" class="shopping__cart__item">
                     <td class="shopping__cart__info d-flex">
-                      <img class="image" src="img/cart/cart-1.jpg" alt="">
+                      <img class="image" src="<%= e.product.image %>" alt="">
                       <div class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                        <a href="details.html" class="hover__primary limit-line line-2">Adidas shoe made in Japan Lorem
-                          ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti aliquid </a>
-                        <div class="shopping__cart__classify">
-                          <span>Color: <span
-                              class="border border-secondary border-1 rounded-circle background-green"></span></span>
-                          <span>Size: XL</span>
-                        </div>
+                        <a href="detail?id=<%= e.product.id %>" class="hover__primary limit-line line-2"><%= e.product.name %></a>
+                        
                       </div>
                     </td>
                     <td class="shopping__cart__price">
-                      <span class="color__primary currency">300000</span>
+                      <% if (e.product.isSale) { %>
+                      <span class="currency color__primary"><%= e.product.price_discount %></span>
+                      <span class="currency product__discount__oldprice mlr05"><%= e.product.price %></span>
+                      <% } else { %>
+                      <span class="color__primary currency"><%= e.product.price %></span>
+                      <% } %>
                     </td>
                     <td>
                       <span
                         class="my-button button-hover-fadeIn rounded-3 fs-7 fw-bold custom-zoom add__product__cart"><i
-                          class="fa-solid fa-trash-can"></i>Add to cart</span>
-                      <span
+                          class="fa-solid fa-shopping-cart"></i> Add to cart</span>
+                      <span data-check="favourite"
                         class="my-button button-hover-fadeIn rounded-3 fs-7 fw-bold custom-zoom delete__product mt-1 ml05"><i
                           class="fa-solid fa-trash-can"></i> Delete</span>
                     </td>
                   </tr>
-                  <tr class="shopping__cart__item">
-                    <td class="shopping__cart__info d-flex">
-                      <img class="image" src="img/cart/cart-1.jpg" alt="">
-                      <div class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                        <a href="details.html" class="hover__primary limit-line line-2">Adidas shoe made in Japan Lorem
-                          ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti aliquid </a>
-                        <div class="shopping__cart__classify">
-                          <span>Color: <span
-                              class="border border-secondary border-1 rounded-circle background-yellow"></span></span>
-                          <span>Size: S</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="shopping__cart__price">
-                      <span class="color__primary currency">350000</span>
-                    </td>
-                    <td>
-                      <span
-                        class="my-button button-hover-fadeIn rounded-3 fs-7 fw-bold custom-zoom add__product__cart"><i
-                          class="fa-solid fa-trash-can"></i>Add to cart</span>
-                      <span
-                        class="my-button button-hover-fadeIn rounded-3 fs-7 fw-bold custom-zoom delete__product mt-1 ml05"><i
-                          class="fa-solid fa-trash-can"></i> Delete</span>
-                    </td>
-                  </tr>
-                  <!-- <tr><td colspan="5" class="text-center"><span>Your favorite list is empty</span></td></tr> -->
+                <% }) %>
+                  
                 </tbody>
               </table>
             </div>
@@ -97,7 +77,8 @@
         </div>
       </section>
       <!-- Shoping Cart Section End -->
-
+      <%- include('./addToCart'); -%>
+      <%- include('./requireLoginModal'); -%>
       <!-- Footer Section -->
       <%- include('./partials/footer'); -%>
         <!-- Footer Section End -->

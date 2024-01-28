@@ -9,7 +9,7 @@ module.exports = {
             const userToUpdate = await userRepo.findOne({where: {id}});
             const defaultAddress = await addressRepo.findOne({where: {user_id: id, is_default: true}});
             console.log(defaultAddress);
-            if(!address){
+            if(!defaultAddress){
                 await addressRepo.save({address, phone, user_id:id, is_default: true})
             } else{
                 defaultAddress.phone = phone;

@@ -1,7 +1,7 @@
 const passport = require("passport");
 const { userRepo } = require("./db.config");
 const bcrypt = require('bcryptjs');
-const {hashPwd} = require("../utils/hashPassword");
+const { hashPwd } = require("../utils/hashPassword");
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 passport.deserializeUser(async (user, done) => {
@@ -13,7 +13,7 @@ passport.deserializeUser(async (user, done) => {
 })
 passport.serializeUser((user, done) => {
     console.log("User in serialize");
-    done(null, { username: user.username, email: user.email, role: user.role, avatar: user.avatar })
+    done(null, { id: user.id, username: user.username, email: user.email, role: user.role, avatar: user.avatar })
 })
 
 module.exports = (app) => {

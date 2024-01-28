@@ -11,6 +11,7 @@ module.exports = {
                     user_id: userId
                 }
             })
+            console.log('hihi', cartLine);
             if (cartLine) {
                 return res.status(401).json({ message: 'This product is already in the cart' });
             } else {
@@ -32,7 +33,7 @@ module.exports = {
             curDate.setHours(curDate.getHours() + 7);
             if (sale && (new Date(sale.expire) > curDate)) {
                 result.isSale = true;
-                result.price_discount = parseInt(result.price) * (1 - sale.percent / 100.0);
+                result.price_discount = Math.floor(parseInt(result.price) * (1 - sale.percent / 100.0));
             } else {
                 result.isSale = false
             }

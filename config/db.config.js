@@ -13,6 +13,7 @@ const addressModel = require("../model/address.m");
 const wishListModel = require("../model/wish-list.m");
 const voucherModel = require("../model/voucher.m");
 const saleModel = require("../model/sale.m");
+const favouriteModel = require("../model/favourite.m");
 const {hashPwd} = require("../utils/hashPassword");
 
 const dataSource = new typeorm.DataSource({
@@ -40,6 +41,7 @@ const dataSource = new typeorm.DataSource({
     voucherModel,
     wishListModel,
     saleModel,
+    favouriteModel,
   ],
 });
 
@@ -82,6 +84,7 @@ const imageRepo = dataSource.getRepository("ProductImage");
 const voucherRepo = dataSource.getRepository("Voucher");
 const wishListRepo = dataSource.getRepository("WishList");
 const saleRepo = dataSource.getRepository("Sale");
+const favouriteRepo = dataSource.getRepository("Favourite");
 
 module.exports = {
   connectDb,
@@ -99,4 +102,5 @@ module.exports = {
   voucherRepo,
   wishListRepo,
   saleRepo,
+  favouriteRepo
 };

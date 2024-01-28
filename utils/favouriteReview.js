@@ -1,6 +1,6 @@
-const {cartLineRepo, productRepo, saleRepo, imageRepo} = require('../config/db.config')
+const {favouriteRepo, productRepo, saleRepo, imageRepo} = require('../config/db.config')
 const cartReview = async (userID) => {
-    const carts = await cartLineRepo.find({
+    const favourites = await favouriteRepo.find({
         take: 2,
         where: { user_id: userID },
         order: {id: 'DESC'}
@@ -8,7 +8,7 @@ const cartReview = async (userID) => {
     const curDate = new Date();
     curDate.setHours(curDate.getHours() + 7);
 
-    for (let i of carts) {
+    for (let i of favourites) {
         let product = await productRepo.findOne({
             where: {
                 id: parseInt(i.product_id)
@@ -29,6 +29,6 @@ const cartReview = async (userID) => {
         product.image = image.image;
         i.product = product;
     }
-    return carts;
+    return favourites;
 }
 module.exports = cartReview;

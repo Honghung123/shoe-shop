@@ -15,7 +15,7 @@ module.exports = {
             for (let sale of dataSale) {
                 if (sale.product_id === product.id && (new Date(sale.expire) > curDate)) {
                     product.percent = sale.percent;
-                    product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+                    product.price_discount = Math.floor(parseInt(product.price) * (1 - sale.percent / 100.0));
                     break;
                 }
             }

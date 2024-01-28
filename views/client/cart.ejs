@@ -74,7 +74,7 @@
                       <span class="color__primary currency"><%= e.product.isSale ? e.product.price_discount * e.quantity : e.product.price * e.quantity %></span>
                     </td>
                     <td>
-                      <span class="my-button button-hover-fadeIn rounded-3 fs-7 fw-bold custom-zoom delete__product"><i
+                      <span data-check="cart" class="my-button button-hover-fadeIn rounded-3 fs-7 fw-bold custom-zoom delete__product"><i
                           class="fa-solid fa-trash-can"></i> Delete</span>
                     </td>
                   </tr>
@@ -124,7 +124,8 @@
         </div>
       </section>
       <!-- Shoping Cart Section End -->
-
+      <%- include('./addToCart'); -%>
+      <%- include('./requireLoginModal'); -%>
       <!-- Footer Section -->
       <%- include('./partials/footer'); -%>
         <!-- Footer Section End -->

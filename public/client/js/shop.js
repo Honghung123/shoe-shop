@@ -1,3 +1,4 @@
+
 (function ($) {
   PER_PAGE_PRODUCT = 6;
   localStorage.removeItem('price');
@@ -105,49 +106,60 @@
       pagination.appendChild(nextButton);
     }
 
-    $(".add__to__favourite").on("click", function () {
+    $(".add__to__favourite").on("click", async function () {
       const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
       if (cartIcon === 'false') {
         $('#requireLoginModal').modal('show');
       } else {
-        $('#addToCartModal').modal('show');
+        let $product = $(this).parent();
+        while (!$product.hasClass("specific__product")) {
+          $product = $product.parent();
+        }
+        const id = parseInt($product.data("id"));
+        const result = await addToFavoriteDatabase(id)
+        if (result.status) {
+          addToFavoritePreview(result.data);
+          showToastMessage("This product is added to favouvite", toastData["success"]);
+        } else {
+          showToastMessage(result.message.message, toastData["error"]);
+        }
       }
     });
     $(".add__to__cart").on("click", async function () {
       const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
-    if (cartIcon === 'false') {
-      $('#requireLoginModal').modal('show');
-    } else {
-      let $product = $(this).parent();
-      while (!$product.hasClass("specific__product")) {
-        $product = $product.parent();
+      if (cartIcon === 'false') {
+        $('#requireLoginModal').modal('show');
+      } else {
+        let $product = $(this).parent();
+        while (!$product.hasClass("specific__product")) {
+          $product = $product.parent();
+        }
+        const id = parseInt($product.data("id"));
+        const response = await fetch(`/get-product-id`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id })
+        });
+        const data = await response.json();
+        console.log(data);
+        const selectContainer = document.getElementById('stock-size-addToCart');
+        selectContainer.innerHTML = '';
+        selectContainer.value = data[0].size;
+        const quantityContainer = document.getElementById('stock-quantity-addToCart');
+        quantityContainer.max = data[0].quantity;
+        for (let i of data) {
+          const option = document.createElement('option');
+          option.value = i.size;
+          option.text = i.size;
+          option.classList.add('option-size');
+          option.dataset.info = i.quantity;
+          selectContainer.appendChild(option);
+        }
+        $('#addToCartModal').attr('data-id', id);
+        $('#addToCartModal').modal('show');
       }
-      const id = parseInt($product.data("id"));
-      const response = await fetch(`/get-product-id`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id })
-      });
-      const data = await response.json();
-      console.log(data);
-      const selectContainer = document.getElementById('stock-size-addToCart');
-      selectContainer.innerHTML = '';
-      selectContainer.value = data[0].size;
-      const quantityContainer = document.getElementById('stock-quantity-addToCart');
-      quantityContainer.max = data[0].quantity;
-      for (let i of data) {
-        const option = document.createElement('option');
-        option.value = i.size;
-        option.text = i.size;
-        option.classList.add('option-size');
-        option.dataset.info = i.quantity;
-        selectContainer.appendChild(option);
-      }
-      $('#addToCartModal').attr('data-id', id);
-      $('#addToCartModal').modal('show');
-    }
     });
   }
 

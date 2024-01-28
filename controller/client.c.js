@@ -1,7 +1,8 @@
 const { async } = require('rxjs');
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo } = require('../config/db.config');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo, favouriteRepo } = require('../config/db.config');
 const { MoreThan, Equal, Not } = require('typeorm');
 const cartReview = require('../utils/cartReview');
+const favouriteReview = require('../utils/favouriteReview');
 
 require('dotenv').config();
 
@@ -38,7 +39,7 @@ module.exports = {
       for (let sale of dataSale) {
         if (sale.product_id === product.id && (new Date(sale.expire) > curDate)) {
           product.percent = sale.percent;
-          product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+          product.price_discount = Math.floor(parseInt(product.price) * (1 - sale.percent / 100.0));
           break;
         }
       }
@@ -95,7 +96,7 @@ module.exports = {
         where: { id: product.cat_id }
       });
       product.cat_name = cat.name;
-      product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
+      product.price_discount = Math.floor(product.price * parseInt(100 - i.percent) / 100.0);
       i.product = product;
     }
     const categories = await categoryRepo.find();
@@ -120,7 +121,7 @@ module.exports = {
       if (sale !== null) {
         i.isSale = true;
         i.percent = sale.percent;
-        i.price_discount = Math.ceil(i.price * parseInt(100 - sale.percent) / 100.0);
+        i.price_discount = Math.floor(i.price * parseInt(100 - sale.percent) / 100.0);
       } else {
         i.isSale = false;
       }
@@ -151,12 +152,16 @@ module.exports = {
         where: { id: product.cat_id }
       });
       product.cat_name = cat.name;
-      product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
+      product.price_discount = Math.floor(product.price * parseInt(100 - i.percent) / 100.0);
       i.product = product;
     }
     let cartReviews = [];
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
+    }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
     }
     res.render("client/home", {
       isAuthenticated: req.isAuthenticated(),
@@ -167,7 +172,8 @@ module.exports = {
       latest,
       saleWeek,
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderShoppingPage: async (req, res) => {
@@ -196,7 +202,7 @@ module.exports = {
       for (let sale of dataSale) {
         if (sale.product_id === product.id && (new Date(sale.expire) > curDate)) {
           product.percent = sale.percent;
-          product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+          product.price_discount = Math.floor(parseInt(product.price) * (1 - sale.percent / 100.0));
           break;
         }
       }
@@ -248,6 +254,10 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/shopping", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -259,7 +269,8 @@ module.exports = {
       totalPages,
       currentPage: page,
       query: req.query.search || '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderCheckoutPage: async (req, res) => {
@@ -267,12 +278,17 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/checkout", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'more',
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderVoucherPage: async (req, res) => {
@@ -280,25 +296,66 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/voucher", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'voucher',
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderFavorPage: async (req, res) => {
+    const favourites = await favouriteRepo.find({
+      where: { user_id: req.user.id },
+      order: { id: 'DESC' }
+    });
+    const curDate = new Date();
+    curDate.setHours(curDate.getHours() + 7);
+
+    for (let i of favourites) {
+      let product = await productRepo.findOne({
+        where: {
+          id: parseInt(i.product_id)
+        }
+      });
+      const sale = await saleRepo.findOne({
+        where: { product_id: parseInt(i.product_id) }
+      });
+      if (sale && (new Date(sale.expire) > curDate)) {
+        product.isSale = true;
+        product.price_discount = Math.floor(parseInt(product.price) * (1 - sale.percent / 100.0));
+      } else {
+        product.isSale = false
+      }
+      const image = await imageRepo.findOne({
+        where: { product_id: product.id }
+      });
+      product.image = image.image;
+      i.product = product;
+    }
+    console.log(favourites);
+
     let cartReviews = [];
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
+    }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
     }
     res.render("client/favorite", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'favorite',
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews,
+      favourites
     });
   },
   renderDiscountPage: async (req, res) => {
@@ -309,7 +366,8 @@ module.exports = {
     endTime.setDate(currentDateOrigin.getDate() + 1);
     endTime.setUTCHours(0, 0, 0, 0);
     let sales = await saleRepo.find({
-      where: { expire: MoreThan(currentDateOrigin) }
+      where: { expire: MoreThan(currentDateOrigin) },
+      order: { product_id: 'ASC' }
     });
     const saleToday = await saleRepo.find({
       where: {
@@ -328,7 +386,7 @@ module.exports = {
         where: { id: product.cat_id }
       });
       product.cat_name = cat.name;
-      product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
+      product.price_discount = Math.floor(product.price * parseInt(100 - i.percent) / 100.0);
       i.product = product;
     }
     for (let i of saleToday) {
@@ -343,7 +401,7 @@ module.exports = {
         where: { id: product.cat_id }
       });
       product.cat_name = cat.name;
-      product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
+      product.price_discount = Math.floor(product.price * parseInt(100 - i.percent) / 100.0);
       i.product = product;
     }
 
@@ -357,6 +415,10 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/discount", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -366,7 +428,8 @@ module.exports = {
       currentPage: page,
       totalPages,
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderContactPage: async (req, res) => {
@@ -374,18 +437,27 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/contact", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'more',
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderAccountPage: async (req, res) => {
     let cartReviews = [];
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
+    }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
     }
     console.log(req.user);
     const user = await userRepo.findOne({ where: { email: req.user.email } })
@@ -394,7 +466,8 @@ module.exports = {
       user: req.user,
       curPage: 'account',
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderDetailsPage: async (req, res) => {
@@ -456,6 +529,10 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/details", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -465,7 +542,8 @@ module.exports = {
       stock,
       suggests,
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
   renderCartPage: async (req, res) => {
@@ -475,7 +553,7 @@ module.exports = {
     });
     const curDate = new Date();
     curDate.setHours(curDate.getHours() + 7);
-    
+
     for (let i of carts) {
       let product = await productRepo.findOne({
         where: {
@@ -487,7 +565,7 @@ module.exports = {
       });
       if (sale && (new Date(sale.expire) > curDate)) {
         product.isSale = true;
-        product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+        product.price_discount = Math.floor(parseInt(product.price) * (1 - sale.percent / 100.0));
       } else {
         product.isSale = false
       }
@@ -496,7 +574,7 @@ module.exports = {
       });
       product.image = image.image;
       const size = await sizeRepo.findOne({
-        where: {id: i.size_id}
+        where: { id: i.size_id }
       })
       i.size = size.size;
       i.product = product;
@@ -506,13 +584,18 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/cart", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'cart',
       query: '',
       cartReviews,
-      carts
+      carts,
+      favouriteReviews
     });
   },
   renderUpdateProfilePage: async (req, res) => {
@@ -520,12 +603,17 @@ module.exports = {
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
     }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
     res.render("client/update-profile", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'profile',
       query: '',
-      cartReviews
+      cartReviews,
+      favouriteReviews
     });
   },
 };

@@ -67,21 +67,22 @@ app.use(logger);
 const adminRouter = require("./routers/admin.r");
 const authRouter = require("./routers/auth.r");
 const categoryRouter = require("./routers/category.r");
-const passport = require("passport");
 const cartLineRouter = require('./routers/cart-line.r')
 const productRouter = require('./routers/product.r')
 const orderRouter = require('./routers/order.r')
 const wishListRouter = require('./routers/wish-list.r')
 const clientRouter = require('./routers/client.r');
 const voucherRouter = require('./routers/voucher.r');
-const brandRouter = require('./routers/brand.r')
+const brandRouter = require('./routers/brand.r');
+const favouriteRouter = require('./routers/favourite.r');
 
 app.use("/", authRouter);
 app.use("/admin", adminRouter);
-app.use("/carts", cartLineRouter)
-app.use("/categories", categoryRouter)
-app.use("/products", productRouter)
-app.use("/orders", orderRouter)
+app.use("/carts", cartLineRouter);
+app.use("/favourite", favouriteRouter);
+app.use("/categories", categoryRouter);
+app.use("/products", productRouter);
+app.use("/orders", orderRouter);
 app.use('/wish-list', wishListRouter);
 app.use("/", clientRouter);
 app.use("/vouchers", voucherRouter);

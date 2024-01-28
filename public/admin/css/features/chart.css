@@ -14,11 +14,11 @@
 
 .chart {
   height: 100%;
-  min-height: 18rem !important;
+  min-height: 22rem !important;
 }
-.chart-vertical {
+.chart-doughnut {
   height: 100%;
-  min-height: 25rem !important;
+  min-height: 22rem !important;
 }
 
 #chart-bars {

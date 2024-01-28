@@ -3,7 +3,7 @@
 <table class="my-table box-shadow-primary text-center">
     <thead>
         <tr>
-            <th width="5%">STT</th> 
+            <th width="5%">No.</th> 
             <th width="15%">CatID</th> 
             <th>Name</th>
             <th width="25%">Action</th>
@@ -20,9 +20,8 @@
                 <td>
                     <div class="flex-center-center column-gap-2 flex-wrap-wrap">
                         <button class="btn-custom btn-warning edit-category" data-bs-toggle="modal" data-bs-target="#editCategory"
-                            data-id=<%= category.id %> data-cat-name= '<%= category.name%>'>Edit</button>
-                        <button class="btn-custom btn-danger delete-category" data-bs-toggle="modal" data-bs-target="#deleteCategory"
-                            data-id='<%= category.id %>'>Delete</button>
+                            data-id="<%= category.id %>" data-cat-name="<%= category.name%>">Edit</button>
+                        <button class="btn-custom btn-danger delete-category" data-id="<%= category.id %>">Delete</button>
                     </div>
                 </td>
             </tr>

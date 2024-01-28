@@ -23,7 +23,7 @@ module.exports = {
                 where: { id: product.cat_id }
             });
             product.cat_name = cat.name;
-            product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
+            product.price_discount = Math.floor(product.price * parseInt(100 - i.percent) / 100.0);
             i.product = product;
         }
         const page = parseInt(req.query.page) || 1;

@@ -132,7 +132,7 @@
                                 <div class="mlr05 pt-2 pb-2">
                                     <div class="featured__item specific__product" data-id="<%= e.product.id %>">
                                         <div class="featured__item__pic">
-                                            <img src="<%= e.product.image %>" style=`<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>` class="image" alt="">
+                                            <img src="<%= e.product.image %>" style=<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %> class="image" alt="">
                                             <ul class="featured__item__pic__hover">
                                                 <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
                                                 </li>
@@ -269,7 +269,7 @@
                                     <div class="mlr05 pt-2 pb-2">
                                         <div class="featured__item specific__product" data-id="<%= e.id %>">
                                             <div class="featured__item__pic">
-                                                <img src="<%= e.image %>" style=`<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>` class="image" alt="">
+                                                <img src="<%= e.image %>" style=<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %> class="image" alt="">
                                                 <ul class="featured__item__pic__hover">
                                                     <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
                                                     </li>
@@ -293,7 +293,7 @@
                                     <div class="cols mlr05 pt-2 pb-2">
                                         <div class="featured__item specific__product" data-id="<%= e.id %>">
                                             <div class="featured__item__pic">
-                                                <img src="<%= e.image %>" style=`<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %>` class="image" alt="">
+                                                <img src="<%= e.image %>" style=<%= e.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %> class="image" alt="">
                                                 <ul class="featured__item__pic__hover">
                                                     <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
                                                     </li>
@@ -444,7 +444,8 @@
             </section>
             <!-- Contact Section End -->
 
-
+            <%- include('./addToCart'); -%>
+            <%- include('./requireLoginModal'); -%>
             <!-- Footer Section -->
             <%- include('./partials/footer'); -%>
                 <!-- Footer Section End -->

@@ -42,8 +42,7 @@
                 </div>
                 <div class="form-field ">
                   <label class="label">Category:</label>
-                  <select name="catId" class="form-select" required>
-                    <option selected>- Select category -</option>
+                  <select name="catId" class="form-select" required> 
                     <% categories.forEach(category=> { %>
                       <option value="<%= category.id %>">
                         <%= category.name %>
@@ -53,8 +52,7 @@
                 </div>
                 <div class="form-field ">
                   <label class="label">Brand:</label>
-                  <select name="brandId" class="form-select" required>
-                    <option selected>- Select brand -</option>
+                  <select name="brandId" class="form-select" required> 
                     <% brands.forEach(brand => { %>
                       <option value=<%= brand.id %>><%= brand.brand_name %></option>
                     <% }) %>
@@ -70,6 +68,7 @@
                     </div>
                   </button>
                   <div id="add-size-stock-container" class="d-flex flex-wrap gap-3 pt-2 pb-2"></div>
+                  <label class="error-msg add_product"></label>
                 </div> 
                 <div class="form-field">
                   <label class="label">Description</label>
@@ -88,3 +87,33 @@
     </div>
   </div>
 </div>
+<script>
+//   document.getElementById("addProductForm").addEventListener("submit", async function (event) {
+//     event.preventDefault();
+
+//     try {
+//         // Serialize form data into FormData object
+//         const formData = new FormData(event.target);
+
+//         // Make an asynchronous POST request to the server
+//         const response = await fetch("/products", {
+//             method: "POST",
+//             body: formData,
+//         });
+
+//         // Handle the response data
+//         const data = await response.json();
+//         if (data.success) {
+//             // Reload the product page after successful product addition
+//             location.reload();
+//         } else {
+//             // Handle errors or display a success message if needed
+//             console.error("Failed to add product:", data.message);
+//             alert("Failed to add product. Please try again.");
+//         }
+//     } catch (error) {
+//         console.error("Error:", error);
+//         alert("An error occurred. Please try again.");
+//     }
+// });
+</script>

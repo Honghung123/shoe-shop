@@ -6,7 +6,7 @@
       <div class="modal-body p-0">
         <section class="my-modal-content p-4">
           <h1 class="title mb-4 text-gradient">Edit product</h1>
-          <form class="form-add" method="post" action="#" id="form-edit-product">
+          <form class="form-add" id="form-edit-product">
             <div class="form-add-grid form-grid-responsive gap-4">
               <div class="upload">
                 <div class="upload-wrapper wrapper-custom">
@@ -30,30 +30,36 @@
                   <input type="file" class="visually-hidden" id="upload-input-edit" multiple name="images" required>
                 </div>
               </div>
-              <div class="form-content form-custom">
+              <div class="form-content form-custom ">
                 <div class="form-field">
                   <label class="label">Product name: </label>
-                  <input name="name" class="input-text" type="text" value="Addias shoe super exclusive" required>
+                  <input name="name" class="input-text product-name" type="text" value="Addias shoe super exclusive" required>
                   <label class="error-msg"></label>
                 </div>
                 <div class="form-field ">
                   <label class="label">Price:</label>
-                  <input name="price" class="input-text" type="number" min="10000" value="12230000" required>
+                  <input name="price" class="input-text product-price" type="number" min="10000" value="12230000" required>
                 </div>
                 <div class="form-field ">
                   <label class="label">Category:</label>
-                  <select name="catId" class="form-select" required>
-                    <option value="1" selected>Sport</option>
+                  <select name="catId" class="form-select product-cat" required>
+                    <% categories.forEach(category => { %>
+                      <option value=<%= category.id %>><%= category.name %></option>
+                    <% }) %>
+                    <!-- <option value="1" selected>Sport</option>
                     <option value="2">Baby</option>
-                    <option value="3">Woman</option>
+                    <option value="3">Woman</option> -->
                   </select>
                 </div>
                 <div class="form-field ">
                   <label class="label">Brand:</label>
-                  <select name="brandId" class="form-select" required>
-                    <option value="1" selected>Addias</option>
+                  <select name="brandId"  class="form-select product-brand" required>
+                    <% brands.forEach(brand => { %>
+                      <option value=<%= brand.id %>><%= brand.brand_name %></option>
+                    <% }) %>
+                    <!-- <option value="1" selected>Addias</option>
                     <option value="2">Gucci</option>
-                    <option value="3">Levent</option>
+                    <option value="3">Levent</option> -->
                   </select>
                 </div>
                 <div class="form-field product-size-stock">
@@ -67,18 +73,18 @@
                   <div id="edit-size-stock-container" class="d-flex flex-wrap gap-3 pt-2 pb-2">
 
                   </div>
-                  <label class="error-msg size"></label>
+                  <label class="error-msg edit_product"></label>
                 </div>
  
                 <div class="form-field">
                   <label class="label">Description</label>
-                  <textarea name="description" class="input-text" type="text" required
+                  <textarea name="description" class="input-text product-description" type="text" required
                     style="resize: none;">This is test message</textarea>
                   <label class="error-msg"></label>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn-custom btn-success fw-bold mt-4 margin-auto d-block px-4">Change</button>
+            <button type="submit" class="btn-custom btn-success fw-bold mt-4 margin-auto d-block px-4 edit-product-btn">Change</button>
           </form>
           <button class="fw-bold close" data-bs-dismiss="modal">
             <span class="material-icons-sharp"> close </span>

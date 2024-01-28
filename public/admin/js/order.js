@@ -1,5 +1,27 @@
+/*-----------------------------
+        Toast message
+    -------------------------------*/
+const toastData = {
+  success: {
+    icon: "done",
+    bg_color: "green",
+  },
+  warning: {
+    icon: "warning",
+    bg_color: "yellow",
+  },
+  info: {
+    icon: "info",
+    bg_color: "blue",
+  },
+  error: {
+    icon: "close",
+    bg_color: "red",
+  },
+};
+
 const PER_PAGE = 3;
-$(".order-item").on("click", async function (e) {
+async function viewOrderDetails(e) {
   let currentElement = e.target;
   while (!currentElement.classList.contains("order-item")) {
     if (currentElement.classList.contains("btn-custom")) {
@@ -11,36 +33,37 @@ $(".order-item").on("click", async function (e) {
   console.log(currentElement);
   const orderId = currentElement.getAttribute("data-id");
   console.log("Order selected has id " + orderId);
-  const res = await fetch( `http://localhost:3000/orders/${orderId}`, {
-    method: 'GET',
+  const res = await fetch(`http://localhost:3000/orders/${orderId}`, {
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json'
-    }
-  })
+      "Content-Type": "application/json",
+    },
+  });
   const data = await res.json();
-  updateOrderDetailsModal(data)
+  updateOrderDetailsModal(data);
   $("#viewOrder").modal("show");
-  // Modify content in modal here
-});
+}
+$(".order-item").on("click", viewOrderDetails);
+
 const updateOrderDetailsModal = (data) => {
-  const {order, orderLines} = data
-  $('#viewOrder .order-title span').text(order.user.username);
-  $('#viewOrder .order-email span').text(order.user.email);
+  const { order, orderLines } = data;
+  $("#viewOrder .order-title span").text(order.user.username);
+  $("#viewOrder .order-email span").text(order.user.email);
   updateOrderLines(orderLines);
-  $('#viewOrder .total-amount').text(order.total);
-  $('#viewOrder .discount-amount').text(0)
-  $('#viewOrder .final-amount').text(order.total);
+  $("#viewOrder .total-amount").text(order.total);
+  $("#viewOrder .discount-amount").text(0);
+  $("#viewOrder .final-amount").text(order.total);
   // $('#viewOrder .order-email address').text(order.user.email);
   // $('#viewOrder .order-title span').text(order.user.address);
   // $('#viewOrder .order-title span').text(order.user.username);
-}
+};
 const updateOrderLines = (orderLines) => {
-  const orderLinesList = document.getElementsByClassName('order-lines')[0];
-  orderLinesList.innerHTML = '';
-  for(let orderLine of orderLines){
-    orderLinesList.appendChild(orderLineItem(orderLine))
+  const orderLinesList = document.getElementsByClassName("order-lines")[0];
+  orderLinesList.innerHTML = "";
+  for (let orderLine of orderLines) {
+    orderLinesList.appendChild(orderLineItem(orderLine));
   }
-}
+};
 const orderLineItem = (orderLine) => {
   const orderLineRow = document.createElement("tr");
   orderLineRow.classList.add("order-line");
@@ -65,10 +88,10 @@ const orderLineItem = (orderLine) => {
   <td>
     <span class="currency">${orderLine.total}</span>
   </td>
-  `
+  `;
   console.log(orderLineRow);
   return orderLineRow;
-}
+};
 const orderItem = (order) => {
   const orderRow = document.createElement("tr");
   orderRow.classList.add("order-item");
@@ -99,128 +122,142 @@ const orderItem = (order) => {
           </button>
       </div>
   </td>
-  `
-  
+  `;
+
   console.log(orderRow);
   return orderRow;
-}
+};
 const cancelOrder = (e) => {
   const id = parseInt(e.target.getAttribute("data-id"));
   console.log("Order id", id);
   console.log(e.target);
-  localStorage.setItem('orderId', id);
-}
-$('.cancel-order-btn').on('click', async function(e) {
-  const orderId = localStorage.getItem('orderId')
+  localStorage.setItem("orderId", id);
+};
+$(".cancel-order-btn").on("click", async function (e) {
+  const orderId = localStorage.getItem("orderId");
   console.log("Order id for fethc", orderId);
-  const res = await fetch( `http://localhost:3000/orders/${orderId}`, {
-    method: 'PUT',
+  const res = await fetch(`http://localhost:3000/orders/${orderId}`, {
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({orderId, status: 'canceled'})
-  })
+    body: JSON.stringify({ orderId, status: "canceled" }),
+  });
   const data = await res.json();
-  if(res.status === 200){
-    const curPage = $('span.page-numbers').text();
-    const refresh = await fetch(`/admin/order?page=${curPage}&limit=${PER_PAGE}`);
+  $("#cancelOrder").modal("hide");
+  if (res.status === 200) {
+    showToastMessage("Canceled order", toastData['success'])
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/order?page=${curPage}&limit=${PER_PAGE}`
+    );
     const data = await refresh.json();
     updateOrderList(data);
-    $('#cancelOrder').modal('hide')
-  } else{
-    alert(data.message)
+  } else {
+    showToastMessage(data.message, toastData['error']);
   }
-  localStorage.removeItem('orderId')
-})
+  localStorage.removeItem("orderId");
+});
 const shipOrder = (e) => {
   const id = parseInt(e.target.getAttribute("data-id"));
   console.log("Order id", id);
-  localStorage.setItem('shipOrderId', id);
-}
-$('.ship-order-btn').on('click', async function(e){
-  const orderId = localStorage.getItem('shipOrderId')
+  localStorage.setItem("shipOrderId", id);
+};
+$(".ship-order-btn").on("click", async function (e) {
+  const orderId = localStorage.getItem("shipOrderId");
   console.log("Order id for fethc", orderId);
-  const res = await fetch( `http://localhost:3000/orders/${orderId}`, {
-    method: 'PUT',
+  const res = await fetch(`http://localhost:3000/orders/${orderId}`, {
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({orderId, status: 'delivering'})
-  })
+    body: JSON.stringify({ orderId, status: "delivering" }),
+  });
   const data = await res.json();
-  if(res.status === 200){
-    const curPage = $('span.page-numbers').text();
-    const refresh = await fetch(`/admin/order?page=${curPage}&limit=${PER_PAGE}`);
+  $("#shipOrder").modal("hide");
+  if (res.status === 200) {
+    showToastMessage("Shipped order successfully", toastData['success'])
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/order?page=${curPage}&limit=${PER_PAGE}`
+    );
     const data = await refresh.json();
     updateOrderList(data);
-    $('#shipOrder').modal('hide')
-  } else{
-    alert(data.message)
+  } else {
+    toastData(data.message, toastData['error']);
   }
-  localStorage.removeItem('shipOrderId')
-})
+  localStorage.removeItem("shipOrderId");
+});
 
 function updateOrderList(data) {
-    const orderList = document.getElementsByClassName('order-list')[0];
-    orderList.innerHTML = '';
-    for (let i of data.orders) {
-      console.log(i);
-      orderList.appendChild(orderItem(i));
+  const orderList = document.getElementsByClassName("order-list")[0];
+  orderList.innerHTML = "";
+  for (let i of data.orders) {
+    console.log(i);
+    orderList.appendChild(orderItem(i));
+  }
+  const pagination = document.getElementsByClassName("pagination")[0];
+  pagination.innerHTML = "";
+
+  // Tạo nút Prev
+  const prevButton = document.createElement("button");
+  prevButton.setAttribute("data-id", data.currentPage - 1);
+  prevButton.classList.add("prev", "pagination-account", "page-numbers");
+  prevButton.textContent = "Prev";
+  prevButton.addEventListener("click", changePage);
+  pagination.appendChild(prevButton);
+
+  // Tạo các nút số
+  for (let i = 1; i <= data.totalPages; i++) {
+    const pageNumberButton = document.createElement(
+      i === parseInt(data.currentPage) ? "span" : "button"
+    );
+    pageNumberButton.setAttribute("data-id", i);
+    pageNumberButton.classList.add("page-numbers");
+
+    if (i === parseInt(data.currentPage)) {
+      pageNumberButton.classList.add("active");
+      pageNumberButton.setAttribute("aria-current", "page");
+      pageNumberButton.textContent = i;
+    } else {
+      pageNumberButton.textContent = i;
     }
-    const pagination = document.getElementsByClassName('pagination')[0];
-    pagination.innerHTML = '';
-  
-    // Tạo nút Prev
-    const prevButton = document.createElement("button");
-    prevButton.setAttribute("data-id", data.currentPage - 1);
-    prevButton.classList.add("prev", "pagination-account", "page-numbers");
-    prevButton.textContent = "Prev";
-    prevButton.addEventListener('click', changePage);
-    pagination.appendChild(prevButton);
-  
-    // Tạo các nút số
-    for (let i = 1; i <= data.totalPages; i++) {
-      const pageNumberButton = document.createElement(i === parseInt(data.currentPage) ? "span" : "button");
-      pageNumberButton.setAttribute("data-id", i);
-      pageNumberButton.classList.add("page-numbers");
-  
-      if (i === parseInt(data.currentPage)) {
-        pageNumberButton.classList.add("active");
-        pageNumberButton.setAttribute("aria-current", "page");
-        pageNumberButton.textContent = i;
-      } else {
-        pageNumberButton.textContent = i;
-      }
-      pageNumberButton.addEventListener('click', changePage);
-      pagination.appendChild(pageNumberButton);
-    }
-  
-    // Tạo nút Next
-    const nextButton = document.createElement("button");
-    nextButton.setAttribute("data-id", parseInt(data.currentPage) === data.totalPages ? 0 : parseInt(data.currentPage) + 1);
-    nextButton.classList.add("next", "pagination-account", "page-numbers");
-    nextButton.textContent = "Next";
-    nextButton.addEventListener('click', changePage);
-    pagination.appendChild(nextButton);
-  
-    $(".ship-order").on("click", shipOrder);
-    $(".cancel-order").on("click", cancelOrder);
+    pageNumberButton.addEventListener("click", changePage);
+    pagination.appendChild(pageNumberButton);
+  }
+
+  // Tạo nút Next
+  const nextButton = document.createElement("button");
+  nextButton.setAttribute(
+    "data-id",
+    parseInt(data.currentPage) === data.totalPages
+      ? 0
+      : parseInt(data.currentPage) + 1
+  );
+  nextButton.classList.add("next", "pagination-account", "page-numbers");
+  nextButton.textContent = "Next";
+  nextButton.addEventListener("click", changePage);
+  pagination.appendChild(nextButton);
+
+  $(".ship-order").on("click", shipOrder);
+  $(".cancel-order").on("click", cancelOrder);
+  $(".order-item").on("click", viewOrderDetails);
 }
 $(".cancel-order").on("click", cancelOrder);
 $(".ship-order").on("click", shipOrder);
 
 async function changePage() {
-  const page = this.getAttribute('data-id');
+  const page = this.getAttribute("data-id");
   const limit = PER_PAGE;
   if (parseInt(page) > 0) {
     const res = await fetch(`/admin/order?page=${page}&limit=${limit}`);
     console.log("Page", page);
     const data = await res.json();
     console.log(data);
-    updateOrderList(data)
+    updateOrderList(data);
   }
-};
-$('.order-pagination').on('click', changePage)
+}
+$(".order-pagination").on("click", changePage);
 
 $(".ship-order span").on("click", function (e) {
   const id = parseInt(e.target.getAttribute("data-id"));
@@ -239,3 +276,20 @@ $(".delete-order span").on("click", function (e) {
     const modalBodyInput = deleteModal.querySelector(".modal-body input");
   });
 });
+
+function showToastMessage(message, data) {
+  const toast = `<div class="toast-notification slide-in-slide-out">
+        <div class="toast-content">
+          <div class="toast-icon background-${data.bg_color} wiggle-me">
+            <span class="material-icons-sharp"> ${data.icon} </span>
+          </div>
+          <div class="toast-msg limit-line line-3">${message}</div>
+        </div>
+        <div class="toast-progress">
+          <div class="toast-progress-bar background-${data.bg_color}"></div>
+        </div>
+      </div>  `;
+  const $toast = $(toast);
+  $toast.appendTo("#toast__container");
+  setTimeout(() => $toast.remove(), 2500);
+}

@@ -1,5 +1,5 @@
 const { In, Between } = require("typeorm");
-const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo, sizeRepo } = require("../config/db.config");
+const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo, sizeRepo, imageRepo } = require("../config/db.config");
 const paginate = require("../utils/paginate");
 const paginateAccount = require("../utils/paginateAccount");
 const {hashPwd} = require('../utils/hashPassword');
@@ -9,11 +9,21 @@ module.exports = {
     getProductPage: async (req, res, next) => {
         try {
             const page = req.query.page || 1;
-            const limit = req.query.limit || 10;
+            const limit = req.query.limit || 5;
             const brands = await brandRepo.find();
             const categories = await categoryRepo.find();
             const sizes = await sizeRepo.find();
-            const { result, total, currentPage, totalPages } = await paginate(productRepo, page, limit);
+            const conditions = {deleted: false};
+            const relations = ['category']
+            const order = {id: 'ASC'};
+            const { result, total, currentPage, totalPages } = await paginate(productRepo, page, limit, relations, order, conditions);
+            for(let i = 0; i < result.length; i++){
+                const productImage = await imageRepo.findOne({where: {product_id: result[i].id}})
+                if(productImage){
+                    result[i].image = productImage.image;
+                }
+            }
+            console.log(result);
             if(Object.keys(req.query).length === 0){
                 return res.render("admin/product", { products: result, total, currentPage, totalPages, brands, categories, sizes, namePage: 'product' });
             } else{
@@ -27,8 +37,9 @@ module.exports = {
         const page = req.query.page || 1;
         const limit = req.query.limit || 3;
         const relations = ['user'];
-        const order = {id: 'ASC'}
-        const { result, total, currentPage, totalPages } = await paginate(orderRepo, page, limit, relations, order);
+        const order = {id: 'ASC'};
+        const conditions = null;
+        const { result, total, currentPage, totalPages } = await paginate(orderRepo, page, limit, relations, order, conditions);
         console.log(result);
         for(let i = 0; i < result.length; i++){
             const createdAt = new Date(result[i].created_at)
@@ -48,6 +59,7 @@ module.exports = {
         const now = new Date();
         const month = req.query.month || now.getMonth() + 1;
         const year = req.query.year || now.getFullYear();
+        
         const bestSeller = req.query.bestSeller || 'yearly';
         const startDate = new Date(year, month - 1, 1);
         const endDate = new Date(year, month, 1);
@@ -79,6 +91,7 @@ module.exports = {
             where: { order_id: In(ordersInPeriodId) },
             relations: ['product']
         });
+        
 
         let bestSellerProductMap = new Map();
         for (const orderLine of orderLinesInPeriod) {
@@ -104,7 +117,7 @@ module.exports = {
             where: { order_id: In(ordersId) },
             relations: ['product', 'product.brand']
         })
-
+        
         const brandRevenueMap = new Map();
 
 
@@ -129,15 +142,16 @@ module.exports = {
         const limit = req.query.limit || 10;
         console.log(page, limit);
         const relations = null;
-        
+        const condition = null;
         const order = {id: 'ASC'}
         // const order = null;
-        const { result, total, currentPage, totalPages } = await paginate(categoryRepo, page, limit, relations, order);
+        const { result, total, currentPage, totalPages } = await paginate(categoryRepo, page, limit, relations, order, condition);
         if(Object.keys(req.query).length === 0){
             res.render("admin/category", { categories: result, total, currentPage, totalPages, namePage: 'category' });
         } else{
             res.json({ categories: result, total, currentPage, totalPages, namePage: 'category' })
         }
+        
     },
     getAccountPage: async (req, res, next) => {
         const page = req.query.page || 1;

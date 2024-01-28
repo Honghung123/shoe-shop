@@ -21,6 +21,10 @@ module.exports = new EntitySchema({
         status: {
             type: 'varchar',
             nullable: false
+        },
+        user_id: {
+            type: 'int',
+            nullable: false
         }
         
     },

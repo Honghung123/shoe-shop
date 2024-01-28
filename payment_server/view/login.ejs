@@ -8,7 +8,7 @@
 
 <body>
     <div class="container-center">
-        <form class="login" method="post" action="/payment/login">
+        <form class="login" method="post" action="/payment/login?callbackUrl=<%= callbackUrl %>&transactionId=<%=transactionId%>">
             <h2>Account Login</h2>
             <p>Please enter a 6-digit PIN code</p>
             <fieldset>

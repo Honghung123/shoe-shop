@@ -13,7 +13,7 @@ module.exports = new EntitySchema({
             type: 'varchar',
             nullable: false,
             
-        },
+        },  
         size_id: {
             type: 'varchar',
             nullable: true

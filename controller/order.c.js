@@ -1,4 +1,6 @@
-const { productRepo, orderRepo, categoryRepo, userRepo, brandRepo, orderLineRepo, imageRepo } = require("../config/db.config");
+const { In } = require("typeorm");
+const { productRepo, orderRepo, categoryRepo, userRepo, brandRepo, orderLineRepo, imageRepo, cartLineRepo } = require("../config/db.config");
+const jwt = require('jsonwebtoken')
 module.exports = {
     getOrderDetails: async (req, res) => {
         const {id} = req.params;
@@ -34,7 +36,54 @@ module.exports = {
         //     //redirect to order page customer of customer
         // }
         
-    }
+    },
+    checkout: async (req, res, next) => {
+        try {
+            const {token} = req.query;
+            const payload = jwt.decode(token);
+            console.log(payload);
+            let {cartLinesId} = payload;
+            console.log(cartLinesId);
+            const response = await fetch('https:/localhost:8000/transactions', {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({token})
+            })
+            if(!response.ok){
+                
+            }
+            const transaction = await response.json();
+            console.log("Transaction in order c", transaction);
+            
+            cartLinesId = cartLinesId.map(id => parseInt(id));
+            console.log("Cart line int", cartLinesId);
+            const cartLines = await cartLineRepo.find({
+                where: {id: In(cartLinesId)},
+                relations: ['product']
+            });
+            
+
+            console.log(cartLines);
+            const total = transaction.amount;
+            const order = await orderRepo.save({total, user_id: 2, status: 'preparing'});
+            let orderLines = cartLines.map((cartLine) => (
+                {
+                    quantity: cartLine.quantity,
+                    product_id: cartLine.product_id,
+                    order_id: order.id,
+                    total: cartLine.product.price * cartLine.quantity
+                }
+            ))
+            console.log(orderLines);
+            orderLines = await orderLineRepo.save(orderLines);
+            await cartLineRepo.delete(cartLinesId);
+            res.json(order);
+        } catch (error) {
+            
+        }
+    },
 
     
 }

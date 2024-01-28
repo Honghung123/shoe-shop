@@ -193,6 +193,16 @@
                 <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">There is no product that match.</div>
               <% } else { %>
               <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">
+                <a data-id="1" style="cursor: context-menu;" class="product__pagination__link"> <i class="fa-solid fa-angles-left"></i></a>                
+                <a data-id="<%= parseInt(currentPage) == 1 ? 1 : parseInt(currentPage) - 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === 1 ? 'disabled' : '' %> ">
+                  <i class="fa-solid fa-angle-left"></i></a>
+
+                <span class="d-inline-block mx-2 fs-5">Page <b id="current_page"><%= parseInt(currentPage) %></b> of <b><%= totalPages %></b></span>
+
+                <a data-id="<%= parseInt(currentPage) == totalPages ? totalPages : parseInt(currentPage) + 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === parseInt(totalPages) ? 'disabled' : '' %> "><i class="fa-solid fa-angle-right"></i></a>
+                <a data-id="<%= totalPages %>" style="cursor: context-menu;" class="product__pagination__link"><i class="fa-solid fa-angles-right"></i></a>
+              </div>
+              <!-- <div class="product__pagination pt-4 pb-4 text-center" style="user-select: none;">
                 <a data-id="<%= parseInt(currentPage) - 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === 1 ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-left"></i></a>                
                 <% for(let i = 1; i <= totalPages; i++) { %>
                   <% if (i === parseInt(currentPage)) { %>
@@ -202,7 +212,7 @@
                   <% } %>
                 <% } %>
                 <a data-id="<%= parseInt(currentPage) + 1 > totalPages ? 0 : parseInt(currentPage) + 1 %>" style="cursor: context-menu;" class="product__pagination__link <%= parseInt(currentPage) === parseInt(totalPages) ? 'disabled' : '' %> "><i class="fa-solid fa-long-arrow-right"></i></a>
-              </div>
+              </div> -->
               <% }%>
 
             </div>

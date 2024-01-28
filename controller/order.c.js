@@ -83,7 +83,7 @@ module.exports = {
             orderLines = await orderLineRepo.save(orderLines);
             await cartLineRepo.delete(cartLinesId);
             // res.json(order);
-            res.redirect('/checkout')
+            res.redirect(`/invoice?orderId=${order.id}`)
         } catch (error) {
             
         }

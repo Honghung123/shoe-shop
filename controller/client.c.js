@@ -1,5 +1,5 @@
 const { async } = require('rxjs');
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo, addressRepo, favouriteRepo } = require('../config/db.config');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo, addressRepo, favouriteRepo, orderRepo, orderLineRepo } = require('../config/db.config');
 const { MoreThan, Equal, Not } = require('typeorm');
 const cartReview = require('../utils/cartReview');
 const favouriteReview = require('../utils/favouriteReview');
@@ -649,6 +649,7 @@ module.exports = {
 
   },
   renderInvoice: async (req, res) => {
+    const {orderId} = req.query;
     let cartReviews = [];
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
@@ -657,14 +658,26 @@ module.exports = {
     if (req.isAuthenticated()) {
       favouriteReviews = await favouriteReview(req.user.id);
     }
+    const order = await orderRepo.findOne({where : {id: orderId}});
+    const orderLines = await orderLineRepo.find({
+      where: {order_id: order.id},
+      relations: ['product']
+    })
+    const createdAt = new Date(order.created_at)
+    const created_at = `${createdAt.getDate()} -${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`;
+    
+    console.log(createdAt);
+    order.created_at = created_at
+    console.log(order, orderLines,req.user);
     res.render('client/invoice', {
       query: '',
       isAuthenticated: req.isAuthenticated(),
       curPage: 'invoice',
       favouriteReviews,
       cartReviews,
-      user: req.user
-
+      user: req.user,
+      order,
+      orderLines,
     })
   }
 };

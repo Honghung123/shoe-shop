@@ -2341,6 +2341,25 @@ body {
   color: #b339ff;
 }
 
+.custom_close_icon{
+    top: 0.5rem;
+    right: 0.5rem;
+    position: absolute;
+    border: 1px solid;
+    border-radius: 50%;
+    background: white;  
+    & i{
+      padding: 0 .1rem;
+    }
+    &:hover{
+      background-color: black;
+      & i{
+        color: white;
+      }
+    }
+}
+
+
 /* Order history */
 
 .button-zoom {

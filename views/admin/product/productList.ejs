@@ -11,46 +11,63 @@
         </tr>
     </thead>
     <tbody class="product-list">
-        <% products.forEach(product => { %>
-            <tr class="product-item" data-id=<%= product.id %>>
-                <td><span><%= product.id %></span></td>
+        <% products.forEach(product=> { %>
+            <tr class="product-item" data-id=<%=product.id %>>
+                <td><span>
+                        <%= product.id %>
+                    </span></td>
                 <td class="flex-center-center column-gap-3 padding-1">
                     <div class="thumb">
-                        <img class="image-custom size-m" src=<%= product.image %> alt="">
+                        <img class="image-custom size-m" src=<%=product.image %> alt="">
                     </div>
                 </td>
                 <td>
-                    <span class="limit-line line-2 mlr-05"><%= product.name %></span>
+                    <span class="limit-line line-2 mlr-05">
+                        <%= product.name %>
+                    </span>
                 </td>
                 <td>
-                    <span><%= product.category.name %></span>
+                    <span>
+                        <%= product.category.name %>
+                    </span>
                 </td>
                 <td>
-                    <span class="currency"><%= product.price%></span>
+                    <span class="currency">
+                        <%= product.price%>
+                    </span>
                 </td>
                 <td>
                     <div class="flex-center-center column-gap-2 flex-wrap-wrap product-action-responsive">
                         <button class="btn-custom btn-warning edit-product" data-bs-toggle="modal"
-                            data-bs-target="#editProduct" data-id=<%= product.id %>>Edit</button>
+                            data-bs-target="#editProduct" data-id=<%=product.id %>>Edit</button>
                         <button class="btn-custom btn-danger delete-product" data-bs-toggle="modal"
-                            data-bs-target="#deleteProduct" data-id=<%= product.id %>>Delete</button>
+                            data-bs-target="#deleteProduct" data-id=<%=product.id %>>Delete</button>
                     </div>
                 </td>
             </tr>
-        <% }) %>
-        
+            <% }) %>
+
     </tbody>
 </table>
 <div class="text-center mt-4">
     <ul class="pagination">
-        <button data-id="<%= currentPage - 1 %>" class="prev pagination-account page-numbers">Prev</button>
-        <% for(let i = 1; i <= totalPages; i++) { %>
-            <% if (i === parseInt(currentPage)) { %>
-                <span aria-current="page" class="page-numbers active"><%= i %></span>
-            <% } else { %>
-                <button data-id="<%= i %>" class="product-pagination page-numbers"><%= i %></button>
-            <% } %>
-        <% } %>
-        <button data-id="<%= parseInt(currentPage) === totalPages ? 0 : parseInt(currentPage) + 1 %>" class="next pagination-account page-numbers">Next</button>
+        <button data-id="1" class="prev product-pagination page-numbers" id="first_page"><span class="material-icons-sharp"> first_page
+            </span></button>
+        <button data-id="<%= parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : 1 %>"
+            class="prev product-pagination page-numbers" id="prev_page"><span class="material-icons-sharp"> keyboard_arrow_left
+            </span></button>
+        <button data-id="<%= parseInt(currentPage) %>" class="product-pagination-current-page page-numbers no_hover"> 
+            <span class="pagination_page" data-id="">Page <b id="current_page">
+                    <%= parseInt(currentPage) %>
+                </b> of <b>
+                    <%= totalPages %>
+                </b></span>
+        </button>
+        
+        <button data-id="<%= parseInt(currentPage) === totalPages ? totalPages : parseInt(currentPage) + 1 %>"
+            class="next product-pagination page-numbers"><span class="material-icons-sharp" id="next_page"> keyboard_arrow_right
+            </span></button>
+        <button data-id="<%= totalPages %>" class="next product-pagination page-numbers" id="last_page"><span
+                class="material-icons-sharp"> last_page </span></i> </button>
     </ul>
 </div>

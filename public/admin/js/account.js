@@ -1,4 +1,4 @@
-const PER_PAGE = 5;
+const PER_PAGE = 4;
 
 $(".account-item").on("click", viewAccount);
 /*-----------------------------
@@ -54,10 +54,10 @@ function updateViewAccount(data) {
   );
 }
 
-$(".pagination-account").on("click", changePage);
+$(".product-pagination").on("click", changePage);
 
 async function changePage() {
-  const page = this.getAttribute("data-id");
+  const page = parseInt(this.getAttribute("data-id"));
   const limit = PER_PAGE;
   if (parseInt(page) > 0) {
     const response = await fetch(`/admin/account?page=${page}&limit=${limit}`);
@@ -68,57 +68,36 @@ async function changePage() {
 
 function updateListAccount(data) {
   const listAccount = document.getElementsByClassName("account-list")[0];
-  listAccount.innerHTML = "";
+  listAccount.innerHTML = ""; 
   for (let i of data.users) {
     listAccount.appendChild(itemAccount(i));
   }
-
-
-  const pagination = document.getElementsByClassName("pagination")[0];
-  pagination.innerHTML = "";
-
-  // Tạo nút Prev
-  const prevButton = document.createElement("button");
-  prevButton.setAttribute("data-id", data.currentPage - 1);
-  prevButton.classList.add("prev", "pagination-account", "page-numbers");
-  prevButton.textContent = "Prev";
-  prevButton.addEventListener("click", changePage);
-  pagination.appendChild(prevButton);
-
-  // Tạo các nút số
-  for (let i = 1; i <= data.totalPages; i++) {
-    const pageNumberButton = document.createElement(
-      i === parseInt(data.currentPage) ? "span" : "button"
-    );
-    pageNumberButton.setAttribute("data-id", i);
-    pageNumberButton.classList.add("page-numbers");
-
-    if (i === parseInt(data.currentPage)) {
-      pageNumberButton.classList.add("active");
-      pageNumberButton.setAttribute("aria-current", "page");
-      pageNumberButton.textContent = i;
-    } else {
-      pageNumberButton.textContent = i;
-    }
-    pageNumberButton.addEventListener("click", changePage);
-    pagination.appendChild(pageNumberButton);
-  }
-
-  // Tạo nút Next
-  const nextButton = document.createElement("button");
-  nextButton.setAttribute(
-    "data-id",
-    parseInt(data.currentPage) === data.totalPages
-      ? 0
-      : parseInt(data.currentPage) + 1
-  );
-  nextButton.classList.add("next", "pagination-account", "page-numbers");
-  nextButton.textContent = "Next";
-  nextButton.addEventListener("click", changePage);
-  pagination.appendChild(nextButton);
-
   $(".ban-account").on("click", banAccount);
   $(".delete-account").on("click", deleteAccount);
+
+  const currentPage = parseInt(data.currentPage);
+  const totalPages = data.totalPages; 
+  const html = `<button data-id="1" class="prev product-pagination page-numbers" id="first_page"><span class="material-icons-sharp"> first_page
+            </span></button>
+        <button data-id="${currentPage > 1 ? currentPage - 1 : 1}"
+            class="prev product-pagination page-numbers" id="prev_page"><span class="material-icons-sharp"> keyboard_arrow_left
+            </span></button>
+        <button class="product-pagination-current-page page-numbers no_hover"> 
+            <span class="pagination_page" data-id="">Page <b id="current_page">
+                    ${currentPage}
+                </b> of <b>${totalPages}</b></span>
+        </button>
+        
+        <button data-id="${
+          currentPage < totalPages ? currentPage + 1 : totalPages
+        }"
+            class="next product-pagination page-numbers"><span class="material-icons-sharp" id="next_page"> keyboard_arrow_right
+            </span></button>
+        <button data-id="${totalPages}" class="next product-pagination page-numbers" id="last_page"><span
+                class="material-icons-sharp"> last_page </span></i> </button>`;
+  const pagination = $(".pagination")[0];
+  pagination.innerHTML = html;
+  $(".product-pagination").on("click", changePage);
 }
 
 function itemAccount(user) {

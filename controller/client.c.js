@@ -104,11 +104,18 @@ module.exports = {
       i.product = product;
     }
     const categories = await categoryRepo.find();
+    let cat_sport;
+    for (let i of categories) {
+      if (i.name === "Giày thể thao") {
+        cat_sport = i.id;
+      }
+    }
 
     // lấy danh sách sản phẩm mới nhất
     const latest = await productRepo.find({
       order: { id: "DESC" },
       take: 5,
+      where: { cat_id: cat_sport}
     });
     for (let i of latest) {
       const image = await imageRepo.findOne({

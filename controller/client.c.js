@@ -512,6 +512,7 @@ module.exports = {
         'Authorization': req.session.accessToken
       },
     });
+    
     const paymentAccount = await paymentAccResponse.json();
     console.log(paymentAccount);
     res.render("client/account", {
@@ -607,6 +608,25 @@ module.exports = {
       order: { id: "DESC" },
     });
     console.log(req.user);
+    const response = await fetch('https://localhost:8000/accounts/grant-access', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({email: 'admin@gmail.com'})
+    })
+    const accessToken = await response.json();
+    console.log(accessToken);
+    const paymentAccResponse = await fetch(`https:localhost:8000/accounts/${req.user.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': accessToken
+      },
+    });
+    
+    const paymentAccount = await paymentAccResponse.json();
+    console.log("Payment account", paymentAccount);
     const curDate = new Date();
     curDate.setHours(curDate.getHours() + 7);
 
@@ -654,6 +674,7 @@ module.exports = {
       cartReviews,
       carts,
       favouriteReviews,
+      paymentAccount
     });
   },
   renderUpdateProfilePage: async (req, res) => {
@@ -676,6 +697,7 @@ module.exports = {
       query: "",
       cartReviews,
       favouriteReviews,
+      address
     });
   },
   renderInvoice: async (req, res) => {

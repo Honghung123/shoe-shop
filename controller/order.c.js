@@ -52,10 +52,14 @@ module.exports = {
                 },
                 body: JSON.stringify({token})
             })
-            if(!response.ok){
-                
-            }
+        
             const transaction = await response.json();
+            const {message} = transaction;
+            if(message){
+                return res.redirect(`/cart?error=${message}`)
+            }
+            
+            
             console.log("Transaction in order c", transaction);
             
             cartLinesId = cartLinesId.map(id => parseInt(id));
@@ -72,7 +76,7 @@ module.exports = {
             console.log(transaction);
             console.log("User has placed order is ", req.user.id);
             const order = await orderRepo.save({total, user_id: req.user.id, status: 'preparing'});
-            
+
             let orderLines = cartLines.map((cartLine) => 
                 ({
                     quantity: cartLine.quantity,

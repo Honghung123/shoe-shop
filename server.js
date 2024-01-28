@@ -86,9 +86,9 @@ app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/orders", orderRouter);
 app.use('/wish-list', wishListRouter);
+app.use("/brands", brandRouter);
 app.use("/", clientRouter);
 app.use("/vouchers", voucherRouter);
-app.use("/brands", brandRouter);
 app.use("/users", userRouter)
 // app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

@@ -10,8 +10,9 @@ const renderLoginPayment = (req, res) => {
 
 
 const renderRegisterPayment = (req, res) => {
-  const {userId} = req.query;
-  res.render("register", {userId});
+  const {userId, callbackUrl} = req.query;
+
+  res.render("register", {userId, callbackUrl});
 };
 
 const renderPayment = async  (req, res) => {
@@ -56,8 +57,11 @@ const postPaymentLogin = async (req, res) => {
 
 const postPaymentRegister = async (req, res) => {
   const INIT_BALANCE = 5000000;
+  
   const {id, code} = req.body;
   console.log("Userid", id);
+  const {callbackUrl} = req.query;
+  console.log("callbackUrl", callbackUrl);
   const hashedPin = await hashPwd(code);
   let account =  await accountRepo.findOne({where: {id}});
   if(account){
@@ -65,7 +69,11 @@ const postPaymentRegister = async (req, res) => {
   } 
   account = await accountRepo.save({id, pin_code: hashedPin, balance: INIT_BALANCE})
   // res.json(account);
-  res.redirect('http://localhost:3000/account')
+  if(callbackUrl){
+    res.redirect(callbackUrl)
+  } else{
+    res.redirect('http://localhost:3000/account')
+  }
 };
  
 module.exports = {

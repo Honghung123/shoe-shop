@@ -6,7 +6,7 @@ const completeTransaction = async (req, res) => {
         const {token} = req.body;
         console.log("Token from ", token);
         if(!token){
-            res.status(401).json({message: 'Unauthorized: missing access token'})
+            return res.status(401).json({message: 'Unauthorized: missing access token'})
         }
         const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const {permission} = payload
@@ -18,6 +18,7 @@ const completeTransaction = async (req, res) => {
             console.log(transaction);
             if(parseFloat(senderAccount.balance) < parseFloat(transaction.amount)){
                 transaction.status = 'canceled';
+                await transactionRepo.save(transaction)
                 return res.json({message: 'Not enought money to complete transaction'})
             } else{
                 senderAccount.balance = parseFloat(senderAccount.balance) -parseFloat(transaction.amount);

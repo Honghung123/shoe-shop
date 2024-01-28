@@ -9,4 +9,5 @@ router
   .route("/:id")
   .get(productController.getProductDetails)
   .delete(productController.deleteProduct);
+router.put('/:id', upload.array("images", 10), productController.updateProduct);
 module.exports = router;

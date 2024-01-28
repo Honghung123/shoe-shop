@@ -8,7 +8,7 @@ const {
   stockRepo,
   orderRepo,
   orderLineRepo,
-  
+
 } = require("../config/db.config");
 const paginate = require("../utils/paginate");
 const fs = require("fs");
@@ -57,7 +57,7 @@ module.exports = {
     if (req.user.role != "admin") {
       query.innerJoin("product.stock", "stock").where("stock.quantity > 0");
     }
-    
+
     const filteredProducts = await query.getMany();
 
     res.json(filteredProducts);
@@ -66,8 +66,12 @@ module.exports = {
   addProduct: async (req, res, next) => {
     try {
       const { name, description, brandId, catId, price, sizes } = req.body;
-      console.log(req.body);
+      const idMax = await productRepo.find({
+        order: { id: 'DESC' },
+        take: 1
+      })
       const product = await productRepo.save({
+        id: idMax[0].id + 1,
         name,
         price,
         description,
@@ -78,15 +82,12 @@ module.exports = {
       if (sizes) {
         if (Array.isArray(sizes)) {
           for (let i = 0; i < sizes.length; i++) {
-            console.log(sizes[i]);
             const sizeInfo = sizes[i].split("-");
-            console.log(sizeInfo);
             let stock = await stockRepo.save({
               size_id: sizeInfo[0],
               quantity: sizeInfo[1],
               product_id: product.id,
             });
-            console.log(stock);
           }
         } else {
           const sizeInfo = sizes.split("-");
@@ -95,7 +96,6 @@ module.exports = {
             quantity: sizeInfo[1],
             product_id: product.id,
           });
-          console.log(stock);
         }
       }
       const files = req.files;
@@ -109,37 +109,65 @@ module.exports = {
       }
       res.status(201).json({ product, images });
     } catch (error) {
-      console.log(error);
       res.status(500).json(error);
     }
   },
   updateProduct: async (req, res, next) => {
-    const id = req.params;
-    const { name, description, brandId, catId } = req.body;
+    const id = req.params.id;
+    const { name, description, brandId, catId, price, sizes } = req.body;
     let productToUpdate = await productRepo.findOne({ where: { id } });
     productToUpdate = {
       ...productToUpdate,
       name,
       description,
+      price,
       brand_id: brandId,
       cat_id: catId,
     };
+    await stockRepo.delete({ product_id: parseInt(id) });
+    if (sizes) {
+      if (Array.isArray(sizes)) {
+        for (let i = 0; i < sizes.length; i++) {
+          const sizeInfo = sizes[i].split("-");
+          let stock = await stockRepo.save({
+            size_id: sizeInfo[0],
+            quantity: sizeInfo[1],
+            product_id: productToUpdate.id,
+          });
+        }
+      } else {
+        const sizeInfo = sizes.split("-");
+        let stock = await stockRepo.save({
+          size_id: sizeInfo[0],
+          quantity: sizeInfo[1],
+          product_id: productToUpdate.id,
+        });
+      }
+    }
+    const files = req.files;
+    const images = [];
+    for (let i = 0; i < files.length; i++) {
+      const productImage = await imageRepo.save({
+        product_id: productToUpdate.id,
+        image: files[i].path,
+      });
+      images.push(productImage);
+    }
     const updatedProduct = await productRepo.save(productToUpdate);
-    res.json(updatedProduct);
+    res.status(200).json(updatedProduct);
   },
   deleteProduct: async (req, res, next) => {
     try {
       const { id } = req.params;
       let productToDelete = await productRepo.findOne({ where: { id } });
       if (productToDelete) {
-        productToDelete.is_deleted = true;
+        productToDelete.deleted = true;
         await productRepo.save(productToDelete);
       } else {
         res.status(400).json({ message: "Not found product" });
       }
       res.json({ message: "Product is deleted" });
     } catch (error) {
-      console.log(error);
       res.status(500).json({ message: "Internal server error" });
     }
   },
@@ -148,7 +176,6 @@ module.exports = {
     const now = new Date();
     const currentMonth = now.getMonth() + 1;
     const currentYear = now.getFullYear();
-    console.log(currentMonth, currentYear);
     let ordersInPeriod = null;
     if (type == 'month') {
       ordersInPeriod = await orderRepo
@@ -157,7 +184,7 @@ module.exports = {
           currentYear
         })
         .getMany();
-    } else if(type === 'year'){
+    } else if (type === 'year') {
       ordersInPeriod = await orderRepo
         .createQueryBuilder("order")
         .where(`EXTRACT(YEAR FROM order.created_at) = :currentYear`, {
@@ -165,15 +192,15 @@ module.exports = {
         })
         .getMany();
     }
-    if(!ordersInPeriod){
-      return res.status(400).json({message: 'Invalid request'})
+    if (!ordersInPeriod) {
+      return res.status(400).json({ message: 'Invalid request' })
     }
     const ordersInPeriodId = ordersInPeriod.map((order) => order.id);
     const orderLinesInPeriod = await orderLineRepo.find({
       where: { order_id: In(ordersInPeriodId) },
       relations: ["product"],
     });
-    
+
 
     let bestSellerProductMap = new Map();
     for (const orderLine of orderLinesInPeriod) {
@@ -193,7 +220,7 @@ module.exports = {
     bestSellersArray.sort((a, b) => b[1] - a[1]);
     // Limit the result to the top 5 products
     const top5BestSellers = bestSellersArray.slice(0, 5);
-    res.json({products: top5BestSellers})
+    res.json({ products: top5BestSellers })
   },
-  
+
 };

@@ -205,6 +205,7 @@ const editProduct = async (e) => {
     const { product, stocks } = data;
     localStorage.setItem("catId", product.cat_id);
     localStorage.setItem("brandId", product.brand_id);
+    localStorage.setItem("productId", product.id);
     console.log($("#form-edit-product .product-name"));
     $("#form-edit-product .product-name").val(product.name);
     $("#form-edit-product .product-price").val(product.price);
@@ -218,6 +219,7 @@ const editProduct = async (e) => {
       true
     );
     // Add size and stock
+    $("#edit-size-stock-container").html('')
     for (let stock of stocks) {
       const html = `<div class="product-size-stock-item">
       <input type="hidden" name="sizes" value="${stock.size.id}-${stock.quantity}" class="d-none">
@@ -295,7 +297,7 @@ $(".form-add").on("submit", async function (e) {
       // Handle error
       showToastMessage(data.message, toastData["error"]);
     }
-    this.reset();
+    // this.reset();
     $(".upload-img").html("");
     $("#add-size-stock-container")
       .children(".product-size-stock-item")
@@ -320,8 +322,10 @@ $("#form-edit-product").on("submit", async function (e) {
     return false;
   }
   const formData = new FormData(this); // Collect form data
+  const id = localStorage.getItem("productId");
+  console.log(id);
   try {
-    const res = await fetch("/products", {
+    const res = await fetch(`/products/${id}`, {
       method: "PUT",
       headers: {
         // Add any headers needed (e.g., authorization)
@@ -331,7 +335,7 @@ $("#form-edit-product").on("submit", async function (e) {
     const data = await res.json();
     // Hide the modal
     $("#editProduct").modal("hide");
-    if (res.status === 201) {
+    if (res.status === 200) {
       // Product added successfully, you can handle the response if needed
       showToastMessage("Product updated successfully", toastData["success"]);
       // Reload or update the product list
@@ -343,9 +347,9 @@ $("#form-edit-product").on("submit", async function (e) {
       updateProductList(updatedData);
     } else {
       // Handle error
-      showToastMessage(data.message, toastData["error"]);
+      showToastMessage("Product updated fail", toastData["error"]);
     }
-    this.reset();
+    // this.reset();
     $(".upload-img").html("");
     $("#edit-size-stock-container")
       .children(".product-size-stock-item")

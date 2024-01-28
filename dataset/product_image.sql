@@ -833,8 +833,8 @@ values(58, '//www.vascara.com/uploads/cms_productmedia/2023/November/30/giay-bit
 insert into public.product_image(product_id, image) 
 values(58, '//www.vascara.com/uploads/cms_productmedia/2023/November/30/giay-bit-mui-nhon-slingback-spool-heel-metallic---bmn-0629---mau-den__72961__1701325271-medium.jpg');
 
-insert into public.product_image(product_id, image) 
-values(59, '//www.vascara.com/uploads/cms_productmedia/2023/November/1/giay-bit-mui-vuong-got-tru-loe---bmn-0621---mau-den__72404__1698772765-medium.jpg');
+-- insert into public.product_image(product_id, image) 
+-- values(59, '//www.vascara.com/uploads/cms_productmedia/2023/November/1/giay-bit-mui-vuong-got-tru-loe---bmn-0621---mau-den__72404__1698772765-medium.jpg');
 insert into public.product_image(product_id, image) 
 values(59, '//www.vascara.com/uploads/cms_productmedia/2023/November/1/giay-bit-mui-vuong-got-tru-loe---bmn-0621---mau-den__72404__1698772765-medium.jpg');
 insert into public.product_image(product_id, image) 

@@ -32,14 +32,24 @@
 
 <div class="text-center mt-4">
     <ul class="pagination">
-        <button data-id="<%= currentPage - 1 %>" class="prev pagination-account page-numbers">Prev</button>
-        <% for(let i = 1; i <= totalPages; i++) { %>
-            <% if (i === parseInt(currentPage)) { %>
-                <span aria-current="page" class="page-numbers active"><%= i %></span>
-            <% } else { %>
-                <button data-id="<%= i %>" class="cat-pagination page-numbers"><%= i %></button>
-            <% } %>
-        <% } %>
-        <button data-id="<%= parseInt(currentPage) === totalPages ? 0 : parseInt(currentPage) + 1 %>" class="next pagination-account page-numbers">Next</button>
+        <button data-id="1" class="prev product-pagination page-numbers" id="first_page"><span class="material-icons-sharp">
+                first_page
+            </span></button>
+        <button data-id="<%= parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : 1 %>"
+            class="prev product-pagination page-numbers" id="prev_page"><span class="material-icons-sharp"> keyboard_arrow_left
+            </span></button>
+        <button data-id="<%= parseInt(currentPage) %>" class="product-pagination-current-page page-numbers no_hover">
+            <span class="pagination_page" data-id="">Page <b id="current_page">
+                    <%= parseInt(currentPage) %>
+                </b> of <b>
+                    <%= totalPages %>
+                </b></span>
+        </button>
+        
+        <button data-id="<%= parseInt(currentPage) === totalPages ? totalPages : parseInt(currentPage) + 1 %>"
+            class="next product-pagination page-numbers"><span class="material-icons-sharp" id="next_page"> keyboard_arrow_right
+            </span></button>
+        <button data-id="<%= totalPages %>" class="next product-pagination page-numbers" id="last_page"><span
+                class="material-icons-sharp"> last_page </span></button>
     </ul>
 </div>

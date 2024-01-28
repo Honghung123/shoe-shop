@@ -195,53 +195,34 @@ function updateOrderList(data) {
   for (let i of data.orders) {
     console.log(i);
     orderList.appendChild(orderItem(i));
-  }
-  const pagination = document.getElementsByClassName("pagination")[0];
-  pagination.innerHTML = "";
-
-  // Tạo nút Prev
-  const prevButton = document.createElement("button");
-  prevButton.setAttribute("data-id", data.currentPage - 1);
-  prevButton.classList.add("prev", "pagination-account", "page-numbers");
-  prevButton.textContent = "Prev";
-  prevButton.addEventListener("click", changePage);
-  pagination.appendChild(prevButton);
-
-  // Tạo các nút số
-  for (let i = 1; i <= data.totalPages; i++) {
-    const pageNumberButton = document.createElement(
-      i === parseInt(data.currentPage) ? "span" : "button"
-    );
-    pageNumberButton.setAttribute("data-id", i);
-    pageNumberButton.classList.add("page-numbers");
-
-    if (i === parseInt(data.currentPage)) {
-      pageNumberButton.classList.add("active");
-      pageNumberButton.setAttribute("aria-current", "page");
-      pageNumberButton.textContent = i;
-    } else {
-      pageNumberButton.textContent = i;
-    }
-    pageNumberButton.addEventListener("click", changePage);
-    pagination.appendChild(pageNumberButton);
-  }
-
-  // Tạo nút Next
-  const nextButton = document.createElement("button");
-  nextButton.setAttribute(
-    "data-id",
-    parseInt(data.currentPage) === data.totalPages
-      ? 0
-      : parseInt(data.currentPage) + 1
-  );
-  nextButton.classList.add("next", "pagination-account", "page-numbers");
-  nextButton.textContent = "Next";
-  nextButton.addEventListener("click", changePage);
-  pagination.appendChild(nextButton);
-
+  } 
   $(".ship-order").on("click", shipOrder);
   $(".cancel-order").on("click", cancelOrder);
   $(".order-item").on("click", viewOrderDetails);
+
+  const currentPage = parseInt(data.currentPage);
+  const totalPages = data.totalPages;
+  const html = `<button data-id="1" class="prev product-pagination page-numbers" id="first_page"><span class="material-icons-sharp"> first_page
+            </span></button>
+        <button data-id="${currentPage > 1 ? currentPage - 1 : 1}"
+            class="prev product-pagination page-numbers" id="prev_page"><span class="material-icons-sharp"> keyboard_arrow_left
+            </span></button>
+        <button class="product-pagination-current-page page-numbers no_hover"> 
+            <span class="pagination_page" data-id="">Page <b id="current_page">
+                    ${currentPage}
+                </b> of <b>${totalPages}</b></span>
+        </button>
+        
+        <button data-id="${
+          currentPage < totalPages ? currentPage + 1 : totalPages
+        }"
+            class="next product-pagination page-numbers"><span class="material-icons-sharp" id="next_page"> keyboard_arrow_right
+            </span></button>
+        <button data-id="${totalPages}" class="next product-pagination page-numbers" id="last_page"><span
+                class="material-icons-sharp"> last_page </span></i> </button>`;
+  const pagination = $(".pagination")[0];
+  pagination.innerHTML = html;
+  $(".product-pagination").on("click", changePage);
 }
 $(".cancel-order").on("click", cancelOrder);
 $(".ship-order").on("click", shipOrder);

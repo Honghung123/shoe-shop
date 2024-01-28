@@ -145,16 +145,13 @@ a {
   overflow: hidden;
 }
 .page-numbers {
-  padding: 0 1rem;
-  margin: 0 .1rem;
+  padding: .5rem .5rem 0;
   float: left;
   transition: var(--transition-ease);
-  color: var(--text-dark);
-  line-height: 2.5rem;
-  font-weight: bold;
+  color: var(--text-dark); 
   position: relative;
   border-radius: .3rem; 
-  &:hover {
+  &:not(.no_hover):hover {
     background-color: var(--color-success-subtle);
     color: #fff;
   }
@@ -163,6 +160,9 @@ a {
   &.active { 
     background-color: var(--color-success);
     color: #fff;
+  }
+  & + & {
+    margin-left: 0.5rem;
   }
 }
 

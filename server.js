@@ -4,13 +4,14 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const ejs = require("ejs");
-const fs = require("fs/promises");
+const fs = require("fs");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const multipart = require("connect-multiparty");
 const logger = require("./middleware/logger");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
+const https = require('https');
 
 const apiDocOptions = {
   definition: {
@@ -93,6 +94,10 @@ app.use("/brands", brandRouter);
 // app.use("/", passport);
 
 // Handle exceptions
+// const server = https.createServer({
+//   key: fs.readFileSync('./_certs/demo.key'),
+//   cert: fs.readFileSync('./_certs/demo.cert')
+// }, app);
 
 app.listen(port, hostname, () => {
   console.log(`Server running at ${port}`);

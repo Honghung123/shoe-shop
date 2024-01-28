@@ -108,7 +108,7 @@
        Add product to cart and database
    -------------------------------*/
   $(".add__to__cart").on('click', async function () {
-    const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+    const cartIcon = $('.cart-icon').attr('data-isAuthenticated');
     if (cartIcon === 'false') {
       $('#requireLoginModal').modal('show');
     } else {
@@ -229,7 +229,7 @@
         Add product to favorite and database
     -------------------------------*/
   $(".add__to__favourite").on('click', async function () {
-    const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+    const cartIcon = $('.cart-icon').attr('data-isAuthenticated');
     if (cartIcon === 'false') {
       $('#requireLoginModal').modal('show');
     } else {
@@ -439,15 +439,15 @@
     window.location.href = `/shop?search=${inputElement.value}`;
   })
 
-  $('#cart-icon').on('click', function () {
-    const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+  $('.cart-icon').on('click', function () {
+    const cartIcon = $('.cart-icon').attr('data-isAuthenticated');
     if (cartIcon === 'false') {
       $('#requireLoginModal').modal('show');
 
     }
   })
-  $('#favorite-icon').on('click', function () {
-    const cartIcon = $('#favorite-icon').attr('data-isAuthenticated');
+  $('.favorite-icon').on('click', function () {
+    const cartIcon = $('.favorite-icon').attr('data-isAuthenticated');
     if (cartIcon === 'false') {
       $('#requireLoginModal').modal('show');
     }

@@ -27,6 +27,44 @@
   $(".brand-dropdown").on("click", function () {
     $(".sidebar__item__brand ul").slideToggle(400);
   });
+  /*-----------------------------
+        Toast message
+    -------------------------------*/
+  const toastData = {
+    success: {
+      icon: "fa-solid fa-check",
+      bg_color: "green",
+    },
+    warning: {
+      icon: "fa-solid fa-triangle-exclamation",
+      bg_color: "yellow",
+    },
+    info: {
+      icon: "fa-solid fa-info",
+      bg_color: "blue",
+    },
+    error: {
+      icon: "fa-solid fa-xmark",
+      bg_color: "red",
+    },
+  };
+
+  function showToastMessage(message, data) {
+    const toast = `<div class="toast-notification slide-in-slide-out">
+          <div class="toast-content">
+            <div class="toast-icon background-${data.bg_color} wiggle-me">
+              <i class="${data.icon}"></i>
+            </div>
+            <div class="toast-msg limit-line line-3">${message}</div>
+          </div>
+          <div class="toast-progress">
+            <div class="toast-progress-bar background-${data.bg_color}"></div>
+          </div>
+        </div>  `;
+    const $toast = $(toast);
+    $toast.appendTo("#toast__container");
+    setTimeout(() => $toast.remove(), 2500);
+  }
 
   /*--------------------------
         Select - shopping
@@ -107,7 +145,7 @@
     }
 
     $(".add__to__favourite").on("click", async function () {
-      const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+      const cartIcon = $('.cart-icon').attr('data-isAuthenticated');
       if (cartIcon === 'false') {
         $('#requireLoginModal').modal('show');
       } else {
@@ -126,7 +164,7 @@
       }
     });
     $(".add__to__cart").on("click", async function () {
-      const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
+      const cartIcon = $('.cart-icon').attr('data-isAuthenticated');
       if (cartIcon === 'false') {
         $('#requireLoginModal').modal('show');
       } else {
@@ -161,6 +199,66 @@
         $('#addToCartModal').modal('show');
       }
     });
+  }
+  async function addToFavoriteDatabase(id) {
+    const response = await fetch(`/favourite`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id })
+    });
+    const data = await response.json();
+    console.log(data);
+    let result = {};
+    if (response.ok) {
+      result.status = true;
+      result.data = data;
+    } else {
+      result.status = false;
+      result.message = data;
+    }
+    return result;
+  }
+  function addToFavoritePreview(data) {
+    const maxSize = 4;
+    const $dropdown = $(".header__cart__favourite .header__cart__dropdown");
+    if ($dropdown.children("li").length == maxSize) {
+      $(
+        ".header__cart__favorite .header__cart__dropdown .header__cart__link:last"
+      ).remove();
+    }
+    const $cart_preview = $(
+      ".header__cart__favorite .header__cart__dropdown .header__cart__link:first"
+    );
+    let html = '';
+    if (data.isSale) {
+      html = `<li class="header__cart__link">
+        <div class="header__cart_product d-flex">
+        <div class="w-25 header__cart_product-image"><img src="${data.image}" alt="" class="image"></div>
+        <div class="w-75 header__cart_product-info">
+        <a href="detail?id=${data.id}" class="limit-line line-1">${data.name}</a>
+        <div class="flex-between-center header__cart_product-detail">
+        <span class="currency">${data.price}</span>
+        </div>
+        </div>
+        </div>
+        </li>`;
+    } else {
+      html = `<li class="header__cart__link">
+      <div class="header__cart_product d-flex">
+      <div class="w-25 header__cart_product-image"><img src="${data.image}" alt="" class="image"></div>
+      <div class="w-75 header__cart_product-info">
+      <a href="/detail?id=${data.id}" class="limit-line line-1">${data.name}</a>
+      <div class="flex-between-center header__cart_product-detail">
+      <span class="currency color__primary">${data.price_discount}</span>
+      <span class="currency product__discount__oldprice mlr05">${data.price}</span>
+      </div>
+      </div>
+      </div>
+      </li>`;
+    }
+    $(html).insertBefore($cart_preview);
   }
 
   function itemProduct(product) {

@@ -41,26 +41,30 @@
     <div class="humberger__menu__widget">
         <nav class="header__top__right__language account-menu">
             <ul>
-                <li>
-                    <a href="/login"><i class="fa fa-user"></i> Login</a>
-                </li>
-                <li>
-                    <a href="#account__info">
-                        <img src="img/language.png" alt="" class="image account__avatar">
-                        Honghung123
-                    </a>
-                    <ul class="header__menu__dropdown">
-                        <li id="account__info" class="ml05"><a href="/account">Profile</a></li>
-                    </ul>
-                </li>
+
+                <% if (isAuthenticated) { %>
+                    <li>
+                        <a>
+                            <img src="<%= user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'%>" alt="" class="image account__avatar">
+                            <%= user.username %>
+                        </a>
+                        <ul class="header__menu__dropdown">
+                            <li id="account__info" class="ml05"><a href="/account">Profile</a></li>
+                        </ul>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <a href="/login"><i class="fa fa-user"></i> Login</a>
+                    </li>
+                <% } %>
             </ul>
         </nav>
         <div id="account-menu-wrap"></div>
     </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="/favorite"><i class="fa-solid fa-heart"></i></a></li>
-            <li style="transform: translateY(0.1rem);"><a href="/cart"><i class="fa-solid fa-cart-plus"></i></a>
+            <li><a data-isAuthenticated="<%=isAuthenticated%>" href="<%= isAuthenticated ? '/favorite' : '#' %>" class="favorite-icon"><i class="fa-solid fa-heart"></i></a></li>
+            <li style="transform: translateY(0.1rem);"><a data-isAuthenticated="<%=isAuthenticated%>" href="<%= isAuthenticated ? '/cart' : '#' %>" class="cart-icon"><i class="fa-solid fa-cart-plus"></i></a>
             </li>
         </ul>
     </div>
@@ -70,7 +74,7 @@
             <li><a href="/shop">Shop</a></li>
             <li><a href="/discount">Discount</a></li>
             <li><a href="/voucher">Vouchers</a></li>
-            <li><a href="#">More</a>
+            <li><a>More</a>
                 <ul class="header__menu__dropdown">
                     <li class="ml05"><a href="/checkout">Check out</a></li>
                     <li class="ml05"><a href="/contact">Contact</a></li>
@@ -83,7 +87,10 @@
         <ul>
             <li><i>Buy anything you like</i></li>
         </ul>
+        <% if (isAuthenticated) { %>
         <a href="/logout" class="d-block mt-4"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        <% } %>
+    
     </div>
 </div>
 <!-- Humberger End -->
@@ -146,7 +153,7 @@
                 <div class="header__cart flex-end-center h-100">
                     <ul>
                         <li class="header__cart__favorite">
-                            <a data-isAuthenticated="<%=isAuthenticated%>" id="favorite-icon" href="<%= isAuthenticated ? '/favorite' : '#' %>" class="cart__favorite"><i class="fa-solid fa-heart"></i></a>
+                            <a data-isAuthenticated="<%=isAuthenticated%>" href="<%= isAuthenticated ? '/favorite' : '#' %>" class="favorite-icon cart__favorite"><i class="fa-solid fa-heart"></i></a>
                             <% if (isAuthenticated) { %>
                             <ul class="header__cart__dropdown">
                                 <div class="padding__box"></div>
@@ -188,7 +195,7 @@
                             <% }%>
                         </li>
                         <li style="transform: translateY(0.1rem);" class="header__cart__cart">
-                            <a data-isAuthenticated="<%=isAuthenticated%>" id="cart-icon" href="<%= isAuthenticated ? '/cart' : '#' %>"><i class="fa-solid fa-cart-plus"></i></a>
+                            <a data-isAuthenticated="<%=isAuthenticated%>" href="<%= isAuthenticated ? '/cart' : '#' %>" class="cart-icon"><i class="fa-solid fa-cart-plus"></i></a>
                             <% if (isAuthenticated) { %>
                             <ul class="header__cart__dropdown">
                                 <div class="padding__box"></div>

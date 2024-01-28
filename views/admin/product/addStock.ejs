@@ -8,14 +8,12 @@
           <form id="form-add-stock" method="get" action="#">
             <div class="form-content flex-between-center">
               <div class="custom-form-field">
-                <%= sizes.length  %>
+                <!-- <%= sizes.length  %> -->
                 <label class="label fw-bold">Size: </label>
                 <select id="stock-size" class="form-select" required>
                   <% sizes.forEach((sz, idx) => { %>
                     <option value=<%= sz.id %> <%= idx === 1 ? 'selected' : '' %>><%= sz.size %></option>
-        
                   <% }) %>
-                  
                 </select>
                 <label class="error-msg"></label>
               </div>
@@ -27,7 +25,7 @@
             </div>
             <button type="submit" class="btn-custom btn-success fw-bold mt-4 margin-auto d-block">Add</button>
           </form>
-          <button class="fw-bold close" data-bs-dismiss="modal">
+          <button class="fw-bold close" data-bs-dismiss="modal" >
             <span class="material-icons-sharp"> close </span>
           </button>
         </section>

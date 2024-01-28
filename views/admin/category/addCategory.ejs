@@ -10,11 +10,11 @@
             <div class="form-content form-custom">
               <div class="form-field pt-3 pb-3">
                 <label class="label">Category name: </label>
-                <input name="name" class="input-text cat-name" type="text" required>
-                <label class="error-msg"> </label>
+                <input name="name" class="input-text cat-name-input" type="text" required>
+                <label class="error-msg add-categorys"> </label>
               </div>
             </div>
-            <button class="btn-custom btn-success fw-bold mt-4 margin-auto d-block add-category">Add</button>
+            <button class="btn-custom btn-success fw-bold mt-4 margin-auto d-block add-categorys">Add</button>
           </div>
           <button class="fw-bold close close-btn" data-bs-dismiss="modal">
             <span class="material-icons-sharp " onclick=""> close </span>
@@ -23,10 +23,4 @@
       </div>
     </div>
   </div>
-</div>
-<script>
-  $('.close-btn').on('click', function(e){
-    console.log('Closing btn');
-    $('.cat-name').val('')
-  })
-</script>
+</div> 

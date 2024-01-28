@@ -69,6 +69,20 @@
             pincode = pincode.slice(pincode.length -6, pincode.length);
             pinInput.blur();
             document.querySelector(".mask").classList.add("visible");
+            pinUI.forEach(function (el, i) {
+                setTimeout(function () {
+                    el.classList.add("animate");
+                }, 200 * i);
+            });
+            const form = this;
+            setTimeout(function () {
+                document.querySelector(".login").classList.add("hide");
+                // Send form data here
+                const value = pincode;
+                document.getElementById("input-pincode").value = value;
+                form.submit();
+                // Done
+            }, 1800);
             console.log("Pin code", pincode);
             const endpoints = 'https://localhost:8000/payment/login?callbackUrl=<%= callbackUrl %>&transactionId=<%=transactionId%>'
             const res = await fetch(endpoints, {
@@ -88,6 +102,20 @@
                 pincode = '';
                 numChars = 0;
                 acceptInput = true
+                pinUI.forEach(function (el, i) {
+                setTimeout(function () {
+                    el.classList.remove("animate");
+                    }, 200 * i);
+                });
+                const form = loginForm
+                setTimeout(function () {
+                    document.querySelector(".login").classList.remove("hide");
+                    // Send form data here
+                    const value = pincode;
+                    document.getElementById("input-pincode").value = value;
+                    
+                    // Done
+                }, 1800);
 
             } else{
                 const {callbackUrl, token} = data;

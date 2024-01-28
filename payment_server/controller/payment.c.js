@@ -23,12 +23,7 @@ const renderPayment = async  (req, res) => {
   console.log("Transaction", transaction);
   res.render('payment', {callbackUrl, transaction});
   
-}
-
-const renderInvoice = (req, res) => {
-    
-    res.render('invoice');
-}
+} 
 
 const postPaymentLogin = async (req, res) => {
   const {transactionId, callbackUrl} = req.query;
@@ -76,8 +71,7 @@ const postPaymentRegister = async (req, res) => {
 module.exports = {
   renderLoginPayment,
   renderRegisterPayment,
-  renderPayment,
-  renderInvoice,
+  renderPayment, 
 
   postPaymentLogin,
   postPaymentRegister, 

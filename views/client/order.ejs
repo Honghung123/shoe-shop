@@ -37,8 +37,7 @@
                                 Ground</div>
                             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span> Checking
                                 Quality</div>
-                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Expected Date:</span> SEP
-                                09, 2017</div>
+                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Expected Date:</span> <%=expected_date%></div>
                         </div>
                         <div class="card-body">
                             <div class="steps d-flex flex-nowrap justify-content-between padding-top-2x padding-bottom-1x">
@@ -94,12 +93,12 @@
                                 <ul class="list-unstyled">
                                     <li class="text-muted mt-2"><i class="fa-solid fa-user me-2"></i><span
                                             class="fw-bold me-3">Name:
-                                        </span><span class="customer-name"><% user.username%></span></li>
+                                        </span><span class="customer-name"><%= user.username%></span></li>
                                     <li class="text-muted mt-2"><i class="fa-solid fa-address-book me-2"></i><span
-                                            class="fw-bold me-3">Adress: </span> Street, City</li>
+                                            class="fw-bold me-3">Adress: </span> <%= address?.address ? address.address : 'HCMUS, Linh Trung, Thu Duc'%></li>
                                     <li class="text-muted mt-2"><i class="fas fa-phone me-2"></i><span
                                             class="fw-bold me-3">Phone:
-                                        </span> 0123456789</li>
+                                        </span><%= address?.phone ? address.phone : '123456789'%> </li>
                                 </ul>
                             </div>
                             <div class="col-xl-4">

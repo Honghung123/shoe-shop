@@ -61,7 +61,6 @@ router
       }
     }
   );
-
 router.get(
   "/google/login",
   passport.authenticate("google", {

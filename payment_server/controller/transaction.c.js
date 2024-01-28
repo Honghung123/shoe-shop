@@ -17,7 +17,7 @@ const completeTransaction = async (req, res) => {
             console.log("Sender account", senderAccount);
             console.log(transaction);
             if(parseFloat(senderAccount.balance) < parseFloat(transaction.amount)){
-                transaction.status = 'Canceled';
+                transaction.status = 'canceled';
                 return res.json({message: 'Not enought money to complete transaction'})
             } else{
                 senderAccount.balance = parseFloat(senderAccount.balance) -parseFloat(transaction.amount);
@@ -25,6 +25,7 @@ const completeTransaction = async (req, res) => {
                 console.log('Receiver', receiverAccount);
                 console.log('Sender', senderAccount);
                 receiverAccount.balance = parseFloat(receiverAccount.balance) + parseFloat(transaction.amount);
+                transaction.status = 'completed'
                 await accountRepo.save(senderAccount);
                 await accountRepo.save(receiverAccount)
                 await transactionRepo.save(transaction);

@@ -12,7 +12,7 @@
 // });
 
 
-const PER_PAGE = 8;
+const PER_PAGE = 2;
 $(".edit-category").on("click", function (e) {
   const id = parseInt(e.target.getAttribute("data-id"));
   console.log("Edit Category has id " + id);

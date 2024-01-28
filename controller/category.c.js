@@ -22,12 +22,12 @@ module.exports = {
   deleteCategory: async (req, res, nex) => {
     try {
       const { id } = req.params;
-      const products = productRepo.find({ where: { cat_id: id } });
+      const products = await productRepo.find({ where: { cat_id: id } });
       if (products) {
         res.json({ message: "Can not delete category has products" });
       }
       await categoryRepo.delete(id);
-      res.json("Category deleted");
+      res.json({mesage: "Category deleted"});
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });

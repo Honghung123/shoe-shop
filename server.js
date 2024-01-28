@@ -75,6 +75,7 @@ const wishListRouter = require('./routers/wish-list.r')
 const clientRouter = require('./routers/client.r');
 const voucherRouter = require('./routers/voucher.r');
 const brandRouter = require('./routers/brand.r')
+const userRouter = require('./routers/user.r')
 
 app.use("/", authRouter);
 app.use("/admin", adminRouter);
@@ -86,6 +87,7 @@ app.use('/wish-list', wishListRouter);
 app.use("/", clientRouter);
 app.use("/vouchers", voucherRouter);
 app.use("/brands", brandRouter);
+app.use("/users", userRouter)
 // app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.use("/orders", )

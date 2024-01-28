@@ -19,6 +19,7 @@
                                 <h2>Update profile</h2>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </section>
@@ -33,7 +34,7 @@
                                     <div class="account-settings">
                                         <div class="user-profile">
                                             <div class="user-avatar flex-center-center" id="user-avatar">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                <img src=<%= user.avatar %>
                                                     alt="Maxwell Admin" class="avatar user__update__img">
                                             </div>
                                         </div>
@@ -47,33 +48,42 @@
                         </div>
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                             <div class="card h-100">
-                                <form action="/update-profile" method="post" class="card-body">
+                                <div id="updateProdfile" class="card-body">
                                     <div class="row gutters">
+                                        <input type="text" hidden value='<%= user.id %>' name="userId">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <h6 class="mb-2 text-primary">Personal Details</h6>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <h5 >Full Name:</h5>
-                                                <input type="text" name="full_name" class="form-control" id="update_fullname"
-                                                    placeholder="Enter full name" value="Nguyen Van A" required>
+                                                <h5 >Username:</h5>
+                                                <input type="text" name="username" class="form-control" id="update_username"
+                                                    placeholder="Enter your username" value="<%=user.username%>" required>
                                                 <div class="error-msg fullname text-danger fs-7"></div>
                                             </div>
                                         </div> 
                                         <div class="col-12 mt-2">
                                             <div class="form-group">
-                                                <h5 >Phone</h5>
+                                                <h5 >Default phone</h5>
                                                 <input type="text" class="form-control" name="phone" id="update_phone"
-                                                    placeholder="Enter phone number" value="0352525324" required>
+                                                    placeholder="Enter phone number" value='<%=address.phone%>' required>
+                                                <div class="error-msg phone text-danger fs-7"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <div class="form-group">
+                                                <h5 >Default address</h5>
+                                                <input type="text" class="form-control" name="address" id="update_address"
+                                                    placeholder="Enter phone number" value='<%= address.address%>' required>
                                                 <div class="error-msg phone text-danger fs-7"></div>
                                             </div>
                                         </div> 
                                     </div>
                                     <div class="flex-start-center gap-3 pt-3 pb-2">
-                                        <button type="submit" class="my-button button-hover-shake bg-info rounded-3">Update</button>
+                                        <button class="my-button button-hover-shake bg-info rounded-3 update-profile-btn">Update</button>
                                         <a href="/account" type="button" class="my-button button-hover-shake background-red rounded-3">Cancel</a>
                                     </div> 
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,6 +91,7 @@
             </section>
             <!-- Footer Section -->
             <%- include('./partials/footer'); -%>
+            <script src="../../public/client/js/update-profile.js"></script>
                 <!-- Footer Section End -->
 
                 <!-- Js Plugins -->

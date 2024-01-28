@@ -65,7 +65,8 @@ const postPaymentRegister = async (req, res) => {
     return res.status(400).json({message: 'Account already exist'});
   } 
   account = await accountRepo.save({id, pin_code: hashedPin, balance: INIT_BALANCE})
-  res.json(account);
+  // res.json(account);
+  res.redirect('http://localhost:3000/account')
 };
  
 module.exports = {

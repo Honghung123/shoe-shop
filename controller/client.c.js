@@ -1,4 +1,4 @@
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo } = require('../config/db.config');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, addressRepo } = require('../config/db.config');
 const { MoreThan, Equal } = require('typeorm');
 const { Not } = require('typeorm');
 require('dotenv').config();
@@ -230,6 +230,7 @@ module.exports = {
     const total = sales.length;
     const totalPages = Math.ceil(total / limit);
     const result = sales.slice((page - 1) * limit, (page - 1) * limit + limit);
+    
     res.render("client/discount", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -249,9 +250,23 @@ module.exports = {
   },
   renderAccountPage: async (req, res) => {
     console.log(req.user);
-    const user = await userRepo.findOne({where: {email: req.user.email}})
+    console.log(req.session);
+    const user = await userRepo.findOne({where: {email: req.user.email}});
+    const addresses = await addressRepo.find({where: {user_id: user.id}});
+    console.log("Access token", req.session.accessToken);
+    const paymentAccResponse = await fetch(`https:localhost:8000/accounts/${user.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': req.session.accessToken
+      },
+    });
+    const paymentAccount = await paymentAccResponse.json();
+    console.log(paymentAccount);
     res.render("client/account", {
       isAuthenticated: req.isAuthenticated(),
+      paymentAccount,
+      addresses,
       user: user,
       curPage: 'account'
     });
@@ -329,6 +344,17 @@ module.exports = {
     });
   },
   renderUpdateProfilePage: async (req, res) => {
-    res.render("client/update-profile");
+    console.log("User", req.user);
+    const user = await userRepo.findOne({where: {email: req.user.email}});
+    const address = await addressRepo.findOne({where: {is_default: true, user_id: user.id}});
+    
+
+    res.render("client/update-profile", {
+      isAuthenticated: req.isAuthenticated(),
+      user: user,
+      curPage: 'update-profile',
+      address
+    });
+    
   },
 };

@@ -20,7 +20,7 @@ const toastData = {
   },
 };
 
-const PER_PAGE = 3;
+const PER_PAGE = 7;
 
 async function viewOrderDetails(e) {
   let currentElement = e.target;

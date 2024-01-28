@@ -1,4 +1,4 @@
-const { In } = require("typeorm");
+const { In, Between } = require("typeorm");
 const {
   productRepo,
   sizeRepo,
@@ -224,5 +224,40 @@ module.exports = {
     const top5BestSellers = bestSellersArray.slice(0, 5);
     res.json({ products: top5BestSellers })
   },
+  topFiveBestSelling: async (req, res) => {
+    const {month_year} = req.query || '2024-01';
+    if(!month_year){
+      res.status(400).json('Bad request')
+    }
+    const monthAndYear = month_year.split('-');
+    const month = parseInt(monthAndYear[1]);
+    const year = parseInt(monthAndYear[0]);
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 1);
+    console.log(startDate, endDate);
+    const orders = await orderRepo.find({ where: { created_at: Between(startDate, endDate) } });
+    const ordersId = orders.map(order => order.id);
+    const orderLines = await orderLineRepo.find({
+      where: { order_id: In(ordersId) },
+      relations: ['product']
+    });
+    console.log("Orderlines", orderLines);
+    let bestSellerProductMap = new Map();
+    for (const orderLine of orderLines) {
+      const productName = orderLine.product.name;
+      const quantity = orderLine.quantity;
+      if (bestSellerProductMap.has(productName)) {
+        bestSellerProductMap.set(productName, parseInt(bestSellerProductMap.get(productName)) + parseInt(quantity));
+      } else {
+        bestSellerProductMap.set(productName, parseInt(quantity));
+      }
+    }
+    const bestSellersArray = Array.from(bestSellerProductMap.entries());
+    // Sort the array in descending order based on total quantity sold
+    bestSellersArray.sort((a, b) => b[1] - a[1]);
+    // Limit the result to the top 5 products
+    const top5BestSellers = bestSellersArray.slice(0, 5);
+    res.json({ products: top5BestSellers });
+  }
 
 };

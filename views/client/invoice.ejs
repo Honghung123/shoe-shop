@@ -60,13 +60,13 @@
                                     </div>
                                     <h4 class="step-title">Check & Dispatched</h4>
                                 </div>
-                                <div class="step">
+                                <div class="step <%= order.status === 'completed' || order.status === 'delivering' ? 'completed' : '' %>">
                                     <div class="step-icon-wrap">
                                         <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
                                     </div>
                                     <h4 class="step-title">Delivering</h4>
                                 </div>
-                                <div class="step">
+                                <div class="step <%= order.status === 'completed' ? 'completed' : '' %>" id="completed-status">
                                     <div class="step-icon-wrap">
                                         <div class="step-icon"><i class="fa-solid fa-home"></i></div>
                                     </div>
@@ -75,10 +75,14 @@
                             </div>
                         </div>
                     </div>
-                    <div
+                    <div id="btn-order"
                         class="d-flex flex-nowrap justify-content-around align-items-center">
-                        <button class="my-button button-hover-fadeIn rounded-4 button-responsive" id="cancel-order">Cancel order</button>
-                        <button class="my-button button-hover-shake hover-color-primary rounded-4 button-responsive" id="confirm-order">Received order</button>
+                        <% if (order.status !== 'completed' && order.status !== 'canceled') { %>
+                        <button class="my-button button-hover-fadeIn rounded-4 button-responsive" data-id="<%= order.id %>" id="cancel-order-btn-client">Cancel order</button>
+                        <% } %>
+                        <% if (order.status === 'delivering') { %>
+                        <button class="my-button button-hover-shake hover-color-primary rounded-4 button-responsive" data-id="<%= order.id %>" id="confirm-order-btn-client">Received order</button>
+                        <% } %>
                     </div>
                 <hr>    
                 </div> 
@@ -110,9 +114,9 @@
                                     <li class="text-muted mt-2">
                                         <span class="fw-bold me-2">Creation Date: </span><%= order.created_at %>
                                     </li>
-                                    <li class="text-muted mt-2"> <span class="me-1 fw-bold me-2">Status: </span><span
-                                            class="badge bg-warning text-black fw-bold">
-                                            Paid</span></li>
+                                    <li class="text-muted mt-2"> <span class="me-1 fw-bold me-2">Status: </span><span id="status-order"
+                                            class="badge bg-<%= order.status === 'completed' ? 'success' : (order.status === 'canceled' ? 'danger' : (order.status === 'delivering' ? 'primary' : 'warning')) %> text-black fw-bold">
+                                            <%= order.status %></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -216,7 +220,6 @@
                 <!-- Js Plugins -->
                 <%- include('./partials/scripts'); -%>
                     <!-- Js Plugins End -->
-
 </body>
 
 </html>

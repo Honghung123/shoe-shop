@@ -85,12 +85,25 @@
             }
         }
     });
-    
+
     /*-------------------
         Deal timer with slide image
     --------------------- */
     function makeTimer() {
-        let endTime = new Date("29 January 2024 00:00:00 GMT+07:00");
+        // let endTime = new Date("29 January 2024 00:00:00 GMT+07:00");
+        const monday = new Date("1 January 2024 00:00:00 GMT+07:00");
+        const currentDateOrigin = new Date();
+        // monday.setHours(monday.getHours() + 7);
+        let endTime = new Date(currentDateOrigin.setHours(0, 0, 0, 0));
+        if (Math.abs(endTime - monday) / (1000 * 60 * 60 * 24) % 7 === 0) {
+            endTime.setDate(endTime.getDate() + 1);
+        }
+        while (
+            (Math.abs(endTime - monday) / (1000 * 60 * 60 * 24)) % 7 !==
+            0
+        ) {
+            endTime.setDate(endTime.getDate() + 1);
+        }
         endTime = (Date.parse(endTime) / 1000);
         let now = new Date();
         now = (Date.parse(now) / 1000);
@@ -112,8 +125,8 @@
     const $dealImages = $(".dealing-list img");
     const numDeal = $dealImages.length;
     let idx = 0;
-    function changeDeal(amount){
-        if(idx == amount){
+    function changeDeal(amount) {
+        if (idx == amount) {
             idx = 0;
         }
         const src = $dealImages[idx].getAttribute("src");

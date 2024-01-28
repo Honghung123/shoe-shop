@@ -84,3 +84,14 @@
         }
     })
 })(jQuery);
+document.addEventListener('DOMContentLoaded', function () {
+    const queryParams = new URLSearchParams(window.location.search);
+    const errorMessage = queryParams.get('error');
+
+    if (errorMessage) {
+        // Display the error message to the user, for example, in an alert or on the page
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
+

@@ -170,37 +170,52 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row row-gap-4">                        
-                        <div class="col col-lg-3 col-md-4 col-sm-6">
-                            <div class="featured__item specific__product" data-id="1">
-                                <div class="featured__item__pic">
-                                    <img src="img/featured/feature-1.jpg" class="image" alt="">
-                                    <ul class="featured__item__pic__hover">
-                                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                                    </ul>
+                    <div class="row row-gap-4">
+                        <div class="product__discount__slider owl-carousel">
+
+                        <% bestSeller.forEach( e => { %>
+                        <% if (e.product.isSale) { %>
+                            <div class="mlr05 pt-2 pb-2">
+                                <div class="featured__item specific__product" data-id="<%= e.product.id %>">
+                                    <div class="featured__item__pic">
+                                        <img src="<%= e.product.image %>" style=<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %> class="image" alt="">
+                                        <ul class="featured__item__pic__hover">
+                                            <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span>
+                                            </li>
+                                            <li><span class="add__to__cart"><i
+                                                        class="fa fa-shopping-cart"></i></span></li>
+                                        </ul>
+                                        <div class="product__discount__label">
+                                            <div class="product__discount__background">
+                                                <span class="product__discount__percent"><%= e.product.percent %></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/detail?id=<%= e.product.id %>" class="featured__item__text p-3">
+                                        <p class="limit-line line-2 mb-2"><%= e.product.name %></p>
+                                        <span class="currency color__primary"><%= e.product.price_discount %></span>
+                                        <span class="currency product__discount__oldprice mlr05"><%= e.product.price %></span>
+                                    </a>
                                 </div>
-                                <a href="/detail" class="featured__item__text p-3">
-                                    <p class="limit-line line-2 mb-2">Merino to ishite</p>
-                                    <h5 class="currency">870000</h5>
-                                </a>
                             </div>
-                        </div>
-                        <div class="col col-lg-3 col-md-4 col-sm-6">
-                            <div class="featured__item specific__product" data-id="1">
-                                <div class="featured__item__pic">
-                                    <img src="img/featured/feature-1.jpg" class="image" alt="">
-                                    <ul class="featured__item__pic__hover">
-                                        <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
-                                        <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
-                                    </ul>
+                        <% } else { %>
+                            <div class="cols mlr05 pt-2 pb-2">
+                                <div class="featured__item specific__product" data-id="<%= e.product.id %>">
+                                    <div class="featured__item__pic">
+                                        <img src="<%= e.product.image %>" style=<%= e.product.cat_name === 'Giày cao gót' ? 'object-position: center bottom;' : '' %> class="image" alt="">
+                                        <ul class="featured__item__pic__hover">
+                                            <li><span class="add__to__favourite"><i class="fa fa-heart"></i></span></li>
+                                            <li><span class="add__to__cart"><i class="fa fa-shopping-cart"></i></span></li>
+                                        </ul>
+                                    </div>
+                                    <a href="/detail?id=<%= e.product.id %>" class="featured__item__text p-3">
+                                        <p class="limit-line line-2 mb-2"><%= e.product.name %></p>
+                                        <h5 class="currency"><%= e.product.price %></h5>
+                                    </a>
                                 </div>
-                                <a href="/detail" class="featured__item__text p-3">
-                                    <p class="limit-line line-2 mb-2">Merino to ishite am sf sf sewr not fum with
-                                        antohoder</p>
-                                    <h5 class="currency">870000</h5>
-                                </a>
                             </div>
+                        <% } %>
+                        <% }) %>
                         </div>
                     </div>
                 </div>

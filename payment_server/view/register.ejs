@@ -13,17 +13,17 @@
                 <div class="login-box">
                     <div class="login-space">
                         <h2 class="login-banner mb-4">Payment Register</h2>
-                        <form class="sign-up-form" action="/payment-register" method="post" id="form-register">
+                        <form class="sign-up-form" action="/payment-register?callbackUrl=<%=callbackUrl%>" method="post" id="form-register">
                             <input type="number" name="id" hidden value=<%=userId%>>
                             <div class="group mb-3">
                                 <label class="label">Enter pin code: </label>
-                                <input name="code" type="text" class="input pincode-register"
+                                <input name="code" type="password" inputmode="numeric" class="input pincode-register"
                                     placeholder="Enter your pin code here" required>
                                 <span class="error pincode-register-error"></span>
                             </div>
                             <div class="group mb-5">
                                 <label class="label">Re-enter pin code:</label>
-                                <input name="repincode" type="text" class="input repincode-register" data-type="text"
+                                <input name="repincode" type="password" inputmode="numeric" class="input repincode-register" data-type="text"
                                     placeholder="Enter your pin code again" required>
                                 <span class="error repincode-register-error"></span>
                             </div> 

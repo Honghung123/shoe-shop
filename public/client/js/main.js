@@ -453,4 +453,46 @@
     }
   })
 
+  $('#cancel-order-btn-client').on('click', async function (e) {
+    const id = $(this).data('id');
+    console.log(id);
+    const response = await fetch(`/orders/${id}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ orderId: id, status: 'canceled' })
+    });
+    if (response.ok) {
+      showToastMessage("Cancel successfully", toastData["success"]);
+      $('#status-order').html('canceled');
+      $('#status-order').removeClass('bg-success bg-danger bg-warning bg-primary');
+      $('#status-order').addClass('bg-danger');
+      $('#btn-order').html('');
+    } else {
+      showToastMessage("Cancel fail", toastData["error"]);
+    }
+  })
+
+  $('#confirm-order-btn-client').on('click', async function (e) {
+    const id = $(this).data('id');
+    console.log(id);
+    const response = await fetch(`/orders/${id}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ orderId: id, status: 'completed' })
+    });
+    if (response.ok) {
+      showToastMessage("Received successfully", toastData["success"]);
+      $('#status-order').html('received');
+      $('#status-order').removeClass('bg-success bg-danger bg-warning bg-primary');
+      $('#status-order').addClass('bg-success');
+      $('#btn-order').html('');
+      $('#completed-status').addClass('completed');
+    } else {
+      showToastMessage("Received fail", toastData["error"]);
+    }
+  })
 })(jQuery);

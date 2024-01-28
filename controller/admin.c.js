@@ -45,7 +45,7 @@ module.exports = {
     },
     getOrderPage: async (req, res, next) => {
         const page = req.query.page || 1;
-        const limit = req.query.limit || 3;
+        const limit = req.query.limit || 7;
         const relations = ['user'];
         const order = { id: 'ASC' };
         const conditions = null;

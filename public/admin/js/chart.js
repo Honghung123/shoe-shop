@@ -1,6 +1,8 @@
 // BAR chart horizontal - "The top 5 brands with the highest revenue."
 let chartType = "bar";
 let brandList = ["Nike", "Adidas", "Levent", "Gucci", "Prada"];
+let productList = [];
+let percentOfEachOnes = [];
 let revenueOfEachBrand = [41500000, 17500000, 64000000, 55000000, 33000000];
 let chartLabel = "The top 5 brands with the highest revenue in 2024-01";
 let chartLabelColor = "white";
@@ -107,10 +109,29 @@ const chart = {
 };
 const mychart = new Chart(ctx, chart);
 // Create envent for Bar chart
-$("#chart__filter1").on("change", function () {
+$("#chart__filter1").on("change", async function (e) {
   const yearMonth = $(this).val();
-  brandList = ["Test", "Nike", "Nikasa", "Pama", "Rocket"];
-  revenueOfEachBrand = [31500000, 47500000, 24000000, 25000000, 63000000];
+  console.log("Year month", yearMonth);
+  const res = await fetch(`http://localhost:3000/brands/top5brand?month_year=${yearMonth}`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json'
+    },
+  })
+  const data = await res.json();
+  if(res.ok){
+    const {top5Brands} = data;
+    brandList = []
+    revenueOfEachBrand = [];
+    for(let i = 0; i < top5Brands.length; i++){
+      brandList.push(top5Brands[i][0]);
+      revenueOfEachBrand.push(top5Brands[i][1]);
+    }
+  }
+  console.log(brandList, revenueOfEachBrand);
+  
+  // brandList = ["Test", "Nike", "Nikasa", "Pama", "Rocket"];
+  // revenueOfEachBrand = [31500000, 47500000, 24000000, 25000000, 63000000];
   chartLabel = `The top 5 brands with the highest revenue in ${yearMonth}`;
   mychart.data.labels = brandList;
   mychart.data.datasets[0].data = revenueOfEachBrand; // Access the datasets array
@@ -174,17 +195,40 @@ const charts = {
 
 const mysecondchart = new Chart(ctxs, charts);
 // Create envent for Bar chart
-$("#chart__filter2").on("change", function () {
-  const year = $(this).val(); 
+$("#chart__filter2").on("change", async function (e) {
+  const monthYear = $(this).val(); 
+  console.log(monthYear);
   // Truy van database
-  productList = [
-    "Prama indonssf ",
-    "Arigatou gozaimasu",
-    "Prama indonssf",
-    "Nike isdf s",
-    "Prama indonssf",
-  ];
-  percentOfEachOnes = [10, 20, 30, 20, 20];
+  const res = await fetch(`http://localhost:3000/products/top5?month_year=${monthYear}`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json'
+    },
+  })
+  const data = await res.json();
+  if(res.ok){
+    const {products} = data;
+    productList = []
+    percentOfEachOnes = [];
+    let total = 0;
+    for(let i = 0; i < products.length; i++){
+      total = total + products[i][1];
+      productList.push(products[i][0])
+    }
+    for(let i = 0; i < products.length; i++){
+      productList.push(products[i][1]/total)
+    }
+
+  }
+  // productLsit = [
+  //   "Prama indonssf ",
+  //   "Arigatou gozaimasu",
+  //   "Prama indonssf",
+  //   "Nike isdf s",
+  //   "Prama indonssf",
+  // ];
+  // percentOfEachOnes = [10, 20, 30, 20, 20];
+  console.log(productList, percentOfEachOnes);
   // end
   chartLabel = `The top 5 best-selling products in ${year}`;
   mysecondchart.data.labels = productList;

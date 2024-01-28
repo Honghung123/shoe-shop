@@ -143,6 +143,7 @@ module.exports = {
     const monday = new Date("1 January 2024 00:00:00 GMT+07:00");
     monday.setHours(monday.getHours() + 7);
     const mondayLatest = new Date(currentDateOrigin.setUTCHours(0, 0, 0, 0));
+    
     while (
       (Math.abs(mondayLatest - monday) / (1000 * 60 * 60 * 24)) % 7 !==
       0
@@ -152,7 +153,7 @@ module.exports = {
 
     const saleWeek = await saleRepo.find({
       where: {
-        expire: Equal(mondayLatest),
+        expire: MoreThan(mondayLatest),
       },
     });
 
@@ -173,6 +174,43 @@ module.exports = {
       );
       i.product = product;
     }
+
+    const bestSeller = await orderLineRepo.createQueryBuilder('order_line')
+    .select("product_id")
+    .addSelect("COUNT(product_id)", "count")
+    .groupBy("product_id")
+    .orderBy("count", "DESC")
+    .limit(5)
+    .getRawMany();
+
+
+    for (let i of bestSeller) {
+      const product = await productRepo.findOne({
+        where: {id: i.product_id}
+      })
+      const image = await imageRepo.findOne({
+        where: { product_id: product.id },
+      });
+      product.image = image.image;
+      const cat = await categoryRepo.findOne({
+        where: { id: product.cat_id },
+      });
+      product.cat_name = cat.name;
+      const sale = await saleRepo.findOne({
+        where: { product_id: product.id },
+      });
+      if (sale !== null) {
+        product.isSale = true;
+        product.percent = sale.percent;
+        product.price_discount = Math.floor(
+          (product.price * parseInt(100 - sale.percent)) / 100.0
+        );
+      } else {
+        product.isSale = false;
+      }
+      i.product = product;
+    }
+
     let cartReviews = [];
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
@@ -192,6 +230,7 @@ module.exports = {
       query: "",
       cartReviews,
       favouriteReviews,
+      bestSeller
     });
   },
   renderShoppingPage: async (req, res) => {
@@ -528,6 +567,7 @@ module.exports = {
         'Authorization': req.session.accessToken
       },
     });
+    
     const paymentAccount = await paymentAccResponse.json();
     console.log(paymentAccount);
     res.render("client/account", {
@@ -623,6 +663,25 @@ module.exports = {
       order: { id: "DESC" },
     });
     console.log(req.user);
+    const response = await fetch('https://localhost:8000/accounts/grant-access', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({email: 'admin@gmail.com'})
+    })
+    const accessToken = await response.json();
+    console.log(accessToken);
+    const paymentAccResponse = await fetch(`https:localhost:8000/accounts/${req.user.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': accessToken
+      },
+    });
+    
+    const paymentAccount = await paymentAccResponse.json();
+    console.log("Payment account", paymentAccount);
     const curDate = new Date();
     curDate.setHours(curDate.getHours() + 7);
 
@@ -677,7 +736,8 @@ module.exports = {
       cartReviews,
       carts,
       favouriteReviews,
-      total
+      total,
+      paymentAccount
     });
   },
   renderUpdateProfilePage: async (req, res) => {

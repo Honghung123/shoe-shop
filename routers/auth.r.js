@@ -9,11 +9,11 @@ const { userRepo } = require("../config/db.config");
 router
   .route("/register")
   .get(authController.renderRegister)
-  .post(authController.register); 
+  .post(authController.register);
 router
   .route("/login/validate-email")
   .post(authController.checkEmailIsExist);
-  router
+router
   .route("/login/validate-username")
   .post(authController.checkUsernameIsExist);
 router
@@ -46,18 +46,18 @@ router
             return res.redirect("/admin");
           } else {
             console.log("Session", req.session);
-            const user = await userRepo.findOne({where: {email: req.user.email}});
-          
+            const user = await userRepo.findOne({ where: { email: req.user.email } });
+
             const response = await fetch('https://localhost:8000/accounts/grant-access', {
               method: 'POST',
               headers: {
                 'Content-type': 'application/json'
               },
-              body: JSON.stringify({email: 'admin@gmail.com'})
+              body: JSON.stringify({ email: 'admin@gmail.com' })
             })
             const accessToken = await response.json();
             console.log(accessToken);
-            if(response.ok){
+            if (response.ok) {
               req.session.accessToken = accessToken;
             }
             console.log("Access token", req.session.accessToken);
@@ -80,7 +80,13 @@ router.get(
     scope: ["email", "profile"],
     state: "login",
   }),
-  (req, res) => { }
+  (req, res) => {
+    if (req.user.role == "admin") {
+      res.redirect("/admin");
+    } else {
+      res.redirect("/");
+    }
+  }
 );
 
 router.get(
@@ -98,7 +104,14 @@ router.get("/google/callback", (req, res, next) => {
       req.logIn(user, (error) => {
         console.log(error);
       });
-      req.session.save(() => res.redirect("/"));
+      req.session.save(() => {
+        if (user.role == "admin") {
+          res.redirect("/admin");
+        } else {
+          res.redirect("/");
+        }
+
+      });
     } else if (msg === "Account already registered") {
       res.locals.message = msg;
       res.render("register");

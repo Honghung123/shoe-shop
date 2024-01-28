@@ -464,6 +464,18 @@ module.exports = {
     const user = await userRepo.findOne({where: {email: req.user.email}});
     const addresses = await addressRepo.find({where: {user_id: user.id}});
     console.log("Access token", req.session.accessToken);
+    const response = await fetch('https://localhost:8000/accounts/grant-access', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({email: 'admin@gmail.com'})
+    })
+    const accessToken = await response.json();
+    console.log(accessToken);
+    if(response.ok){
+      req.session.accessToken = accessToken;
+    }
     const paymentAccResponse = await fetch(`https:localhost:8000/accounts/${user.id}`, {
       method: 'GET',
       headers: {
@@ -636,4 +648,23 @@ module.exports = {
     });
 
   },
+  renderInvoice: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
+    let favouriteReviews = [];
+    if (req.isAuthenticated()) {
+      favouriteReviews = await favouriteReview(req.user.id);
+    }
+    res.render('client/invoice', {
+      query: '',
+      isAuthenticated: req.isAuthenticated(),
+      curPage: 'invoice',
+      favouriteReviews,
+      cartReviews,
+      user: req.user
+
+    })
+  }
 };

@@ -9,6 +9,7 @@ module.exports = {
             relations: ['user']
         })
         
+        
         const orderLines = await orderLineRepo.find({
             where: {order_id: id},
             relations: ['product']
@@ -67,6 +68,8 @@ module.exports = {
 
             console.log(cartLines);
             const total = transaction.amount;
+            console.log("Amount", transaction.amount);
+            console.log(transaction);
             const order = await orderRepo.save({total, user_id: 2, status: 'preparing'});
             let orderLines = cartLines.map((cartLine) => (
                 {
@@ -79,11 +82,13 @@ module.exports = {
             console.log(orderLines);
             orderLines = await orderLineRepo.save(orderLines);
             await cartLineRepo.delete(cartLinesId);
-            res.json(order);
+            // res.json(order);
+            res.redirect('/checkout')
         } catch (error) {
             
         }
     },
+    
 
     
 }

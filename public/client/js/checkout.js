@@ -18,5 +18,4 @@ $('.place-order-btn').on('click', async function(e){
     } else{
         window.location = `https://localhost:8000/payment/process?transactionId=${data.id}&callbackUrl=${callbackUrl}`
     }
-    // window.location.href = 'https://localhost:8000/payment/process'
 })

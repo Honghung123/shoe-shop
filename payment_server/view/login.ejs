@@ -22,6 +22,7 @@
                 </ul>
                 <div class="mask"></div>
                 <input type="password" inputmode="numeric" class="input-pin">
+                <div class="error mt-4"></div>
                 <!-- Add your field you want to post here -->
                 <input type="hidden" name="code" id="input-pincode">
 
@@ -34,11 +35,12 @@
         // Login with pin code
         const loginForm = document.querySelector("form.login");
         const pinInput = document.querySelector(".input-pin");
+        
         const pinUI = document.querySelectorAll(".pin-ui li");
         let numChars = 0;
         let pincode = "";
         let acceptInput = true;
-        pinInput.addEventListener("keydown", function (e) {
+        pinInput.addEventListener("keydown", async function (e) {
             if (!acceptInput) {
                 e.preventDefault();
             } else {
@@ -49,7 +51,7 @@
                     numChars++;
                     pincode += String.fromCharCode(e.keyCode);
                     if (numChars == 6) {
-                        loginForm.querySelector("input.submit").click();
+                        await sendLoginRequest(pincode)
                     }
                 } else if (e.keyCode == 8 && numChars >= 1) {
                     if (pinUI[numChars - 1].classList.contains("on")) {
@@ -62,7 +64,37 @@
                 }
             }
         });
-        pinInput.focus();
+        const sendLoginRequest = async (pincode) => {
+            acceptInput = false;
+            pincode = pincode.slice(pincode.length -6, pincode.length);
+            pinInput.blur();
+            document.querySelector(".mask").classList.add("visible");
+            console.log("Pin code", pincode);
+            const endpoints = 'https://localhost:8000/payment/login?callbackUrl=<%= callbackUrl %>&transactionId=<%=transactionId%>'
+            const res = await fetch(endpoints, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ code: pincode }),
+            })
+            const data = await res.json();
+            if(!res.ok){
+                const {message} = data;
+                console.log(message);
+                $('.error').text(message)
+                $('.input-pin')
+                $('.pin-ui li').removeClass('on');
+                pincode = '';
+                numChars = 0;
+                acceptInput = true
+
+            } else{
+                const {callbackUrl, token} = data;
+                console.log(callbackUrl, token);
+                window.location.href = `${callbackUrl}?token=${token}`
+            }
+        }
         document.addEventListener("click", function () {
             pinInput.focus();
         });

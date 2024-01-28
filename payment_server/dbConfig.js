@@ -23,6 +23,7 @@ const connectDb = async () => {
   
     }
   };
+
 const transactionRepo = dataSource.getRepository('Transaction');
 const accountRepo = dataSource.getRepository('Account');
 module.exports = {connectDb, accountRepo, transactionRepo}

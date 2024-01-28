@@ -45,22 +45,9 @@ router
           if (user.role == "admin") {
             return res.redirect("/admin");
           } else {
-            console.log("Session", req.session);
-            const user = await userRepo.findOne({where: {email: req.user.email}});
           
-            const response = await fetch('https://localhost:8000/accounts/grant-access', {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              body: JSON.stringify({email: 'admin@gmail.com'})
-            })
-            const accessToken = await response.json();
-            console.log(accessToken);
-            if(response.ok){
-              req.session.accessToken = accessToken;
-            }
-            console.log("Access token", req.session.accessToken);
+            
+            
             return res.redirect("/");
           }
         });

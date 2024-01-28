@@ -20,7 +20,7 @@ router.use(authorize("customer"));
 router.get("/update-profile", clientController.renderUpdateProfilePage); 
 router.get("/account", clientController.renderAccountPage);
 router.get("/cart", clientController.renderCartPage);
-router.get("/favorite", clientController.renderFavorPage);
 router.get("/order", clientController.renderOrderPage);
-router.get("/invoice", clientController.renderInvoicePage);
+router.get("/favorite", clientController.renderFavorPage);
+router.get("/invoice/:orderId", clientController.renderInvoice)
 module.exports = router;

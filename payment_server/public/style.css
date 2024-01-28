@@ -23,6 +23,11 @@ body {
   background-clip: border-box; 
   border-radius: 1rem;
 }
+.error{
+  color: red;
+  font-size: 0.8rem;
+  /* visibility: hidden; */
+}
 
 .currency::after{
   content: " VND";

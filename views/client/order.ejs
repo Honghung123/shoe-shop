@@ -43,91 +43,34 @@
                                     </tr>
                                 </thead>
                                 <tbody id="shopping__cart__list">
+                                    <% orders.forEach((order, idx) => { %>
+
                                     <tr class="shopping__cart__item">
-                                        <td>123</td>
+                                        <td><%= order.id %></td>
                                         <td>
-                                            <div class="shopping__cart__info d-flex"><img class="image" src="img/cart/cart-1.jpg" alt="">
+                                            <% order.orderLines.forEach((orderLine, idx) => { %>
+                                            <div class="shopping__cart__info d-flex"><img class="image" src="<%= orderLine.product.image %>" alt="">
                                             <div class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                                                <a href="details.html" class="hover__primary limit-line line-2">Adidas shoe made in Japan Lorem
-                                                    ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti aliquid </a>
+                                                <a href="/detail?id=<%= orderLine.product.id %>" class="hover__primary limit-line line-2"><%= orderLine.product.name %></a>
                                                 <div class="shopping__cart__classify">
-                                                    <span>Quantity: <b>1</b></span>
-                                                    <span>Size: <b>XL</b></span>
+                                                    <span>Quantity: <b><%= orderLine.product.quantity %></b></span>
                                                 </div>
                                             </div></div>
-                                            <div class="shopping__cart__info d-flex"><img class="image" src="img/cart/cart-1.jpg" alt="">
-                                            <div class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                                                <a href="details.html" class="hover__primary limit-line line-2">Adidas shoe made in Japan Lorem
-                                                    ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti aliquid </a>
-                                                <div class="shopping__cart__classify">
-                                                    <span>Quantity: <b>1</b></span>
-                                                    <span>Size: <b>XL</b></span>
-                                                </div>
-                                            </div></div>
+                                            <% }) %>
                                             
                                         </td>
                                         <td class="shopping__cart__price">
-                                            <span class="color__primary currency">2025-01-01</span>
+                                            <span class="color__primary"><%= order.created_at.toISOString().replace('T', ' ') %></span>
                                         </td> 
                                         <td class="shopping__cart__total">
-                                            <span class="color__primary currency">300000</span>
+                                            <span class="color__primary currency"><%= order.total %></span>
                                         </td>
                                         <td>
-                                            <span class="btn text-white bg-success">Paid</span>
+                                            <span class="btn text-white bg-<%= order.status === 'cancel' ? 'danger' : ( order.status === 'completed' ? 'success' : 'warning') %>"><%= order.status %></span>
                                         </td>
-                                        <td><a class="my-button button-hover-fadeIn rounded-4 button-zoom" href="/invoice">View order</a></td>
+                                        <td><a class="my-button button-hover-fadeIn rounded-4 button-zoom" href="/invoice/<%= order.id %>">View order</a></td>
                                     </tr> 
-
-                                    <tr class="shopping__cart__item">
-                                        <td>123</td>
-                                        <td class="shopping__cart__info d-flex">
-                                            <img class="image" src="img/cart/cart-1.jpg" alt="">
-                                            <div class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                                                <a href="details.html" class="hover__primary limit-line line-2">Adidas shoe made in Japan Lorem
-                                                    ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti aliquid </a>
-                                                <div class="shopping__cart__classify">
-                                                    <span>Quantity: <b>4</b></span>
-                                                    <span>Size: <b>L</b></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="shopping__cart__price">
-                                            <span class="color__primary currency">2025-01-01</span>
-                                        </td> 
-                                        <td class="shopping__cart__total">
-                                            <span class="color__primary currency">300000</span>
-                                        </td>
-                                        <td>
-                                            <span class="btn text-white bg-danger">Canceled</span>
-                                        </td>
-                                        <td><a class="my-button button-hover-fadeIn rounded-4 button-zoom" href="/invoice">View order</a></td>
-                                    </tr>
-
-                                    <tr class="shopping__cart__item">
-                                        <td>123</td>
-                                        <td class="shopping__cart__info d-flex">
-                                            <img class="image" src="img/cart/cart-1.jpg" alt="">
-                                            <div class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                                                <a href="details.html" class="hover__primary limit-line line-2">Adidas shoe made in Japan Lorem
-                                                    ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti aliquid </a>
-                                                <div class="shopping__cart__classify">
-                                                    <span>Quantity: <b>1</b></span>
-                                                    <span>Size: <b>XL</b></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="shopping__cart__price">
-                                            <span class="color__primary currency">2025-01-01</span>
-                                        </td> 
-                                        <td class="shopping__cart__total">
-                                            <span class="color__primary currency">300000</span>
-                                        </td>
-                                        <td>
-                                            <span class="btn text-white bg-warning">Shipping</span>
-                                        </td>
-                                        <td><a class="my-button button-hover-fadeIn rounded-4 button-zoom" href="/invoice">View order</a></td>
-                                    </tr> 
-                                    <!-- <tr><td colspan="5" class="text-center"><span>Your order is empty</span></td></tr> -->
+                                    <% }) %>
                                 </tbody>
                             </table>
                         </div>

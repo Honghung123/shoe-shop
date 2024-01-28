@@ -182,6 +182,12 @@ $("#form-add-account").on("submit", async function (event) {
       $("#messageAddAccount").html(``); 
       $(".upload-img").html("");
       showToastMessage(data.message, toastData['success']);
+      const curPage = $("#current_page").text();
+      const refresh = await fetch(
+        `/admin/account?page=${curPage}&limit=${PER_PAGE}`
+      );
+      const datas = await refresh.json();
+      updateListAccount(datas);
   }
   return false;
 });
@@ -215,13 +221,13 @@ $("#btn-delete-account").on("click", async function () {
       showToastMessage("Cannot delete admin", toastData["error"]);
     }
   } else {
-    const curPage = $("span.page-numbers").text();
+    showToastMessage("Deleted");
+    const curPage = $("#current_page").text();
     const refresh = await fetch(
       `/admin/account?page=${curPage}&limit=${PER_PAGE}`
     );
     const data = await refresh.json();
     updateListAccount(data);
-    showToastMessage("Deleted")
   }
   localStorage.removeItem("deleteAccId");
 });

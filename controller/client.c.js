@@ -1,5 +1,5 @@
 const { async } = require('rxjs');
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo, addressRepo, favouriteRepo } = require('../config/db.config');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo, addressRepo, favouriteRepo, orderRepo, orderLineRepo } = require('../config/db.config');
 const { MoreThan, Equal, Not } = require('typeorm');
 const cartReview = require('../utils/cartReview');
 const favouriteReview = require('../utils/favouriteReview');
@@ -304,6 +304,22 @@ module.exports = {
     if (req.isAuthenticated()) {
       favouriteReviews = await favouriteReview(req.user.id);
     }
+    const orders = await orderRepo.find({
+      where: {user_id: req.user.id},
+    })
+    for (let i of orders) {
+      const orderLines = await orderLineRepo.find({
+        where: {order_id: i.id},
+        relations: ['product']
+      })
+      for (let j of orderLines) {
+        const image = await imageRepo.findOne({
+          where: {product_id: j.product.id}
+        })
+        j.product.image = image.image;
+      }
+      i.orderLines = orderLines
+    }
     res.render("client/order", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -311,6 +327,7 @@ module.exports = {
       query: "",
       cartReviews,
       favouriteReviews,
+      orders
     });
   },
   renderVoucherPage: async (req, res) => {
@@ -492,6 +509,18 @@ module.exports = {
     const user = await userRepo.findOne({where: {email: req.user.email}});
     const addresses = await addressRepo.find({where: {user_id: user.id}});
     console.log("Access token", req.session.accessToken);
+    const response = await fetch('https://localhost:8000/accounts/grant-access', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({email: 'admin@gmail.com'})
+    })
+    const accessToken = await response.json();
+    console.log(accessToken);
+    if(response.ok){
+      req.session.accessToken = accessToken;
+    }
     const paymentAccResponse = await fetch(`https:localhost:8000/accounts/${user.id}`, {
       method: 'GET',
       headers: {
@@ -593,8 +622,11 @@ module.exports = {
       where: { user_id: req.user.id },
       order: { id: "DESC" },
     });
+    console.log(req.user);
     const curDate = new Date();
     curDate.setHours(curDate.getHours() + 7);
+
+    let total = 0;
 
     for (let i of carts) {
       let product = await productRepo.findOne({
@@ -622,6 +654,11 @@ module.exports = {
       });
       i.size = size.size;
       i.product = product;
+      if (i.product.isSale) {
+        total += parseInt(i.product.price_discount) * i.quantity;
+      } else {
+        total += parseInt(i.product.price) * i.quantity;
+      }
     }
 
     let cartReviews = [];
@@ -640,6 +677,7 @@ module.exports = {
       cartReviews,
       carts,
       favouriteReviews,
+      total
     });
   },
   renderUpdateProfilePage: async (req, res) => {
@@ -662,9 +700,11 @@ module.exports = {
       query: "",
       cartReviews,
       favouriteReviews,
+      address
     });
   },
-  renderInvoicePage: async (req, res) => {
+  renderInvoice: async (req, res) => {
+    const {orderId} = req.params;
     let cartReviews = [];
     if (req.isAuthenticated()) {
       cartReviews = await cartReview(req.user.id);
@@ -673,14 +713,44 @@ module.exports = {
     if (req.isAuthenticated()) {
       favouriteReviews = await favouriteReview(req.user.id);
     }
-    res.render("client/invoice", {
-      isAuthenticated: req.isAuthenticated(),
-      user: req.user,
-      curPage: "invoice",
-      query: "",
-      cartReviews,
-      favouriteReviews,
-    });
+    const order = await orderRepo.findOne({where : {id: orderId}});
+    const orderLines = await orderLineRepo.find({
+      where: {order_id: order.id},
+      relations: ['product']
+    })
+    let total = 0;
+    for (let i of orderLines) {
+      const image = await imageRepo.findOne({
+        where: {product_id: i.product.id}
+      })
+      console.log(image);
+      i.product.image = image.image;
+      total += parseInt(i.product.price) * i.quantity
+    }
+    const discount = total - parseInt(order.total);
+    console.log(orderLines);
+    const createdAt = new Date(order.created_at)
+    const created_at = `${createdAt.getDate()} -${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`;
+    const expectedDate = new Date(createdAt);
+    expectedDate.setDate(createdAt.getDate() + 7);
+    const expected_date = `${expectedDate.getDate()} -${expectedDate.getMonth() + 1}-${expectedDate.getFullYear()}`;
+    order.created_at = created_at
+    const address = await addressRepo.findOne({where: {user_id: req.user.id, is_default: true}});
 
-  },
+
+    res.render('client/invoice', {
+      query: '',
+      isAuthenticated: req.isAuthenticated(),
+      curPage: 'invoice',
+      favouriteReviews,
+      cartReviews,
+      user: req.user,
+      address,
+      order,
+      orderLines,
+      expected_date,
+      total,
+      discount
+    })
+  }
 };

@@ -21,6 +21,7 @@ const toastData = {
 };
 
 const PER_PAGE = 3;
+
 async function viewOrderDetails(e) {
   let currentElement = e.target;
   while (!currentElement.classList.contains("order-item")) {

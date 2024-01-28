@@ -9,6 +9,7 @@ module.exports = {
             relations: ['user']
         })
         
+        
         const orderLines = await orderLineRepo.find({
             where: {order_id: id},
             relations: ['product']
@@ -67,23 +68,32 @@ module.exports = {
 
             console.log(cartLines);
             const total = transaction.amount;
-            const order = await orderRepo.save({total, user_id: 2, status: 'preparing'});
-            let orderLines = cartLines.map((cartLine) => (
-                {
+            console.log("Amount", transaction.amount);
+            console.log(transaction);
+            console.log("User has placed order is ", req.user.id);
+            const order = await orderRepo.save({total, user_id: req.user.id, status: 'preparing'});
+            
+            let orderLines = cartLines.map((cartLine) => 
+                ({
                     quantity: cartLine.quantity,
                     product_id: cartLine.product_id,
                     order_id: order.id,
                     total: cartLine.product.price * cartLine.quantity
                 }
             ))
-            console.log(orderLines);
+            
+            console.log("Orderline",  orderLines);
+            console.log("Order")
             orderLines = await orderLineRepo.save(orderLines);
+        
             await cartLineRepo.delete(cartLinesId);
-            res.json(order);
+            // res.json(order);
+            res.redirect(`/invoice/${order.id}`)
         } catch (error) {
             
         }
     },
+    
 
     
 }

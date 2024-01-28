@@ -37,8 +37,7 @@
                                 Ground</div>
                             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span> Checking
                                 Quality</div>
-                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Expected Date:</span> SEP
-                                09, 2017</div>
+                            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Expected Date:</span> <%=expected_date%></div>
                         </div>
                         <div class="card-body">
                             <div class="steps d-flex flex-nowrap justify-content-between padding-top-2x padding-bottom-1x">
@@ -94,22 +93,22 @@
                                 <ul class="list-unstyled">
                                     <li class="text-muted mt-2"><i class="fa-solid fa-user me-2"></i><span
                                             class="fw-bold me-3">Name:
-                                        </span><span class="customer-name">John Lorem</span></li>
+                                        </span><span class="customer-name"><%= user.username%></span></li>
                                     <li class="text-muted mt-2"><i class="fa-solid fa-address-book me-2"></i><span
-                                            class="fw-bold me-3">Adress: </span> Street, City</li>
+                                            class="fw-bold me-3">Adress: </span> <%= address?.address ? address.address : 'HCMUS, Linh Trung, Thu Duc'%></li>
                                     <li class="text-muted mt-2"><i class="fas fa-phone me-2"></i><span
                                             class="fw-bold me-3">Phone:
-                                        </span> 0123456789</li>
+                                        </span><%= address?.phone ? address.phone : '123456789'%> </li>
                                 </ul>
                             </div>
                             <div class="col-xl-4">
                                 <ul class="list-unstyled">
                                     <li class="text-muted mt-2">
-                                        <span class="fw-bold me-2">Invoice id: </span> 123-456
+                                        <span class="fw-bold me-2">Invoice id: </span> <%= order.id %>
                                     </li>
 
                                     <li class="text-muted mt-2">
-                                        <span class="fw-bold me-2">Creation Date: </span>Jan 28,2024
+                                        <span class="fw-bold me-2">Creation Date: </span><%= order.created_at %>
                                     </li>
                                     <li class="text-muted mt-2"> <span class="me-1 fw-bold me-2">Status: </span><span
                                             class="badge bg-warning text-black fw-bold">
@@ -131,56 +130,31 @@
                                     </tr>
                                 </thead>
                                 <tbody id="shopping__cart__list">
-                                    <tr class="shopping__cart__item">
-                                        <td>1</td>
-                                        <td class="shopping__cart__info d-flex">
-                                            <img class="image" src="img/cart/cart-1.jpg" alt="">
-                                            <div
-                                                class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                                                <a href="details.html" class="hover__primary limit-line line-2">Adidas
-                                                    shoe made in Japan Lorem
-                                                    ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti
-                                                    aliquid </a>
-                                                <div class="shopping__cart__classify"> 
-                                                    <span>Size: <b>L</b></span>
+                                    <% orderLines.forEach((orderLine, idx) => { %>
+                                        <tr class="shopping__cart__item">
+                                            <td><%= idx + 1 %></td>
+                                            <td class="shopping__cart__info d-flex">
+                                                <img class="image" src="<%= orderLine.product.image %>" alt="">
+                                                <div
+                                                    class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
+                                                    <a href="/detail?id=<%= orderLine.product.id %>" class="hover__primary limit-line line-2"><%= orderLine.product.name %></a>
+                                                    <div class="shopping__cart__classify">
+                                                        <span>Quantity: <b><%= orderLine.quantity %></b></span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="shopping__cart__price">
-                                            <span class="color__primary currency">300000</span>
-                                        </td>
-                                        <td class="shopping__cart__quantity">
-                                            <span>1</span>
-                                        </td>
-                                        <td class="shopping__cart__total">
-                                            <span class="color__primary currency">300000</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="shopping__cart__item">
-                                        <td>2</td>
-                                        <td class="shopping__cart__info d-flex">
-                                            <img class="image" src="img/cart/cart-1.jpg" alt="">
-                                            <div
-                                                class="shopping__cart__text d-flex justify-content-between flex-column mlr05">
-                                                <a href="details.html" class="hover__primary limit-line line-2">Adidas
-                                                    shoe made in Japan Lorem
-                                                    ipsum dolor sit, amet consectetur adipisicing elit. Eum corrupti
-                                                    aliquid </a>
-                                                <div class="shopping__cart__classify"> 
-                                                    <span>Size: <b>L</b></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="shopping__cart__price">
-                                            <span class="color__primary currency">350000</span>
-                                        </td>
-                                        <td class="shopping__cart__quantity">
-                                            <span>1</span>
-                                        </td>
-                                        <td class="shopping__cart__total">
-                                            <span class="color__primary currency">350000</span>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td class="shopping__cart__price">
+                                                <span class="color__primary currency"><%= orderLine.product.price %></span>
+                                            </td>
+                                            <td class="shopping__cart__quantity">
+                                                <span><%=orderLine.quantity%></span>
+                                            </td>
+                                            <td class="shopping__cart__total">
+                                                <span class="color__primary currency"><%= orderLine.total%></span>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                    
                                     <!-- <tr><td colspan="5" class="text-center"><span>Your cart is empty</span></td></tr> -->
                                 </tbody>
                             </table>
@@ -197,7 +171,7 @@
                                 <div class="card position-sticky top-0 ">
                                     <div class="p-3 bg-light bg-opacity-10">
                                         <h6 class="card-title mb-3">Order Summary</h6>
-                                        <div class="d-flex justify-content-between mb-1 small">
+                                        <!-- <div class="d-flex justify-content-between mb-1 small">
                                             <span>Subtotal</span> <span
                                                 class="currency fw-bold text-secondary">750000</span>
                                         </div>
@@ -209,9 +183,17 @@
                                             <span>Voucher discount</span> <span
                                                 class="text-success currency reduce fw-bold">50000</span>
                                         </div>
-                                        <hr>
-                                        <div class="d-flex justify-content-between mb-2 small">
-                                            <span>TOTAL</span> <strong class="text-dark currency">720000</strong>
+                                        <hr> -->
+                                        <div class="d-flex flex-column justify-content-between align-items-center mb-2 small">
+                                            <div class="my-2">
+                                                <span>TOTAL</span> <strong class="text-dark currency"><%= total %></strong>
+                                            </div>
+                                            <div class="my-2">
+                                                <span>DISCOUNT</span> <strong class="text-dark currency"><%= discount %></strong>
+                                            </div>
+                                            <div class="my-2">
+                                                <span>PAYMENT</span> <strong class="text-dark currency"><%= order.total %></strong>
+                                            </div>
                                         </div>
 
                                     </div>

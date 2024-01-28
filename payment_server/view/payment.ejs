@@ -8,25 +8,25 @@
 
 <body>
     <div class="container-center">
-        <h1 class="mb-5 text-white text-center">Payment confirm</h1>
-        <div class="row"> 
+        <div class="row justify-content-center"> 
+            <h1 class="mb-5 text-white text-center">Payment confirm</h1>
             <div class="col-lg-6">
                 <div class="card position-sticky top-0">
                     <div class="p-3 bg-light bg-opacity-10">
                         <h6 class="card-title mb-3">Order Summary</h6>
                         <div class="d-flex justify-content-between mb-1 small">
-                            <span>Subtotal</span> <span class="currency fw-bold text-secondary">750000</span>
+                            <span>Your account balance</span> <span class="currency fw-bold text-secondary"><%= transaction.sender.balance %></span>
                         </div>
                         <div class="d-flex justify-content-between mb-1 small">
-                            <span>Shipping</span> <span class="currency fw-bold text-danger">20000</span>
+                            <span>Transaction amount</span> <span class="currency fw-bold text-danger"><%= transaction.amount%></span>
                         </div>
                         <div class="d-flex justify-content-between mb-1 small">
-                            <span>Voucher discount</span> <span
-                                class="text-success currency reduce fw-bold">50000</span>
+                            <span>Transaction fee</span> <span
+                                class="text-success currency text-danger fw-bold">0</span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-4 small">
-                            <span>TOTAL</span> <strong class="text-dark currency">720000</strong>
+                            <span>TOTAL</span> <strong class="text-dark currency"><%= transaction.amount %></strong>
                         </div>
                         <div class="form-check mb-2 small">
                             <input class="form-check-input" type="checkbox" value="" id="term_of_service">
@@ -42,9 +42,8 @@
                                 unsubscribe at any time. <a href="#">Privacy Policy</a>
                             </label>
                         </div>
-                        <%= transaction.id %>
+                        <div></div>
                         <a href="/payment/login?callbackUrl=<%=callbackUrl%>&transactionId=<%=transaction.id%>" id="purchase_invoice" class="btn btn-primary w-100 mt-2">Purchase</a>
-                       
 
                     </div>
                 </div>

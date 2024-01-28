@@ -51,4 +51,36 @@
     //     }
 
     // })
+    $('.place-order-btn').on('click', async function(e){
+        const senderId = $('input[type="number"][name="senderId"]').val();
+        const amount = $('.total-amount').text().split(' ')[0]
+        console.log("Amount", amount);
+        const receiverId = 1;
+        console.log("Sender", senderId, "receiver", receiverId);
+        const callbackUrl = 'http://localhost:3000/orders/checkout';
+        const cartLines = [];
+        $('.shopping__cart__item').each(function () {
+            // Get the value of the 'data-product' attribute
+            let cartLineId = $(this).data('id');
+    
+            // Add the product ID to the array
+            cartLines.push(cartLineId);
+        });
+        console.log("Cartline", cartLines);
+    
+        const res = await fetch('https://localhost:8000/transactions', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({senderId, receiverId, amount, callbackUrl, cartLines})
+        })
+        const data = await res.json();
+        if(!res.ok){
+            console.log("Something went wrong");
+        
+        } else{
+            window.location = `https://localhost:8000/payment/process?transactionId=${data.id}&callbackUrl=${callbackUrl}`
+        }
+    })
 })(jQuery);

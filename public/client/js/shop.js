@@ -96,52 +96,23 @@
       listProduct.appendChild(itemProduct(i));
     }
 
-    const pagination = document.getElementsByClassName('product__pagination')[0];
-    pagination.innerHTML = '';
-
+    
     if (data.totalPages === 0) {
       pagination.innerHTML = 'There is no product that match.';
     } else {
-      const prevButton = document.createElement("a");
-      prevButton.setAttribute("data-id", parseInt(data.currentPage) - 1);
-      prevButton.style.cursor = 'context-menu';
-      prevButton.style.marginLeft = '0.39rem';
-      prevButton.style.marginRight = '0.39rem';
-      prevButton.classList.add("product__pagination__link");
-      if (parseInt(data.currentPage) === 1) {
-        prevButton.classList.add('disabled');
-      }
-      prevButton.innerHTML = '<i class="fa-solid fa-long-arrow-left"></i>';
-      prevButton.addEventListener('click', changePage);
-      pagination.appendChild(prevButton);
+      const currentPage = parseInt(data.currentPage);
+      const totalPages = parseInt(data.totalPages);
+      const html = `<a data-id="1" style="cursor: context-menu;" class="product__pagination__link"> <i class="fa-solid fa-angles-left"></i></a>                
+                <a data-id="${currentPage == 1? 1 : currentPage - 1}" style="cursor: context-menu;" class="product__pagination__link ${currentPage == 1 ? 'disabled' : ''}">
+                  <i class="fa-solid fa-angle-left"></i></a>
 
-      for (let i = 1; i <= data.totalPages; i++) {
-        const pageButton = document.createElement("a");
-        pageButton.setAttribute("data-id", i);
-        pageButton.style.cursor = 'context-menu';
-        pageButton.style.marginLeft = '0.39rem';
-        pageButton.style.marginRight = '0.39rem';
-        pageButton.classList.add("product__pagination__link");
-        if (i === parseInt(data.currentPage)) {
-          pageButton.classList.add('active');
-        }
-        pageButton.innerHTML = i;
-        pageButton.addEventListener('click', changePage);
-        pagination.appendChild(pageButton);
-      }
+                <span class="d-inline-block mx-2 fs-5">Page <b id="current_page">${currentPage}</b> of <b>${totalPages}</b></span>
 
-      const nextButton = document.createElement("a");
-      nextButton.setAttribute("data-id", parseInt(data.currentPage) === data.totalPages ? 0 : parseInt(data.currentPage) + 1);
-      nextButton.style.cursor = 'context-menu';
-      nextButton.style.marginLeft = '0.39rem';
-      nextButton.style.marginRight = '0.39rem';
-      nextButton.classList.add("product__pagination__link");
-      if (parseInt(data.currentPage) === data.totalPages) {
-        nextButton.classList.add('disabled');
-      }
-      nextButton.innerHTML = '<i class="fa-solid fa-long-arrow-right"></i>';
-      nextButton.addEventListener('click', changePage);
-      pagination.appendChild(nextButton);
+                <a data-id="${currentPage == totalPages ? totalPages : currentPage + 1}" style="cursor: context-menu;" class="product__pagination__link ${currentPage == totalPages ? 'disabled' : ''}"><i class="fa-solid fa-angle-right"></i></a>
+                <a data-id="${totalPages}" style="cursor: context-menu;" class="product__pagination__link"><i class="fa-solid fa-angles-right"></i></a>`;
+      const pagination = $('.product__pagination')[0];
+      pagination.innerHTML = html;
+      $(".product__pagination__link").on('click', changePage);
     }
 
     $(".add__to__favourite").on("click", async function () {

@@ -174,7 +174,7 @@ const editProduct = async (e) => {
   const id = parseInt(e.target.getAttribute("data-id"));
   localStorage.setItem("productId", id);
   const res = await fetch(`http://localhost:3000/products/${id}`, {
-    method: "GET",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },

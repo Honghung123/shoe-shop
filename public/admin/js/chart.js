@@ -1,7 +1,7 @@
 // BAR chart horizontal - "The top 5 brands with the highest revenue."
 let chartType = "bar";
 let brandList = ["Nike", "Adidas", "Levent", "Gucci", "Prada"];
-let revenueOfEachBrand = [41500000, 17500000, 64000000, 55000000, 33000000]; 
+let revenueOfEachBrand = [41500000, 17500000, 64000000, 55000000, 33000000];
 let chartLabel = "The top 5 brands with the highest revenue in 2024-01";
 let chartLabelColor = "white";
 let yAxisLabel = "Brand";
@@ -53,11 +53,8 @@ const chart = {
     },
     scales: {
       y: {
-        grid: {
-          drawBorder: false,
-          display: false,
-          drawOnChartArea: false,
-          drawTicks: false,
+        grid: { 
+          display: false, 
         },
         title: {
           display: true,
@@ -84,6 +81,7 @@ const chart = {
           beginAtZero: true,
           drawOnChartArea: true,
           drawTicks: false,
+          lineWidth: 2,
         },
         title: {
           display: true,
@@ -107,67 +105,58 @@ const chart = {
     },
   },
 };
-const mychart = new Chart(ctx, chart); 
+const mychart = new Chart(ctx, chart);
 // Create envent for Bar chart
 $("#chart__filter1").on("change", function () {
-  const yearMonth = $(this).val(); 
+  const yearMonth = $(this).val();
   brandList = ["Test", "Nike", "Nikasa", "Pama", "Rocket"];
   revenueOfEachBrand = [31500000, 47500000, 24000000, 25000000, 63000000];
   chartLabel = `The top 5 brands with the highest revenue in ${yearMonth}`;
   mychart.data.labels = brandList;
   mychart.data.datasets[0].data = revenueOfEachBrand; // Access the datasets array
   mychart.options.plugins.subtitle.text = chartLabel;
-  mychart.update(); 
+  mychart.update();
 });
 
-
-
 // BAR chart horizontal - "The top 5 best-selling products."
-chartType = "bar";
+chartType = "doughnut";
 productList = [
-  "Levent shoe made in Japan form New York brandnew genuine",
-  "Nike isdf s sdf sdf sfsdf ssd",
-  "Adidas max 20 23 2r 2s sdf sd",
-  "Levent shoe made in Japan form New York brandnew genuine",
-  "Levent shoe made in Japan form New York brandnew genuine",
+  "Giay cao got",
+  "Giay boot",
+  "Giay tay",
+  "Giay call",
+  "Giay the thao",
 ];
-totalSoldForEachOnes = [45, 20, 30, 55, 37];
+percentOfEachOnes = [30, 20, 10, 35, 5];
 chartLabel = "The top 5 best-selling products in 2024";
 chartLabelColor = "white";
-yAxisLabel = "Number of sold products";
-xAxisLabel = "Product name";
-yAxisLabelColor = "lime";
-xAxisLabelColor = "aqua";
-const ctxs = document.getElementById("chart-bars-vertical").getContext("2d");
+const ctxs = document.getElementById("chart-bars-doughnut").getContext("2d");
 const charts = {
   type: chartType,
   data: {
-    labels: productList,
     datasets: [
       {
-        tension: 0.4,
-        borderWidth: 0,
-        borderRadius: 14,
-        borderSkipped: false,
+        data: percentOfEachOnes,
         backgroundColor: [
-          "rgba(255, 99, 132)",
-          "rgba(255, 159, 64)",
-          "rgba(255, 205, 86)",
-          "rgba(54, 162, 235)",
-          "rgba(75, 192, 192)",
+          "rgb(255, 99, 132)",
+          "rgb(255, 159, 64)",
+          "rgb(255, 205, 86)",
+          "rgb(75, 192, 192)",
+          "rgb(54, 162, 235)",
         ],
-        data: totalSoldForEachOnes,
-        maxBarThickness: 20,
       },
     ],
+    labels: productList,
   },
   options: {
-    indexAxis: "x",
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false,
+        display: true,
+        labels: {
+          color: "rgb(255 255 235)",
+        },
       },
       subtitle: {
         display: true,
@@ -177,97 +166,50 @@ const charts = {
           size: 16,
           weight: "bold",
         },
-        padding: { top: 0, left: 0, right: 0, bottom: 20 },
-      },
-    },
-    scales: {
-      y: {
-        title: {
-          display: true,
-          text: yAxisLabel,
-          color: yAxisLabelColor,
-          font: {
-            size: 16,
-            weight: "bold",
-            lineHeight: 1.2,
-          },
-        },
-        grid: {
-          drawBorder: true,
-          drawOnChartArea: true,
-          drawTicks: true,
-        },
-        ticks: {
-          beginAtZero: true,
-          font: {
-            size: 16,
-            family: "Poppins",
-            style: "normal",
-          },
-          color: "#fff",
-        },
-      },
-      x: {
-        grid: {
-          display: false,
-        },
-        title: {
-          display: true,
-          text: xAxisLabel,
-          color: xAxisLabelColor,
-          font: {
-            weight: "bold",
-            size: 16,
-          },
-          padding: { top: 5, left: 0, right: 0, bottom: 0 },
-        },
-        ticks: {
-          display: true,
-          font: {
-            size: 14,
-            family: "sans-serif",
-          },
-          color: "#fff",
-          callback: function (value) {
-            // truncate the labels only in this axis
-            const lbl = this.getLabelForValue(value);
-            if (typeof lbl === "string" && lbl.length > 40) {
-              return `${lbl.substring(0, 40)}...`;
-            }
-            return lbl;
-          },
-        },
+        padding: { top: 0, left: 0, right: 0, bottom: 10 },
       },
     },
   },
 };
+
 const mysecondchart = new Chart(ctxs, charts);
 // Create envent for Bar chart
 $("#chart__filter2").on("change", function () {
   const year = $(this).val(); 
-  // Truy van database 
+  // Truy van database
   productList = [
+    "Prama indonssf ",
     "Arigatou gozaimasu",
-    "Nike isdf s sdf sdf sfsdf ssd",
-    "Prama indonssf sd sdf mas sdfsdf",
-    "Levent shoe made in Japan form New York brandnew genuine",
-    "Adidas max 20 23 2r 2s sdf sd",
+    "Prama indonssf",
+    "Nike isdf s",
+    "Prama indonssf",
   ];
-  totalSoldForEachOnes = [10, 20, 30, 35, 25];
+  percentOfEachOnes = [10, 20, 30, 20, 20];
   // end
   chartLabel = `The top 5 best-selling products in ${year}`;
   mysecondchart.data.labels = productList;
-  mysecondchart.data.datasets[0].data = totalSoldForEachOnes; // Access the datasets array
+  mysecondchart.data.datasets[0].data = percentOfEachOnes; // Access the datasets array
   mysecondchart.options.plugins.subtitle.text = chartLabel;
-  mysecondchart.update(); 
+  mysecondchart.update();
 });
-
 
 // LINE chart
 
 function getMonthList() {
-  return ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  // return Utils.months({ count: 7 });
+  return [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 }
 
 function getBackgroundList(num, chart) {
@@ -286,8 +228,8 @@ function getLineList(month, chart) {
   // Can truy van database
   const labelList = ["Mobile apps", "Web apps"];
   const dataList = [
-    [50, 40, 300, 220, 500, 250, 400, 230, 500],
-    [150, 10, 500, 120, 150, 50, 100, 330, 400],
+    [50, 40, 300, 220, 500, 250, 400, 230, 500, 520, 200, 120],
+    [150, 10, 500, 120, 150, 50, 100, 330, 400, 120, 340, 550],
   ];
   // End
   const lineColorList = [
@@ -320,15 +262,15 @@ function getLineList(month, chart) {
       maxBarThickness: 6,
     };
     lineList.push(line);
-  } 
+  }
   return lineList;
 }
 
 const ctx2 = document.getElementById("chart-line").getContext("2d");
 
-chartType = "line";  
+chartType = "line";
 chartLabel = "Top 5 brand has the highest number of sold product";
-chartLabelColor = "#6900ff"; 
+chartLabelColor = "#6900ff";
 yAxisLabelColor = "lime";
 xAxisLabelColor = "aqua";
 let listOfMonths = getMonthList();
@@ -343,6 +285,9 @@ const chart2 = {
   plugins: {
     legend: {
       display: true,
+      labels: {
+        color: "rgb(74 255 235)",
+      },
     },
     subtitle: {
       display: true,
@@ -361,7 +306,9 @@ const chart2 = {
     plugins: {
       legend: {
         display: true,
-        color: chartLabelColor,
+        labels: {
+          color: "rgb(74 255 150)",
+        },
       },
       title: {
         display: true,
@@ -385,6 +332,7 @@ const chart2 = {
           display: true,
           drawOnChartArea: true,
           drawTicks: false,
+          lineWidth: 2,
           borderDash: [5, 5],
         },
         ticks: {
@@ -399,12 +347,8 @@ const chart2 = {
         },
       },
       x: {
-        grid: {
-          drawBorder: false,
-          display: false,
-          drawOnChartArea: false,
-          drawTicks: false,
-          borderDash: [5, 5],
+        grid: { 
+          display: false, 
         },
         ticks: {
           display: true,

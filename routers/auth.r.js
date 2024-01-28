@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require("../controller/auth.c");
 const passport = require("passport");
 const authorize = require("../middleware/authorize");
+const { userRepo } = require("../config/db.config");
 
 // router.get("/", authorize("customer"), authController.renderHomepage);
 router
@@ -26,8 +27,8 @@ router
   .get(authController.renderLogin)
   .post(
     // passport.authenticate("local", { failureRedirect: "/register" }),
-    (req, res, next) => {
-      passport.authenticate("local", (err, user, info) => {
+    async (req, res, next) => {
+      passport.authenticate("local", async (err, user, info) => {
         if (err) {
           return res.status(500).json({ error: "Internal Server Error" });
         }
@@ -36,7 +37,7 @@ router
         if (!user) {
           return res.status(401).json({ error: info });
         }
-        req.logIn(user, (err) => {
+        req.logIn(user, async (err) => {
           if (err) {
             return res.status(500).json({ error: "Internal Server Error" });
           }
@@ -44,12 +45,28 @@ router
           if (user.role == "admin") {
             return res.redirect("/admin");
           } else {
+            console.log("Session", req.session);
+            const user = await userRepo.findOne({where: {email: req.user.email}});
+          
+            const response = await fetch('https://localhost:8000/accounts/grant-access', {
+              method: 'POST',
+              headers: {
+                'Content-type': 'application/json'
+              },
+              body: JSON.stringify({email: 'admin@gmail.com'})
+            })
+            const accessToken = await response.json();
+            console.log(accessToken);
+            if(response.ok){
+              req.session.accessToken = accessToken;
+            }
+            console.log("Access token", req.session.accessToken);
             return res.redirect("/");
           }
         });
       })(req, res, next);
     },
-    (req, res) => {
+    async (req, res) => {
       if (req.user.role == "admin") {
         res.redirect("/admin");
       } else {
@@ -57,7 +74,6 @@ router
       }
     }
   );
-
 router.get(
   "/google/login",
   passport.authenticate("google", {

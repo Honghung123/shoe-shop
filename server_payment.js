@@ -30,8 +30,11 @@ app.set("view engine", "ejs");
 
 const route = require("./payment_server/router/payment.r");
 const transactionRoute = require('./payment_server/router/transaction.r')
+const accountRoute = require('./payment_server/router/account.r')
+app.use(logger)
 app.use("/", route);
-app.use('/transactions', transactionRoute)
+app.use('/transactions', transactionRoute);
+app.use("/accounts", accountRoute);
 
 
 

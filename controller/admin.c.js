@@ -13,7 +13,7 @@ module.exports = {
             const brands = await brandRepo.find();
             const categories = await categoryRepo.find();
             const sizes = await sizeRepo.find();
-            const conditions = {is_deleted: false};
+            const conditions = {deleted: false};
             const relations = ['category']
             const order = {id: 'ASC'};
             const { result, total, currentPage, totalPages } = await paginate(productRepo, page, limit, relations, order, conditions);
@@ -151,6 +151,7 @@ module.exports = {
         } else{
             res.json({ categories: result, total, currentPage, totalPages, namePage: 'category' })
         }
+        
     },
     getAccountPage: async (req, res, next) => {
         const page = req.query.page || 1;

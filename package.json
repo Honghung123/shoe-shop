@@ -38,6 +38,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "ejs": "^3.1.9"
   }
 }

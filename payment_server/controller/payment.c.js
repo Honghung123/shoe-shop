@@ -20,12 +20,7 @@ const renderPayment = async  (req, res) => {
   console.log("Transaction", transaction);
   res.render('payment', {callbackUrl, transaction});
   
-}
-
-const renderInvoice = (req, res) => {
-    
-    res.render('invoice');
-}
+} 
 
 const postPaymentLogin = async (req, res) => {
   const {transactionId} = req.query;
@@ -65,14 +60,14 @@ const postPaymentRegister = async (req, res) => {
     return res.status(400).json({message: 'Account already exist'});
   } 
   account = await accountRepo.save({id, pin_code: hashedPin, balance: INIT_BALANCE})
-  res.json(account);
+  // res.json(account);
+  res.redirect('http://localhost:3000/account')
 };
  
 module.exports = {
   renderLoginPayment,
   renderRegisterPayment,
-  renderPayment,
-  renderInvoice,
+  renderPayment, 
 
   postPaymentLogin,
   postPaymentRegister, 

@@ -1,136 +1,154 @@
-// $(".category-item").on("click", function (e) {
-//   let currentElement = e.target;
-//   if (!currentElement.classList.contains("btn-custom")) {
-//     while (!currentElement.classList.contains("category-item")) {
-//       currentElement = currentElement.parentNode;
-//     }
-//     const productId = currentElement.getAttribute("data-id");
-//     console.log("Product selected has id " + productId);
-//     $("#viewProduct").modal("show");
-//     // Modify content in modal here
-//   }
-// });
-
-
-const PER_PAGE = 8;
-$(".edit-category").on("click", function (e) {
-  const id = parseInt(e.target.getAttribute("data-id"));
-  console.log("Edit Category has id " + id);
-  const editModal = $("#editCategory")[0];
-  editModal.addEventListener("show.bs.modal", function (event) {
-    // If necessary, you could initiate an AJAX request here
-    // and then do the updating in a callback.
-    
-    // Update the modal's content.
-    const modalTitle = editModal.querySelector(".modal-title");
-    const modalBodyInput = editModal.querySelector(".modal-body input");
-  });
-  
-});
-$('.add-category').on('click', async function(e){
-  const name = $('.cat-name').val();
-  const res = await fetch(`http://localhost:3000/categories`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({name})
-  }); 
-  const data = await res.json();
-  if(res.status !== 201){
-    alert(data.message)
-  } else{
-    const curPage = $('span.page-numbers').text();
-    const refresh = await fetch(`/admin/category?page=${curPage}&limit=${PER_PAGE}`);
-    const data = await refresh.json();
-    updateCategoryList(data);
-    $("#addNewCategory").modal("hide");
-    $('.cat-name').val('')
-  }
-})
-//Validate category name
-$('.cat-name').on('blur', async function (e) {
-  const name = $('.cat-name').val();
-  console.log('Cat name input', name);
-  const res = await fetch(`http://localhost:3000/categories/validate-name`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({name})
-  });
-  const {message} = await res.json();
-  $('.error-msg').text(message);
-  const error = $('.error-msg');
-  console.log(error);
-  
-})
-$('.edit-cat-name').on('blur', async function (e) {
-  console.log("One blur");
-  const name = $('.edit-cat-name').val();
-  console.log('Cat name input', name);
-  const res = await fetch(`http://localhost:3000/categories/validate-name`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({name})
-  });
-  console.log("After request");
-  const {message} = await res.json();
-  console.log(message, "message");
-  $('.error-msg').text(message);
-  
-  
-})
-
-async function changePage() {
-  const page = this.getAttribute('data-id');
-  const limit = PER_PAGE
-  if (parseInt(page) > 0) {
-    const res = await fetch(`/admin/category?page=${page}&limit=${limit}`);
-   
-    console.log("Page", page);
-    const data = await res.json();
-    console.log(data);
-    updateCategoryList(data)
-  }
+/*-----------------------------
+        Toast message
+    -------------------------------*/
+const toastData = {
+  success: {
+    icon: "done",
+    bg_color: "green",
+  },
+  warning: {
+    icon: "warning",
+    bg_color: "yellow",
+  },
+  info: {
+    icon: "info",
+    bg_color: "blue",
+  },
+  error: {
+    icon: "close",
+    bg_color: "red",
+  },
 };
 
-$('.cat-pagination').on('click', changePage)
-
-
-
-$(".delete-category").on("click", function (e) {
-  const id = parseInt(e.target.getAttribute("data-id"));
-  const editModal = $("#deleteCategory")[0];
+const PER_PAGE = 5;
+$(".edit-category").on("click", function (e) {
+  // const catName = e.target.querySelector("td:nth-child(3) span").text();
+  // console.log(catName);
+  const editModal = $("#editCategory")[0];
   editModal.addEventListener("show.bs.modal", function (event) {
-    const modalTitle = editModal.querySelector(".modal-title");
-    const modalBodyInput = editModal.querySelector(".modal-body input");
+    // $(".cat-name-update").val(catName);
   });
 });
 
-function updateCategoryList(data) {
-  const listAccount = document.getElementsByClassName('category-list')[0];
-  listAccount.innerHTML = '';
-  for (let i of data.categories) {
-    console.log(i);
-    listAccount.appendChild(itemCat(i));
+$(".add-categorys").on("click", async function (e) {
+  const result = await validateCategoryName();
+  if (!result) {
+    return false;
   }
-  const pagination = document.getElementsByClassName('pagination')[0];
-  pagination.innerHTML = '';
+  const name = $(".cat-name-input").val();
+  const res = await fetch(`http://localhost:3000/categories`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  });
+  const data = await res.json();
+  $("#addNewCategory").modal("hide");
+  $(".cat-name-input").val("");
+  if (!data.newCategory) {
+    showToastMessage("errror", toastData["error"]);
+  } else {
+    showToastMessage("Added successfully", toastData["success"]);
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/category?page=${curPage}&limit=${PER_PAGE}`
+    );
+    const data = await refresh.json();
+    updateCategoryList(data);
+  }
+});
+
+//Validate category name
+$(".cat-name-input").on("blur", validateCategoryName);
+async function validateCategoryName(e) {
+  const name = $(".cat-name-input").val();
+  const res = await fetch(`http://localhost:3000/categories/validate-name`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  });
+  const { message } = await res.json();
+  if (message.length != 0) {
+    $(".error-msg.add-categorys").text(message);
+    return false;
+  } else {
+    $(".error-msg.add-categorys").text("");
+    return true;
+  }
+}
+$(".cat-name-input").on("focus", () => {
+  $(".error-msg.add-categorys").text("");
+});
+
+$(".edit-cat-name").on("blur", validateCategoryNameUpdate);
+async function validateCategoryNameUpdate(e) {
+  const name = $(".edit-cat-name").val();
+  const res = await fetch(`http://localhost:3000/categories/validate-name`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  });
+  const { message } = await res.json();
+  if (message.length != 0) {
+    $(".error-msg.update-categorys").text(message);
+    return false;
+  } else {
+    $(".error-msg.update-categorys").text("");
+    return true;
+  }
+}
+$(".edit-cat-name").on("focus", () => {
+  $(".error-msg.update-categorys").text("");
+});
+
+async function changePage() {
+  const page = this.getAttribute("data-id");
+  const limit = PER_PAGE;
+  if (parseInt(page) > 0) {
+    const res = await fetch(`/admin/category?page=${page}&limit=${limit}`);
+    const data = await res.json();
+    updateCategoryList(data);
+  }
+}
+
+$(".cat-pagination").on("click", changePage);
+
+$(".delete-category").on("click", deleteCat);
+function deleteCat(e) {
+  const id = parseInt(e.target.getAttribute("data-id"));
+  $("#form-delete").attr("data-id", id);
+  $("#deleteCategory").modal("show");
+} 
+
+function updateCategoryList(data) {
+  const listAccount = document.getElementsByClassName("category-list")[0];
+  listAccount.innerHTML = "";
+  let index = 1;
+  for (let i of data.categories) {
+    listAccount.appendChild(itemCat(i, index));
+    index++;
+  }
+  const pagination = document.getElementsByClassName("pagination")[0];
+  pagination.innerHTML = "";
 
   // Tạo nút Prev
   const prevButton = document.createElement("button");
   prevButton.setAttribute("data-id", data.currentPage - 1);
   prevButton.classList.add("prev", "pagination-account", "page-numbers");
   prevButton.textContent = "Prev";
-  prevButton.addEventListener('click', changePage);
+  prevButton.addEventListener("click", changePage);
   pagination.appendChild(prevButton);
 
   // Tạo các nút số
   for (let i = 1; i <= data.totalPages; i++) {
-    const pageNumberButton = document.createElement(i === parseInt(data.currentPage) ? "span" : "button");
+    const pageNumberButton = document.createElement(
+      i === parseInt(data.currentPage) ? "span" : "button"
+    );
     pageNumberButton.setAttribute("data-id", i);
     pageNumberButton.classList.add("page-numbers");
 
@@ -141,16 +159,21 @@ function updateCategoryList(data) {
     } else {
       pageNumberButton.textContent = i;
     }
-    pageNumberButton.addEventListener('click', changePage);
+    pageNumberButton.addEventListener("click", changePage);
     pagination.appendChild(pageNumberButton);
   }
 
   // Tạo nút Next
   const nextButton = document.createElement("button");
-  nextButton.setAttribute("data-id", parseInt(data.currentPage) === data.totalPages ? 0 : parseInt(data.currentPage) + 1);
+  nextButton.setAttribute(
+    "data-id",
+    parseInt(data.currentPage) === data.totalPages
+      ? 0
+      : parseInt(data.currentPage) + 1
+  );
   nextButton.classList.add("next", "pagination-account", "page-numbers");
   nextButton.textContent = "Next";
-  nextButton.addEventListener('click', changePage);
+  nextButton.addEventListener("click", changePage);
   pagination.appendChild(nextButton);
 
   $(".edit-category").on("click", editCat);
@@ -158,48 +181,71 @@ function updateCategoryList(data) {
 }
 
 const editCat = (e) => {
-  console.log("Saving to local storage");
   const id = parseInt(e.target.getAttribute("data-id"));
-  const name = e.target.getAttribute("data-cat-name")
-  $('.edit-cat-name').val(name)
-  console.log(e.target);
-  localStorage.setItem('idCatToEdit', id);
-  localStorage.setItem('catName', name)
-}
-const deleteCat = (e) => {
-  
-}
+  const name = e.target.getAttribute("data-cat-name");
+  $(".edit-cat-name").val(name);
+  localStorage.setItem("idCatToEdit", id);
+  localStorage.setItem("catName", name);
+};
 $(".edit-category").on("click", editCat);
-$(".delete-category").on("click", deleteCat);
-$('.update-category').on('click', async function(e) {
-  const id = localStorage.getItem('idCatToEdit');
-  const name = $('.edit-cat-name').val();
-  
-  console.log("Cat name to update", name, id);
-  const res = await fetch(`http://localhost:3000/categories/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({id, name})
-  })
-  const data = await res.json();
-  if(res.status !== 200){
-    alert(data.message)
-  } else{
-    const curPage = $('span.page-numbers').text();
-    const refresh = await fetch(`/admin/category?page=${curPage}&limit=${PER_PAGE}`);
-    const data = await refresh.json();
-    
-    updateCategoryList(data);
-    $("#editCategory").modal("hide");
-    $('.edit-cat-name').val('')
+$(".update-category").on("click", async function (e) {
+  const result = await validateCategoryNameUpdate();
+  if (!result) {
+    return false;
   }
-  localStorage.removeItem('idCatToUpdate')
-  localStorage.removeItem('catName')
-  
-})
-const itemCat = (category) => {
+  const id = localStorage.getItem("idCatToEdit");
+  const name = $(".edit-cat-name").val();
+  const res = await fetch(`http://localhost:3000/categories/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, name }),
+  });
+  const data = await res.json();
+  $("#editCategory").modal("hide");
+  $(".edit-cat-name").val("");
+  if (res.status !== 200) {
+    showToastMessage(data.message, toastData["error"]);
+  } else {
+    showToastMessage("Updated successfully", toastData["success"]);
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/category?page=${curPage}&limit=${PER_PAGE}`
+    );
+    const data = await refresh.json();
+    updateCategoryList(data);
+  }
+  localStorage.removeItem("idCatToUpdate");
+  localStorage.removeItem("catName");
+});
+
+$("#form-delete").on("submit", async function (e) {
+  e.preventDefault();
+  const id = parseInt(e.target.getAttribute("data-id")); 
+  const res = await fetch(`http://localhost:3000/categories/${id}`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
+  const data = await res.json();
+  $("#deleteCategory").modal("hide");
+  if (data.message.length == 0) {
+    showToastMessage(`Deleted category has id: ${id}`, toastData["success"]);
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/category?page=${curPage}&limit=${PER_PAGE}`
+    );
+    const data = await refresh.json();
+    updateCategoryList(data);
+  } else {
+    showToastMessage(data.message, toastData["error"]);
+  }
+});
+
+const itemCat = (category, idx) => {
   // Tạo một đối tượng tr
   const catRow = document.createElement("tr");
   catRow.classList.add("category-item");
@@ -207,14 +253,11 @@ const itemCat = (category) => {
 
   // Gắn HTML vào bên trong thẻ tr
   catRow.innerHTML = `
-  <td><span>${category.id}</span></td>
+  <td><span>${idx}</span></td>
   <td><span>${category.id}</span></td>
   <td>
       <span>${category.name}</span>
-  </td>
-  <td>
-      <span class="">3</span>
-  </td>
+  </td> 
   <td>
       <div class="flex-center-center column-gap-2 flex-wrap-wrap">
           <button class="btn-custom btn-warning edit-category" data-bs-toggle="modal" data-bs-target="#editCategory"
@@ -224,19 +267,25 @@ const itemCat = (category) => {
       </div>
   </td>
 
-  `
+  `;
 
   // Gắn sự kiện click cho dòng
   return catRow;
+};
+
+function showToastMessage(message, data) {
+  const toast = `<div class="toast-notification slide-in-slide-out">
+        <div class="toast-content">
+          <div class="toast-icon background-${data.bg_color} wiggle-me">
+            <span class="material-icons-sharp"> ${data.icon} </span>
+          </div>
+          <div class="toast-msg limit-line line-3">${message}</div>
+        </div>
+        <div class="toast-progress">
+          <div class="toast-progress-bar background-${data.bg_color}"></div>
+        </div>
+      </div>  `;
+  const $toast = $(toast);
+  $toast.appendTo("#toast__container");
+  setTimeout(() => $toast.remove(), 2500);
 }
-
-
-
-
-$(".error-msg").each((idx, error) => {
-  if ($(error).html() != "") {
-    $(error).show();
-  } else {
-    $(error).hide();
-  }
-});

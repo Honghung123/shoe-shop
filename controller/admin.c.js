@@ -2,7 +2,7 @@ const { In, Between } = require("typeorm");
 const { productRepo, orderRepo, categoryRepo, userRepo, addressRepo, brandRepo, orderLineRepo, sizeRepo, imageRepo } = require("../config/db.config");
 const paginate = require("../utils/paginate");
 const paginateAccount = require("../utils/paginateAccount");
-const {hashPwd} = require('../utils/hashPassword');
+const { hashPwd } = require('../utils/hashPassword');
 require("dotenv").config();
 
 module.exports = {
@@ -13,20 +13,30 @@ module.exports = {
             const brands = await brandRepo.find();
             const categories = await categoryRepo.find();
             const sizes = await sizeRepo.find();
-            const conditions = {deleted: false};
+            const conditions = { deleted: false };
             const relations = ['category']
-            const order = {id: 'ASC'};
+            const order = { id: 'ASC' };
             const { result, total, currentPage, totalPages } = await paginate(productRepo, page, limit, relations, order, conditions);
-            for(let i = 0; i < result.length; i++){
-                const productImage = await imageRepo.findOne({where: {product_id: result[i].id}})
-                if(productImage){
+            for (let i = 0; i < result.length; i++) {
+                const productImage = await imageRepo.findOne({ where: { product_id: result[i].id } })
+                if (productImage) {
                     result[i].image = productImage.image;
                 }
             }
             console.log(result);
-            if(Object.keys(req.query).length === 0){
-                return res.render("admin/product", { products: result, total, currentPage, totalPages, brands, categories, sizes, namePage: 'product' });
-            } else{
+            if (Object.keys(req.query).length === 0) {
+                return res.render("admin/product", {
+                    products: result,
+                    total,
+                    currentPage,
+                    totalPages,
+                    brands,
+                    categories,
+                    sizes,
+                    namePage: 'product',
+                    user: req.user
+                });
+            } else {
                 res.json({ products: result, total, currentPage, totalPages, brands, categories, sizes, namePage: 'product' })
             }
         } catch (error) {
@@ -37,79 +47,65 @@ module.exports = {
         const page = req.query.page || 1;
         const limit = req.query.limit || 3;
         const relations = ['user'];
-        const order = {id: 'ASC'};
+        const order = { id: 'ASC' };
         const conditions = null;
         const { result, total, currentPage, totalPages } = await paginate(orderRepo, page, limit, relations, order, conditions);
         console.log(result);
-        for(let i = 0; i < result.length; i++){
+        for (let i = 0; i < result.length; i++) {
             const createdAt = new Date(result[i].created_at)
             const created_at = `${createdAt.getDate()} -${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`
             console.log(createdAt);
             result[i].created_at = created_at
         }
-        if(Object.keys(req.query).length === 0){
-            res.render("admin/order", { namePage: 'order', orders: result, total, currentPage, totalPages});
-        } else{
-            res.json({ namePage: 'order', orders: result, total, currentPage, totalPages});
+        if (Object.keys(req.query).length === 0) {
+            res.render("admin/order", {
+                namePage: 'order',
+                orders: result,
+                total,
+                currentPage,
+                totalPages,
+                user: req.user
+            });
+        } else {
+            res.json({ namePage: 'order', orders: result, total, currentPage, totalPages });
         }
-        
+
     },
     getDashboardPage: async (req, res) => {
-        console.log("Getting dash board");
-        const now = new Date();
-        const month = req.query.month || now.getMonth() + 1;
-        const year = req.query.year || now.getFullYear();
+        // total sales
+        const ordersSale = await orderRepo.find();
+        let totalSales = 0;
+        for (let i of ordersSale) {
+            totalSales += i.total;
+        }
+        console.log('totalSales', totalSales);
+
+        // users
+        const users = await userRepo.find({
+            where: { deleted: false }
+        });
+        console.log('users', users.length);
+
+        // Products
+        const products = await productRepo.find({
+            where: {deleted: false}
+        })
+        console.log('product', products.length);
+
+        // top 5 brand revenue
+        const month_year = req.query.month_year || '2024-01';
+        if(!month_year){
+            res.status(400).json('Bad request')
+        }
         
-        const bestSeller = req.query.bestSeller || 'yearly';
+        const monthAndYear = month_year.split('-');
+        const month = parseInt(monthAndYear[1]); //
+        const year = parseInt(monthAndYear[0]);
+        console.log(month, year);
+        
         const startDate = new Date(year, month - 1, 1);
         const endDate = new Date(year, month, 1);
-        const selectedDate = req.query.selectedDate || now;
-        const selectedMonth = req.query.selectedMonth || now.getMonth() + 1;
-        const selectedYear = req.query.selectedYear || now.getFullYear();
-
-        let ordersInPeriod = null;
-        if (bestSeller === 'daily') {
-
-            ordersInPeriod = await orderRepo
-                .createQueryBuilder('order')
-                .where('CAST(order.created_at AS DATE) = :selectedDate', { selectedDate })
-                .getMany();
-        } else if (bestSeller === 'monthly') {
-            ordersInPeriod = await orderRepo
-                .createQueryBuilder('order')
-                .where(`EXTRACT(YEAR FROM order.created_at) = :selectedYear`, { selectedYear })
-                .andWhere(`EXTRACT(MONTH FROM order.created_at) = :selectedMonth`, { selectedMonth })
-                .getMany();
-        } else {
-            ordersInPeriod = await orderRepo
-                .createQueryBuilder('order')
-                .where(`EXTRACT(YEAR FROM order.created_at) = :selectedYear`, { selectedYear })
-                .getMany();
-        }
-        const ordersInPeriodId = ordersInPeriod.map(order => order.id);
-        const orderLinesInPeriod = await orderLineRepo.find({
-            where: { order_id: In(ordersInPeriodId) },
-            relations: ['product']
-        });
-        
-
-        let bestSellerProductMap = new Map();
-        for (const orderLine of orderLinesInPeriod) {
-            const productName = orderLine.product.name;
-            const quantity = orderLine.quantity;
-            if (bestSellerProductMap.has(productName)) {
-                bestSellerProductMap.set(productName, bestSellerProductMap.get(productName) + quantity);
-            } else {
-                bestSellerProductMap.set(productName, quantity);
-            }
-        }
-        const bestSellersArray = Array.from(bestSellerProductMap.entries());
-        // Sort the array in descending order based on total quantity sold
-        bestSellersArray.sort((a, b) => b[1] - a[1]);
-        // Limit the result to the top 5 products
-        const top5BestSellers = bestSellersArray.slice(0, 5);
-
-
+        console.log(startDate, endDate);
         const orders = await orderRepo.find({ where: { created_at: Between(startDate, endDate) } });
         const ordersId = orders.map(order => order.id);
 
@@ -117,11 +113,8 @@ module.exports = {
             where: { order_id: In(ordersId) },
             relations: ['product', 'product.brand']
         })
-        
+        console.log(orderLines);
         const brandRevenueMap = new Map();
-
-
-
         for (const orderLine of orderLines) {
             const brandName = orderLine.product.brand.brand_name
             const revenue = orderLine.total;
@@ -133,9 +126,23 @@ module.exports = {
         }
         const brandRevenueArray = Array.from(brandRevenueMap.entries());
         brandRevenueArray.sort((a, b) => b[1] - a[1]);
-        const top5Brands = brandRevenueArray.slice(0, 5);
-        
-        res.render("admin/dashboard", {top5Brands: Object.fromEntries(top5Brands), top5Products: Object.fromEntries(top5BestSellers), namePage: 'dashboard'});
+        const top5BrandsRevenue = brandRevenueArray.slice(0, 5);
+        console.log(top5BrandsRevenue);
+
+
+        // top 5 product best-seller
+
+
+
+        // top 5 brand number of sold
+
+
+
+
+        res.render("admin/dashboard", {
+            namePage: 'dashboard',
+            user: req.user
+        });
     },
     getCategoryPage: async (req, res, next) => {
         const page = req.query.page || 1;
@@ -143,22 +150,35 @@ module.exports = {
         console.log(page, limit);
         const relations = null;
         const condition = null;
-        const order = {id: 'ASC'}
+        const order = { id: 'ASC' }
         // const order = null;
         const { result, total, currentPage, totalPages } = await paginate(categoryRepo, page, limit, relations, order, condition);
-        if(Object.keys(req.query).length === 0){
-            res.render("admin/category", { categories: result, total, currentPage, totalPages, namePage: 'category' });
-        } else{
+        if (Object.keys(req.query).length === 0) {
+            res.render("admin/category", {
+                categories: result,
+                total,
+                currentPage,
+                totalPages,
+                namePage: 'category',
+                user: req.user
+            });
+        } else {
             res.json({ categories: result, total, currentPage, totalPages, namePage: 'category' })
         }
-        
+
     },
     getAccountPage: async (req, res, next) => {
         const page = req.query.page || 1;
         const limit = req.query.limit || process.env.PER_PAGE_ACCOUNT;
         const { result, total, currentPage, totalPages } = await paginateAccount(userRepo, page, limit);
         if (Object.keys(req.query).length === 0) {
-            res.render("admin/account", { users: result, total, currentPage, totalPages, namePage: 'account' });
+            res.render("admin/account", {
+                users: result,
+                total, currentPage,
+                totalPages,
+                namePage: 'account',
+                user: req.user
+            });
         } else {
             res.json({ users: result, total, currentPage, totalPages, namePage: 'account' })
         }

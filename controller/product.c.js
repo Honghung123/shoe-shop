@@ -146,12 +146,14 @@ module.exports = {
     }
     const files = req.files;
     const images = [];
-    for (let i = 0; i < files.length; i++) {
-      const productImage = await imageRepo.save({
-        product_id: productToUpdate.id,
-        image: files[i].path,
-      });
-      images.push(productImage);
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const productImage = await imageRepo.save({
+          product_id: productToUpdate.id,
+          image: files[i].path,
+        });
+        images.push(productImage);
+      }
     }
     const updatedProduct = await productRepo.save(productToUpdate);
     res.status(200).json(updatedProduct);

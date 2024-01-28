@@ -117,13 +117,7 @@ function itemAccount(user) {
                 }" alt="">
             </div>
             <div>
-                <h5 class="text-start">${user.username}</h5> 
-                <div class="user-info">
-                    <ul class="list-unstyled text-start">
-                        <li>Account id: 123</li>
-                        <li>Balance: <span class="currency">100000</span></li>
-                    </ul>
-                </div>
+                <h5 class="text-start">${user.username}</h5>
             </div>
         </td>
         <td class="position-relative">

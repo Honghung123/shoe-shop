@@ -273,7 +273,7 @@
                         <li><a class="link-hover-horizontal <%= curPage === 'voucher' ? 'active' : '' %>" href="/voucher">Vouchers</a></li>
                         <li><a class="link-hover-horizontal <%= curPage === 'more' ? 'active' : '' %>" style="cursor: pointer;">More</a>
                             <ul class="header__menu__dropdown">
-                                <li><a class="link-hover-horizontal" href="/order">Order</a></li>
+                                <li><a data-isAuthenticated="<%=isAuthenticated%>" class="cart-icon link-hover-horizontal" href="<%= isAuthenticated ? '/order' : '#' %>">Order</a></li>
                                 <li><a class="link-hover-horizontal" href="/contact">Contact</a></li>
                             </ul>
                         </li>

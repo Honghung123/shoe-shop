@@ -20,13 +20,13 @@
     <div class="profile">
       <div class="info d-flex flex-column align-items-center row-gap-1">
         <p>
-          Hi, <b>Honghung123</b>
+          Hi, <b><%=user.username%></b>
         </p>
         <small class="w-100 text-end">Admin</small>
       </div>
       <div class="profile-photo">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFGwi5Q-BYGGMhBiEGF70BGNBp1Ne1BP_fNRf8sJ1aHBHkLYqn38VsNhfuysQAxhvRFEM&usqp=CAU" />
+          src="<%= user.avatar || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFGwi5Q-BYGGMhBiEGF70BGNBp1Ne1BP_fNRf8sJ1aHBHkLYqn38VsNhfuysQAxhvRFEM&usqp=CAU'%> " />
       </div>
     </div>
   </div>

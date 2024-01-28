@@ -3,7 +3,7 @@ const { orderLineRepo, orderRepo } = require("../config/db.config");
 
 module.exports = {
     getTop5BrandByMonth: async (req, res) => {
-        const {month_year} = req.query || '2024-01';
+        const month_year = req.query.month_year || '2024-01';
         if(!month_year){
             res.status(400).json('Bad request')
         }

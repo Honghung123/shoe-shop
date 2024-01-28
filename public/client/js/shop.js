@@ -113,13 +113,41 @@
         $('#addToCartModal').modal('show');
       }
     });
-    $(".add__to__cart").on("click", function () {
+    $(".add__to__cart").on("click", async function () {
       const cartIcon = $('#cart-icon').attr('data-isAuthenticated');
-      if (cartIcon === 'false') {
-        $('#requireLoginModal').modal('show');
-      } else {
-        $('#addToCartModal').modal('show');
+    if (cartIcon === 'false') {
+      $('#requireLoginModal').modal('show');
+    } else {
+      let $product = $(this).parent();
+      while (!$product.hasClass("specific__product")) {
+        $product = $product.parent();
       }
+      const id = parseInt($product.data("id"));
+      const response = await fetch(`/get-product-id`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id })
+      });
+      const data = await response.json();
+      console.log(data);
+      const selectContainer = document.getElementById('stock-size-addToCart');
+      selectContainer.innerHTML = '';
+      selectContainer.value = data[0].size;
+      const quantityContainer = document.getElementById('stock-quantity-addToCart');
+      quantityContainer.max = data[0].quantity;
+      for (let i of data) {
+        const option = document.createElement('option');
+        option.value = i.size;
+        option.text = i.size;
+        option.classList.add('option-size');
+        option.dataset.info = i.quantity;
+        selectContainer.appendChild(option);
+      }
+      $('#addToCartModal').attr('data-id', id);
+      $('#addToCartModal').modal('show');
+    }
     });
   }
 
@@ -260,7 +288,6 @@
   async function getData_Sort_Filter() {
     const page = 1;
     const limit = PER_PAGE_PRODUCT;
-    console.log(postFilter());
     if (parseInt(page) > 0) {
       const response = await fetch(`/get-product?page=${page}&limit=${limit}`, {
         method: "POST",

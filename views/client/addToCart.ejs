@@ -5,22 +5,22 @@
             <div class="modal-body p-0">
                 <section class="my-modal-content p-4">
                     <h1 class="title mb-4 text-gradient">Add size and stock</h1>
-                    <form id="form-add-stock">
+                    <form>
                         <div class="form-content flex-between-center">
                             <div class="custom-form-field">
                                 <label class="label fw-bold">Size: </label>
-                                <select id="stock-size" class="form-select" required>
+                                <select id="stock-size-addToCart" class="form-select" required>
                                 </select>
                                 <label class="error-msg"></label>
                             </div>
                             <div class="custom-form-field">
                                 <label class="label fw-bold">Quantity: </label>
-                                <input type="number" id="stock-quantity" class="input-text" min="1" step="1" value="1"
+                                <input type="number" id="stock-quantity-addToCart" class="input-text" min="1" max="" step="1" value="1"
                                     required>
                                 <label class="error-msg"></label>
                             </div>
                         </div>
-                        <button type="submit"
+                        <button type="button" id="btn-add-to-cart"
                             class="btn-custom btn-success fw-bold mt-4 margin-auto d-block">Add</button>
                     </form>
                     <button class="fw-bold close" data-bs-dismiss="modal">
@@ -31,3 +31,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#stock-size-addToCart').on('change', function() {
+        const options = $('.option-size');
+        for (let i of options) {
+            if ($(i).val() === $(this).val()) {
+                $('#stock-quantity-addToCart').attr('max', $(i).data('info'));
+            }
+        }
+    })
+</script>

@@ -1,16 +1,35 @@
-const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo } = require('../config/db.config');
-const { MoreThan, Equal } = require('typeorm');
-const { Not } = require('typeorm');
+const { async } = require('rxjs');
+const { categoryRepo, brandRepo, productRepo, imageRepo, stockRepo, sizeRepo, saleRepo, userRepo, cartLineRepo } = require('../config/db.config');
+const { MoreThan, Equal, Not } = require('typeorm');
+const cartReview = require('../utils/cartReview');
+
 require('dotenv').config();
 
 module.exports = {
+  postProductbyId: async (req, res, next) => {
+    const product = await productRepo.findOne({
+      where: { id: parseInt(req.body.id) }
+    })
+    const stock = await stockRepo.find({
+      where: {
+        product_id: product.id,
+        quantity: MoreThan(0)
+      }
+    })
+    for (let i of stock) {
+      const size = await sizeRepo.findOne({
+        where: { id: i.size_id }
+      });
+      i.size = size.size
+    }
+    res.json(stock);
+  },
   postQuerySearch: async (req, res, next) => {
     const query = [];
     for (let i of req.body.query.split(' ')) {
       i = i.toLowerCase();
       query.push(i);
     }
-    console.log(query);
     const dataSale = await saleRepo.find();
     const dataProduct = await productRepo.find();
     const curDate = new Date();
@@ -135,7 +154,10 @@ module.exports = {
       product.price_discount = Math.ceil(product.price * parseInt(100 - i.percent) / 100.0);
       i.product = product;
     }
-
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/home", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -144,7 +166,8 @@ module.exports = {
       sales,
       latest,
       saleWeek,
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderShoppingPage: async (req, res) => {
@@ -190,7 +213,7 @@ module.exports = {
         i = i.toLowerCase();
         query.push(i);
       }
-  
+
       dataProduct = dataProduct.filter(e => {
         for (let i of query) {
           if (!e.name.toLowerCase().includes(i)) {
@@ -202,7 +225,7 @@ module.exports = {
     }
 
     if (req.query.category) {
-        dataProduct = dataProduct.filter(e => e.cat_id === parseInt(req.query.category));
+      dataProduct = dataProduct.filter(e => e.cat_id === parseInt(req.query.category));
     }
 
     console.log(dataProduct);
@@ -221,7 +244,10 @@ module.exports = {
       });
       result[i].cat_name = cat.name;
     }
-
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/shopping", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -232,31 +258,47 @@ module.exports = {
       total,
       totalPages,
       currentPage: page,
-      query: req.query.search || ''
+      query: req.query.search || '',
+      cartReviews
     });
   },
   renderCheckoutPage: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/checkout", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'more',
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderVoucherPage: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/voucher", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'voucher',
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderFavorPage: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/favorite", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'favorite',
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderDiscountPage: async (req, res) => {
@@ -310,6 +352,11 @@ module.exports = {
     const total = sales.length;
     const totalPages = Math.ceil(total / limit);
     const result = sales.slice((page - 1) * limit, (page - 1) * limit + limit);
+
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/discount", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -318,25 +365,36 @@ module.exports = {
       saleToday,
       currentPage: page,
       totalPages,
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderContactPage: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/contact", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'more',
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderAccountPage: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     console.log(req.user);
-    const user = await userRepo.findOne({where: {email: req.user.email}})
+    const user = await userRepo.findOne({ where: { email: req.user.email } })
     res.render("client/account", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'account',
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderDetailsPage: async (req, res) => {
@@ -394,6 +452,10 @@ module.exports = {
         i.isSale = false;
       }
     }
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/details", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
@@ -402,23 +464,68 @@ module.exports = {
       images,
       stock,
       suggests,
-      query: ''
+      query: '',
+      cartReviews
     });
   },
   renderCartPage: async (req, res) => {
+    const carts = await cartLineRepo.find({
+      where: { user_id: req.user.id },
+      order: { id: 'DESC' }
+    });
+    const curDate = new Date();
+    curDate.setHours(curDate.getHours() + 7);
+    
+    for (let i of carts) {
+      let product = await productRepo.findOne({
+        where: {
+          id: parseInt(i.product_id)
+        }
+      });
+      const sale = await saleRepo.findOne({
+        where: { product_id: parseInt(i.product_id) }
+      });
+      if (sale && (new Date(sale.expire) > curDate)) {
+        product.isSale = true;
+        product.price_discount = parseInt(product.price) * (1 - sale.percent / 100.0);
+      } else {
+        product.isSale = false
+      }
+      const image = await imageRepo.findOne({
+        where: { product_id: product.id }
+      });
+      product.image = image.image;
+      const size = await sizeRepo.findOne({
+        where: {id: i.size_id}
+      })
+      i.size = size.size;
+      i.product = product;
+    }
+
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/cart", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'cart',
-      query: ''
+      query: '',
+      cartReviews,
+      carts
     });
   },
   renderUpdateProfilePage: async (req, res) => {
+    let cartReviews = [];
+    if (req.isAuthenticated()) {
+      cartReviews = await cartReview(req.user.id);
+    }
     res.render("client/update-profile", {
       isAuthenticated: req.isAuthenticated(),
       user: req.user,
       curPage: 'profile',
-      query: ''
+      query: '',
+      cartReviews
     });
   },
 };

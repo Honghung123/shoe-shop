@@ -1,69 +1,78 @@
 const { In, MoreThan } = require('typeorm');
-const {cartLineRepo, productRepo, orderRepo, orderLineRepo, stockRepo} = require('../config/db.config')
+const { cartLineRepo, sizeRepo, productRepo, imageRepo, categoryRepo, orderRepo, orderLineRepo, stockRepo, saleRepo } = require('../config/db.config')
 module.exports = {
     addToCart: async (req, res, next) => {
         try {
             const userId = req.user.id;
-            const {productId, quantity, sizeId} = req.body;
-            const product = await productRepo.findOne({where: {id: productId}});
-            if(!product){
-                
+            const { id, size, quantity } = req.body;
+            let cartLine = await cartLineRepo.findOne({
+                where: {
+                    product_id: parseInt(id),
+                    user_id: userId
+                }
+            })
+            if (cartLine) {
+                return res.status(401).json({ message: 'This product is already in the cart' });
+            } else {
+                const sizeId = await sizeRepo.findOne({
+                    where: { size: parseInt(size) }
+                })
+                cartLine = await cartLineRepo.save({ user_id: userId, product_id: parseInt(id), size_id: sizeId.id, quantity: parseInt(quantity) });
             }
-            const stock = await stockRepo.findOne({where: {product_id: productId, size_id: sizeId, quantity: MoreThan(0)}})
-            if(!stock){
-                // run out of stock
-                res.json('Run out of stock')
+
+            let result = await productRepo.findOne({
+                where: {
+                    id: parseInt(id)
+                }
+            });
+            const sale = await saleRepo.findOne({
+                where: { product_id: parseInt(id) }
+            });
+            const curDate = new Date();
+            curDate.setHours(curDate.getHours() + 7);
+            if (sale && (new Date(sale.expire) > curDate)) {
+                result.isSale = true;
+                result.price_discount = parseInt(result.price) * (1 - sale.percent / 100.0);
+            } else {
+                result.isSale = false
             }
-            let cartLine = await cartLineRepo.findOne({where: {product_id: productId, user_id: userId}})
-            if(cartLine){
-                cartLine.quantity = cartLine.quantity + quantity;
-                cartLine = await cartLineRepo.save(cartLine)
-            } else{
-                cartLine = await cartLineRepo.save({user_id: userId, product_id: productId, quantity})
-            }
-            
-            //replace json with render or redirect
-            // const cartLines = await cartLineRepo.find(); //find all cart line of user
-            const [cartLines, total] = await cartLineRepo.findAndCount({user_id: userId}) 
-            res.json({cartLines, total});
+            const image = await imageRepo.findOne({
+                where: { product_id: result.id }
+            });
+            result.image = image.image;
+            res.status(200).json(result);
         } catch (error) {
             console.log(error)
         }
     },
     removeFromCart: async (req, res, next) => {
         try {
-            const id = req.params;
-            await cartLineRepo.delete(id);
-            res.json({message: 'Cart line removed'})
+            const productId = req.body.productId;
+            await cartLineRepo.delete(productId);
+            res.status(200).json({ message: 'Cart line removed' });
         } catch (error) {
             console.log(error);
-            
         }
-    }, 
-    
-   
-    viewCart: async (req, res, next) => {
-        try {
-            const userId = req.user.id
-            const total = await cartLineRepo.count({where: {user_id: userId}});
-            //fetch cart-line and its associative product
-            const cartLines = await cartLineRepo.find({where: {user_id: userId}, relations: ['product']});
-            
-            // res.json(cartLines);
-            //TODO redener or direct
-        } catch (error) {
-            
-        }
-    }, 
+    },
     updateCartLine: async (req, res) => {
-        const id = req.params;
-        const {quantity} = req.body;
-        const cartLine = await cartLineRepo.findOne({where: {id}});
-        cartLine.quantity = quantity;
+        const { cartLineId ,productId, sizeId, newVal }= req.body;
+        if (newVal <= 0) {
+            return res.status(401).json({message: 'Update fail'});
+        }
+        const stock = await stockRepo.findOne({
+            where: {
+                product_id: productId,
+                size_id: sizeId
+            }
+        })
+        if (stock.quantity < newVal) {
+            return res.status(401).json({message: 'Update fail'});
+        }
+        const cartLine = await cartLineRepo.findOne({ where: { id: cartLineId } });
+        cartLine.quantity = newVal;
         const temp = await cartLineRepo.save(cartLine);
-        res.json(temp);
-        res.redirect('/carts')
+        res.status(200).json({message: 'Update successfully'});
     }
 
-    
+
 }

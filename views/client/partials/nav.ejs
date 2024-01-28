@@ -193,36 +193,36 @@
                             <ul class="header__cart__dropdown">
                                 <div class="padding__box"></div>
                                 <div class="text-mute p-2 header__cart__title">Your cart</div>
-                                <li class="header__cart__link">
-                                    <div class="header__cart_product d-flex">
-                                        <div class="w-25 header__cart_product-image"><img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xkHciuvOBxSg5mQ31LsJiZekGiApBgUFVA&usqp=CAU"
-                                                alt="" class="image"></div>
-                                        <div class="w-75 header__cart_product-info">
-                                            <a href="/detail" class="limit-line line-1">Shoe nike 2023 brand new
-                                                made in Japan</a>
-                                            <div class="flex-between-center header__cart_product-detail">
-                                                <span class="currency">700000</span>
-                                                <!-- <span class="fw-bold multiple_qty">1</span> -->
+                                <li class="header__cart__link"></li>
+
+                                <% cartReviews.forEach(e => { %>
+                                <% if (e.product.isSale) { %>
+                                    <li class="header__cart__link">
+                                        <div class="header__cart_product d-flex">
+                                            <div class="w-25 header__cart_product-image"><img src="<%=e.product.image%>" alt="" class="image"></div>
+                                            <div class="w-75 header__cart_product-info">
+                                                <a href="/detail?id=<%=e.product.id%>" class="limit-line line-1"><%=e.product.name%></a>
+                                                <div class="flex-between-center header__cart_product-detail">
+                                                    <span class="currency color__primary"><%=e.product.price_discount%></span>
+                                                    <span class="currency product__discount__oldprice mlr05"><%=e.product.price%></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="header__cart__link">
-                                    <div class="header__cart_product d-flex">
-                                        <div class="w-25 header__cart_product-image"><img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xkHciuvOBxSg5mQ31LsJiZekGiApBgUFVA&usqp=CAU"
-                                                alt="" class="image"></div>
-                                        <div class="w-75 header__cart_product-info">
-                                            <a href="/detail" class="d-block limit-line line-1">Shoe nike 2023
-                                                brand new</a>
-                                            <div class="flex-between-center header__cart_product-detail">
-                                                <span class="currency">700000</span>
-                                                <!-- <span class="fw-bold multiple_qty">3</span> -->
+                                    </li>
+                                <% } else { %>
+                                    <li class="header__cart__link">
+                                        <div class="header__cart_product d-flex">
+                                            <div class="w-25 header__cart_product-image"><img src="<%=e.product.image%>" alt="" class="image"></div>
+                                            <div class="w-75 header__cart_product-info">
+                                                <a href="/detail?id=<%=e.product.id%>" class="limit-line line-1"><%=e.product.name%></a>
+                                                <div class="flex-between-center header__cart_product-detail">
+                                                    <span class="currency"><%=e.product.price%></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                <% } %>
+                                <% }) %>
                                 <div class="divider-line pt-1"></div>
                                 <a class="text-center d-inline-block w-100 pt-1 pb-1 view-all" href="/cart">View
                                     all</a>

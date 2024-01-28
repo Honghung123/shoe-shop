@@ -1,0 +1,324 @@
+ul{
+  list-style: none;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2f70b0, #62b5ec);
+}
+.divider-message {
+  background: transparent;
+}
+.card {
+  box-shadow: 0 .2rem .5rem 0 rgb(0 0 0 / 5%);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box; 
+  border-radius: 1rem;
+}
+
+.currency::after{
+  content: " VND";
+}
+.reduce::before{
+  content: "-";
+}
+
+.card-body {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.5rem 1.5rem;
+}
+.header__logo__info {
+  display: inline-block;
+
+  & span {
+    display: inline-block;
+    transition: all 0.3s linear;
+    font-size: 2rem;
+    vertical-align: middle;
+  }
+
+  & svg {
+    transition: all 0.3s linear;
+    height: 3.5rem;
+  }
+}
+
+.card-container {
+  background: linear-gradient(90deg, #2f70b0, #62b5ec);
+}
+
+.card-invoice {
+  border: solid 1px rgb(154, 148, 148);
+  border-radius: 8px;
+  box-shadow: 0 0 .1rem .2rem #888888;
+}
+
+.customer-name {
+  color: #5d9fc5;
+}
+
+.invoice-text {
+  color: #7e8d9f;
+  font-size: 20px;
+}
+
+.back-to-shop-btn {
+  background-color: #60bdf3;
+}
+
+.price-field {
+  font-size: 25px;
+}
+
+body::-webkit-scrollbar {
+  width: .2rem;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  border-radius: .2rem; 
+  outline: 1px solid slategrey;
+}
+
+
+/* ------------------------------------------------------------ */
+/* CSS Section: Login - Register Page */
+.container-center{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-banner{
+    font-size: 2.4rem;
+    text-align: center;
+}
+.login-box{
+	width:100%; 
+	width:30rem;
+	height:28rem; 
+	box-shadow:0 .2rem .3rem 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    border-radius: 1rem;
+    overflow: hidden auto;
+}
+
+.login-space{
+    width:100%; 
+    padding:2rem; 
+}   
+.login-space .group{
+	margin-bottom: .6rem;
+}
+.login-space .group .label,
+.login-space .group .input,
+.login-space .group .button{
+	width:100%; 
+	display:block;
+}
+.login-space .group .input,
+.login-space .group .button{
+	border: .01rem solid rgb(76, 76, 76);
+	padding: .7rem 1rem;
+	border-radius:1.5rem;
+	background:rgba(255,255,255,.1);
+}    
+::placeholder{
+color: #c9c9c9c0;
+} 
+.error{
+    color: red;
+    font-size: 0.8rem;
+    /* visibility: hidden; */
+} */
+
+
+/* PIN input */
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.body {
+  padding: 40px; 
+  font-weight: 300;
+  font-size: 16px;
+  color: #143968;
+  background: #143968;
+}
+
+.body:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent);
+}
+
+form.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  max-width: 90%;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0px 10px 30px -15px black;
+  border-radius: 1rem;
+  transition: 400ms;
+}
+form.login h3 {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+form.login p {
+  opacity: 0.5;
+}
+form.login fieldset {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+form.login fieldset .mask {
+  position: absolute;
+  background: red;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  height: 100px;
+  width: 100%;
+  max-width: 130px;
+  z-index: 20;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  opacity: 0;
+}
+form.login fieldset .mask.visible {
+  opacity: 1;
+  transition: 400ms 500ms;
+  transform: translateX(-50%) scaleX(1);
+}
+form.login .input-pin {
+  position: absolute;
+  left: -1000px;
+}
+form.login .input-pin:focus {
+  outline: none;
+}
+form.login input[type=submit] {
+  display: none;
+}
+
+form.hide {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pin-ui {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 30px 0 0 0;
+  gap: 1rem;
+}
+.pin-ui li {
+  width: 2.3rem;
+  height: 2.3rem;
+  background: #ddd;
+  border-radius: 100%;
+  margin: 0 6px;
+  transition: transform 200ms;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  will-change: transform;
+}
+.pin-ui li.on {
+  background: #7fd89a;
+  transform: scale(1.4);
+}
+.pin-ui li.animate {
+  -webkit-animation: pip 1s 1 forwards;
+          animation: pip 1s 1 forwards;
+}
+
+.hidden-links {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.hidden-links a {
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+.hidden-links .linkout {
+  font-weight: 600;
+  font-size: 24px;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+}
+.hidden-links .linkout:hover {
+  text-decoration: underline;
+}
+.hidden-links .reset {
+  margin-top: 20px; 
+}
+
+@-webkit-keyframes pip {
+  0% {
+    transform: translateY(0) scale(1.4);
+  }
+  60% {
+    transform: translateY(-75%) scale(1.4);
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(250%) scale(1.4);
+  }
+}
+
+@keyframes pip {
+  0% {
+    transform: translateY(0) scale(1.4);
+  }
+  60% {
+    transform: translateY(-75%) scale(1.4);
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(250%) scale(1.4);
+  }
+}

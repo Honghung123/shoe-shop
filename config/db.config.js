@@ -13,7 +13,7 @@ const addressModel = require("../model/address.m");
 const wishListModel = require("../model/wish-list.m");
 const voucherModel = require("../model/voucher.m");
 const saleModel = require("../model/sale.m");
-const hashPwd = require("../utils/hashPassword");
+const {hashPwd} = require("../utils/hashPassword");
 
 const dataSource = new typeorm.DataSource({
   type: "postgres",

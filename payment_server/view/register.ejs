@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment register</title> 
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <div class="container-center">
+        <div class="row">
+            <div class="col p-0 bg-white rounded-4 overflow-hidden">
+                <div class="login-box">
+                    <div class="login-space">
+                        <h2 class="login-banner mb-4">Payment Register</h2>
+                        <form class="sign-up-form" action="/payment-register" method="post" id="form-register">
+                            <div class="group mb-3">
+                                <label class="label">Enter pin code: </label>
+                                <input name="code" type="text" class="input pincode-register"
+                                    placeholder="Enter your pin code here" required>
+                                <span class="error pincode-register-error"></span>
+                            </div>
+                            <div class="group mb-5">
+                                <label class="label">Re-enter pin code:</label>
+                                <input name="repincode" type="text" class="input repincode-register" data-type="text"
+                                    placeholder="Enter your pin code again" required>
+                                <span class="error repincode-register-error"></span>
+                            </div> 
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info text-white rounded-pill">Confirm</button>
+
+                            </div>
+                        </form>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/payment_server/public/main.js"></script>
+</body>
+
+</html>

@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoe shop</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/public/common/css/style.css" />
 </head>
 
@@ -17,55 +20,51 @@
         <div class="login-box">
           <div class="login-space">
             <h2 class="login-banner mb-3">Register</h2>
-            <form class="sign-up-form" action="register" method="post">
+            <form class="sign-up-form" action="register" method="post" id="form-register">
               <div class="group">
                 <label class="label">Username</label>
-                <input name="username" type="text" class="input username-register" placeholder="Create your Username">
-                <span class="error username-register-error"></span>
-                <% if (locals.messageUsernameUse) { %>
-                  <span class="error email-register-error"><%= locals.messageUsernameUse %></span>
-                <% } %>
+                <input name="username" type="text" class="input username-register" placeholder="Create your Username" required>
+                <span class="error username-register-error"></span> 
               </div>
               <div class="group">
                 <label class="label">Fullname</label>
-                <input name="fullname" type="text" class="input fullname-register" data-type="text" placeholder="Type your fullname">
+                <input name="fullname" type="text" class="input fullname-register" data-type="text"
+                  placeholder="Type your fullname" required>
                 <span class="error fullname-register-error"></span>
               </div>
               <div class="group">
                 <label class="label">Password</label>
-                <input name="password" type="password" class="input password-register" data-type="password" placeholder="Create your password">
+                <input name="password" type="password" class="input password-register" data-type="password"
+                  placeholder="Create your password" required>
                 <span class="error password-register-error"></span>
-                
+
               </div>
               <div class="group">
                 <label class="label">Email Address</label>
-                <input name="email" type="text" class="input email-register" placeholder="Enter your email address">
-                <span class="error email-register-error"></span>
-                <% if (locals.messageEmailUse) { %>
-                  <span class="error email-register-error"><%= locals.messageEmailUse %></span>
-                <% } %>
-              </div>
+                <input name="email" type="text" class="input email-register" placeholder="Enter your email address" required>
+                <span class="error email-register-error"></span> 
+              </div> 
               <div class="group text-center">
-                <button type="submit" class="btn btn-info rounded-pill text-white w-25 pt-2 pb-2">Register</button>
-              </div>
+                <button type="submit" id="register-button" class="btn btn-info rounded-pill text-white flex-center-center gap-3 px-4 m-auto pt-2 pb-2">Register</button>
+              </div></form>
+
               <p class="text-center">Already have account? <a class="text-info" href="login">Login here</a></p>
               <div class="divider-method mt-4 mb-4 text-muted">
                 <span class="divider-message">or</span>
               </div>
               <div class="other-method">
-                <a class="btn btn-lg btn-danger rounded-pill mb-2 text-white d-block"
-                        href="/google/register"><i class="fab fa-google me-2"></i> Sign in with google</a>
+                <a class="btn btn-lg btn-danger rounded-pill mb-2 text-white d-block" href="/google/register"><i
+                    class="fab fa-google me-2"></i> Sign in with google</a>
               </div>
-            </div> 
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/public/common/js/main.js"></script>
+  </div> 
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="/public/common/js/main.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 const passport = require("passport");
 const { userRepo } = require("./db.config");
 const bcrypt = require('bcryptjs');
-const hashPwd = require("../utils/hashPassword");
+const {hashPwd} = require("../utils/hashPassword");
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 passport.deserializeUser(async (user, done) => {

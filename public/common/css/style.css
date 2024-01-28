@@ -242,6 +242,12 @@ color: #c9c9c9c0;
     animation: text 0.6s 1.8s ease backwards;
 }
 
+.flex-center-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes text {
     0% {
         opacity: 0;

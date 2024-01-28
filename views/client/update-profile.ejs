@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Shoe store - Profile</title>
+    <%- include('./partials/head'); -%>
+</head>
+
+<body>
+    <%- include('./partials/nav'); -%>
+        <%- include('./partials/preloader'); -%>
+
+            <!-- Breadcrumb Section Begin -->
+            <section class="breadcrumb-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="breadcrumb__text">
+                                <h2>Update profile</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Breadcrumb Section End -->
+
+            <section class="update-profile spad">
+                <div class="container">
+                    <div class="row gutters">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="account-settings">
+                                        <div class="user-profile">
+                                            <div class="user-avatar flex-center-center" id="user-avatar">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                                    alt="Maxwell Admin" class="avatar user__update__img">
+                                            </div>
+                                        </div>
+                                        <div class="update__image pt-3 pb-3">
+                                            <p class="update__image__title pb-2">Upload new image:</p>
+                                            <input type="file" name="image" class="update__image__input" id="image__upload">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                            <div class="card h-100">
+                                <form action="/update-profile" method="post" class="card-body">
+                                    <div class="row gutters">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h6 class="mb-2 text-primary">Personal Details</h6>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <h5 >Full Name:</h5>
+                                                <input type="text" name="full_name" class="form-control" id="update_fullname"
+                                                    placeholder="Enter full name" value="Nguyen Van A" required>
+                                                <div class="error-msg fullname text-danger fs-7"></div>
+                                            </div>
+                                        </div> 
+                                        <div class="col-12 mt-2">
+                                            <div class="form-group">
+                                                <h5 >Phone</h5>
+                                                <input type="text" class="form-control" name="phone" id="update_phone"
+                                                    placeholder="Enter phone number" value="0352525324" required>
+                                                <div class="error-msg phone text-danger fs-7"></div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="flex-start-center gap-3 pt-3 pb-2">
+                                        <button type="submit" class="my-button button-hover-shake bg-info rounded-3">Update</button>
+                                        <a href="/account" type="button" class="my-button button-hover-shake background-red rounded-3">Cancel</a>
+                                    </div> 
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Footer Section -->
+            <%- include('./partials/footer'); -%>
+                <!-- Footer Section End -->
+
+                <!-- Js Plugins -->
+                <%- include('./partials/scripts'); -%>
+                    <!-- Js Plugins End -->
+
+</body>
+
+</html>

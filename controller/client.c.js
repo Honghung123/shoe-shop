@@ -326,4 +326,7 @@ module.exports = {
       curPage: 'cart'
     });
   },
+  renderUpdateProfilePage: async (req, res) => {
+    res.render("client/update-profile");
+  },
 };

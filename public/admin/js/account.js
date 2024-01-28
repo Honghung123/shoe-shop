@@ -1,6 +1,27 @@
 const PER_PAGE = 5;
 
 $(".account-item").on("click", viewAccount);
+/*-----------------------------
+        Toast message
+    -------------------------------*/
+const toastData = {
+  success: {
+    icon: "done",
+    bg_color: "green",
+  },
+  warning: {
+    icon: "warning",
+    bg_color: "yellow",
+  },
+  info: {
+    icon: "info",
+    bg_color: "blue",
+  },
+  error: {
+    icon: "close",
+    bg_color: "red",
+  },
+};
 
 async function viewAccount(e) {
   let currentElement = e.target;
@@ -20,20 +41,23 @@ async function viewAccount(e) {
 }
 
 function updateViewAccount(data) {
-  $('#viewAccount-username').html(data.username);
-  $('#viewAccount-id').html(data.id);
-  $('#viewAccount-email').html(data.email);
-  $('#viewAccount-status').html(data.locked ? 'Banned' : 'Active');
-  $('#viewAccount-address').html(data.address || 'No information');
-  $('#viewAccount-phone').html(data.phone || 'No information');
-  $('#viewAccount-role').html(data.role);
-  $('#viewAccount-avatar').attr('src', data.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png');
-};
+  $("#viewAccount-username").html(data.username);
+  $("#viewAccount-id").html(data.id);
+  $("#viewAccount-email").html(data.email);
+  $("#viewAccount-status").html(data.locked ? "Banned" : "Active");
+  $("#viewAccount-address").html(data.address || "No information");
+  $("#viewAccount-phone").html(data.phone || "No information");
+  $("#viewAccount-role").html(data.role);
+  $("#viewAccount-avatar").attr(
+    "src",
+    data.avatar || "https://bootdey.com/img/Content/avatar/avatar1.png"
+  );
+}
 
-$(".pagination-account").on('click', changePage);
+$(".pagination-account").on("click", changePage);
 
 async function changePage() {
-  const page = this.getAttribute('data-id');
+  const page = this.getAttribute("data-id");
   const limit = PER_PAGE;
   if (parseInt(page) > 0) {
     const response = await fetch(`/admin/account?page=${page}&limit=${limit}`);
@@ -43,27 +67,29 @@ async function changePage() {
 }
 
 function updateListAccount(data) {
-  const listAccount = document.getElementsByClassName('account-list')[0];
-  listAccount.innerHTML = '';
+  const listAccount = document.getElementsByClassName("account-list")[0];
+  listAccount.innerHTML = "";
   for (let i of data.users) {
     listAccount.appendChild(itemAccount(i));
   }
 
 
-  const pagination = document.getElementsByClassName('pagination')[0];
-  pagination.innerHTML = '';
+  const pagination = document.getElementsByClassName("pagination")[0];
+  pagination.innerHTML = "";
 
   // Tạo nút Prev
   const prevButton = document.createElement("button");
   prevButton.setAttribute("data-id", data.currentPage - 1);
   prevButton.classList.add("prev", "pagination-account", "page-numbers");
   prevButton.textContent = "Prev";
-  prevButton.addEventListener('click', changePage);
+  prevButton.addEventListener("click", changePage);
   pagination.appendChild(prevButton);
 
   // Tạo các nút số
   for (let i = 1; i <= data.totalPages; i++) {
-    const pageNumberButton = document.createElement(i === parseInt(data.currentPage) ? "span" : "button");
+    const pageNumberButton = document.createElement(
+      i === parseInt(data.currentPage) ? "span" : "button"
+    );
     pageNumberButton.setAttribute("data-id", i);
     pageNumberButton.classList.add("page-numbers");
 
@@ -74,16 +100,21 @@ function updateListAccount(data) {
     } else {
       pageNumberButton.textContent = i;
     }
-    pageNumberButton.addEventListener('click', changePage);
+    pageNumberButton.addEventListener("click", changePage);
     pagination.appendChild(pageNumberButton);
   }
 
   // Tạo nút Next
   const nextButton = document.createElement("button");
-  nextButton.setAttribute("data-id", parseInt(data.currentPage) === data.totalPages ? 0 : parseInt(data.currentPage) + 1);
+  nextButton.setAttribute(
+    "data-id",
+    parseInt(data.currentPage) === data.totalPages
+      ? 0
+      : parseInt(data.currentPage) + 1
+  );
   nextButton.classList.add("next", "pagination-account", "page-numbers");
   nextButton.textContent = "Next";
-  nextButton.addEventListener('click', changePage);
+  nextButton.addEventListener("click", changePage);
   pagination.appendChild(nextButton);
 
   $(".ban-account").on("click", banAccount);
@@ -91,7 +122,6 @@ function updateListAccount(data) {
 }
 
 function itemAccount(user) {
-
   // Tạo một đối tượng tr
   const userRow = document.createElement("tr");
   userRow.classList.add("account-item");
@@ -102,12 +132,15 @@ function itemAccount(user) {
       <td><span>${user.id}</span></td>
         <td class="flex-start-center column-gap-3 padding-1 mlr-1">
             <div class="thumb">
-                <img class="avatar size-35" src="${user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png'}" alt="">
+                <img class="avatar size-35" src="${
+                  user.avatar ||
+                  "https://bootdey.com/img/Content/avatar/avatar1.png"
+                }" alt="">
             </div>
             <div>
                 <h5 class="text-start">${user.username}</h5> 
                 <div class="user-info">
-                    <ul class="list-unstyled d-flex flex-wrap-wrap">
+                    <ul class="list-unstyled text-start">
                         <li>Account id: 123</li>
                         <li>Balance: <span class="currency">100000</span></li>
                     </ul>
@@ -115,62 +148,76 @@ function itemAccount(user) {
             </div>
         </td>
         <td class="position-relative">
-            <span class="position-center">${user.locked ? 'Banned' : 'Active'}</span>
+            <span class="position-center">${
+              user.role == 'admin' ? "Admin" : "Customer"
+            }</span>
+        </td>
+        <td class="position-relative">
+            <span class="position-center">${
+              user.locked ? "Banned" : "Active"
+            }</span>
         </td>
         <td>
             <div class="flex-center-center column-gap-3 flex-wrap-wrap mt-2">
                 <button class="btn-custom p-0 delete-account text-danger">
-                    <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="${user.id}">
+                    <span class="material-icons-sharp deleted" data-bs-toggle="modal" data-bs-target="#deleteAccount" data-id="${
+                      user.id
+                    }">
                         delete </span>
                 </button>
-                <button class="btn-custom p-0 ban-account ${user.locked ? 'text-success' : 'text-danger'}">
-                    <span class="material-icons-sharp banned" data-bs-toggle="modal" data-bs-target="#banAccount" data-id="${user.id}">
+                <button class="btn-custom p-0 ban-account ${
+                  user.locked ? "text-success" : "text-danger"
+                }">
+                    <span class="material-icons-sharp banned" data-bs-toggle="modal" data-bs-target="#banAccount" data-id="${
+                      user.id
+                    }">
                         block </span>
                 </button>
             </div>
       </td>
-  `
+
+  `;
   // Gắn sự kiện click cho dòng
   userRow.addEventListener("click", viewAccount);
   return userRow;
-};
+}
 
-
-
-$(".add-account").on("click", function (e) {
-  const id = parseInt(e.target.getAttribute("data-id"));
-  console.log("Add account payment for id " + id);
-  $("#viewAccount").modal("hide");
-  $("#addNewAccount").modal("show");
-});
-
-$('#form-add-account').on('submit', async function (event) {
+$("#form-add-account").on("submit", async function (event) {
   event.preventDefault();
-  $('#messageAddAccount').removeClass('text-warning text-danger text-success');
-  $('#messageAddAccount').addClass('text-warning');
-  $('#messageAddAccount').html('Data is being processed, please wait');
+  $("#messageAddAccount").removeClass("text-warning text-danger text-success");
+  $("#messageAddAccount").addClass("text-warning");
+  $("#messageAddAccount")
+    .html(`<h5><div class="spinner-border text-secondary" role="status"> 
+      </div> Data is being processed, please wait..</h5>`);
   const formData = new FormData(event.target);
 
-  const response = await fetch('/admin/account/add', {
-    method: 'POST',
-    body: formData
+  const response = await fetch("/admin/account/add", {
+    method: "POST",
+    body: formData,
   });
   const data = await response.json();
-  $('#messageAddAccount').removeClass('text-warning text-danger text-success');
-  if (data.status === 'fail') {
-    $('#messageAddAccount').addClass('text-danger');
-    $('#messageAddAccount').html(data.message);
-  } else {
-    $('#messageAddAccount').addClass('text-success');
-    $('#messageAddAccount').html(data.message);
+  $("#messageAddAccount").removeClass("text-warning text-danger text-success");
+  if (data.status === "fail") {
+    $("#messageAddAccount")
+      .addClass("text-danger")
+      .html(`<h5>${data.message}</h5>`);
+      showToastMessage(data.message, toastData['error']);
+    } else {
+      $("#messageAddAccount").addClass("text-success").html(`<h5>${data.message}</h5>`); 
+      event.target.reset(); 
+      $("#addNewUser").modal("hide");
+      $("#messageAddAccount").html(``); 
+      $(".upload-img").html("");
+      showToastMessage(data.message, toastData['success']);
   }
+  return false;
 });
 
 $(".delete-account").on("click", deleteAccount);
 
 function deleteAccount(e) {
   const id = parseInt(e.target.getAttribute("data-id"));
-  localStorage.setItem('deleteAccId', id);
+  localStorage.setItem("deleteAccId", id);
   // const editModal = $("#deleteAccount")[0];
   // editModal.addEventListener("show.bs.modal", function (event) {
   //   const modalTitle = editModal.querySelector(".modal-title");
@@ -179,50 +226,60 @@ function deleteAccount(e) {
 }
 
 $("#btn-delete-account").on("click", async function () {
-  const id = localStorage.getItem('deleteAccId');
+  const id = localStorage.getItem("deleteAccId");
   console.log(id);
   const response = await fetch(`/admin/account-delete`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ id }),
   });
   if (!response.ok) {
     const data = await response.json();
     console.log(data);
-    if (data.message === 'Cannot delete admin') {
-      alert('Cannot delete admin');
+    if (data.message === "Cannot delete admin") {
+      showToastMessage("Cannot delete admin", toastData["error"]);
     }
-  }
-  else {
-    const curPage = $('span.page-numbers').text();
-    const refresh = await fetch(`/admin/account?page=${curPage}&limit=${PER_PAGE}`);
+  } else {
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/account?page=${curPage}&limit=${PER_PAGE}`
+    );
     const data = await refresh.json();
     updateListAccount(data);
+    showToastMessage("Deleted")
   }
-  localStorage.removeItem('deleteAccId');
-})
+  localStorage.removeItem("deleteAccId");
+});
 
-
-$(".ban-account").on("click", banAccount);
+$(".ban-account").on("click", banAccount); 
 
 async function banAccount(e) {
   const id = parseInt(e.target.getAttribute("data-id"));
-  localStorage.setItem('banAccId', id);
+  localStorage.setItem("banAccId", id);
   const response = await fetch(`/admin/account-get/${id}`, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-    }
+      "Content-Type": "application/json",
+    },
   });
   const data = await response.json();
 
-  $('#title-ban-model').html(data.locked ? 'Unban account' : 'Ban account');
-  $('#body-ban-model').html(data.locked ? 'Are you sure you want to unban this account?' : 'Are you sure you want to ban this account?');
-  $('#btn-ban-account').html(data.locked ? 'Unban' : 'Ban');
-  $('#btn-ban-account').removeClass("text-danger text-success");
-  $('#btn-ban-account').addClass(data.locked ? "btn-danger" : "btn-success");
+  $("#title-ban-model").html(data.locked ? "Unban account" : "Ban account");
+  $("#body-ban-model").html(
+    data.locked
+      ? "Are you sure you want to unban this account?"
+      : "Are you sure you want to ban this account?"
+  );
+  $("#btn-ban-account").html(data.locked ? "Unban" : "Ban");
+  $("#btn-ban-account").removeClass("text-danger text-success");
+  $("#btn-ban-account").addClass(data.locked ? "btn-danger" : "btn-success");
+  // if (data.locked) { 
+  //   showToastMessage("Banned this account", toastData['success']);
+  // } else {
+  //   showToastMessage("Unbanned this account", toastData['success']);
+  // }
   // const editModal = $("#banAccount")[0];
   // editModal.addEventListener("show.bs.modal", function (event) {
   //   const modalTitle = editModal.querySelector(".modal-title");
@@ -232,29 +289,28 @@ async function banAccount(e) {
 }
 
 $("#btn-ban-account").on("click", async function () {
-  const id = localStorage.getItem('banAccId');
+  const id = localStorage.getItem("banAccId");
   const response = await fetch(`/admin/account-ban`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ id }),
   });
   if (!response.ok) {
-    const data = await response.json();
-    console.log(data);
-    if (data.message === 'Cannot lock admin') {
-      alert('Cannot lock admin');
-    }
-  }
-  else {
-    const curPage = $('span.page-numbers').text();
-    const refresh = await fetch(`/admin/account?page=${curPage}&limit=${PER_PAGE}`);
+    const data = await response.json(); 
+    showToastMessage(data.message, toastData["error"]);
+  } else {
+    const curPage = $("span.page-numbers").text();
+    const refresh = await fetch(
+      `/admin/account?page=${curPage}&limit=${PER_PAGE}`
+    );
     const data = await refresh.json();
     updateListAccount(data);
+    showToastMessage(`${$("#title-ban-model").html()} successfully!`, toastData["success"]);
   }
-  localStorage.removeItem('banAccId');
-})
+  localStorage.removeItem("banAccId");
+});
 
 $(".error-msg").each((idx, error) => {
   if ($(error).html() != "") {
@@ -316,3 +372,20 @@ $(window).click(function (event) {
   }
 });
 // End upload files
+
+function showToastMessage(message, data) {
+  const toast = `<div class="toast-notification slide-in-slide-out">
+        <div class="toast-content">
+          <div class="toast-icon background-${data.bg_color} wiggle-me">
+            <span class="material-icons-sharp"> ${data.icon} </span>
+          </div>
+          <div class="toast-msg limit-line line-3">${message}</div>
+        </div>
+        <div class="toast-progress">
+          <div class="toast-progress-bar background-${data.bg_color}"></div>
+        </div>
+      </div>  `; 
+  const $toast = $(toast);
+  $toast.appendTo("#toast__container");
+  setTimeout(() => $toast.remove(), 2500);
+}

@@ -76,58 +76,26 @@ module.exports = {
         const ordersSale = await orderRepo.find();
         let totalSales = 0;
         for (let i of ordersSale) {
-            totalSales += i.total;
+            totalSales += parseFloat(i.total);
         }
         console.log('totalSales', totalSales);
 
-        // users
-        const users = await userRepo.find({
-            where: { deleted: false }
-        });
-        console.log('users', users.length);
+        // // users
+        // const users = await userRepo.find({
+        //     where: { deleted: false }
+        // });
+        // console.log('users', users.length);
 
-        // Products
-        const products = await productRepo.find({
-            where: {deleted: false}
-        })
-        console.log('product', products.length);
+        // // Products
+        // const products = await productRepo.find({
+        //     where: {deleted: false}
+        // })
+        // console.log('product', products.length);
 
         // top 5 brand revenue
-        const month_year = req.query.month_year || '2024-01';
-        if(!month_year){
-            res.status(400).json('Bad request')
-        }
         
-        const monthAndYear = month_year.split('-');
-        const month = parseInt(monthAndYear[1]); //
-        const year = parseInt(monthAndYear[0]);
-        console.log(month, year);
         
-        const startDate = new Date(year, month - 1, 1);
-        const endDate = new Date(year, month, 1);
-        console.log(startDate, endDate);
-        const orders = await orderRepo.find({ where: { created_at: Between(startDate, endDate) } });
-        const ordersId = orders.map(order => order.id);
-
-        const orderLines = await orderLineRepo.find({
-            where: { order_id: In(ordersId) },
-            relations: ['product', 'product.brand']
-        })
-        console.log(orderLines);
-        const brandRevenueMap = new Map();
-        for (const orderLine of orderLines) {
-            const brandName = orderLine.product.brand.brand_name
-            const revenue = orderLine.total;
-            if (brandRevenueMap.has(brandName)) {
-                brandRevenueMap.set(brandName, brandRevenueMap.get(brandName) + revenue);
-            } else {
-                brandRevenueMap.set(brandName, revenue);
-            }
-        }
-        const brandRevenueArray = Array.from(brandRevenueMap.entries());
-        brandRevenueArray.sort((a, b) => b[1] - a[1]);
-        const top5BrandsRevenue = brandRevenueArray.slice(0, 5);
-        console.log(top5BrandsRevenue);
+        
 
 
         // top 5 product best-seller
@@ -136,12 +104,15 @@ module.exports = {
 
         // top 5 brand number of sold
 
-
-
+        const totalUsers = await userRepo.count({where: {deleted: false}});
+        const numOfProducts = await productRepo.count({where: {deleted: false}})
 
         res.render("admin/dashboard", {
             namePage: 'dashboard',
-            user: req.user
+            user: req.user,
+            totalUsers,
+            totalSales,
+            numOfProducts,
         });
     },
     getCategoryPage: async (req, res, next) => {

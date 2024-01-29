@@ -11,6 +11,8 @@ let xAxisLabel = "Total revenue (VND)";
 let yAxisLabelColor = "lime";
 let xAxisLabelColor = "aqua";
 
+
+
 const ctx = document.getElementById("chart-bars-horizontal").getContext("2d");
 const chart = {
   type: chartType,
@@ -108,7 +110,7 @@ const chart = {
   },
 };
 const mychart = new Chart(ctx, chart);
-// Create envent for Bar chart
+// Create event for Bar chart
 $("#chart__filter1").on("change", async function (e) {
   const yearMonth = $(this).val();
   console.log("Year month", yearMonth);
@@ -138,6 +140,37 @@ $("#chart__filter1").on("change", async function (e) {
   mychart.options.plugins.subtitle.text = chartLabel;
   mychart.update();
 });
+const fetchDataForBarChart = async () => {
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const year = now.getFullYear();
+  const res = await fetch(`http://localhost:3000/brands/top5brand?month_year=${year}-${month}`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json'
+    },
+  })
+  const data = await res.json();
+  if(res.ok){
+    const {top5Brands} = data;
+    brandList = []
+    revenueOfEachBrand = [];
+    for(let i = 0; i < top5Brands.length; i++){
+      brandList.push(top5Brands[i][0]);
+      revenueOfEachBrand.push(top5Brands[i][1]);
+    }
+  }
+  console.log(brandList, revenueOfEachBrand);
+  
+  // brandList = ["Test", "Nike", "Nikasa", "Pama", "Rocket"];
+  // revenueOfEachBrand = [31500000, 47500000, 24000000, 25000000, 63000000];
+  chartLabel = `The top 5 brands with the highest revenue in ${year}-${month}`;
+  mychart.data.labels = brandList;
+  mychart.data.datasets[0].data = revenueOfEachBrand; // Access the datasets array
+  mychart.options.plugins.subtitle.text = chartLabel;
+  mychart.update();
+}
+fetchDataForBarChart();
 
 // BAR chart horizontal - "The top 5 best-selling products."
 chartType = "doughnut";
@@ -216,21 +249,12 @@ $("#chart__filter2").on("change", async function (e) {
       productList.push(products[i][0])
     }
     for(let i = 0; i < products.length; i++){
-      productList.push(products[i][1]/total)
+      percentOfEachOnes.push(products[i][1]/total*100)
     }
 
   }
-  // productLsit = [
-  //   "Prama indonssf ",
-  //   "Arigatou gozaimasu",
-  //   "Prama indonssf",
-  //   "Nike isdf s",
-  //   "Prama indonssf",
-  // ];
-  // percentOfEachOnes = [10, 20, 30, 20, 20];
   console.log(productList, percentOfEachOnes);
-  // end
-  chartLabel = `The top 5 best-selling products in ${year}`;
+  chartLabel = `The top 5 best-selling products in ${monthYear}`;
   mysecondchart.data.labels = productList;
   mysecondchart.data.datasets[0].data = percentOfEachOnes; // Access the datasets array
   mysecondchart.options.plugins.subtitle.text = chartLabel;
@@ -263,19 +287,54 @@ function getBackgroundList(num, chart) {
     gradientStroke.addColorStop(1, "rgba(191, 97, 250,0.2)");
     gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
     gradientStroke.addColorStop(0, "rgba(97, 143, 250,0)"); //purple colors
+    
     bgList.push(gradientStroke);
   }
   return bgList;
 }
 
-function getLineList(month, chart) {
-  // Can truy van database
-  const labelList = ["Mobile apps", "Web apps"];
-  const dataList = [
-    [50, 40, 300, 220, 500, 250, 400, 230, 500, 520, 200, 120],
-    [150, 10, 500, 120, 150, 50, 100, 330, 400, 120, 340, 550],
-  ];
-  // End
+
+const fetchDataForPieChart = async () =>{
+  const now = new Date();
+  const month = now.getMonth()+1;
+  const year = now.getFullYear();
+  const res = await fetch(`http://localhost:3000/products/top5?month_year=${year}-${month}`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json'
+    },
+  })
+  const data = await res.json();
+  if(res.ok){
+    const {products} = data;
+    productList = []
+    percentOfEachOnes = [];
+    let total = 0;
+    for(let i = 0; i < products.length; i++){
+      total = total + products[i][1];
+      productList.push(products[i][0])
+    }
+    for(let i = 0; i < products.length; i++){
+      percentOfEachOnes.push(products[i][1]/total*100)
+    }
+
+  }
+  console.log(productList, percentOfEachOnes);
+  chartLabel = `The top 5 best-selling products in ${year}-${month}`;
+  mysecondchart.data.labels = productList;
+  mysecondchart.data.datasets[0].data = percentOfEachOnes; // Access the datasets array
+  mysecondchart.options.plugins.subtitle.text = chartLabel;
+  mysecondchart.update();
+
+}
+fetchDataForPieChart();
+
+
+
+function getLineList(labels, data, chart) {
+  const labelList = labels;
+  const dataList = data;
+  console.log("Data list in get lines", dataList);
   const lineColorList = [
     "#e13efa",
     "#97d5ff",
@@ -307,8 +366,10 @@ function getLineList(month, chart) {
     };
     lineList.push(line);
   }
+  console.log(lineList);
   return lineList;
 }
+
 
 const ctx2 = document.getElementById("chart-line").getContext("2d");
 
@@ -318,7 +379,7 @@ chartLabelColor = "#6900ff";
 yAxisLabelColor = "lime";
 xAxisLabelColor = "aqua";
 let listOfMonths = getMonthList();
-let lineList = getLineList(7, ctx2);
+let lineList = getLineList([],[], ctx2);
 
 const chart2 = {
   type: chartType,
@@ -408,4 +469,26 @@ const chart2 = {
     },
   },
 };
+const updateLineChart = async () => {
+  const res = await fetch(`http://localhost:3000/brands/top5BestSelling`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+  const data = await res.json();
+  const labelList = [];
+  const dataList = []
+  console.log(data);
+  for(let i = 0; i < data.length; i++){
+    labelList.push(data[i].brandName);
+    dataList.push(data[i].quantitiesByMonth)
+  }
+  console.log("Fetch result", labelList, dataList);
+  mylinechart.data.labels = getMonthList();
+  mylinechart.data.datasets = getLineList(labelList, dataList, ctx2)
+  mylinechart.update();
+}
+updateLineChart();
 const mylinechart = new Chart(ctx2, chart2);
+

@@ -60,7 +60,7 @@ module.exports = {
             }
             
             
-            console.log("Transaction in order c", transaction);
+            console.log("Transaction in order controller", transaction);
             
             cartLinesId = cartLinesId.map(id => parseInt(id));
             console.log("Cart line int", cartLinesId);

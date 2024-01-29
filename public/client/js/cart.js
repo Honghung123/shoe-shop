@@ -57,7 +57,7 @@
         console.log("Amount", amount);
         const receiverId = 1;
         console.log("Sender", senderId, "receiver", receiverId);
-        const callbackUrl = 'http://localhost:3000/orders/checkout';
+        const callbackUrl = 'https://localhost:3000/orders/checkout';
         const cartLines = [];
         $('.shopping__cart__item').each(function () {
             // Get the value of the 'data-product' attribute

@@ -72,7 +72,7 @@ const postPaymentRegister = async (req, res) => {
   if(callbackUrl){
     res.redirect(callbackUrl)
   } else{
-    res.redirect('http://localhost:3000/account')
+    res.redirect('https://localhost:3000/account')
   }
 };
  

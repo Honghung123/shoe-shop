@@ -32,7 +32,7 @@ const apiDocOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "https://localhost:3000",
       },
     ],
   },
@@ -96,11 +96,11 @@ app.use("/users", userRouter)
 // app.use("/", passport);
 
 // Handle exceptions
-// const server = https.createServer({
-//   key: fs.readFileSync('./_certs/demo.key'),
-//   cert: fs.readFileSync('./_certs/demo.cert')
-// }, app);
+const server = https.createServer({
+  key: fs.readFileSync('./_certs/demo.key'),
+  cert: fs.readFileSync('./_certs/demo.cert')
+}, app);
 
-app.listen(port, hostname, () => {
+server.listen(port, hostname, () => {
   console.log(`Server running at ${port}`);
 });

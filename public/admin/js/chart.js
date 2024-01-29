@@ -114,7 +114,7 @@ const mychart = new Chart(ctx, chart);
 $("#chart__filter1").on("change", async function (e) {
   const yearMonth = $(this).val();
   console.log("Year month", yearMonth);
-  const res = await fetch(`http://localhost:3000/brands/top5brand?month_year=${yearMonth}`, {
+  const res = await fetch(`https://localhost:3000/brands/top5brand?month_year=${yearMonth}`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json'
@@ -144,7 +144,7 @@ const fetchDataForBarChart = async () => {
   const now = new Date();
   const month = now.getMonth() + 1;
   const year = now.getFullYear();
-  const res = await fetch(`http://localhost:3000/brands/top5brand?month_year=${year}-${month}`, {
+  const res = await fetch(`https://localhost:3000/brands/top5brand?month_year=${year}-${month}`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json'
@@ -232,7 +232,7 @@ $("#chart__filter2").on("change", async function (e) {
   const monthYear = $(this).val(); 
   console.log(monthYear);
   // Truy van database
-  const res = await fetch(`http://localhost:3000/products/top5?month_year=${monthYear}`, {
+  const res = await fetch(`https://localhost:3000/products/top5?month_year=${monthYear}`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json'
@@ -298,7 +298,7 @@ const fetchDataForPieChart = async () =>{
   const now = new Date();
   const month = now.getMonth()+1;
   const year = now.getFullYear();
-  const res = await fetch(`http://localhost:3000/products/top5?month_year=${year}-${month}`, {
+  const res = await fetch(`https://localhost:3000/products/top5?month_year=${year}-${month}`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json'
@@ -470,7 +470,7 @@ const chart2 = {
   },
 };
 const updateLineChart = async () => {
-  const res = await fetch(`http://localhost:3000/brands/top5BestSelling`, {
+  const res = await fetch(`https://localhost:3000/brands/top5BestSelling`, {
     method: 'GET',
     headers: {
       'Content-type': 'application/json'

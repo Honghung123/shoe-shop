@@ -36,7 +36,7 @@ $(".add-categorys").on("click", async function (e) {
     return false;
   }
   const name = $(".cat-name-input").val();
-  const res = await fetch(`http://localhost:3000/categories`, {
+  const res = await fetch(`https://localhost:3000/categories`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -63,7 +63,7 @@ $(".add-categorys").on("click", async function (e) {
 $(".cat-name-input").on("blur", validateCategoryName);
 async function validateCategoryName(e) {
   const name = $(".cat-name-input").val();
-  const res = await fetch(`http://localhost:3000/categories/validate-name`, {
+  const res = await fetch(`https://localhost:3000/categories/validate-name`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -86,7 +86,7 @@ $(".cat-name-input").on("focus", () => {
 $(".edit-cat-name").on("blur", validateCategoryNameUpdate);
 async function validateCategoryNameUpdate(e) {
   const name = $(".edit-cat-name").val();
-  const res = await fetch(`http://localhost:3000/categories/validate-name`, {
+  const res = await fetch(`https://localhost:3000/categories/validate-name`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -177,7 +177,7 @@ $(".update-category").on("click", async function (e) {
   }
   const id = localStorage.getItem("idCatToEdit");
   const name = $(".edit-cat-name").val();
-  const res = await fetch(`http://localhost:3000/categories/${id}`, {
+  const res = await fetch(`https://localhost:3000/categories/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -205,7 +205,7 @@ $(".update-category").on("click", async function (e) {
 $("#form-delete").on("submit", async function (e) {
   e.preventDefault();
   const id = parseInt(e.target.getAttribute("data-id")); 
-  const res = await fetch(`http://localhost:3000/categories/${id}`, {
+  const res = await fetch(`https://localhost:3000/categories/${id}`, {
     method: "delete",
     headers: {
       "Content-Type": "application/json",

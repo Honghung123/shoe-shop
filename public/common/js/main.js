@@ -6,7 +6,7 @@
   async function checkEmailIsExist(email) {
     try {
       const response = await fetch(
-        `http://localhost:3000/login/validate-email`,
+        `https://localhost:3000/login/validate-email`,
         {
           method: "post",
           headers: {
@@ -29,7 +29,7 @@
   async function checkUsernameIsExist(username) {
     try {
       const response = await fetch(
-        `http://localhost:3000/login/validate-username`,
+        `https://localhost:3000/login/validate-username`,
         {
           method: "post",
           headers: {
@@ -52,7 +52,7 @@
   async function checkEmailAndPass(email, password) {
     try {
       const response = await fetch(
-        `http://localhost:3000/login/validate-account`,
+        `https://localhost:3000/login/validate-account`,
         {
           method: "post",
           headers: {

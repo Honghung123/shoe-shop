@@ -29,7 +29,7 @@ async function viewProductDetails(e) {
       currentElement = currentElement.parentNode;
     }
     const productId = currentElement.getAttribute("data-id");
-    const res = await fetch(`http://localhost:3000/products/${productId}`, {
+    const res = await fetch(`https://localhost:3000/products/${productId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -173,7 +173,7 @@ const updateProductList = (data) => {
 const editProduct = async (e) => {
   const id = parseInt(e.target.getAttribute("data-id"));
   localStorage.setItem("productId", id);
-  const res = await fetch(`http://localhost:3000/products/${id}`, {
+  const res = await fetch(`https://localhost:3000/products/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -224,7 +224,7 @@ $(".delete-product").on("click", deleteProduct);
 
 $(".delete-product-btn").on("click", async function (e) {
   const id = localStorage.getItem("productId");
-  const res = await fetch(`http://localhost:3000/products/${id}`, {
+  const res = await fetch(`https://localhost:3000/products/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

@@ -34,7 +34,7 @@ async function viewOrderDetails(e) {
   console.log(currentElement);
   const orderId = currentElement.getAttribute("data-id");
   console.log("Order selected has id " + orderId);
-  const res = await fetch(`http://localhost:3000/orders/${orderId}`, {
+  const res = await fetch(`https://localhost:3000/orders/${orderId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -137,7 +137,7 @@ const cancelOrder = (e) => {
 $(".cancel-order-btn").on("click", async function (e) {
   const orderId = localStorage.getItem("orderId");
   console.log("Order id for fethc", orderId);
-  const res = await fetch(`http://localhost:3000/orders/${orderId}`, {
+  const res = await fetch(`https://localhost:3000/orders/${orderId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -167,7 +167,7 @@ const shipOrder = (e) => {
 $(".ship-order-btn").on("click", async function (e) {
   const orderId = localStorage.getItem("shipOrderId");
   console.log("Order id for fethc", orderId);
-  const res = await fetch(`http://localhost:3000/orders/${orderId}`, {
+  const res = await fetch(`https://localhost:3000/orders/${orderId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
